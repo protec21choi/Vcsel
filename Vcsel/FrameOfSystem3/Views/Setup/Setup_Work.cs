@@ -214,7 +214,7 @@ namespace FrameOfSystem3.Views.Setup
             List<int> lstIndex = new List<int>();
             List<string> lstDisplay = new List<string>();
             List<string> lstParam = new List<string>();
-            for (int nCh = Laser.ProtecLaserMananger.GetInstance().ChannelCount / 2; nCh < Laser.ProtecLaserMananger.GetInstance().ChannelCount; nCh++)
+            for (int nCh = Laser.ProtecLaserMananger.GetInstance(0).ChannelCount / 2; nCh < Laser.ProtecLaserMananger.GetInstance(0).ChannelCount; nCh++)
             {
                 lstIndex.Add(nCh);
                 lstDisplay.Add("CH " + (nCh + 1).ToString());
@@ -231,7 +231,7 @@ namespace FrameOfSystem3.Views.Setup
             lstIndex = new List<int>();
             lstDisplay = new List<string>();
             lstParam = new List<string>();
-            for (int nCh = 0; nCh < Laser.ProtecLaserMananger.GetInstance().ChannelCount / 2; nCh++)
+            for (int nCh = 0; nCh < Laser.ProtecLaserMananger.GetInstance(0).ChannelCount / 2; nCh++)
             {
                 lstIndex.Add(nCh);
                 lstDisplay.Add("CH " + (nCh + 1).ToString());
@@ -583,8 +583,8 @@ namespace FrameOfSystem3.Views.Setup
 
         private void SetPowerMinMax()
         {
-            bool[] arUsed = new bool[ProtecLaserMananger.GetInstance().ChannelCount];
-            for (int nCh = 0; nCh < ProtecLaserMananger.GetInstance().ChannelCount; ++nCh)
+            bool[] arUsed = new bool[ProtecLaserMananger.GetInstance(0).ChannelCount];
+            for (int nCh = 0; nCh < ProtecLaserMananger.GetInstance(0).ChannelCount; ++nCh)
             {
                 arUsed[nCh] = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
             }
@@ -887,18 +887,18 @@ namespace FrameOfSystem3.Views.Setup
             double[] arSidePower = new double[5];
             double[] arTotalPower = new double[5];
 
-            bool[] arUsed = new bool[Laser.ProtecLaserMananger.GetInstance().ChannelCount];
+            bool[] arUsed = new bool[Laser.ProtecLaserMananger.GetInstance(0).ChannelCount];
             double dSidePercent = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SIDE_POWER_PERCENT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
             int[] arSideCh = new int[] { 0, 8, 9, 17 };
 
-            for (int nCh = 0; nCh < Laser.ProtecLaserMananger.GetInstance().ChannelCount; ++nCh)
+            for (int nCh = 0; nCh < Laser.ProtecLaserMananger.GetInstance(0).ChannelCount; ++nCh)
             {
                 arUsed[nCh] = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
             }
 
             double nUsedChannelCount = 0;
            // int nSideChCount = 0;
-            for (int nIndex = 0; nIndex < Laser.ProtecLaserMananger.GetInstance().ChannelCount; nIndex++)
+            for (int nIndex = 0; nIndex < Laser.ProtecLaserMananger.GetInstance(0).ChannelCount; nIndex++)
             {
                 if (arUsed[nIndex])
                 {
@@ -932,7 +932,7 @@ namespace FrameOfSystem3.Views.Setup
 //                 arTime[nStep] = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_TIME_5.ToString(), nStep, EN_RECIPE_PARAM_TYPE.VALUE, 0);
 //                 arPower[nStep] = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5.ToString(), nStep, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
 //             }
-//              Laser.ProtecLaserMananger.GetInstance().SetParameter(arUsed, arPower, arTime, dSidePercent, arSideCh);
+//              Laser.ProtecLaserMananger.GetInstance(0).SetParameter(arUsed, arPower, arTime, dSidePercent, arSideCh);
 
         }
     }

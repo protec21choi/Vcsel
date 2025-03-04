@@ -73,7 +73,7 @@ namespace FrameOfSystem3.SubSequence.SubLaserWork
             }
             return true;
             //그냥 외부에서 설정 하자
-//             if (Laser.ProtecLaserMananger.GetInstance().SetParameter(p_dicOfSerial[(int)EN_SERIAL.COTNROL], dOutput, nTime))
+//             if (Laser.ProtecLaserMananger.GetInstance(0).SetParameter(p_dicOfSerial[(int)EN_SERIAL.COTNROL], dOutput, nTime))
 //                 return true;
 // 
 //             return false;

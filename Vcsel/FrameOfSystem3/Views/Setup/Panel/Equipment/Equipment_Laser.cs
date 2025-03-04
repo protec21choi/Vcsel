@@ -168,7 +168,7 @@ namespace FrameOfSystem3.Views.Setup.Equipment
             AddPositionParam2Axis.SecondAxisName = "Y";
             PositionParamList2Axis.Add(AddPositionParam2Axis);
 
-            for (int nCh = 0; nCh < Laser.ProtecLaserMananger.GetInstance().ChannelCount; nCh++)
+            for (int nCh = 0; nCh < Laser.ProtecLaserMananger.GetInstance(0).ChannelCount; nCh++)
             {
                 AddPositionParam2Axis = new GridViewControl_2Axis_Position_Parameter.ControlItem(EQUIPMENT_PARAM.POWER_MEASURE_POSITION_X_18, (int)EN_AXIS.POWERMETER_X
                                                                                                             , EQUIPMENT_PARAM.POWER_MEASURE_POSITION_Y_18, (int)EN_AXIS.GANTRY_Y, nCh);
@@ -190,7 +190,7 @@ namespace FrameOfSystem3.Views.Setup.Equipment
 //             List<string> lstHeader = new List<string>();
 //             List<EQUIPMENT_PARAM> lstParam = new List<EQUIPMENT_PARAM>();
 //             lstHeader.Add("");
-//             for (int nCh = 0; nCh < Laser.ProtecLaserMananger.GetInstance().ChannelCount; nCh++)
+//             for (int nCh = 0; nCh < Laser.ProtecLaserMananger.GetInstance(0).ChannelCount; nCh++)
 //             {
 //                 lstIndex.Add(nCh);
 //                 lstHeader.Add("CH " + (nCh + 1).ToString());
@@ -212,7 +212,7 @@ namespace FrameOfSystem3.Views.Setup.Equipment
             List<int> lstIndex = new List<int>();
             List<string> lstDisplay = new List<string>();
             List<EQUIPMENT_PARAM> lstParam = new List<EQUIPMENT_PARAM>();
-            for (int nCh = Laser.ProtecLaserMananger.GetInstance().ChannelCount / 2; nCh < Laser.ProtecLaserMananger.GetInstance().ChannelCount; nCh++)
+            for (int nCh = Laser.ProtecLaserMananger.GetInstance(0).ChannelCount / 2; nCh < Laser.ProtecLaserMananger.GetInstance(0).ChannelCount; nCh++)
             {
                 lstIndex.Add(nCh);
                 lstDisplay.Add("CH " + (nCh + 1).ToString());
@@ -229,7 +229,7 @@ namespace FrameOfSystem3.Views.Setup.Equipment
             lstIndex = new List<int>();
             lstDisplay = new List<string>();
             lstParam = lstParam = new List<EQUIPMENT_PARAM>();
-            for (int nCh = 0; nCh < Laser.ProtecLaserMananger.GetInstance().ChannelCount / 2; nCh++)
+            for (int nCh = 0; nCh < Laser.ProtecLaserMananger.GetInstance(0).ChannelCount / 2; nCh++)
             {
                 lstIndex.Add(nCh);
                 lstDisplay.Add("CH " + (nCh + 1).ToString());
@@ -740,8 +740,8 @@ namespace FrameOfSystem3.Views.Setup.Equipment
 
         private void SetPowerMinMax()
         {
-            bool[] arUsed = new bool[ProtecLaserMananger.GetInstance().ChannelCount];
-            for (int nCh = 0; nCh < ProtecLaserMananger.GetInstance().ChannelCount; ++nCh)
+            bool[] arUsed = new bool[ProtecLaserMananger.GetInstance(0).ChannelCount];
+            for (int nCh = 0; nCh < ProtecLaserMananger.GetInstance(0).ChannelCount; ++nCh)
             {
                 arUsed[nCh] = m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
                 //  arUsed[nCh] = m_instanceRecipe.GetValue(EN_TASK_LIST.BONDER.ToString(), BONDER_TASK_PARAM.LASER_ENABLED.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
