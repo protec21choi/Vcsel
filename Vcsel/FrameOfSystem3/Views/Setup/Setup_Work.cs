@@ -44,6 +44,11 @@ namespace FrameOfSystem3.Views.Setup
             InitalizeWorkStatusGridVeiw();
             InitGridPowerMesureParameter();
             ComboBox_Channel.SelectedIndex = 0;
+
+            #region Instance
+            _Calculator_Instance_m_p = Functional.Form_Calculator.GetInstance();
+            m_LaserCalManager = Laser.ProtecLaserChannelCalibration.GetInstance();
+            #endregion
         }
 
         #region Constants
@@ -67,6 +72,7 @@ namespace FrameOfSystem3.Views.Setup
         private FrameOfSystem3.Recipe.Recipe m_instanceRecipe = FrameOfSystem3.Recipe.Recipe.GetInstance();
         TaskOperator m_Operator = TaskOperator.GetInstance();
         Functional.Form_MessageBox m_MessageBox = Functional.Form_MessageBox.GetInstance();
+
         private Laser.ProtecLaserChannelCalibration m_LaserCalManager = null;
         private FileDialog m_instanceFile = new OpenFileDialog();
         private Functional.Form_Calculator _Calculator_Instance_m_p = null;
