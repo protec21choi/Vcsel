@@ -27,9 +27,9 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.m_btnRun = new Sys3Controls.Sys3button();
             this.m_btnStop = new Sys3Controls.Sys3button();
             this.sys3GroupBox5 = new Sys3Controls.Sys3GroupBox();
@@ -184,7 +184,7 @@
             this.sys3button1.ImagePosition = new System.Drawing.Point(7, 7);
             this.sys3button1.ImageSize = new System.Drawing.Point(30, 30);
             this.sys3button1.LoadImage = global::FrameOfSystem3.Properties.Resources.CONFIG_ADD3;
-            this.sys3button1.Location = new System.Drawing.Point(999, 422);
+            this.sys3button1.Location = new System.Drawing.Point(998, 422);
             this.sys3button1.MainFont = new System.Drawing.Font("맑은 고딕", 13F, System.Drawing.FontStyle.Bold);
             this.sys3button1.MainFontColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(36)))), ((int)(((byte)(0)))));
             this.sys3button1.Name = "sys3button1";
@@ -224,7 +224,7 @@
             this.btn_Reset.ImagePosition = new System.Drawing.Point(7, 7);
             this.btn_Reset.ImageSize = new System.Drawing.Point(30, 30);
             this.btn_Reset.LoadImage = global::FrameOfSystem3.Properties.Resources.CONFIG_ADD3;
-            this.btn_Reset.Location = new System.Drawing.Point(865, 422);
+            this.btn_Reset.Location = new System.Drawing.Point(864, 422);
             this.btn_Reset.MainFont = new System.Drawing.Font("맑은 고딕", 13F, System.Drawing.FontStyle.Bold);
             this.btn_Reset.MainFontColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(36)))), ((int)(((byte)(0)))));
             this.btn_Reset.Name = "btn_Reset";
@@ -258,7 +258,7 @@
             this.m_lblAlarmCodeMonitor.ImagePosition = new System.Drawing.Point(0, 0);
             this.m_lblAlarmCodeMonitor.ImageSize = new System.Drawing.Point(0, 0);
             this.m_lblAlarmCodeMonitor.LoadImage = null;
-            this.m_lblAlarmCodeMonitor.Location = new System.Drawing.Point(986, 384);
+            this.m_lblAlarmCodeMonitor.Location = new System.Drawing.Point(985, 384);
             this.m_lblAlarmCodeMonitor.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
             this.m_lblAlarmCodeMonitor.MainFontColor = System.Drawing.Color.White;
             this.m_lblAlarmCodeMonitor.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -296,7 +296,7 @@
             this.m_lblAlarmCodePort3.ImagePosition = new System.Drawing.Point(0, 0);
             this.m_lblAlarmCodePort3.ImageSize = new System.Drawing.Point(0, 0);
             this.m_lblAlarmCodePort3.LoadImage = null;
-            this.m_lblAlarmCodePort3.Location = new System.Drawing.Point(746, 384);
+            this.m_lblAlarmCodePort3.Location = new System.Drawing.Point(745, 384);
             this.m_lblAlarmCodePort3.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
             this.m_lblAlarmCodePort3.MainFontColor = System.Drawing.Color.White;
             this.m_lblAlarmCodePort3.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -334,7 +334,7 @@
             this.m_lblAlarmCodePort2.ImagePosition = new System.Drawing.Point(0, 0);
             this.m_lblAlarmCodePort2.ImageSize = new System.Drawing.Point(0, 0);
             this.m_lblAlarmCodePort2.LoadImage = null;
-            this.m_lblAlarmCodePort2.Location = new System.Drawing.Point(986, 346);
+            this.m_lblAlarmCodePort2.Location = new System.Drawing.Point(985, 346);
             this.m_lblAlarmCodePort2.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
             this.m_lblAlarmCodePort2.MainFontColor = System.Drawing.Color.White;
             this.m_lblAlarmCodePort2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -372,7 +372,7 @@
             this.m_lblAlarmCodePort1.ImagePosition = new System.Drawing.Point(0, 0);
             this.m_lblAlarmCodePort1.ImageSize = new System.Drawing.Point(0, 0);
             this.m_lblAlarmCodePort1.LoadImage = null;
-            this.m_lblAlarmCodePort1.Location = new System.Drawing.Point(746, 346);
+            this.m_lblAlarmCodePort1.Location = new System.Drawing.Point(745, 346);
             this.m_lblAlarmCodePort1.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
             this.m_lblAlarmCodePort1.MainFontColor = System.Drawing.Color.White;
             this.m_lblAlarmCodePort1.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -410,7 +410,7 @@
             this.sys3Label2.ImagePosition = new System.Drawing.Point(0, 0);
             this.sys3Label2.ImageSize = new System.Drawing.Point(0, 0);
             this.sys3Label2.LoadImage = null;
-            this.sys3Label2.Location = new System.Drawing.Point(894, 384);
+            this.sys3Label2.Location = new System.Drawing.Point(893, 384);
             this.sys3Label2.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
             this.sys3Label2.MainFontColor = System.Drawing.Color.Black;
             this.sys3Label2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -448,7 +448,7 @@
             this.sys3Label17.ImagePosition = new System.Drawing.Point(0, 0);
             this.sys3Label17.ImageSize = new System.Drawing.Point(0, 0);
             this.sys3Label17.LoadImage = null;
-            this.sys3Label17.Location = new System.Drawing.Point(654, 384);
+            this.sys3Label17.Location = new System.Drawing.Point(653, 384);
             this.sys3Label17.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
             this.sys3Label17.MainFontColor = System.Drawing.Color.Black;
             this.sys3Label17.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -486,7 +486,7 @@
             this.sys3Label14.ImagePosition = new System.Drawing.Point(0, 0);
             this.sys3Label14.ImageSize = new System.Drawing.Point(0, 0);
             this.sys3Label14.LoadImage = null;
-            this.sys3Label14.Location = new System.Drawing.Point(894, 346);
+            this.sys3Label14.Location = new System.Drawing.Point(893, 346);
             this.sys3Label14.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
             this.sys3Label14.MainFontColor = System.Drawing.Color.Black;
             this.sys3Label14.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -524,7 +524,7 @@
             this.sys3Label13.ImagePosition = new System.Drawing.Point(0, 0);
             this.sys3Label13.ImageSize = new System.Drawing.Point(0, 0);
             this.sys3Label13.LoadImage = null;
-            this.sys3Label13.Location = new System.Drawing.Point(654, 346);
+            this.sys3Label13.Location = new System.Drawing.Point(653, 346);
             this.sys3Label13.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
             this.sys3Label13.MainFontColor = System.Drawing.Color.Black;
             this.sys3Label13.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -564,7 +564,7 @@
             this.sys3GroupBox3.Location = new System.Drawing.Point(646, 312);
             this.sys3GroupBox3.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.sys3GroupBox3.Name = "sys3GroupBox3";
-            this.sys3GroupBox3.Size = new System.Drawing.Size(490, 155);
+            this.sys3GroupBox3.Size = new System.Drawing.Size(489, 155);
             this.sys3GroupBox3.TabIndex = 20852;
             this.sys3GroupBox3.Tag = "";
             this.sys3GroupBox3.Text = "SOURCE ALARM CODE";
@@ -728,7 +728,7 @@
             this.m_lblCalFileName.MainFontColor = System.Drawing.Color.Black;
             this.m_lblCalFileName.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.m_lblCalFileName.Name = "m_lblCalFileName";
-            this.m_lblCalFileName.Size = new System.Drawing.Size(161, 37);
+            this.m_lblCalFileName.Size = new System.Drawing.Size(160, 37);
             this.m_lblCalFileName.SubFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.m_lblCalFileName.SubFontColor = System.Drawing.Color.DarkRed;
             this.m_lblCalFileName.SubText = "";
@@ -767,7 +767,7 @@
             this.btn_CalLoad.ImagePosition = new System.Drawing.Point(1, 1);
             this.btn_CalLoad.ImageSize = new System.Drawing.Point(35, 35);
             this.btn_CalLoad.LoadImage = global::FrameOfSystem3.Properties.Resources.file_96px;
-            this.btn_CalLoad.Location = new System.Drawing.Point(385, 244);
+            this.btn_CalLoad.Location = new System.Drawing.Point(383, 244);
             this.btn_CalLoad.MainFont = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_CalLoad.MainFontColor = System.Drawing.Color.White;
             this.btn_CalLoad.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -921,14 +921,14 @@
             this.m_dgViewCalibration.BackgroundColor = System.Drawing.Color.White;
             this.m_dgViewCalibration.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
             this.m_dgViewCalibration.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.m_dgViewCalibration.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.m_dgViewCalibration.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.m_dgViewCalibration.ColumnHeadersHeight = 25;
             this.m_dgViewCalibration.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.m_dgViewCalibration.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -936,14 +936,14 @@
             this.OutputVolt,
             this.InputVolt,
             this.Watt});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.m_dgViewCalibration.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.m_dgViewCalibration.DefaultCellStyle = dataGridViewCellStyle2;
             this.m_dgViewCalibration.EnableHeadersVisualStyles = false;
             this.m_dgViewCalibration.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
             this.m_dgViewCalibration.Location = new System.Drawing.Point(7, 282);
@@ -952,20 +952,20 @@
             this.m_dgViewCalibration.Name = "m_dgViewCalibration";
             this.m_dgViewCalibration.ReadOnly = true;
             this.m_dgViewCalibration.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.m_dgViewCalibration.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.m_dgViewCalibration.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.m_dgViewCalibration.RowHeadersVisible = false;
             this.m_dgViewCalibration.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.m_dgViewCalibration.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
             this.m_dgViewCalibration.RowTemplate.Height = 23;
             this.m_dgViewCalibration.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.m_dgViewCalibration.Size = new System.Drawing.Size(415, 184);
+            this.m_dgViewCalibration.Size = new System.Drawing.Size(412, 184);
             this.m_dgViewCalibration.TabIndex = 20867;
             // 
             // dataGridViewTextBoxColumn7
