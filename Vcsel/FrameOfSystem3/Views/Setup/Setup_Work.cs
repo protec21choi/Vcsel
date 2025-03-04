@@ -40,9 +40,11 @@ namespace FrameOfSystem3.Views.Setup
             InitWorkPositionGridVeiw();
             InitGridLaserDevice();
             InitGridLaserParameter();
-            InitHeaterGridView();
+            //InitHeaterGridView();
             InitalizeWorkStatusGridVeiw();
-		}
+            InitGridPowerMesureParameter();
+            ComboBox_Channel.SelectedIndex = 0;
+        }
 
         #region Constants
         private readonly Color c_clrMonitor = Color.LightGray;
@@ -51,34 +53,47 @@ namespace FrameOfSystem3.Views.Setup
         private readonly Color c_clrFalse = Color.White;
         #endregion
 
+        #region Enum
+        private enum EN_GRID_INDEX
+        {
+            INDEX = 0,
+            VOLT = 1,
+            INPUT_VOLT = 2,
+            OUTPUT_POWER = 3,
+        }
+        #endregion
+
         #region <FIELD>
         private FrameOfSystem3.Recipe.Recipe m_instanceRecipe = FrameOfSystem3.Recipe.Recipe.GetInstance();
         TaskOperator m_Operator = TaskOperator.GetInstance();
         Functional.Form_MessageBox m_MessageBox = Functional.Form_MessageBox.GetInstance();
+        private Laser.ProtecLaserChannelCalibration m_LaserCalManager = null;
+        private FileDialog m_instanceFile = new OpenFileDialog();
+        private Functional.Form_Calculator _Calculator_Instance_m_p = null;
         #endregion </FIELD>
-      
+
         #region <OVERRIDE>
         public override void CallFunctionByTimer()
 		{
 			base.CallFunctionByTimer();
             UpdateAlamCode();
-            UpdateHeaterGridView();
-            UpdateWorkInformation();
+            //UpdateHeaterGridView();
+            //UpdateWorkInformation();
             gridVeiwControl_Laser_Device.UpdateState();
-            gridVeiwControl_Block_Device.UpdateState();
-            gridVeiwControl_Head_Device.UpdateState();
+            //gridVeiwControl_Block_Device.UpdateState();
+            //gridVeiwControl_Head_Device.UpdateState();
 
             //우선 개별로 하자 label 많아지면 별도 Method
-            if (m_Operator.IsPreHeatingOver())
-            {
-                m_lblPreHeatingTime.Text = "TIME OVER";
-            }
-            else
-            {
-                int nPreheatingTime = (int)m_Operator.GetPreHeatingTime() / 1000; //초단위 표시하자
+            //if (m_Operator.IsPreHeatingOver())
+            //{
+            //    m_lblPreHeatingTime.Text = "TIME OVER";
+            //}
+            //else
+            //{
+            //    int nPreheatingTime = (int)m_Operator.GetPreHeatingTime() / 1000; //초단위 표시하자
 
-                m_lblPreHeatingTime.Text = nPreheatingTime.ToString() + " s";
-            }
+            //    m_lblPreHeatingTime.Text = nPreheatingTime.ToString() + " s";
+            //}
 
 
 		}
@@ -94,9 +109,9 @@ namespace FrameOfSystem3.Views.Setup
 //             gridViewControl_Laser_Parameter.UpdateValue();
 //             gridViewControl_WorkStatus_Parameter.UpdateValue();
             UpdatePowerLabel();
+            gridViewControl_Power_Measure_Parameter.UpdateValue();
 
-
-		}
+        }
 		protected override void ProcessWhenDeactivation()
 		{
             if (m_instanceRecipe.IsExistDeferredStorage())
@@ -158,7 +173,7 @@ namespace FrameOfSystem3.Views.Setup
             AddParaItem.AfterSetParameter = SetBlockOffset;
             parameterList.Add(AddParaItem);
 
-            gridViewControl_Block_Parameter.Initialize(parameterList, -1, 150);
+            //gridViewControl_Block_Parameter.Initialize(parameterList, -1, 150);
 
             List<string> HeaderList = new List<string>();
             #endregion /Parameter Grid
@@ -179,7 +194,7 @@ namespace FrameOfSystem3.Views.Setup
             PositionParamList.Add(AddPositionParam);
 
 
-            gridViewControl_Block_Position_Parameter.Initialize(PositionParamList, -1, 120);
+            //gridViewControl_Block_Position_Parameter.Initialize(PositionParamList, -1, 120);
             #endregion /Position Parameter Grid
 
             #region Device
@@ -202,7 +217,7 @@ namespace FrameOfSystem3.Views.Setup
             AddControlItem.AnalogUnit = "kPa";
             ControlList.Add(AddControlItem);
 
-            gridVeiwControl_Block_Device.Initialize(ControlList);
+            //gridVeiwControl_Block_Device.Initialize(ControlList);
             #endregion /Device
         }
 
@@ -269,7 +284,7 @@ namespace FrameOfSystem3.Views.Setup
             AddPositionParam2Axis.SecondAxisName = "Y";
             PositionParamList2Axis.Add(AddPositionParam2Axis);
 
-            gridViewControl_Head_Position_Parameter.Initialize(PositionParamList2Axis, -1, 30);
+            //gridViewControl_Head_Position_Parameter.Initialize(PositionParamList2Axis, -1, 30);
 
         }
 
@@ -352,7 +367,7 @@ namespace FrameOfSystem3.Views.Setup
             AddControlItem.AnalogUnit = "L/min";
             ControlList.Add(AddControlItem);
 
-            gridVeiwControl_Head_Device.Initialize(ControlList);
+            //gridVeiwControl_Head_Device.Initialize(ControlList);
         }
 
         private void InitGridLaserParameter()
@@ -472,7 +487,7 @@ namespace FrameOfSystem3.Views.Setup
             AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.SIDE_POWER_PERCENT.ToString());
             parameterList.Add(AddParaItem);
 
-            gridViewControl_Laser_Option_Parameter.Initialize(parameterList, -1, 85);
+            //gridViewControl_Laser_Option_Parameter.Initialize(parameterList, -1, 85);
         }
 
         private void InitalizeWorkStatusGridVeiw()
@@ -530,7 +545,7 @@ namespace FrameOfSystem3.Views.Setup
             AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.COLOR;
             parameterList.Add(AddParaItem);
 
-            gridViewControl_WorkStatus_Parameter.Initialize(parameterList, 2, 80);
+            //gridViewControl_WorkStatus_Parameter.Initialize(parameterList, 2, 80);
 
             #endregion /Parameter Grid
 
@@ -706,60 +721,60 @@ namespace FrameOfSystem3.Views.Setup
         }
 
         #region Heater
-        private void InitHeaterGridView()
-        {
-            int nRow = 0;
-            dataGridView_Heater.Rows.Clear();
+        //private void InitHeaterGridView()
+        //{
+        //    int nRow = 0;
+        //    dataGridView_Heater.Rows.Clear();
 
-            dataGridView_Heater.Rows.Add();
-            dataGridView_Heater[0, nRow].Value = "HEATER ON";
-            dataGridView_Heater[0, nRow].Style.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridView_Heater[0, nRow].Style.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridView_Heater[0, nRow].Style.BackColor = c_clrControl;
-            dataGridView_Heater[0, nRow].Style.SelectionBackColor = c_clrControl;
-            nRow++;
+        //    dataGridView_Heater.Rows.Add();
+        //    dataGridView_Heater[0, nRow].Value = "HEATER ON";
+        //    dataGridView_Heater[0, nRow].Style.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+        //    dataGridView_Heater[0, nRow].Style.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+        //    dataGridView_Heater[0, nRow].Style.BackColor = c_clrControl;
+        //    dataGridView_Heater[0, nRow].Style.SelectionBackColor = c_clrControl;
+        //    nRow++;
 
-            dataGridView_Heater.Rows.Add();
-            dataGridView_Heater[0, nRow].Value = "BLOCK TEMP";
-            dataGridView_Heater[0, nRow].Style.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridView_Heater[0, nRow].Style.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridView_Heater[0, nRow].Style.BackColor = c_clrMonitor;
-            dataGridView_Heater[0, nRow].Style.SelectionBackColor = c_clrControl;
-            dataGridView_Heater[1, nRow].Style.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridView_Heater[1, nRow].Style.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            nRow++;
-        }
+        //    dataGridView_Heater.Rows.Add();
+        //    dataGridView_Heater[0, nRow].Value = "BLOCK TEMP";
+        //    dataGridView_Heater[0, nRow].Style.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+        //    dataGridView_Heater[0, nRow].Style.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+        //    dataGridView_Heater[0, nRow].Style.BackColor = c_clrMonitor;
+        //    dataGridView_Heater[0, nRow].Style.SelectionBackColor = c_clrControl;
+        //    dataGridView_Heater[1, nRow].Style.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+        //    dataGridView_Heater[1, nRow].Style.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+        //    nRow++;
+        //}
 
-        private void UpdateHeaterGridView()
-        {
-            int nRow = 0;
-            //dataGridView_Heater[0, nRow].Value = "BLOCK HEATER ON";
-            bool bRun = ExternalDevice.Heater.Heater.GetInstance().GetRunStatus((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, 1);
-            dataGridView_Heater[1, nRow].Style.BackColor = bRun ? c_clrTrue : c_clrFalse;
-            dataGridView_Heater[1, nRow].Style.SelectionBackColor = bRun ? c_clrTrue : c_clrFalse;
-            nRow++;
+        //private void UpdateHeaterGridView()
+        //{
+        //    int nRow = 0;
+        //    //dataGridView_Heater[0, nRow].Value = "BLOCK HEATER ON";
+        //    bool bRun = ExternalDevice.Heater.Heater.GetInstance().GetRunStatus((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, 1);
+        //    dataGridView_Heater[1, nRow].Style.BackColor = bRun ? c_clrTrue : c_clrFalse;
+        //    dataGridView_Heater[1, nRow].Style.SelectionBackColor = bRun ? c_clrTrue : c_clrFalse;
+        //    nRow++;
 
-            //dataGridView_Heater[0, nRow].Value = "BLOCK TEMP";
-            dataGridView_Heater[1, nRow].Value = ExternalDevice.Heater.Heater.GetInstance().GetMeanValue((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK) + " ℃";
-            nRow++;
-        }
+        //    //dataGridView_Heater[0, nRow].Value = "BLOCK TEMP";
+        //    dataGridView_Heater[1, nRow].Value = ExternalDevice.Heater.Heater.GetInstance().GetMeanValue((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK) + " ℃";
+        //    nRow++;
+        //}
 
-        private void dataGridView_Heater_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            int nRowindex = e.RowIndex;
-            int nColumnIndex = e.ColumnIndex;
+        //private void dataGridView_Heater_CellClick(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    int nRowindex = e.RowIndex;
+        //    int nColumnIndex = e.ColumnIndex;
 
-            if (nColumnIndex != 1 || nRowindex < 0
-                || nRowindex >= dataGridView_Heater.RowCount) { return; }
+        //    if (nColumnIndex != 1 || nRowindex < 0
+        //        || nRowindex >= dataGridView_Heater.RowCount) { return; }
 
-            switch (nRowindex)
-            {
-                case 0:
-                    bool bRun = ExternalDevice.Heater.Heater.GetInstance().GetRunStatus((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, 1);
-                    ExternalDevice.Heater.Heater.GetInstance().SetRunStatus((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, !bRun);
-                    break;
-            }
-        }
+        //    switch (nRowindex)
+        //    {
+        //        case 0:
+        //            bool bRun = ExternalDevice.Heater.Heater.GetInstance().GetRunStatus((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, 1);
+        //            ExternalDevice.Heater.Heater.GetInstance().SetRunStatus((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, !bRun);
+        //            break;
+        //    }
+        //}
 
         private void SetBlockTemp()
         {
@@ -790,65 +805,65 @@ namespace FrameOfSystem3.Views.Setup
 
         #endregion </Heater>
 
-        private void UpdateWorkInformation()
-        {
-            m_lblID.Text = Work.WorkMap.GetInstance().GetID();
-            m_lblWorkStatus.Text = Work.WorkMap.GetInstance().GetWorkStatus().ToString();
+        //private void UpdateWorkInformation()
+        //{
+        //    m_lblID.Text = Work.WorkMap.GetInstance().GetID();
+        //    m_lblWorkStatus.Text = Work.WorkMap.GetInstance().GetWorkStatus().ToString();
 
-            Color StatusColor = Color.White;
+        //    Color StatusColor = Color.White;
 
-            switch(Work.WorkMap.GetInstance().GetWorkStatus())
-            {
-                case EN_WORK_STATUS.WAIT:
-                    StatusColor = Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WAIT_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0));
-                    break;
+        //    switch(Work.WorkMap.GetInstance().GetWorkStatus())
+        //    {
+        //        case EN_WORK_STATUS.WAIT:
+        //            StatusColor = Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WAIT_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0));
+        //            break;
 
-                case EN_WORK_STATUS.DONE:
-                    StatusColor = Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.DONE_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0));
-                    break;
+        //        case EN_WORK_STATUS.DONE:
+        //            StatusColor = Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.DONE_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0));
+        //            break;
 
-                case EN_WORK_STATUS.LOW_TEMP:
-                    StatusColor = Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.LOW_TEMP_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0));
-                    break;
+        //        case EN_WORK_STATUS.LOW_TEMP:
+        //            StatusColor = Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.LOW_TEMP_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0));
+        //            break;
 
-                case EN_WORK_STATUS.TEMP_GROW_FAIL:
-                    StatusColor = Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.TEMP_GROW_FAIL_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0));
-                    break;
+        //        case EN_WORK_STATUS.TEMP_GROW_FAIL:
+        //            StatusColor = Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.TEMP_GROW_FAIL_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0));
+        //            break;
 
-                case EN_WORK_STATUS.TEMP_DEVOVER:
-                    StatusColor = Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.TEMP_DEVOVER_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0));
-                    break;
+        //        case EN_WORK_STATUS.TEMP_DEVOVER:
+        //            StatusColor = Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.TEMP_DEVOVER_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0));
+        //            break;
 
-                case EN_WORK_STATUS.HIGH_TEMP:
-                    StatusColor = Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.HIGH_TEMP_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0));
-                    break;
+        //        case EN_WORK_STATUS.HIGH_TEMP:
+        //            StatusColor = Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.HIGH_TEMP_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0));
+        //            break;
 
-                case EN_WORK_STATUS.MAX_HIGH_TEMP:
-                    StatusColor = Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MAX_HIGH_TEMP_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0));
-                    break;
+        //        case EN_WORK_STATUS.MAX_HIGH_TEMP:
+        //            StatusColor = Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MAX_HIGH_TEMP_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0));
+        //            break;
 
-                case EN_WORK_STATUS.EMG_LOW_TEMP:
-                    StatusColor = Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.EMG_LOW_TEMP_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0));
-                    break;
+        //        case EN_WORK_STATUS.EMG_LOW_TEMP:
+        //            StatusColor = Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.EMG_LOW_TEMP_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0));
+        //            break;
 
-                case EN_WORK_STATUS.EMG_HIGH_TEMP:
-                    StatusColor = Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.EMG_HIGH_TEMP_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0));
-                    break;
+        //        case EN_WORK_STATUS.EMG_HIGH_TEMP:
+        //            StatusColor = Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.EMG_HIGH_TEMP_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0));
+        //            break;
 
-                case EN_WORK_STATUS.POWER_FAULT:
-                    StatusColor = Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.POWER_FAULT_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0));
-                    break;
+        //        case EN_WORK_STATUS.POWER_FAULT:
+        //            StatusColor = Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.POWER_FAULT_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0));
+        //            break;
 
-                case EN_WORK_STATUS.SOURCE_ALARM:
-                    StatusColor = Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.SOURCE_ALARM_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0));
-                    break;
+        //        case EN_WORK_STATUS.SOURCE_ALARM:
+        //            StatusColor = Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.SOURCE_ALARM_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0));
+        //            break;
 
-                case EN_WORK_STATUS.RESULT_GETFAIL:
-                    StatusColor = Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.RESULT_GETFAIL_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0));
-                    break;
-            }
-            m_lblWorkStatus_Color.BackGroundColor = StatusColor;
-        }
+        //        case EN_WORK_STATUS.RESULT_GETFAIL:
+        //            StatusColor = Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.RESULT_GETFAIL_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0));
+        //            break;
+        //    }
+        //    m_lblWorkStatus_Color.BackGroundColor = StatusColor;
+        //}
         #endregion </INTERNAL>
 
         private void ClickParameterUndo(object sender, EventArgs e)
@@ -872,13 +887,13 @@ namespace FrameOfSystem3.Views.Setup
 
         private void UpdateParamter()
         {
-            gridViewControl_Block_Parameter.UpdateValue();
-            gridViewControl_Block_Position_Parameter.UpdateValue();
+            //gridViewControl_Block_Parameter.UpdateValue();
+            //gridViewControl_Block_Position_Parameter.UpdateValue();
             gridViewControl_Enable_Parameter.UpdateValue();
-            gridViewControl_Head_Position_Parameter.UpdateValue();
-            gridViewControl_Laser_Option_Parameter.UpdateValue();
+            //gridViewControl_Head_Position_Parameter.UpdateValue();
+            //gridViewControl_Laser_Option_Parameter.UpdateValue();
             gridViewControl_Laser_Parameter.UpdateValue();
-            gridViewControl_WorkStatus_Parameter.UpdateValue();
+            //gridViewControl_WorkStatus_Parameter.UpdateValue();
         }
 
         private void UpdatePowerLabel()
@@ -919,21 +934,147 @@ namespace FrameOfSystem3.Views.Setup
                 arSidePower[nStep] = Math.Round(arChPower[nStep] * (1 + (dSidePercent / 100)));
             }
 
-       
-            m_lblChPower.Text = string.Format("[{0} W] [{1} W] [{2} W] [{3} W] [{4} W]", arChPower[0], arChPower[1], arChPower[2], arChPower[3], arChPower[4]);
-            m_lblSidePower.Text = string.Format("[{0} W] [{1} W] [{2} W] [{3} W] [{4} W]", arSidePower[0], arSidePower[1], arSidePower[2], arSidePower[3], arSidePower[4]);
 
-
-// 검증용 남겨놓음
-//                  int[] arTime = new int[5];
-//             double[] arPower = new double[5];
-//              for (int nStep = 0; nStep < 5; ++nStep)
-//             {
-//                 arTime[nStep] = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_TIME_5.ToString(), nStep, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-//                 arPower[nStep] = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5.ToString(), nStep, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-//             }
-//              Laser.ProtecLaserMananger.GetInstance(0).SetParameter(arUsed, arPower, arTime, dSidePercent, arSideCh);
+            //m_lblChPower.Text = string.Format("[{0} W] [{1} W] [{2} W] [{3} W] [{4} W]", arChPower[0], arChPower[1], arChPower[2], arChPower[3], arChPower[4]);
+            //m_lblSidePower.Text = string.Format("[{0} W] [{1} W] [{2} W] [{3} W] [{4} W]", arSidePower[0], arSidePower[1], arSidePower[2], arSidePower[3], arSidePower[4]);
+            
+            // 검증용 남겨놓음
+            //                  int[] arTime = new int[5];
+            //             double[] arPower = new double[5];
+            //              for (int nStep = 0; nStep < 5; ++nStep)
+            //             {
+            //                 arTime[nStep] = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_TIME_5.ToString(), nStep, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+            //                 arPower[nStep] = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5.ToString(), nStep, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+            //             }
+            //              Laser.ProtecLaserMananger.GetInstance(0).SetParameter(arUsed, arPower, arTime, dSidePercent, arSideCh);
 
         }
+        #region Cal Table Grid & Power Measure Grid
+        private void Click_CalFileLoad(object sender, EventArgs e)
+        {
+            m_instanceFile.DefaultExt = Define.DefineConstant.FileFormat.FILEFORMAT_CALIBRATION;
+            m_instanceFile.InitialDirectory = Define.DefineConstant.FilePath.FILEPATH_CALIBRATION_LASER;
+
+            if (m_instanceFile.ShowDialog() == DialogResult.Cancel)
+                return;
+
+            string strFullFileName = m_instanceFile.FileName;
+            string[] arFileName = strFullFileName.Split('\\');
+            string strFileName = arFileName[arFileName.Length - 1].Split('.')[0];
+            string strFileRoot = string.Join("\\", arFileName.Take(arFileName.Length - 1));
+            m_LaserCalManager.ModifyChannelCalibrationFile(ComboBox_Channel.SelectedIndex, strFileRoot, strFileName);
+
+            UpdatePowerTable();
+        }
+
+        private void UpdatePowerTable()
+        {
+            m_lblCalFileName.Text = m_LaserCalManager.CalibrationChannelFileName(ComboBox_Channel.SelectedIndex);
+            m_dgViewCalibration.Rows.Clear();
+            foreach (var kvp in m_LaserCalManager.CalibrationDatas(ComboBox_Channel.SelectedIndex))
+            {
+                m_dgViewCalibration.Rows.Add();
+                m_dgViewCalibration[(int)EN_GRID_INDEX.INDEX, kvp.Key].Value = kvp.Key;
+                m_dgViewCalibration[(int)EN_GRID_INDEX.VOLT, kvp.Key].Value = kvp.Value.TargetVolt;
+                m_dgViewCalibration[(int)EN_GRID_INDEX.OUTPUT_POWER, kvp.Key].Value = kvp.Value.PowerOutputWatt;
+                m_dgViewCalibration[(int)EN_GRID_INDEX.INPUT_VOLT, kvp.Key].Value = kvp.Value.PowerInputVolt;
+            }
+        }
+
+        private void ComboBox_Channel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdatePowerTable();
+        }
+
+        private void m_dgViewCalibration_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int nRowindex = e.RowIndex;
+            int nColumnIndex = e.ColumnIndex;
+
+            if (nRowindex < 0
+                || nRowindex >= m_dgViewCalibration.RowCount) { return; }
+
+            double dWriteValue = 0;
+
+            switch (nColumnIndex)
+            {
+                case 1: //output volt
+                    if (_Calculator_Instance_m_p.CreateForm(m_dgViewCalibration[nColumnIndex, nRowindex].ToString(), "0", "5000"))
+                    {
+                        _Calculator_Instance_m_p.GetResult(ref dWriteValue);
+                        ProtecLaserChannelCalibration.GetInstance().UpdateCalibrationInformation(ComboBox_Channel.SelectedIndex, nRowindex, (int)EN_CALIBRATION_INDEX.TARGET_VOLT, dWriteValue);
+                    }
+                    break;
+
+                case 2: //Input Volt
+                    if (_Calculator_Instance_m_p.CreateForm(m_dgViewCalibration[nColumnIndex, nRowindex].ToString(), "0", "5000"))
+                    {
+                        _Calculator_Instance_m_p.GetResult(ref dWriteValue);
+                        ProtecLaserChannelCalibration.GetInstance().UpdateCalibrationInformation(ComboBox_Channel.SelectedIndex, nRowindex, (int)EN_CALIBRATION_INDEX.POWER_INPUT_VOLT, dWriteValue);
+                    }
+                    break;
+
+                case 3: //output watt
+                    if (_Calculator_Instance_m_p.CreateForm(m_dgViewCalibration[nColumnIndex, nRowindex].ToString(), "0", "5000"))
+                    {
+                        _Calculator_Instance_m_p.GetResult(ref dWriteValue);
+                        ProtecLaserChannelCalibration.GetInstance().UpdateCalibrationInformation(ComboBox_Channel.SelectedIndex, nRowindex, (int)EN_CALIBRATION_INDEX.POWER_OUTPUT_WATT, dWriteValue);
+                    }
+
+                    break;
+            }
+
+            UpdatePowerTable();
+            SetPowerMinMax();
+        }
+        private void InitGridPowerMesureParameter()
+        {
+            List<GridViewControl_Parameter.ParameterItem> parameterList = new List<GridViewControl_Parameter.ParameterItem>();
+
+            GridViewControl_Parameter.ParameterItem AddParaItem;
+
+            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_SELLECTED_CHANNEL);
+            AddParaItem.DisplayName = "SELLECT CH";
+            parameterList.Add(AddParaItem);
+
+            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_WATT);
+            AddParaItem.DisplayName = "TARGET WATT";
+            parameterList.Add(AddParaItem);
+
+            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_VOLT);
+            AddParaItem.DisplayName = "TARGET VOLT";
+            parameterList.Add(AddParaItem);
+
+            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_SHOT_TIME);
+            AddParaItem.DisplayName = "LASER TIME";
+            parameterList.Add(AddParaItem);
+
+            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_WAIT_TIME);
+            AddParaItem.DisplayName = "WAIT TIME";
+            parameterList.Add(AddParaItem);
+
+            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_REPEAT_COUNT);
+            AddParaItem.DisplayName = "REPEAT COUNT";
+            parameterList.Add(AddParaItem);
+
+            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_REST_TIME);
+            AddParaItem.DisplayName = "REST TIME";
+            parameterList.Add(AddParaItem);
+
+            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_CALIBRATION_MIN_VOLT);
+            AddParaItem.DisplayName = "CAL START VOLT";
+            parameterList.Add(AddParaItem);
+
+            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_CALIBRATION_MAX_VOLT);
+            AddParaItem.DisplayName = "CAL END VOLT";
+            parameterList.Add(AddParaItem);
+
+            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_CALIBRATION_STEP_COUNT);
+            AddParaItem.DisplayName = "CAL STEP";
+            parameterList.Add(AddParaItem);
+
+            gridViewControl_Power_Measure_Parameter.Initialize(parameterList, -1, 80);
+        }
+        #endregion
     }
 }
