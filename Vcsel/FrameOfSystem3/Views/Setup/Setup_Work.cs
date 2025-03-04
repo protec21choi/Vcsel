@@ -35,13 +35,13 @@ namespace FrameOfSystem3.Views.Setup
 		{
 			InitializeComponent();
 
-            InitalizeBlockGridVeiw();
+            //InitalizeBlockGridVeiw();
             InitGridEnableParameter();
-            InitWorkPositionGridVeiw();
-            InitGridLaserDevice();
+            //InitWorkPositionGridVeiw();
+            //InitGridLaserDevice();
             InitGridLaserParameter();
             //InitHeaterGridView();
-            InitalizeWorkStatusGridVeiw();
+            //InitalizeWorkStatusGridVeiw();
             InitGridPowerMesureParameter();
             ComboBox_Channel.SelectedIndex = 0;
 
@@ -133,99 +133,99 @@ namespace FrameOfSystem3.Views.Setup
 		#endregion </OVERRIDE>
 
         #region <INTERNAL>
-        private void InitalizeBlockGridVeiw()
-        {
-            #region Parameter Grid
-            List<GridViewControl_Parameter.ParameterItem> parameterList = new List<GridViewControl_Parameter.ParameterItem>();
+        //private void InitalizeBlockGridVeiw()
+        //{
+        //    #region Parameter Grid
+        //    List<GridViewControl_Parameter.ParameterItem> parameterList = new List<GridViewControl_Parameter.ParameterItem>();
 
-            GridViewControl_Parameter.ParameterItem AddParaItem;
+        //    GridViewControl_Parameter.ParameterItem AddParaItem;
 
-            List<string> AddParaList;
+        //    List<string> AddParaList;
 
-            AddParaList = new List<string>();
-            AddParaList.Add(Define.DefineEnumProject.Task.WorkZone.PARAM_PROCESS.BLOCK_MATERIAL_VAC_THRESHOLD.ToString());
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.WORK_ZONE, AddParaList);
-            AddParaItem.DisplayName = "BLOCK VAC THRESHOLD";
-            parameterList.Add(AddParaItem);
+        //    AddParaList = new List<string>();
+        //    AddParaList.Add(Define.DefineEnumProject.Task.WorkZone.PARAM_PROCESS.BLOCK_MATERIAL_VAC_THRESHOLD.ToString());
+        //    AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.WORK_ZONE, AddParaList);
+        //    AddParaItem.DisplayName = "BLOCK VAC THRESHOLD";
+        //    parameterList.Add(AddParaItem);
 
-            AddParaList = new List<string>();
-            AddParaList.Add(Define.DefineEnumProject.Task.WorkZone.PARAM_PROCESS.BLOCK_MATERIAL_VAC_TIMELAG_DELAY.ToString());
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.WORK_ZONE, AddParaList);
-            AddParaItem.DisplayName = "BLOCK VAC TIMELAG";
-            parameterList.Add(AddParaItem);
+        //    AddParaList = new List<string>();
+        //    AddParaList.Add(Define.DefineEnumProject.Task.WorkZone.PARAM_PROCESS.BLOCK_MATERIAL_VAC_TIMELAG_DELAY.ToString());
+        //    AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.WORK_ZONE, AddParaList);
+        //    AddParaItem.DisplayName = "BLOCK VAC TIMELAG";
+        //    parameterList.Add(AddParaItem);
 
-            AddParaList = new List<string>();
-            AddParaList.Add(Define.DefineEnumProject.Task.WorkZone.PARAM_PROCESS.BLOCK_MATERIAL_VAC_ON_DELAY.ToString());
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.WORK_ZONE, AddParaList);
-            AddParaItem.DisplayName = "BLOCK VAC ON DELAY";
-            parameterList.Add(AddParaItem);
+        //    AddParaList = new List<string>();
+        //    AddParaList.Add(Define.DefineEnumProject.Task.WorkZone.PARAM_PROCESS.BLOCK_MATERIAL_VAC_ON_DELAY.ToString());
+        //    AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.WORK_ZONE, AddParaList);
+        //    AddParaItem.DisplayName = "BLOCK VAC ON DELAY";
+        //    parameterList.Add(AddParaItem);
 
-            AddParaList = new List<string>();
-            AddParaList.Add(Define.DefineEnumProject.Task.WorkZone.PARAM_PROCESS.BLOCK_MATERIAL_VAC_OFF_DELAY.ToString());
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.WORK_ZONE, AddParaList);
-            AddParaItem.DisplayName = "BLOCK VAC OFF DELAY";
-            parameterList.Add(AddParaItem);
-
-
-            AddParaList = new List<string>();
-            AddParaList.Add(Define.DefineEnumProject.Task.WorkZone.PARAM_PROCESS.HEATER_TARGET_TEMP.ToString());
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.WORK_ZONE, AddParaList);
-            AddParaItem.AfterSetParameter = SetBlockTemp;
-            parameterList.Add(AddParaItem);
-
-            AddParaList = new List<string>();
-            AddParaList.Add(Define.DefineEnumProject.Task.WorkZone.PARAM_PROCESS.HEATER_OFFSET_TEMP.ToString());
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.WORK_ZONE, AddParaList);
-            AddParaItem.AfterSetParameter = SetBlockOffset;
-            parameterList.Add(AddParaItem);
-
-            //gridViewControl_Block_Parameter.Initialize(parameterList, -1, 150);
-
-            List<string> HeaderList = new List<string>();
-            #endregion /Parameter Grid
-
-            #region Position Parameter Grid
-            List<GridViewControl_Position_Parameter.ControlItem> PositionParamList = new List<GridViewControl_Position_Parameter.ControlItem>();
-
-            GridViewControl_Position_Parameter.ControlItem AddPositionParam;
-
-            AddPositionParam = new GridViewControl_Position_Parameter.ControlItem(EN_TASK_LIST.WORK_ZONE, WORKZONE_TASK_PARAM.BLOCK_WORK_POSITION_Z.ToString(), (int)EN_AXIS.BLOCK_Z);
-            AddPositionParam.DisplayName = "BLOCK WORK";
-            AddPositionParam.AxisName = "BLOCK Z";
-            PositionParamList.Add(AddPositionParam);
-
-            AddPositionParam = new GridViewControl_Position_Parameter.ControlItem(EN_TASK_LIST.WORK_ZONE, WORKZONE_TASK_PARAM.BLOCK_READY_POSITION_Z.ToString(), (int)EN_AXIS.BLOCK_Z);
-            AddPositionParam.DisplayName = "BLOCK READY";
-            AddPositionParam.AxisName = "BLOCK Z";
-            PositionParamList.Add(AddPositionParam);
+        //    AddParaList = new List<string>();
+        //    AddParaList.Add(Define.DefineEnumProject.Task.WorkZone.PARAM_PROCESS.BLOCK_MATERIAL_VAC_OFF_DELAY.ToString());
+        //    AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.WORK_ZONE, AddParaList);
+        //    AddParaItem.DisplayName = "BLOCK VAC OFF DELAY";
+        //    parameterList.Add(AddParaItem);
 
 
-            //gridViewControl_Block_Position_Parameter.Initialize(PositionParamList, -1, 120);
-            #endregion /Position Parameter Grid
+        //    AddParaList = new List<string>();
+        //    AddParaList.Add(Define.DefineEnumProject.Task.WorkZone.PARAM_PROCESS.HEATER_TARGET_TEMP.ToString());
+        //    AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.WORK_ZONE, AddParaList);
+        //    AddParaItem.AfterSetParameter = SetBlockTemp;
+        //    parameterList.Add(AddParaItem);
 
-            #region Device
+        //    AddParaList = new List<string>();
+        //    AddParaList.Add(Define.DefineEnumProject.Task.WorkZone.PARAM_PROCESS.HEATER_OFFSET_TEMP.ToString());
+        //    AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.WORK_ZONE, AddParaList);
+        //    AddParaItem.AfterSetParameter = SetBlockOffset;
+        //    parameterList.Add(AddParaItem);
 
-            List<GridVeiwControl_Device.ControlItem> ControlList = new List<GridVeiwControl_Device.ControlItem>();
+        //    //gridViewControl_Block_Parameter.Initialize(parameterList, -1, 150);
 
-            GridVeiwControl_Device.ControlItem AddControlItem;
+        //    List<string> HeaderList = new List<string>();
+        //    #endregion /Parameter Grid
 
-            AddControlItem = new GridVeiwControl_Device.ControlItem((int)EN_DIGITAL_OUT.BLOCK_MATERIAL_VAC_1, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_OUTPUT);
-            AddControlItem.Name = "BLOCK VAC 1";
-            ControlList.Add(AddControlItem);
-            AddControlItem = new GridVeiwControl_Device.ControlItem((int)EN_DIGITAL_OUT.BLOCK_MATERIAL_VAC_2, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_OUTPUT);
-            AddControlItem.Name = "BLOCK VAC 2";
-            ControlList.Add(AddControlItem);
-            AddControlItem = new GridVeiwControl_Device.ControlItem((int)EN_DIGITAL_OUT.BLOCK_MATERIAL_BLOW, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_OUTPUT);
-            AddControlItem.Name = "BLOCK BLOW";
-            ControlList.Add(AddControlItem);
-            AddControlItem = new GridVeiwControl_Device.ControlItem((int)EN_ANALOG_IN.BLOCK_MATERIAL_VAC, GridVeiwControl_Device.EN_CONTROL_TYPE.ANALOG_INPUT_VALUE);
-            AddControlItem.Name = "BLOCK VAC";
-            AddControlItem.AnalogUnit = "kPa";
-            ControlList.Add(AddControlItem);
+        //    #region Position Parameter Grid
+        //    List<GridViewControl_Position_Parameter.ControlItem> PositionParamList = new List<GridViewControl_Position_Parameter.ControlItem>();
 
-            //gridVeiwControl_Block_Device.Initialize(ControlList);
-            #endregion /Device
-        }
+        //    GridViewControl_Position_Parameter.ControlItem AddPositionParam;
+
+        //    AddPositionParam = new GridViewControl_Position_Parameter.ControlItem(EN_TASK_LIST.WORK_ZONE, WORKZONE_TASK_PARAM.BLOCK_WORK_POSITION_Z.ToString(), (int)EN_AXIS.BLOCK_Z);
+        //    AddPositionParam.DisplayName = "BLOCK WORK";
+        //    AddPositionParam.AxisName = "BLOCK Z";
+        //    PositionParamList.Add(AddPositionParam);
+
+        //    AddPositionParam = new GridViewControl_Position_Parameter.ControlItem(EN_TASK_LIST.WORK_ZONE, WORKZONE_TASK_PARAM.BLOCK_READY_POSITION_Z.ToString(), (int)EN_AXIS.BLOCK_Z);
+        //    AddPositionParam.DisplayName = "BLOCK READY";
+        //    AddPositionParam.AxisName = "BLOCK Z";
+        //    PositionParamList.Add(AddPositionParam);
+
+
+        //    //gridViewControl_Block_Position_Parameter.Initialize(PositionParamList, -1, 120);
+        //    #endregion /Position Parameter Grid
+
+        //    #region Device
+
+        //    List<GridVeiwControl_Device.ControlItem> ControlList = new List<GridVeiwControl_Device.ControlItem>();
+
+        //    GridVeiwControl_Device.ControlItem AddControlItem;
+
+        //    AddControlItem = new GridVeiwControl_Device.ControlItem((int)EN_DIGITAL_OUT.BLOCK_MATERIAL_VAC_1, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_OUTPUT);
+        //    AddControlItem.Name = "BLOCK VAC 1";
+        //    ControlList.Add(AddControlItem);
+        //    AddControlItem = new GridVeiwControl_Device.ControlItem((int)EN_DIGITAL_OUT.BLOCK_MATERIAL_VAC_2, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_OUTPUT);
+        //    AddControlItem.Name = "BLOCK VAC 2";
+        //    ControlList.Add(AddControlItem);
+        //    AddControlItem = new GridVeiwControl_Device.ControlItem((int)EN_DIGITAL_OUT.BLOCK_MATERIAL_BLOW, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_OUTPUT);
+        //    AddControlItem.Name = "BLOCK BLOW";
+        //    ControlList.Add(AddControlItem);
+        //    AddControlItem = new GridVeiwControl_Device.ControlItem((int)EN_ANALOG_IN.BLOCK_MATERIAL_VAC, GridVeiwControl_Device.EN_CONTROL_TYPE.ANALOG_INPUT_VALUE);
+        //    AddControlItem.Name = "BLOCK VAC";
+        //    AddControlItem.AnalogUnit = "kPa";
+        //    ControlList.Add(AddControlItem);
+
+        //    //gridVeiwControl_Block_Device.Initialize(ControlList);
+        //    #endregion /Device
+        //}
 
         private void InitGridEnableParameter()
         {
@@ -269,112 +269,112 @@ namespace FrameOfSystem3.Views.Setup
             gridViewControl_Enable_Parameter.Initialize(parameterList, -1, 110);
         }
 
-        private void InitWorkPositionGridVeiw()
-        {
-            List<GridViewControl_2Axis_Position_Parameter.ControlItem> PositionParamList2Axis = new List<GridViewControl_2Axis_Position_Parameter.ControlItem>();
+        //private void InitWorkPositionGridVeiw()
+        //{
+        //    List<GridViewControl_2Axis_Position_Parameter.ControlItem> PositionParamList2Axis = new List<GridViewControl_2Axis_Position_Parameter.ControlItem>();
 
-            GridViewControl_2Axis_Position_Parameter.ControlItem AddPositionParam2Axis;
+        //    GridViewControl_2Axis_Position_Parameter.ControlItem AddPositionParam2Axis;
 
-            AddPositionParam2Axis = new GridViewControl_2Axis_Position_Parameter.ControlItem(EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.LASER_WORK_POSITION_X.ToString(), (int)EN_AXIS.BLOCK_X
-                                                                                                           , BONDER_TASK_PARAM.LASER_WORK_POSITION_Y.ToString(), (int)EN_AXIS.GANTRY_Y);
-            AddPositionParam2Axis.DisplayName = "WORK POSITION";
-            AddPositionParam2Axis.FirstAxisName = "X";
-            AddPositionParam2Axis.SecondAxisName = "Y";
-            PositionParamList2Axis.Add(AddPositionParam2Axis);
-
-
-            AddPositionParam2Axis = new GridViewControl_2Axis_Position_Parameter.ControlItem(EQUIPMENT_PARAM.HEAD_READY_POSITION_X, (int)EN_AXIS.BLOCK_X
-                                                                                                           , EQUIPMENT_PARAM.HEAD_READY_POSITION_Y, (int)EN_AXIS.GANTRY_Y);
-            AddPositionParam2Axis.DisplayName = "READY POSITION";
-            AddPositionParam2Axis.FirstAxisName = "X";
-            AddPositionParam2Axis.SecondAxisName = "Y";
-            PositionParamList2Axis.Add(AddPositionParam2Axis);
-
-            //gridViewControl_Head_Position_Parameter.Initialize(PositionParamList2Axis, -1, 30);
-
-        }
-
-        private void InitGridLaserDevice()
-        {
-            List<GridVeiwControl_Device.ControlItem> ControlList = new List<GridVeiwControl_Device.ControlItem>();
-
-            GridVeiwControl_Device.ControlItem AddControlItem;
-
-            List<int> lstIndex = new List<int>();
-
-            lstIndex = new List<int>();
-            lstIndex.Add((int)EN_DIGITAL_IN.LD_1_ON);
-            lstIndex.Add((int)EN_DIGITAL_IN.LD_2_ON);
-            lstIndex.Add((int)EN_DIGITAL_IN.LD_3_ON);
-            AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_INPUT);
-            AddControlItem.Name = "ON";
-            ControlList.Add(AddControlItem);
-
-            lstIndex = new List<int>();
-            lstIndex.Add((int)EN_DIGITAL_IN.LD_1_READY);
-            lstIndex.Add((int)EN_DIGITAL_IN.LD_2_READY);
-            lstIndex.Add((int)EN_DIGITAL_IN.LD_3_READY);
-            AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_INPUT);
-            AddControlItem.Name = "READY";
-            ControlList.Add(AddControlItem);
-
-            lstIndex = new List<int>();
-            lstIndex.Add((int)EN_DIGITAL_OUT.LD_1_READY);
-            lstIndex.Add((int)EN_DIGITAL_OUT.LD_2_READY);
-            lstIndex.Add((int)EN_DIGITAL_OUT.LD_3_READY);
-            AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_OUTPUT);
-            AddControlItem.Name = "READY";
-            ControlList.Add(AddControlItem);
-
-            lstIndex = new List<int>();
-            lstIndex.Add((int)EN_DIGITAL_IN.LD_1_ALARM);
-            lstIndex.Add((int)EN_DIGITAL_IN.LD_2_ALARM);
-            lstIndex.Add((int)EN_DIGITAL_IN.LD_3_ALARM);
-            lstIndex.Add((int)EN_DIGITAL_IN.MONITOR_ALARM);
-            AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_INPUT);
-            AddControlItem.Name = "ALARM";
-            ControlList.Add(AddControlItem);
-
-            lstIndex = new List<int>();
-            lstIndex.Add((int)EN_DIGITAL_OUT.LD_1_ALARM_CLEAR);
-            lstIndex.Add((int)EN_DIGITAL_OUT.LD_2_ALARM_CLEAR);
-            lstIndex.Add((int)EN_DIGITAL_OUT.LD_3_ALARM_CLEAR);
-            lstIndex.Add((int)EN_DIGITAL_OUT.MONITOR_ALARM_CLEAR);
-            AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_OUTPUT);
-            AddControlItem.Name = "RESET";
-            ControlList.Add(AddControlItem);
-
-            lstIndex = new List<int>();
-            lstIndex.Add((int)EN_DIGITAL_OUT.LD_1_EMO);
-            lstIndex.Add((int)EN_DIGITAL_OUT.LD_2_EMO);
-            lstIndex.Add((int)EN_DIGITAL_OUT.LD_3_EMO);
-            lstIndex.Add((int)EN_DIGITAL_OUT.MONITOR_EMO);
-            AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_OUTPUT);
-            AddControlItem.Name = "EMO";
-            ControlList.Add(AddControlItem);
+        //    AddPositionParam2Axis = new GridViewControl_2Axis_Position_Parameter.ControlItem(EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.LASER_WORK_POSITION_X.ToString(), (int)EN_AXIS.BLOCK_X
+        //                                                                                                   , BONDER_TASK_PARAM.LASER_WORK_POSITION_Y.ToString(), (int)EN_AXIS.GANTRY_Y);
+        //    AddPositionParam2Axis.DisplayName = "WORK POSITION";
+        //    AddPositionParam2Axis.FirstAxisName = "X";
+        //    AddPositionParam2Axis.SecondAxisName = "Y";
+        //    PositionParamList2Axis.Add(AddPositionParam2Axis);
 
 
-            gridVeiwControl_Laser_Device.Initialize(ControlList);
+        //    AddPositionParam2Axis = new GridViewControl_2Axis_Position_Parameter.ControlItem(EQUIPMENT_PARAM.HEAD_READY_POSITION_X, (int)EN_AXIS.BLOCK_X
+        //                                                                                                   , EQUIPMENT_PARAM.HEAD_READY_POSITION_Y, (int)EN_AXIS.GANTRY_Y);
+        //    AddPositionParam2Axis.DisplayName = "READY POSITION";
+        //    AddPositionParam2Axis.FirstAxisName = "X";
+        //    AddPositionParam2Axis.SecondAxisName = "Y";
+        //    PositionParamList2Axis.Add(AddPositionParam2Axis);
 
-            List<string> lstHeader = new List<string>();
+        //    //gridViewControl_Head_Position_Parameter.Initialize(PositionParamList2Axis, -1, 30);
 
-            lstHeader.Add("");
-            lstHeader.Add("PORT 1");
-            lstHeader.Add("PORT 2");
-            lstHeader.Add("PORT 3");
-            lstHeader.Add("MONITOR");
+        //}
 
-            gridVeiwControl_Laser_Device.ShowHeader(lstHeader);
+        //private void InitGridLaserDevice()
+        //{
+        //    List<GridVeiwControl_Device.ControlItem> ControlList = new List<GridVeiwControl_Device.ControlItem>();
 
-            ControlList = new List<GridVeiwControl_Device.ControlItem>();
+        //    GridVeiwControl_Device.ControlItem AddControlItem;
 
-            AddControlItem = new GridVeiwControl_Device.ControlItem((int)EN_ANALOG_IN.HEAD_TOTAL_FLOW, GridVeiwControl_Device.EN_CONTROL_TYPE.ANALOG_INPUT_VALUE);
-            AddControlItem.Name = "HEAD FLOW";
-            AddControlItem.AnalogUnit = "L/min";
-            ControlList.Add(AddControlItem);
+        //    List<int> lstIndex = new List<int>();
 
-            //gridVeiwControl_Head_Device.Initialize(ControlList);
-        }
+        //    lstIndex = new List<int>();
+        //    lstIndex.Add((int)EN_DIGITAL_IN.LD_1_ON);
+        //    lstIndex.Add((int)EN_DIGITAL_IN.LD_2_ON);
+        //    lstIndex.Add((int)EN_DIGITAL_IN.LD_3_ON);
+        //    AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_INPUT);
+        //    AddControlItem.Name = "ON";
+        //    ControlList.Add(AddControlItem);
+
+        //    lstIndex = new List<int>();
+        //    lstIndex.Add((int)EN_DIGITAL_IN.LD_1_READY);
+        //    lstIndex.Add((int)EN_DIGITAL_IN.LD_2_READY);
+        //    lstIndex.Add((int)EN_DIGITAL_IN.LD_3_READY);
+        //    AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_INPUT);
+        //    AddControlItem.Name = "READY";
+        //    ControlList.Add(AddControlItem);
+
+        //    lstIndex = new List<int>();
+        //    lstIndex.Add((int)EN_DIGITAL_OUT.LD_1_READY);
+        //    lstIndex.Add((int)EN_DIGITAL_OUT.LD_2_READY);
+        //    lstIndex.Add((int)EN_DIGITAL_OUT.LD_3_READY);
+        //    AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_OUTPUT);
+        //    AddControlItem.Name = "READY";
+        //    ControlList.Add(AddControlItem);
+
+        //    lstIndex = new List<int>();
+        //    lstIndex.Add((int)EN_DIGITAL_IN.LD_1_ALARM);
+        //    lstIndex.Add((int)EN_DIGITAL_IN.LD_2_ALARM);
+        //    lstIndex.Add((int)EN_DIGITAL_IN.LD_3_ALARM);
+        //    lstIndex.Add((int)EN_DIGITAL_IN.MONITOR_ALARM);
+        //    AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_INPUT);
+        //    AddControlItem.Name = "ALARM";
+        //    ControlList.Add(AddControlItem);
+
+        //    lstIndex = new List<int>();
+        //    lstIndex.Add((int)EN_DIGITAL_OUT.LD_1_ALARM_CLEAR);
+        //    lstIndex.Add((int)EN_DIGITAL_OUT.LD_2_ALARM_CLEAR);
+        //    lstIndex.Add((int)EN_DIGITAL_OUT.LD_3_ALARM_CLEAR);
+        //    lstIndex.Add((int)EN_DIGITAL_OUT.MONITOR_ALARM_CLEAR);
+        //    AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_OUTPUT);
+        //    AddControlItem.Name = "RESET";
+        //    ControlList.Add(AddControlItem);
+
+        //    lstIndex = new List<int>();
+        //    lstIndex.Add((int)EN_DIGITAL_OUT.LD_1_EMO);
+        //    lstIndex.Add((int)EN_DIGITAL_OUT.LD_2_EMO);
+        //    lstIndex.Add((int)EN_DIGITAL_OUT.LD_3_EMO);
+        //    lstIndex.Add((int)EN_DIGITAL_OUT.MONITOR_EMO);
+        //    AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_OUTPUT);
+        //    AddControlItem.Name = "EMO";
+        //    ControlList.Add(AddControlItem);
+
+
+        //    gridVeiwControl_Laser_Device.Initialize(ControlList);
+
+        //    List<string> lstHeader = new List<string>();
+
+        //    lstHeader.Add("");
+        //    lstHeader.Add("PORT 1");
+        //    lstHeader.Add("PORT 2");
+        //    lstHeader.Add("PORT 3");
+        //    lstHeader.Add("MONITOR");
+
+        //    gridVeiwControl_Laser_Device.ShowHeader(lstHeader);
+
+        //    ControlList = new List<GridVeiwControl_Device.ControlItem>();
+
+        //    AddControlItem = new GridVeiwControl_Device.ControlItem((int)EN_ANALOG_IN.HEAD_TOTAL_FLOW, GridVeiwControl_Device.EN_CONTROL_TYPE.ANALOG_INPUT_VALUE);
+        //    AddControlItem.Name = "HEAD FLOW";
+        //    AddControlItem.AnalogUnit = "L/min";
+        //    ControlList.Add(AddControlItem);
+
+        //    //gridVeiwControl_Head_Device.Initialize(ControlList);
+        //}
 
         private void InitGridLaserParameter()
         {
@@ -450,112 +450,112 @@ namespace FrameOfSystem3.Views.Setup
             HeaderList.Add("STEP 5");
             gridViewControl_Laser_Parameter.ShowHeader(HeaderList);
 
-            parameterList = new List<GridViewControl_Parameter.ParameterItem>();
+            //parameterList = new List<GridViewControl_Parameter.ParameterItem>();
 
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.LASER_USED);
-            AddParaItem.DisplayName = "LASER USED";
-            AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.TRUE_FALSE;
-            parameterList.Add(AddParaItem);
+            //AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.LASER_USED);
+            //AddParaItem.DisplayName = "LASER USED";
+            //AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.TRUE_FALSE;
+            //parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.IR_USED);
-            AddParaItem.DisplayName = "IR USED";
-            AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.TRUE_FALSE;
-            parameterList.Add(AddParaItem);
+            //AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.IR_USED);
+            //AddParaItem.DisplayName = "IR USED";
+            //AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.TRUE_FALSE;
+            //parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWERCHECK_USED);
-            AddParaItem.DisplayName = "POWER CHECK USED";
-            AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.TRUE_FALSE;
-            parameterList.Add(AddParaItem);
+            //AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWERCHECK_USED);
+            //AddParaItem.DisplayName = "POWER CHECK USED";
+            //AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.TRUE_FALSE;
+            //parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWERCHECK_TOLERANCE);
-            AddParaItem.DisplayName = "POWER CHECK TOLERANCE";
-            parameterList.Add(AddParaItem);
+            //AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWERCHECK_TOLERANCE);
+            //AddParaItem.DisplayName = "POWER CHECK TOLERANCE";
+            //parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.TEMPERATURE_SAVE_PRE_DELAY.ToString());
-            AddParaItem.DisplayName = "SAVE PRE DELAY";
-            parameterList.Add(AddParaItem);
+            //AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.TEMPERATURE_SAVE_PRE_DELAY.ToString());
+            //AddParaItem.DisplayName = "SAVE PRE DELAY";
+            //parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.TEMPERATURE_SAVE_POST_DELAY.ToString());
-            AddParaItem.DisplayName = "SAVE POST DELAY";
-            parameterList.Add(AddParaItem);
+            //AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.TEMPERATURE_SAVE_POST_DELAY.ToString());
+            //AddParaItem.DisplayName = "SAVE POST DELAY";
+            //parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.HEAD_FLOW_THRESHOLD);
-            parameterList.Add(AddParaItem);
+            //AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.HEAD_FLOW_THRESHOLD);
+            //parameterList.Add(AddParaItem);
 
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.MATERIAL_COOLING_TIME.ToString());
-            parameterList.Add(AddParaItem);
+            //AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.MATERIAL_COOLING_TIME.ToString());
+            //parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.MATERIAL_PREHEATING_TIME.ToString());
-            parameterList.Add(AddParaItem);
+            //AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.MATERIAL_PREHEATING_TIME.ToString());
+            //parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.SIDE_POWER_PERCENT.ToString());
-            parameterList.Add(AddParaItem);
+            //AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.SIDE_POWER_PERCENT.ToString());
+            //parameterList.Add(AddParaItem);
 
-            //gridViewControl_Laser_Option_Parameter.Initialize(parameterList, -1, 85);
+            ////gridViewControl_Laser_Option_Parameter.Initialize(parameterList, -1, 85);
         }
 
-        private void InitalizeWorkStatusGridVeiw()
-        {
-            #region Parameter Grid
-            List<GridViewControl_Parameter.ParameterItem> parameterList = new List<GridViewControl_Parameter.ParameterItem>();
+        //private void InitalizeWorkStatusGridVeiw()
+        //{
+        //    #region Parameter Grid
+        //    List<GridViewControl_Parameter.ParameterItem> parameterList = new List<GridViewControl_Parameter.ParameterItem>();
 
-            GridViewControl_Parameter.ParameterItem AddParaItem;
+        //    GridViewControl_Parameter.ParameterItem AddParaItem;
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.WAIT_COLOR);
-            AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.COLOR;
-            parameterList.Add(AddParaItem);
+        //    AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.WAIT_COLOR);
+        //    AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.COLOR;
+        //    parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.DONE_COLOR);
-            AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.COLOR;
-            parameterList.Add(AddParaItem);
+        //    AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.DONE_COLOR);
+        //    AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.COLOR;
+        //    parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.LOW_TEMP_COLOR);
-            AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.COLOR;
-            parameterList.Add(AddParaItem);
+        //    AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.LOW_TEMP_COLOR);
+        //    AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.COLOR;
+        //    parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.TEMP_GROW_FAIL_COLOR);
-            AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.COLOR;
-            parameterList.Add(AddParaItem);
+        //    AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.TEMP_GROW_FAIL_COLOR);
+        //    AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.COLOR;
+        //    parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.TEMP_DEVOVER_COLOR);
-            AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.COLOR;
-            parameterList.Add(AddParaItem);
+        //    AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.TEMP_DEVOVER_COLOR);
+        //    AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.COLOR;
+        //    parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.HIGH_TEMP_COLOR);
-            AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.COLOR;
-            parameterList.Add(AddParaItem);
+        //    AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.HIGH_TEMP_COLOR);
+        //    AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.COLOR;
+        //    parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.MAX_HIGH_TEMP_COLOR);
-            AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.COLOR;
-            parameterList.Add(AddParaItem);
+        //    AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.MAX_HIGH_TEMP_COLOR);
+        //    AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.COLOR;
+        //    parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.EMG_LOW_TEMP_COLOR);
-            AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.COLOR;
-            parameterList.Add(AddParaItem);
+        //    AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.EMG_LOW_TEMP_COLOR);
+        //    AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.COLOR;
+        //    parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.EMG_HIGH_TEMP_COLOR);
-            AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.COLOR;
-            parameterList.Add(AddParaItem);
+        //    AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.EMG_HIGH_TEMP_COLOR);
+        //    AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.COLOR;
+        //    parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_FAULT_COLOR);
-            AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.COLOR;
-            parameterList.Add(AddParaItem);
+        //    AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_FAULT_COLOR);
+        //    AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.COLOR;
+        //    parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.SOURCE_ALARM_COLOR);
-            AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.COLOR;
-            parameterList.Add(AddParaItem);
+        //    AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.SOURCE_ALARM_COLOR);
+        //    AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.COLOR;
+        //    parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.RESULT_GETFAIL_COLOR);
-            AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.COLOR;
-            parameterList.Add(AddParaItem);
+        //    AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.RESULT_GETFAIL_COLOR);
+        //    AddParaItem.ParameterSettingType = Define.DefineEnumBase.Component.EN_PARAMETER_SETTING_TYPE.COLOR;
+        //    parameterList.Add(AddParaItem);
 
-            //gridViewControl_WorkStatus_Parameter.Initialize(parameterList, 2, 80);
+        //    //gridViewControl_WorkStatus_Parameter.Initialize(parameterList, 2, 80);
 
-            #endregion /Parameter Grid
+        //    #endregion /Parameter Grid
 
-        }
+        //}
 
         private void Click_Stop(object sender, EventArgs e)
         {
@@ -726,7 +726,7 @@ namespace FrameOfSystem3.Views.Setup
             }
         }
 
-        #region Heater
+        //#region Heater
         //private void InitHeaterGridView()
         //{
         //    int nRow = 0;
@@ -782,34 +782,34 @@ namespace FrameOfSystem3.Views.Setup
         //    }
         //}
 
-        private void SetBlockTemp()
-        {
-            double dTemp = m_instanceRecipe.GetValue(EN_TASK_LIST.WORK_ZONE.ToString(), WORKZONE_TASK_PARAM.HEATER_TARGET_TEMP.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+        //private void SetBlockTemp()
+        //{
+        //    double dTemp = m_instanceRecipe.GetValue(EN_TASK_LIST.WORK_ZONE.ToString(), WORKZONE_TASK_PARAM.HEATER_TARGET_TEMP.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
 
-            ExternalDevice.Heater.Heater.GetInstance().SetTargetTemp((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, dTemp);
-        }
+        //    ExternalDevice.Heater.Heater.GetInstance().SetTargetTemp((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, dTemp);
+        //}
 
-        private void SetBlockOffset()
-        {
-            double dCh1Offset = m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WORK_BLOCK_CH_OFFSET_8.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-            ExternalDevice.Heater.Heater.GetInstance().SetChannelTempOffset((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, 1, dCh1Offset, false);
+        //private void SetBlockOffset()
+        //{
+        //    double dCh1Offset = m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WORK_BLOCK_CH_OFFSET_8.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+        //    ExternalDevice.Heater.Heater.GetInstance().SetChannelTempOffset((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, 1, dCh1Offset, false);
 
-            double dCh2Offset = m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WORK_BLOCK_CH_OFFSET_8.ToString(), 1, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-            ExternalDevice.Heater.Heater.GetInstance().SetChannelTempOffset((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, 2, dCh2Offset, false);
+        //    double dCh2Offset = m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WORK_BLOCK_CH_OFFSET_8.ToString(), 1, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+        //    ExternalDevice.Heater.Heater.GetInstance().SetChannelTempOffset((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, 2, dCh2Offset, false);
 
-            double dCh3Offset = m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WORK_BLOCK_CH_OFFSET_8.ToString(), 2, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-            ExternalDevice.Heater.Heater.GetInstance().SetChannelTempOffset((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, 3, dCh3Offset, false);
+        //    double dCh3Offset = m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WORK_BLOCK_CH_OFFSET_8.ToString(), 2, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+        //    ExternalDevice.Heater.Heater.GetInstance().SetChannelTempOffset((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, 3, dCh3Offset, false);
 
-            double dCh4Offset = m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WORK_BLOCK_CH_OFFSET_8.ToString(), 3, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-            ExternalDevice.Heater.Heater.GetInstance().SetChannelTempOffset((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, 4, dCh4Offset, false);
+        //    double dCh4Offset = m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WORK_BLOCK_CH_OFFSET_8.ToString(), 3, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+        //    ExternalDevice.Heater.Heater.GetInstance().SetChannelTempOffset((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, 4, dCh4Offset, false);
 
 
-            double dZoneOffset = m_instanceRecipe.GetValue(EN_TASK_LIST.WORK_ZONE.ToString(), WORKZONE_TASK_PARAM.HEATER_OFFSET_TEMP.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-            ExternalDevice.Heater.Heater.GetInstance().SetTempOffset((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, dZoneOffset);
+        //    double dZoneOffset = m_instanceRecipe.GetValue(EN_TASK_LIST.WORK_ZONE.ToString(), WORKZONE_TASK_PARAM.HEATER_OFFSET_TEMP.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+        //    ExternalDevice.Heater.Heater.GetInstance().SetTempOffset((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, dZoneOffset);
 
-        }
+        //}
 
-        #endregion </Heater>
+        //#endregion </Heater>
 
         //private void UpdateWorkInformation()
         //{
@@ -933,12 +933,12 @@ namespace FrameOfSystem3.Views.Setup
 
          //   nUsedChannelCount += (dSidePercent / 100 * nSideChCount);
 
-            for (int nStep = 0; nStep < 5; ++nStep)
-            {
-                double dPower = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5.ToString(), nStep, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-                arChPower[nStep] = Math.Round(dPower / nUsedChannelCount);
-                arSidePower[nStep] = Math.Round(arChPower[nStep] * (1 + (dSidePercent / 100)));
-            }
+            //for (int nStep = 0; nStep < 5; ++nStep)
+            //{
+            //    double dPower = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5.ToString(), nStep, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+            //    arChPower[nStep] = Math.Round(dPower / nUsedChannelCount);
+            //    arSidePower[nStep] = Math.Round(arChPower[nStep] * (1 + (dSidePercent / 100)));
+            //}
 
 
             //m_lblChPower.Text = string.Format("[{0} W] [{1} W] [{2} W] [{3} W] [{4} W]", arChPower[0], arChPower[1], arChPower[2], arChPower[3], arChPower[4]);

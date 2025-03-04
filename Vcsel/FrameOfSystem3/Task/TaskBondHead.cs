@@ -112,7 +112,8 @@ namespace FrameOfSystem3.Task
         private Form_ProgressBar m_instanceProgress = Form_ProgressBar.GetInstance();
 
         private Recipe.Recipe m_Recipe = Recipe.Recipe.GetInstance();
-
+        // 2025.3.4 by ecchoi [ADD] Test
+        List<Laser.ProtecLaserMananger> m_Lasers = new List<Laser.ProtecLaserMananger>();
         Laser.ProtecLaserMananger m_Laser_1 = Laser.ProtecLaserMananger.GetInstance(0);
         Laser.ProtecLaserMananger m_Laser_2 = Laser.ProtecLaserMananger.GetInstance(1);
 
@@ -312,6 +313,11 @@ namespace FrameOfSystem3.Task
 
                 #region READY DEVICE
                 case (int)EN_ENTRY_STEP.READY_DEVICE:
+                    // 2025.3.4 by ecchoi [ADD] Test
+                    foreach (var laser in m_Lasers)
+                    {
+                        laser.ResetSeqNum();
+                    }
                     m_Laser_1.ResetSeqNum();
                     ++m_nSeqNum;
                     break;
