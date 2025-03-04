@@ -57,7 +57,7 @@ namespace FrameOfSystem3.Laser
 
         #region SingleTone
         private ProtecLaserMananger() { }
-        private static ProtecLaserMananger _Instance = null;
+        //private static ProtecLaserMananger _Instance = null;
         //public static ProtecLaserMananger GetInstance()
         //{
         //    if (_Instance == null)

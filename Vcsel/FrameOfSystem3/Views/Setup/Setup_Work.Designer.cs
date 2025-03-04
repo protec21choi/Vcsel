@@ -968,6 +968,7 @@
             this.m_dgViewCalibration.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.m_dgViewCalibration.Size = new System.Drawing.Size(412, 184);
             this.m_dgViewCalibration.TabIndex = 20867;
+            this.m_dgViewCalibration.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.m_dgViewCalibration_CellContentClick);
             // 
             // dataGridViewTextBoxColumn7
             // 
