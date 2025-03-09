@@ -38,7 +38,7 @@ namespace FrameOfSystem3.Views.Setup
             //InitalizeBlockGridVeiw();
             InitGridEnableParameter();
             //InitWorkPositionGridVeiw();
-            //InitGridLaserDevice();
+            InitGridLaserDevice();
             InitGridLaserParameter();
             //InitHeaterGridView();
             //InitalizeWorkStatusGridVeiw();
@@ -294,87 +294,87 @@ namespace FrameOfSystem3.Views.Setup
 
         //}
 
-        //private void InitGridLaserDevice()
-        //{
-        //    List<GridVeiwControl_Device.ControlItem> ControlList = new List<GridVeiwControl_Device.ControlItem>();
+        private void InitGridLaserDevice()
+        {
+            List<GridVeiwControl_Device.ControlItem> ControlList = new List<GridVeiwControl_Device.ControlItem>();
 
-        //    GridVeiwControl_Device.ControlItem AddControlItem;
+            GridVeiwControl_Device.ControlItem AddControlItem;
 
-        //    List<int> lstIndex = new List<int>();
+            List<int> lstIndex = new List<int>();
 
-        //    lstIndex = new List<int>();
-        //    lstIndex.Add((int)EN_DIGITAL_IN.LD_1_ON);
-        //    lstIndex.Add((int)EN_DIGITAL_IN.LD_2_ON);
-        //    lstIndex.Add((int)EN_DIGITAL_IN.LD_3_ON);
-        //    AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_INPUT);
-        //    AddControlItem.Name = "ON";
-        //    ControlList.Add(AddControlItem);
+            lstIndex = new List<int>();
+            lstIndex.Add((int)EN_DIGITAL_IN.LD_1_ON);
+            lstIndex.Add((int)EN_DIGITAL_IN.LD_2_ON);
+            lstIndex.Add((int)EN_DIGITAL_IN.LD_3_ON);
+            AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_INPUT);
+            AddControlItem.Name = "ON";
+            ControlList.Add(AddControlItem);
 
-        //    lstIndex = new List<int>();
-        //    lstIndex.Add((int)EN_DIGITAL_IN.LD_1_READY);
-        //    lstIndex.Add((int)EN_DIGITAL_IN.LD_2_READY);
-        //    lstIndex.Add((int)EN_DIGITAL_IN.LD_3_READY);
-        //    AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_INPUT);
-        //    AddControlItem.Name = "READY";
-        //    ControlList.Add(AddControlItem);
+            lstIndex = new List<int>();
+            lstIndex.Add((int)EN_DIGITAL_IN.LD_1_READY);
+            lstIndex.Add((int)EN_DIGITAL_IN.LD_2_READY);
+            lstIndex.Add((int)EN_DIGITAL_IN.LD_3_READY);
+            AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_INPUT);
+            AddControlItem.Name = "READY";
+            ControlList.Add(AddControlItem);
 
-        //    lstIndex = new List<int>();
-        //    lstIndex.Add((int)EN_DIGITAL_OUT.LD_1_READY);
-        //    lstIndex.Add((int)EN_DIGITAL_OUT.LD_2_READY);
-        //    lstIndex.Add((int)EN_DIGITAL_OUT.LD_3_READY);
-        //    AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_OUTPUT);
-        //    AddControlItem.Name = "READY";
-        //    ControlList.Add(AddControlItem);
+            lstIndex = new List<int>();
+            lstIndex.Add((int)EN_DIGITAL_OUT.LD_1_READY);
+            lstIndex.Add((int)EN_DIGITAL_OUT.LD_2_READY);
+            lstIndex.Add((int)EN_DIGITAL_OUT.LD_3_READY);
+            AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_OUTPUT);
+            AddControlItem.Name = "READY";
+            ControlList.Add(AddControlItem);
 
-        //    lstIndex = new List<int>();
-        //    lstIndex.Add((int)EN_DIGITAL_IN.LD_1_ALARM);
-        //    lstIndex.Add((int)EN_DIGITAL_IN.LD_2_ALARM);
-        //    lstIndex.Add((int)EN_DIGITAL_IN.LD_3_ALARM);
-        //    lstIndex.Add((int)EN_DIGITAL_IN.MONITOR_ALARM);
-        //    AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_INPUT);
-        //    AddControlItem.Name = "ALARM";
-        //    ControlList.Add(AddControlItem);
+            lstIndex = new List<int>();
+            lstIndex.Add((int)EN_DIGITAL_IN.LD_1_ALARM);
+            lstIndex.Add((int)EN_DIGITAL_IN.LD_2_ALARM);
+            lstIndex.Add((int)EN_DIGITAL_IN.LD_3_ALARM);
+            lstIndex.Add((int)EN_DIGITAL_IN.MONITOR_ALARM);
+            AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_INPUT);
+            AddControlItem.Name = "ALARM";
+            ControlList.Add(AddControlItem);
 
-        //    lstIndex = new List<int>();
-        //    lstIndex.Add((int)EN_DIGITAL_OUT.LD_1_ALARM_CLEAR);
-        //    lstIndex.Add((int)EN_DIGITAL_OUT.LD_2_ALARM_CLEAR);
-        //    lstIndex.Add((int)EN_DIGITAL_OUT.LD_3_ALARM_CLEAR);
-        //    lstIndex.Add((int)EN_DIGITAL_OUT.MONITOR_ALARM_CLEAR);
-        //    AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_OUTPUT);
-        //    AddControlItem.Name = "RESET";
-        //    ControlList.Add(AddControlItem);
+            lstIndex = new List<int>();
+            lstIndex.Add((int)EN_DIGITAL_OUT.LD_1_ALARM_CLEAR);
+            lstIndex.Add((int)EN_DIGITAL_OUT.LD_2_ALARM_CLEAR);
+            lstIndex.Add((int)EN_DIGITAL_OUT.LD_3_ALARM_CLEAR);
+            lstIndex.Add((int)EN_DIGITAL_OUT.MONITOR_ALARM_CLEAR);
+            AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_OUTPUT);
+            AddControlItem.Name = "RESET";
+            ControlList.Add(AddControlItem);
 
-        //    lstIndex = new List<int>();
-        //    lstIndex.Add((int)EN_DIGITAL_OUT.LD_1_EMO);
-        //    lstIndex.Add((int)EN_DIGITAL_OUT.LD_2_EMO);
-        //    lstIndex.Add((int)EN_DIGITAL_OUT.LD_3_EMO);
-        //    lstIndex.Add((int)EN_DIGITAL_OUT.MONITOR_EMO);
-        //    AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_OUTPUT);
-        //    AddControlItem.Name = "EMO";
-        //    ControlList.Add(AddControlItem);
+            lstIndex = new List<int>();
+            lstIndex.Add((int)EN_DIGITAL_OUT.LD_1_EMO);
+            lstIndex.Add((int)EN_DIGITAL_OUT.LD_2_EMO);
+            lstIndex.Add((int)EN_DIGITAL_OUT.LD_3_EMO);
+            lstIndex.Add((int)EN_DIGITAL_OUT.MONITOR_EMO);
+            AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_OUTPUT);
+            AddControlItem.Name = "EMO";
+            ControlList.Add(AddControlItem);
 
 
-        //    gridVeiwControl_Laser_Device.Initialize(ControlList);
+            gridVeiwControl_Laser_Device.Initialize(ControlList);
 
-        //    List<string> lstHeader = new List<string>();
+            //List<string> lstHeader = new List<string>();
 
-        //    lstHeader.Add("");
-        //    lstHeader.Add("PORT 1");
-        //    lstHeader.Add("PORT 2");
-        //    lstHeader.Add("PORT 3");
-        //    lstHeader.Add("MONITOR");
+            //lstHeader.Add("");
+            //lstHeader.Add("PORT 1");
+            //lstHeader.Add("PORT 2");
+            //lstHeader.Add("PORT 3");
+            //lstHeader.Add("MONITOR");
 
-        //    gridVeiwControl_Laser_Device.ShowHeader(lstHeader);
+            //gridVeiwControl_Laser_Device.ShowHeader(lstHeader);
 
-        //    ControlList = new List<GridVeiwControl_Device.ControlItem>();
+            //ControlList = new List<GridVeiwControl_Device.ControlItem>();
 
-        //    AddControlItem = new GridVeiwControl_Device.ControlItem((int)EN_ANALOG_IN.HEAD_TOTAL_FLOW, GridVeiwControl_Device.EN_CONTROL_TYPE.ANALOG_INPUT_VALUE);
-        //    AddControlItem.Name = "HEAD FLOW";
-        //    AddControlItem.AnalogUnit = "L/min";
-        //    ControlList.Add(AddControlItem);
+            //AddControlItem = new GridVeiwControl_Device.ControlItem((int)EN_ANALOG_IN.HEAD_TOTAL_FLOW, GridVeiwControl_Device.EN_CONTROL_TYPE.ANALOG_INPUT_VALUE);
+            //AddControlItem.Name = "HEAD FLOW";
+            //AddControlItem.AnalogUnit = "L/min";
+            //ControlList.Add(AddControlItem);
 
-        //    //gridVeiwControl_Head_Device.Initialize(ControlList);
-        //}
+            //gridVeiwControl_Head_Device.Initialize(ControlList);
+        }
 
         private void InitGridLaserParameter()
         {
