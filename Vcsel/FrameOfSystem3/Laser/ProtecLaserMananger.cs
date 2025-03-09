@@ -31,7 +31,6 @@ namespace FrameOfSystem3.Laser
 
         // ChannelIndex + Channel Parameter
         private Dictionary<int, LaserChannelParameter> m_dicLaserParam = new Dictionary<int, LaserChannelParameter>();
-        private static Dictionary<int, ProtecLaserMananger> _Instances = new Dictionary<int, ProtecLaserMananger>();
 
         private TickCounter_.TickCounter m_TickForTimeOut = new TickCounter_.TickCounter();
 
@@ -57,22 +56,14 @@ namespace FrameOfSystem3.Laser
 
         #region SingleTone
         private ProtecLaserMananger() { }
-        //private static ProtecLaserMananger _Instance = null;
-        //public static ProtecLaserMananger GetInstance()
-        //{
-        //    if (_Instance == null)
-        //    {
-        //        _Instance = new ProtecLaserMananger();
-        //    }
-        //    return _Instance;
-        //}
-        public static ProtecLaserMananger GetInstance(int laserIndex)
+        private static ProtecLaserMananger _Instance = null;
+        public static ProtecLaserMananger GetInstance() 
         {
-            if (!_Instances.ContainsKey(laserIndex))
+            if (_Instance == null)
             {
-                _Instances[laserIndex] = new ProtecLaserMananger();
+                _Instance = new ProtecLaserMananger();
             }
-            return _Instances[laserIndex];
+            return _Instance; 
         }
         #endregion
 

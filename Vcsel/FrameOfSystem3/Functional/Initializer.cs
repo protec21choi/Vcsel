@@ -761,7 +761,7 @@ namespace FrameOfSystem3.Functional
                                                 , (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_CONTROL_2
                                                 , (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_CONTROL_3};
                     bResult &= ExternalDevice.Serial.ProtecLaserController.GetInstance().Initialize(arControl, (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_MONITOR);
-                    bResult &= Laser.ProtecLaserMananger.GetInstance(0).Init(nLaserCount);
+                    bResult &= Laser.ProtecLaserMananger.GetInstance().Init(nLaserCount);
 
                     Laser.ProtecLaserChannelCalibration.GetInstance().Init(nLaserCount);
                     for (int nIndex = 0; nIndex < nLaserCount; nIndex++)
