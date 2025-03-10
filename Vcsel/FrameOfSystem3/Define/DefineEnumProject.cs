@@ -708,8 +708,8 @@ namespace Define
 			{
 				OPERATION_MAIN,
 				//OPERATION_MANUAL,
-				OPERATION_MONITORING,
-				OPERATION_RAM_METRICS,
+				//OPERATION_MONITORING,
+				//OPERATION_RAM_METRICS,
 
 				RECIPE_MAIN,
 				//RECIPE_OPTIONS,
@@ -717,10 +717,10 @@ namespace Define
 				HISTORY_MAIN_LOG,
 
                 SETUP_WORK,
-                SETUP_TRANSFER,
+                //SETUP_TRANSFER,
                 SETUP_EQUIPMENT,
-                SETUP_MONITOR,
-                SETUP_JOG,
+                //SETUP_MONITOR,
+                //SETUP_JOG,
 
 				CONFIG_MOTION,
 				CONFIG_ANALOG,

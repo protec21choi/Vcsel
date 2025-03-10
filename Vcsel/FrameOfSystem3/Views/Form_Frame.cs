@@ -82,9 +82,9 @@ namespace FrameOfSystem3.Views
 
 		#region Operation
 		Views.Operation.Operation_Main			m_viewOperationMain				= new Operation.Operation_Main();
-		Views.Operation.Operation_StateMonitor	m_viewOperationMonitor			= new Operation.Operation_StateMonitor();
-		Views.Operation.Operation_Tracking		m_viewOperationTracking			= new Operation.Operation_Tracking();
-        Views.Operation.Operation_RAMMetrics    m_viewOperationRAMMetrics       = new Operation.Operation_RAMMetrics();
+		//Views.Operation.Operation_StateMonitor	m_viewOperationMonitor			= new Operation.Operation_StateMonitor();
+		//Views.Operation.Operation_Tracking		m_viewOperationTracking			= new Operation.Operation_Tracking();
+  //      Views.Operation.Operation_RAMMetrics    m_viewOperationRAMMetrics       = new Operation.Operation_RAMMetrics();
 		#endregion
 
 		#region Recipe
@@ -94,7 +94,7 @@ namespace FrameOfSystem3.Views
 
 		#region Setup
         Views.Setup.Setup_Work                  m_viewSetupWork                 = new Setup.Setup_Work();
-		Views.Setup.Setup_Transfer				m_viewSetupTransfer			    = new Setup.Setup_Transfer();
+		//Views.Setup.Setup_Transfer				m_viewSetupTransfer			    = new Setup.Setup_Transfer();
 		Views.Setup.Setup_Equipment				m_viewSetupEquipment			= new Setup.Setup_Equipment();
 		#endregion
 
@@ -266,8 +266,8 @@ namespace FrameOfSystem3.Views
 
 			#region Operation
 			m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_MAIN, m_viewOperationMain);
-            m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_MONITORING, m_viewOperationMonitor);
-            m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_RAM_METRICS, m_viewOperationRAMMetrics);
+            //m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_MONITORING, m_viewOperationMonitor);
+            //m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_RAM_METRICS, m_viewOperationRAMMetrics);
 			//m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_TRACKING, m_viewOperationTracking);
 			#endregion
 
@@ -282,7 +282,7 @@ namespace FrameOfSystem3.Views
 
 			#region Setup
             m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.SETUP_WORK, m_viewSetupWork);
-            m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.SETUP_TRANSFER, m_viewSetupTransfer);
+            //m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.SETUP_TRANSFER, m_viewSetupTransfer);
             m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.SETUP_EQUIPMENT, m_viewSetupEquipment);
 			#endregion
 
@@ -612,19 +612,19 @@ namespace FrameOfSystem3.Views
                                         , m_enClickedMainMenu.ToString()
                                         , strEnum.Replace(' ', '_'));
 
-			if(EN_BUTTONEVENT_SUBMENU.SETUP_JOG.ToString() == strSubMenu)
-			{
-				Functional.Jog.Form_Jog.GetInstance().CreateForm();
+			//if(EN_BUTTONEVENT_SUBMENU.SETUP_JOG.ToString() == strSubMenu)
+			//{
+			//	Functional.Jog.Form_Jog.GetInstance().CreateForm();
 
-				return false;
-			}
+			//	return false;
+			//}
 
-            if (EN_BUTTONEVENT_SUBMENU.SETUP_MONITOR.ToString() == strSubMenu)
-            {
-                Functional.Form_Monitor.GetInstance().CreateForm();
+   //         if (EN_BUTTONEVENT_SUBMENU.SETUP_MONITOR.ToString() == strSubMenu)
+   //         {
+   //             Functional.Form_Monitor.GetInstance().CreateForm();
 
-                return false;
-            }
+   //             return false;
+   //         }
 
             if (Enum.TryParse(strSubMenu, out enButtonEvent))
             {

@@ -22,10 +22,10 @@ namespace FrameOfSystem3.Views.Setup
 
 			#region TabIndex
             m_tab0.TabIndex = (int)EN_TABINDEX.LASER;
-            m_tab1.TabIndex = (int)EN_TABINDEX.DEVICE;
-            m_tab2.TabIndex = (int)EN_TABINDEX.PRE_EQUIPMENT;
-            m_tab3.TabIndex = (int)EN_TABINDEX.EFEM;
-            m_tab4.TabIndex = (int)EN_TABINDEX.TOOL;
+            //m_tab1.TabIndex = (int)EN_TABINDEX.DEVICE;
+            //m_tab2.TabIndex = (int)EN_TABINDEX.PRE_EQUIPMENT;
+            //m_tab3.TabIndex = (int)EN_TABINDEX.EFEM;
+            //m_tab4.TabIndex = (int)EN_TABINDEX.TOOL;
 			#endregion
 		}
 
