@@ -28,9 +28,9 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             this.sys3GroupBox2 = new Sys3Controls.Sys3GroupBox();
             this.InputVolt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OutputVolt = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -45,7 +45,7 @@
             this.sys3GroupBox1 = new Sys3Controls.Sys3GroupBox();
             this.btn_ParameterUndo = new Sys3Controls.Sys3button();
             this.btn_DecideParameterAll = new Sys3Controls.Sys3button();
-            this.sys3button1 = new Sys3Controls.Sys3button();
+            this.btn_EMO = new Sys3Controls.Sys3button();
             this.btn_Reset = new Sys3Controls.Sys3button();
             this.m_lblAlarmCodeMonitor = new Sys3Controls.Sys3Label();
             this.m_lblAlarmCodePort3 = new Sys3Controls.Sys3Label();
@@ -65,6 +65,7 @@
             this.gridViewControl_Laser_Parameter = new FrameOfSystem3.Component.GridViewControl_Parameter();
             this.gridVeiwControl_Laser_Device = new FrameOfSystem3.Component.GridVeiwControl_Device();
             this.gridViewControl_Enable_Parameter = new FrameOfSystem3.Component.GridViewControl_Parameter();
+            this.m_btnInitialize = new Sys3Controls.Sys3button();
             ((System.ComponentModel.ISupportInitialize)(this.m_dgViewCalibration)).BeginInit();
             this.m_groupRunMode.SuspendLayout();
             this.SuspendLayout();
@@ -326,14 +327,14 @@
             this.m_dgViewCalibration.BackgroundColor = System.Drawing.Color.White;
             this.m_dgViewCalibration.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
             this.m_dgViewCalibration.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.m_dgViewCalibration.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle16.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.m_dgViewCalibration.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
             this.m_dgViewCalibration.ColumnHeadersHeight = 25;
             this.m_dgViewCalibration.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.m_dgViewCalibration.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -341,14 +342,14 @@
             this.OutputVolt,
             this.InputVolt,
             this.Watt});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.m_dgViewCalibration.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.m_dgViewCalibration.DefaultCellStyle = dataGridViewCellStyle17;
             this.m_dgViewCalibration.EnableHeadersVisualStyles = false;
             this.m_dgViewCalibration.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
             this.m_dgViewCalibration.Location = new System.Drawing.Point(7, 279);
@@ -357,14 +358,14 @@
             this.m_dgViewCalibration.Name = "m_dgViewCalibration";
             this.m_dgViewCalibration.ReadOnly = true;
             this.m_dgViewCalibration.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.m_dgViewCalibration.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle18.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.m_dgViewCalibration.RowHeadersDefaultCellStyle = dataGridViewCellStyle18;
             this.m_dgViewCalibration.RowHeadersVisible = false;
             this.m_dgViewCalibration.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.m_dgViewCalibration.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
@@ -440,6 +441,7 @@
             this.btn_ParameterUndo.UseImage = true;
             this.btn_ParameterUndo.UserHoverEmpahsize = true;
             this.btn_ParameterUndo.UseSubFont = false;
+            this.btn_ParameterUndo.Click += new System.EventHandler(this.ClickParameterUndo);
             // 
             // btn_DecideParameterAll
             // 
@@ -480,45 +482,47 @@
             this.btn_DecideParameterAll.UseImage = true;
             this.btn_DecideParameterAll.UserHoverEmpahsize = true;
             this.btn_DecideParameterAll.UseSubFont = false;
+            this.btn_DecideParameterAll.Click += new System.EventHandler(this.ClickParameterSave);
             // 
-            // sys3button1
+            // btn_EMO
             // 
-            this.sys3button1.BorderWidth = 3;
-            this.sys3button1.ButtonClicked = false;
-            this.sys3button1.ClickedEmphasizeTextColor = System.Drawing.Color.White;
-            this.sys3button1.CustomClickedGradientFirstColor = System.Drawing.Color.White;
-            this.sys3button1.CustomClickedGradientSecondColor = System.Drawing.Color.White;
-            this.sys3button1.Description = "";
-            this.sys3button1.DisabledColor = System.Drawing.Color.DarkGray;
-            this.sys3button1.EdgeRadius = 1;
-            this.sys3button1.GradientAngle = 90F;
-            this.sys3button1.GradientFirstColor = System.Drawing.Color.White;
-            this.sys3button1.GradientSecondColor = System.Drawing.Color.Silver;
-            this.sys3button1.HoverEmphasizeCustomColor = System.Drawing.Color.White;
-            this.sys3button1.ImagePosition = new System.Drawing.Point(7, 7);
-            this.sys3button1.ImageSize = new System.Drawing.Point(30, 30);
-            this.sys3button1.LoadImage = global::FrameOfSystem3.Properties.Resources.CONFIG_ADD3;
-            this.sys3button1.Location = new System.Drawing.Point(998, 423);
-            this.sys3button1.MainFont = new System.Drawing.Font("맑은 고딕", 13F, System.Drawing.FontStyle.Bold);
-            this.sys3button1.MainFontColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(36)))), ((int)(((byte)(0)))));
-            this.sys3button1.Name = "sys3button1";
-            this.sys3button1.Size = new System.Drawing.Size(131, 40);
-            this.sys3button1.SubFont = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
-            this.sys3button1.SubFontColor = System.Drawing.Color.DarkBlue;
-            this.sys3button1.SubText = "STATUS";
-            this.sys3button1.TabIndex = 20876;
-            this.sys3button1.Text = "ALL EMO";
-            this.sys3button1.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.sys3button1.TextAlignSub = Sys3Controls.EN_TEXTALIGN.TOP_LEFT;
-            this.sys3button1.ThemeIndex = 0;
-            this.sys3button1.UseBorder = false;
-            this.sys3button1.UseClickedEmphasizeTextColor = false;
-            this.sys3button1.UseCustomizeClickedColor = false;
-            this.sys3button1.UseEdge = false;
-            this.sys3button1.UseHoverEmphasizeCustomColor = false;
-            this.sys3button1.UseImage = false;
-            this.sys3button1.UserHoverEmpahsize = true;
-            this.sys3button1.UseSubFont = false;
+            this.btn_EMO.BorderWidth = 3;
+            this.btn_EMO.ButtonClicked = false;
+            this.btn_EMO.ClickedEmphasizeTextColor = System.Drawing.Color.White;
+            this.btn_EMO.CustomClickedGradientFirstColor = System.Drawing.Color.White;
+            this.btn_EMO.CustomClickedGradientSecondColor = System.Drawing.Color.White;
+            this.btn_EMO.Description = "";
+            this.btn_EMO.DisabledColor = System.Drawing.Color.DarkGray;
+            this.btn_EMO.EdgeRadius = 1;
+            this.btn_EMO.GradientAngle = 90F;
+            this.btn_EMO.GradientFirstColor = System.Drawing.Color.White;
+            this.btn_EMO.GradientSecondColor = System.Drawing.Color.Silver;
+            this.btn_EMO.HoverEmphasizeCustomColor = System.Drawing.Color.White;
+            this.btn_EMO.ImagePosition = new System.Drawing.Point(7, 7);
+            this.btn_EMO.ImageSize = new System.Drawing.Point(30, 30);
+            this.btn_EMO.LoadImage = global::FrameOfSystem3.Properties.Resources.CONFIG_ADD3;
+            this.btn_EMO.Location = new System.Drawing.Point(998, 423);
+            this.btn_EMO.MainFont = new System.Drawing.Font("맑은 고딕", 13F, System.Drawing.FontStyle.Bold);
+            this.btn_EMO.MainFontColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(36)))), ((int)(((byte)(0)))));
+            this.btn_EMO.Name = "btn_EMO";
+            this.btn_EMO.Size = new System.Drawing.Size(131, 40);
+            this.btn_EMO.SubFont = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
+            this.btn_EMO.SubFontColor = System.Drawing.Color.DarkBlue;
+            this.btn_EMO.SubText = "STATUS";
+            this.btn_EMO.TabIndex = 1;
+            this.btn_EMO.Text = "ALL EMO";
+            this.btn_EMO.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
+            this.btn_EMO.TextAlignSub = Sys3Controls.EN_TEXTALIGN.TOP_LEFT;
+            this.btn_EMO.ThemeIndex = 0;
+            this.btn_EMO.UseBorder = false;
+            this.btn_EMO.UseClickedEmphasizeTextColor = false;
+            this.btn_EMO.UseCustomizeClickedColor = false;
+            this.btn_EMO.UseEdge = false;
+            this.btn_EMO.UseHoverEmphasizeCustomColor = false;
+            this.btn_EMO.UseImage = false;
+            this.btn_EMO.UserHoverEmpahsize = true;
+            this.btn_EMO.UseSubFont = false;
+            this.btn_EMO.Click += new System.EventHandler(this.Cick_All_IO);
             // 
             // btn_Reset
             // 
@@ -545,7 +549,7 @@
             this.btn_Reset.SubFont = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
             this.btn_Reset.SubFontColor = System.Drawing.Color.DarkBlue;
             this.btn_Reset.SubText = "STATUS";
-            this.btn_Reset.TabIndex = 20875;
+            this.btn_Reset.TabIndex = 0;
             this.btn_Reset.Text = "ALL RESET";
             this.btn_Reset.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
             this.btn_Reset.TextAlignSub = Sys3Controls.EN_TEXTALIGN.TOP_LEFT;
@@ -558,6 +562,7 @@
             this.btn_Reset.UseImage = false;
             this.btn_Reset.UserHoverEmpahsize = true;
             this.btn_Reset.UseSubFont = false;
+            this.btn_Reset.Click += new System.EventHandler(this.Cick_All_IO);
             // 
             // m_lblAlarmCodeMonitor
             // 
@@ -901,7 +906,7 @@
             this.m_btnStop.ImagePosition = new System.Drawing.Point(37, 7);
             this.m_btnStop.ImageSize = new System.Drawing.Point(30, 30);
             this.m_btnStop.LoadImage = global::FrameOfSystem3.Properties.Resources.Stop_white;
-            this.m_btnStop.Location = new System.Drawing.Point(226, 2);
+            this.m_btnStop.Location = new System.Drawing.Point(449, 2);
             this.m_btnStop.MainFont = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.m_btnStop.MainFontColor = System.Drawing.Color.White;
             this.m_btnStop.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -910,7 +915,7 @@
             this.m_btnStop.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
             this.m_btnStop.SubFontColor = System.Drawing.Color.Black;
             this.m_btnStop.SubText = "";
-            this.m_btnStop.TabIndex = 20881;
+            this.m_btnStop.TabIndex = 2;
             this.m_btnStop.Text = "　STOP";
             this.m_btnStop.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
             this.m_btnStop.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
@@ -923,6 +928,7 @@
             this.m_btnStop.UseImage = true;
             this.m_btnStop.UserHoverEmpahsize = false;
             this.m_btnStop.UseSubFont = false;
+            this.m_btnStop.Click += new System.EventHandler(this.Click_OperationButton);
             // 
             // m_btnRun
             // 
@@ -941,7 +947,7 @@
             this.m_btnRun.ImagePosition = new System.Drawing.Point(37, 25);
             this.m_btnRun.ImageSize = new System.Drawing.Point(30, 30);
             this.m_btnRun.LoadImage = null;
-            this.m_btnRun.Location = new System.Drawing.Point(3, 2);
+            this.m_btnRun.Location = new System.Drawing.Point(226, 2);
             this.m_btnRun.MainFont = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.m_btnRun.MainFontColor = System.Drawing.Color.White;
             this.m_btnRun.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -1083,9 +1089,50 @@
             this.gridViewControl_Enable_Parameter.Size = new System.Drawing.Size(1133, 53);
             this.gridViewControl_Enable_Parameter.TabIndex = 20878;
             // 
+            // m_btnInitialize
+            // 
+            this.m_btnInitialize.BorderWidth = 5;
+            this.m_btnInitialize.ButtonClicked = false;
+            this.m_btnInitialize.ClickedEmphasizeTextColor = System.Drawing.Color.White;
+            this.m_btnInitialize.CustomClickedGradientFirstColor = System.Drawing.Color.White;
+            this.m_btnInitialize.CustomClickedGradientSecondColor = System.Drawing.Color.White;
+            this.m_btnInitialize.Description = "";
+            this.m_btnInitialize.DisabledColor = System.Drawing.Color.DarkGray;
+            this.m_btnInitialize.EdgeRadius = 5;
+            this.m_btnInitialize.GradientAngle = 60F;
+            this.m_btnInitialize.GradientFirstColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(150)))), ((int)(((byte)(255)))));
+            this.m_btnInitialize.GradientSecondColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(65)))), ((int)(((byte)(200)))));
+            this.m_btnInitialize.HoverEmphasizeCustomColor = System.Drawing.Color.White;
+            this.m_btnInitialize.ImagePosition = new System.Drawing.Point(37, 7);
+            this.m_btnInitialize.ImageSize = new System.Drawing.Point(30, 30);
+            this.m_btnInitialize.LoadImage = global::FrameOfSystem3.Properties.Resources.Home_White;
+            this.m_btnInitialize.Location = new System.Drawing.Point(3, 2);
+            this.m_btnInitialize.MainFont = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.m_btnInitialize.MainFontColor = System.Drawing.Color.White;
+            this.m_btnInitialize.Name = "m_btnInitialize";
+            this.m_btnInitialize.Size = new System.Drawing.Size(222, 43);
+            this.m_btnInitialize.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
+            this.m_btnInitialize.SubFontColor = System.Drawing.Color.Black;
+            this.m_btnInitialize.SubText = "";
+            this.m_btnInitialize.TabIndex = 0;
+            this.m_btnInitialize.Text = "　　INITIALIZE";
+            this.m_btnInitialize.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
+            this.m_btnInitialize.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
+            this.m_btnInitialize.ThemeIndex = 0;
+            this.m_btnInitialize.UseBorder = true;
+            this.m_btnInitialize.UseClickedEmphasizeTextColor = false;
+            this.m_btnInitialize.UseCustomizeClickedColor = false;
+            this.m_btnInitialize.UseEdge = true;
+            this.m_btnInitialize.UseHoverEmphasizeCustomColor = false;
+            this.m_btnInitialize.UseImage = true;
+            this.m_btnInitialize.UserHoverEmpahsize = true;
+            this.m_btnInitialize.UseSubFont = false;
+            this.m_btnInitialize.Click += new System.EventHandler(this.Click_OperationButton);
+            // 
             // Operation_Main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.Controls.Add(this.m_btnInitialize);
             this.Controls.Add(this.m_lblCalFileName);
             this.Controls.Add(this.btn_CalLoad);
             this.Controls.Add(this.sys3Label3);
@@ -1098,7 +1145,7 @@
             this.Controls.Add(this.sys3GroupBox1);
             this.Controls.Add(this.btn_ParameterUndo);
             this.Controls.Add(this.btn_DecideParameterAll);
-            this.Controls.Add(this.sys3button1);
+            this.Controls.Add(this.btn_EMO);
             this.Controls.Add(this.btn_Reset);
             this.Controls.Add(this.m_lblAlarmCodeMonitor);
             this.Controls.Add(this.m_lblAlarmCodePort3);
@@ -1140,7 +1187,7 @@
         private Sys3Controls.Sys3GroupBox sys3GroupBox1;
         private Sys3Controls.Sys3button btn_ParameterUndo;
         private Sys3Controls.Sys3button btn_DecideParameterAll;
-        private Sys3Controls.Sys3button sys3button1;
+        private Sys3Controls.Sys3button btn_EMO;
         private Sys3Controls.Sys3button btn_Reset;
         private Sys3Controls.Sys3Label m_lblAlarmCodeMonitor;
         private Sys3Controls.Sys3Label m_lblAlarmCodePort3;
@@ -1159,5 +1206,6 @@
         private Sys3Controls.Sys3GroupBox sys3GroupBox5;
         private Sys3Controls.Sys3Label m_labelRunMode;
         private Sys3Controls.Sys3GroupBoxContainer m_groupRunMode;
+        private Sys3Controls.Sys3button m_btnInitialize;
     }
 }

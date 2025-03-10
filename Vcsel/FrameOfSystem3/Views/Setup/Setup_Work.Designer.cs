@@ -27,9 +27,9 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.m_btnRun = new Sys3Controls.Sys3button();
             this.m_btnStop = new Sys3Controls.Sys3button();
             this.sys3GroupBox5 = new Sys3Controls.Sys3GroupBox();
@@ -46,11 +46,7 @@
             this.sys3GroupBox3 = new Sys3Controls.Sys3GroupBox();
             this.btn_ParameterUndo = new Sys3Controls.Sys3button();
             this.btn_DecideParameterAll = new Sys3Controls.Sys3button();
-            this.gridViewControl_Laser_Parameter = new FrameOfSystem3.Component.GridViewControl_Parameter();
-            this.gridVeiwControl_Laser_Device = new FrameOfSystem3.Component.GridVeiwControl_Device();
-            this.gridViewControl_Enable_Parameter = new FrameOfSystem3.Component.GridViewControl_Parameter();
             this.sys3GroupBox1 = new Sys3Controls.Sys3GroupBox();
-            this.gridViewControl_Power_Measure_Parameter = new FrameOfSystem3.Component.GridViewControl_Parameter();
             this.m_lblCalFileName = new Sys3Controls.Sys3Label();
             this.btn_CalLoad = new Sys3Controls.Sys3button();
             this.sys3Label3 = new Sys3Controls.Sys3Label();
@@ -62,6 +58,10 @@
             this.InputVolt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Watt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sys3GroupBox2 = new Sys3Controls.Sys3GroupBox();
+            this.gridViewControl_Power_Measure_Parameter = new FrameOfSystem3.Component.GridViewControl_Parameter();
+            this.gridViewControl_Laser_Parameter = new FrameOfSystem3.Component.GridViewControl_Parameter();
+            this.gridVeiwControl_Laser_Device = new FrameOfSystem3.Component.GridVeiwControl_Device();
+            this.gridViewControl_Enable_Parameter = new FrameOfSystem3.Component.GridViewControl_Parameter();
             ((System.ComponentModel.ISupportInitialize)(this.m_dgViewCalibration)).BeginInit();
             this.SuspendLayout();
             // 
@@ -654,35 +654,6 @@
             this.btn_DecideParameterAll.UseSubFont = false;
             this.btn_DecideParameterAll.Click += new System.EventHandler(this.ClickParameterSave);
             // 
-            // gridViewControl_Laser_Parameter
-            // 
-            this.gridViewControl_Laser_Parameter.Control_Enable = true;
-            this.gridViewControl_Laser_Parameter.controlCollection = null;
-            this.gridViewControl_Laser_Parameter.Location = new System.Drawing.Point(3, 132);
-            this.gridViewControl_Laser_Parameter.Name = "gridViewControl_Laser_Parameter";
-            this.gridViewControl_Laser_Parameter.Size = new System.Drawing.Size(642, 78);
-            this.gridViewControl_Laser_Parameter.TabIndex = 20845;
-            // 
-            // gridVeiwControl_Laser_Device
-            // 
-            this.gridVeiwControl_Laser_Device.Control_Enable = true;
-            this.gridVeiwControl_Laser_Device.controlCollection = null;
-            this.gridVeiwControl_Laser_Device.Location = new System.Drawing.Point(646, 132);
-            this.gridVeiwControl_Laser_Device.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.gridVeiwControl_Laser_Device.Name = "gridVeiwControl_Laser_Device";
-            this.gridVeiwControl_Laser_Device.Size = new System.Drawing.Size(490, 178);
-            this.gridVeiwControl_Laser_Device.TabIndex = 20844;
-            // 
-            // gridViewControl_Enable_Parameter
-            // 
-            this.gridViewControl_Enable_Parameter.Control_Enable = true;
-            this.gridViewControl_Enable_Parameter.controlCollection = null;
-            this.gridViewControl_Enable_Parameter.Location = new System.Drawing.Point(3, 78);
-            this.gridViewControl_Enable_Parameter.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
-            this.gridViewControl_Enable_Parameter.Name = "gridViewControl_Enable_Parameter";
-            this.gridViewControl_Enable_Parameter.Size = new System.Drawing.Size(1133, 53);
-            this.gridViewControl_Enable_Parameter.TabIndex = 20843;
-            // 
             // sys3GroupBox1
             // 
             this.sys3GroupBox1.BackGroundColor = System.Drawing.Color.WhiteSmoke;
@@ -701,16 +672,6 @@
             this.sys3GroupBox1.TextAlign = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
             this.sys3GroupBox1.ThemeIndex = 0;
             this.sys3GroupBox1.UseLabelBorder = true;
-            // 
-            // gridViewControl_Power_Measure_Parameter
-            // 
-            this.gridViewControl_Power_Measure_Parameter.Control_Enable = true;
-            this.gridViewControl_Power_Measure_Parameter.controlCollection = null;
-            this.gridViewControl_Power_Measure_Parameter.Location = new System.Drawing.Point(424, 211);
-            this.gridViewControl_Power_Measure_Parameter.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.gridViewControl_Power_Measure_Parameter.Name = "gridViewControl_Power_Measure_Parameter";
-            this.gridViewControl_Power_Measure_Parameter.Size = new System.Drawing.Size(221, 255);
-            this.gridViewControl_Power_Measure_Parameter.TabIndex = 20873;
             // 
             // m_lblCalFileName
             // 
@@ -922,14 +883,14 @@
             this.m_dgViewCalibration.BackgroundColor = System.Drawing.Color.White;
             this.m_dgViewCalibration.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
             this.m_dgViewCalibration.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.m_dgViewCalibration.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.m_dgViewCalibration.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.m_dgViewCalibration.ColumnHeadersHeight = 25;
             this.m_dgViewCalibration.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.m_dgViewCalibration.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -937,14 +898,14 @@
             this.OutputVolt,
             this.InputVolt,
             this.Watt});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.m_dgViewCalibration.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.m_dgViewCalibration.DefaultCellStyle = dataGridViewCellStyle5;
             this.m_dgViewCalibration.EnableHeadersVisualStyles = false;
             this.m_dgViewCalibration.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
             this.m_dgViewCalibration.Location = new System.Drawing.Point(7, 282);
@@ -953,14 +914,14 @@
             this.m_dgViewCalibration.Name = "m_dgViewCalibration";
             this.m_dgViewCalibration.ReadOnly = true;
             this.m_dgViewCalibration.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.m_dgViewCalibration.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.m_dgViewCalibration.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.m_dgViewCalibration.RowHeadersVisible = false;
             this.m_dgViewCalibration.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.m_dgViewCalibration.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
@@ -1024,6 +985,45 @@
             this.sys3GroupBox2.TextAlign = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
             this.sys3GroupBox2.ThemeIndex = 0;
             this.sys3GroupBox2.UseLabelBorder = true;
+            // 
+            // gridViewControl_Power_Measure_Parameter
+            // 
+            this.gridViewControl_Power_Measure_Parameter.Control_Enable = true;
+            this.gridViewControl_Power_Measure_Parameter.controlCollection = null;
+            this.gridViewControl_Power_Measure_Parameter.Location = new System.Drawing.Point(424, 211);
+            this.gridViewControl_Power_Measure_Parameter.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.gridViewControl_Power_Measure_Parameter.Name = "gridViewControl_Power_Measure_Parameter";
+            this.gridViewControl_Power_Measure_Parameter.Size = new System.Drawing.Size(221, 255);
+            this.gridViewControl_Power_Measure_Parameter.TabIndex = 20873;
+            // 
+            // gridViewControl_Laser_Parameter
+            // 
+            this.gridViewControl_Laser_Parameter.Control_Enable = true;
+            this.gridViewControl_Laser_Parameter.controlCollection = null;
+            this.gridViewControl_Laser_Parameter.Location = new System.Drawing.Point(3, 132);
+            this.gridViewControl_Laser_Parameter.Name = "gridViewControl_Laser_Parameter";
+            this.gridViewControl_Laser_Parameter.Size = new System.Drawing.Size(642, 78);
+            this.gridViewControl_Laser_Parameter.TabIndex = 20845;
+            // 
+            // gridVeiwControl_Laser_Device
+            // 
+            this.gridVeiwControl_Laser_Device.Control_Enable = true;
+            this.gridVeiwControl_Laser_Device.controlCollection = null;
+            this.gridVeiwControl_Laser_Device.Location = new System.Drawing.Point(646, 132);
+            this.gridVeiwControl_Laser_Device.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.gridVeiwControl_Laser_Device.Name = "gridVeiwControl_Laser_Device";
+            this.gridVeiwControl_Laser_Device.Size = new System.Drawing.Size(490, 178);
+            this.gridVeiwControl_Laser_Device.TabIndex = 20844;
+            // 
+            // gridViewControl_Enable_Parameter
+            // 
+            this.gridViewControl_Enable_Parameter.Control_Enable = true;
+            this.gridViewControl_Enable_Parameter.controlCollection = null;
+            this.gridViewControl_Enable_Parameter.Location = new System.Drawing.Point(3, 78);
+            this.gridViewControl_Enable_Parameter.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
+            this.gridViewControl_Enable_Parameter.Name = "gridViewControl_Enable_Parameter";
+            this.gridViewControl_Enable_Parameter.Size = new System.Drawing.Size(1133, 53);
+            this.gridViewControl_Enable_Parameter.TabIndex = 20843;
             // 
             // Setup_Work
             // 

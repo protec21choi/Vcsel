@@ -163,6 +163,11 @@ namespace FrameOfSystem3.Views.Operation
                     }
                     break;
                 case 1: // RUN
+                    if (m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.LASER_USED.ToString(), false) == false)
+                    {
+                        if (m_InstanceMessageBox.ShowMessage("LASER PARAMETER OFF\nDO YOU WANT RUN?", "CONFIRMATION MESSAGE", true) == false)
+                            return;
+                    }
                     Task.TaskOperator.GetInstance().SetOperation(OPERATION_EQUIPMENT.RUN);
                     break;
                 case 2: // STOP
@@ -958,11 +963,20 @@ namespace FrameOfSystem3.Views.Operation
 
         private void ClickParameterUndo(object sender, EventArgs e)
         {
+            if(m_MessageBox.ShowMessage("Do You Want To Undo Recipe?"))
+                m_instanceRecipe.ClearDeferredStorage();
 
+            UpdateParamter();
         }
 
         private void ClickParameterSave(object sender, EventArgs e)
         {
+            if (m_MessageBox.ShowMessage("Do You Want To Save Recipe?"))
+                m_instanceRecipe.ApplyDeferredStorage();
+
+            UpdateParamter();
+
+            UpdatePowerLabel();
 
         }
 

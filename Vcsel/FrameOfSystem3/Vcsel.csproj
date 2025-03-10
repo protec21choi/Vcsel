@@ -389,8 +389,6 @@
     <Compile Include="SubSequence\SubVisionInspection\Sequence\Dual\SubSeqInspDualVision.cs" />
     <Compile Include="SubSequence\SubVisionInspection\Sequence\SubSeqInspection.cs" />
     <Compile Include="Task\RunningTaskEx.cs" />
-    <Compile Include="Task\TaskTransfer.cs" />
-    <Compile Include="Task\TaskWorkZone.cs" />
     <Compile Include="Task\TaskBondHead.cs" />
     <Compile Include="Task\TaskOperator.cs" />
     <Compile Include="Tool\WorkTool.cs" />
