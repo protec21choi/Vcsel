@@ -235,7 +235,7 @@ namespace FrameOfSystem3.Views.Operation
             //             gridViewControl_WorkStatus_Parameter.UpdateValue();
             UpdatePowerLabel();
             gridViewControl_Power_Measure_Parameter.UpdateValue();
-
+            UpdatePowerTable();
         }
         protected override void ProcessWhenDeactivation()
         {
@@ -1033,7 +1033,19 @@ namespace FrameOfSystem3.Views.Operation
         #region Cal Table Grid & Power Measure Grid
         private void Click_CalFileLoad(object sender, EventArgs e)
         {
+            m_instanceFile.DefaultExt = Define.DefineConstant.FileFormat.FILEFORMAT_CALIBRATION;
+            m_instanceFile.InitialDirectory = Define.DefineConstant.FilePath.FILEPATH_CALIBRATION_LASER;
 
+            if (m_instanceFile.ShowDialog() == DialogResult.Cancel)
+                return;
+
+           string strFullFileName = m_instanceFile.FileName;
+           string[] arFileName = strFullFileName.Split('\\');
+           string strFileName = arFileName[arFileName.Length - 1].Split('.')[0];
+            string strFileRoot = string.Join("\\", arFileName.Take(arFileName.Length - 1));
+            m_LaserCalManager.ModifyChannelCalibrationFile(ComboBox_Channel.SelectedIndex, strFileRoot, strFileName);
+
+            UpdatePowerTable();
         }
 
         private void UpdatePowerTable()
@@ -1057,8 +1069,46 @@ namespace FrameOfSystem3.Views.Operation
 
         private void m_dgViewCalibration_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            int nRowindex = e.RowIndex;
+            int nColumnIndex = e.ColumnIndex;
 
+            if (nRowindex < 0
+                || nRowindex >= m_dgViewCalibration.RowCount) { return; }
+
+            double dWriteValue = 0;
+
+            switch (nColumnIndex)
+            {
+                case 1: //output volt
+                    if (_Calculator_Instance_m_p.CreateForm(m_dgViewCalibration[nColumnIndex, nRowindex].ToString(), "0", "5000"))
+                    {
+                        _Calculator_Instance_m_p.GetResult(ref dWriteValue);
+                        ProtecLaserChannelCalibration.GetInstance().UpdateCalibrationInformation(ComboBox_Channel.SelectedIndex, nRowindex, (int)EN_CALIBRATION_INDEX.TARGET_VOLT, dWriteValue);
+                    }
+                    break;
+
+                case 2: //Input Volt
+                    if (_Calculator_Instance_m_p.CreateForm(m_dgViewCalibration[nColumnIndex, nRowindex].ToString(), "0", "5000"))
+                    {
+                        _Calculator_Instance_m_p.GetResult(ref dWriteValue);
+                        ProtecLaserChannelCalibration.GetInstance().UpdateCalibrationInformation(ComboBox_Channel.SelectedIndex, nRowindex, (int)EN_CALIBRATION_INDEX.POWER_INPUT_VOLT, dWriteValue);
+                    }
+                    break;
+
+                case 3: //output watt
+                    if (_Calculator_Instance_m_p.CreateForm(m_dgViewCalibration[nColumnIndex, nRowindex].ToString(), "0", "5000"))
+                    {
+                        _Calculator_Instance_m_p.GetResult(ref dWriteValue);
+                        ProtecLaserChannelCalibration.GetInstance().UpdateCalibrationInformation(ComboBox_Channel.SelectedIndex, nRowindex, (int)EN_CALIBRATION_INDEX.POWER_OUTPUT_WATT, dWriteValue);
+                    }
+
+                    break;
+            }
+
+            UpdatePowerTable();
+            SetPowerMinMax();
         }
+
         private void InitGridPowerMesureParameter()
         {
             List<GridViewControl_Parameter.ParameterItem> parameterList = new List<GridViewControl_Parameter.ParameterItem>();

@@ -193,6 +193,7 @@
             this.btn_CalLoad.UseImage = true;
             this.btn_CalLoad.UserHoverEmpahsize = true;
             this.btn_CalLoad.UseSubFont = false;
+            this.btn_CalLoad.Click += new System.EventHandler(this.Click_CalFileLoad);
             // 
             // sys3Label3
             // 
@@ -371,6 +372,7 @@
             this.m_dgViewCalibration.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.m_dgViewCalibration.Size = new System.Drawing.Size(412, 184);
             this.m_dgViewCalibration.TabIndex = 20895;
+            this.m_dgViewCalibration.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.m_dgViewCalibration_CellContentClick);
             // 
             // Watt
             // 
