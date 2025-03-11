@@ -303,6 +303,9 @@
     <Compile Include="DynamicLink\FlowLink.cs" />
     <Compile Include="DynamicLink\NodeLink.cs" />
     <Compile Include="DynamicLink\PortLink.cs" />
+    <Compile Include="ExternalDevice\Serial\Laser_Protec_2.cs" />
+    <Compile Include="Laser\ProtecLaserChannelCalibration_2.cs" />
+    <Compile Include="Laser\ProtecLaserMananger_2.cs" />
     <Compile Include="RAMMetrics\RAM_Metrics.cs" />
     <Compile Include="EquipmentProperty\EquipmentProperty.cs" />
     <Compile Include="EquipmentProperty\RawMaterialPortManager.cs" />
@@ -346,10 +349,8 @@
     <Compile Include="Functional\SelectionList.cs" />
     <Compile Include="Functional\WorkPosition.cs" />
     <Compile Include="Interfaces\RegisteredInterface.cs" />
-    <Compile Include="Laser\ProtecLaserLossRateCalibration.cs" />
     <Compile Include="Laser\ProtecLaserChannelCalibration.cs" />
     <Compile Include="Laser\ProtecLaserMananger.cs" />
-    <Compile Include="Laser\AjinAnalogListControl.cs" />
     <Compile Include="Log\Log.cs" />
     <Compile Include="Log\LogWriter.cs" />
     <Compile Include="Log\WorkLog.cs" />
