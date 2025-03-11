@@ -863,6 +863,7 @@ namespace Define
                 POWERMETER = 5,
                 MODBUS_CHILLER = 6,
                 FFU = 7,
+                // 2025.3.11 by ecchoi [ADD] Laser 2
                 LD_2_CONTROL_1 = 8,
                 LD_2_CONTROL_2 = 9,
                 LD_2_CONTROL_3 = 10,
