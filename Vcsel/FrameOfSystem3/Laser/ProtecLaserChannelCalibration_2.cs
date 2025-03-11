@@ -56,7 +56,7 @@ namespace FrameOfSystem3.Laser
         #endregion
      
         #region Calibration
-        private string m_strCalibrationFileName = "CalibrationData";
+        private string m_strCalibrationFileName = "CalibrationData_2";
 
         private Dictionary<int, ProtecLaserChannelData_2> m_dicTotalChannelCalibration =
             new Dictionary<int, ProtecLaserChannelData_2>(); // Channel , Channel Cal Data

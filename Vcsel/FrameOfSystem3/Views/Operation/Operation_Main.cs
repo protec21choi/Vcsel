@@ -43,9 +43,7 @@ namespace FrameOfSystem3.Views.Operation
             InitGridLaserDevice();
             InitGridLaserParameter();
             InitGridPowerMesureParameter();
-            ComboBox_Channel.SelectedIndex = 0;
-            ComboBox_Channel_2.SelectedIndex = 0;
-
+            
             InitGridEnableParameter_2();
             InitGridLaserDevice_2();
             InitGridLaserParameter_2();
@@ -56,6 +54,9 @@ namespace FrameOfSystem3.Views.Operation
             m_LaserCalManager = Laser.ProtecLaserChannelCalibration.GetInstance();
             m_LaserCalManager_2 = Laser.ProtecLaserChannelCalibration_2.GetInstance();
             #endregion
+
+            ComboBox_Channel.SelectedIndex = 0;
+            ComboBox_Channel_2.SelectedIndex = 0;
         }
 
         #region Enum
@@ -302,7 +303,7 @@ namespace FrameOfSystem3.Views.Operation
             {
                 lstIndex.Add(nCh);
                 lstDisplay.Add("CH " + (nCh + 1).ToString());
-                lstParam.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_ENABLE_18_2.ToString());
+                lstParam.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_ENABLE_18.ToString());
             }
 
             AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, lstParam, lstIndex);
@@ -319,7 +320,7 @@ namespace FrameOfSystem3.Views.Operation
             {
                 lstIndex.Add(nCh);
                 lstDisplay.Add("CH " + (nCh + 1).ToString());
-                lstParam.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_ENABLE_18_2.ToString());
+                lstParam.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_ENABLE_18.ToString());
             }
 
             AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, lstParam, lstIndex);
@@ -531,21 +532,21 @@ namespace FrameOfSystem3.Views.Operation
 
             List<string> AddParaList = new List<string>();
 
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5_2.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5_2.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5_2.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5_2.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5_2.ToString());
+            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_POWER_5.ToString());
+            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_POWER_5.ToString());
+            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_POWER_5.ToString());
+            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_POWER_5.ToString());
+            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_POWER_5.ToString());
             GridViewControl_Parameter.ParameterItem AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList);
             AddParaItem.DisplayName = "LASER POWER";
             parameterList.Add(AddParaItem);
 
             AddParaList = new List<string>();
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_TIME_5_2.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_TIME_5_2.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_TIME_5_2.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_TIME_5_2.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_TIME_5_2.ToString());
+            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_TIME_5.ToString());
+            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_TIME_5.ToString());
+            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_TIME_5.ToString());
+            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_TIME_5.ToString());
+            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_TIME_5.ToString());
             AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList);
             AddParaItem.DisplayName = "LASER TIME";
             parameterList.Add(AddParaItem);
@@ -578,28 +579,22 @@ namespace FrameOfSystem3.Views.Operation
             bool[] arUsed = new bool[ProtecLaserMananger.GetInstance().ChannelCount];
             for (int nCh = 0; nCh < ProtecLaserMananger.GetInstance().ChannelCount; ++nCh)
             {
-                arUsed[nCh] = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                arUsed[nCh] = m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
             }
 
-            for (int nStep = 0; nStep < 5; ++nStep)
-            {
-                m_instanceRecipe.SetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5.ToString(), nStep, EN_RECIPE_PARAM_TYPE.MAX, ProtecLaserChannelCalibration.GetInstance().GetMaxPower(arUsed).ToString());
-                m_instanceRecipe.SetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5.ToString(), nStep, EN_RECIPE_PARAM_TYPE.MIN, ProtecLaserChannelCalibration.GetInstance().GetMinPower(arUsed).ToString());
-            }
+            m_instanceRecipe.SetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.POWER_MEASURE_WATT.ToString(), 0, EN_RECIPE_PARAM_TYPE.MAX, m_LaserCalManager.GetMaxPower(arUsed).ToString());
+            m_instanceRecipe.SetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.POWER_MEASURE_WATT.ToString(), 0, EN_RECIPE_PARAM_TYPE.MIN, m_LaserCalManager.GetMinPower(arUsed).ToString());
         }
         private void SetPowerMinMax_2()
         {
             bool[] arUsed = new bool[ProtecLaserMananger_2.GetInstance().ChannelCount];
             for (int nCh = 0; nCh < ProtecLaserMananger_2.GetInstance().ChannelCount; ++nCh)
             {
-                arUsed[nCh] = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_ENABLE_18_2.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                arUsed[nCh] = m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.POWER_MEASURE_2_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
             }
 
-            for (int nStep = 0; nStep < 5; ++nStep)
-            {
-                m_instanceRecipe.SetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5_2.ToString(), nStep, EN_RECIPE_PARAM_TYPE.MAX, ProtecLaserChannelCalibration_2.GetInstance().GetMaxPower(arUsed).ToString());
-                m_instanceRecipe.SetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5_2.ToString(), nStep, EN_RECIPE_PARAM_TYPE.MIN, ProtecLaserChannelCalibration_2.GetInstance().GetMinPower(arUsed).ToString());
-            }
+            m_instanceRecipe.SetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.POWER_MEASURE_2_WATT.ToString(), 0, EN_RECIPE_PARAM_TYPE.MAX, m_LaserCalManager_2.GetMaxPower(arUsed).ToString());
+            m_instanceRecipe.SetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.POWER_MEASURE_2_WATT.ToString(), 0, EN_RECIPE_PARAM_TYPE.MIN, m_LaserCalManager_2.GetMinPower(arUsed).ToString());
         }
 
         private void UpdateAlamCode()
@@ -882,12 +877,12 @@ namespace FrameOfSystem3.Views.Operation
             double[] arTotalPower = new double[5];
 
             bool[] arUsed = new bool[Laser.ProtecLaserMananger_2.GetInstance().ChannelCount];
-            double dSidePercent = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SIDE_POWER_PERCENT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+            double dSidePercent = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SIDE_POWER_2_PERCENT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
             int[] arSideCh = new int[] { 0, 8, 9, 17 };
 
             for (int nCh = 0; nCh < Laser.ProtecLaserMananger_2.GetInstance().ChannelCount; ++nCh)
             {
-                arUsed[nCh] = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                arUsed[nCh] = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_2_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
             }
 
             double nUsedChannelCount = 0;
@@ -952,23 +947,25 @@ namespace FrameOfSystem3.Views.Operation
         }
         private void UpdatePowerTable_2()
         {
-            m_lblCalFileName.Text = m_LaserCalManager_2.CalibrationChannelFileName(ComboBox_Channel_2.SelectedIndex);
-            m_dgViewCalibration.Rows.Clear();
+            m_lblCalFileName_2.Text = m_LaserCalManager_2.CalibrationChannelFileName(ComboBox_Channel_2.SelectedIndex);
+            m_dgViewCalibration_2.Rows.Clear();
             foreach (var kvp in m_LaserCalManager_2.CalibrationDatas(ComboBox_Channel_2.SelectedIndex))
             {
-                m_dgViewCalibration.Rows.Add();
-                m_dgViewCalibration[(int)EN_GRID_INDEX_2.INDEX, kvp.Key].Value = kvp.Key;
-                m_dgViewCalibration[(int)EN_GRID_INDEX_2.VOLT, kvp.Key].Value = kvp.Value.TargetVolt_2;
-                m_dgViewCalibration[(int)EN_GRID_INDEX_2.OUTPUT_POWER, kvp.Key].Value = kvp.Value.PowerOutputWatt_2;
-                m_dgViewCalibration[(int)EN_GRID_INDEX_2.INPUT_VOLT, kvp.Key].Value = kvp.Value.PowerInputVolt_2;
+                m_dgViewCalibration_2.Rows.Add();
+                m_dgViewCalibration_2[(int)EN_GRID_INDEX_2.INDEX, kvp.Key].Value = kvp.Key;
+                m_dgViewCalibration_2[(int)EN_GRID_INDEX_2.VOLT, kvp.Key].Value = kvp.Value.TargetVolt_2;
+                m_dgViewCalibration_2[(int)EN_GRID_INDEX_2.OUTPUT_POWER, kvp.Key].Value = kvp.Value.PowerOutputWatt_2;
+                m_dgViewCalibration_2[(int)EN_GRID_INDEX_2.INPUT_VOLT, kvp.Key].Value = kvp.Value.PowerInputVolt_2;
             }
         }
         private void ComboBox_Channel_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdatePowerTable();
+        }
+        private void ComboBox_Channel_SelectedIndexChanged_2(object sender, EventArgs e)
+        {
             UpdatePowerTable_2();
         }
-
         private void m_dgViewCalibration_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             int nRowindex = e.RowIndex;
@@ -1016,14 +1013,14 @@ namespace FrameOfSystem3.Views.Operation
             int nColumnIndex = e.ColumnIndex;
 
             if (nRowindex < 0
-                || nRowindex >= m_dgViewCalibration.RowCount) { return; }
+                || nRowindex >= m_dgViewCalibration_2.RowCount) { return; }
 
             double dWriteValue = 0;
 
             switch (nColumnIndex)
             {
                 case 1: //output volt
-                    if (_Calculator_Instance_m_p.CreateForm(m_dgViewCalibration[nColumnIndex, nRowindex].ToString(), "0", "5000"))
+                    if (_Calculator_Instance_m_p.CreateForm(m_dgViewCalibration_2[nColumnIndex, nRowindex].ToString(), "0", "5000"))
                     {
                         _Calculator_Instance_m_p.GetResult(ref dWriteValue);
                         ProtecLaserChannelCalibration_2.GetInstance().UpdateCalibrationInformation(ComboBox_Channel_2.SelectedIndex, nRowindex, (int)EN_CALIBRATION_INDEX_2.TARGET_VOLT, dWriteValue);
@@ -1031,7 +1028,7 @@ namespace FrameOfSystem3.Views.Operation
                     break;
 
                 case 2: //Input Volt
-                    if (_Calculator_Instance_m_p.CreateForm(m_dgViewCalibration[nColumnIndex, nRowindex].ToString(), "0", "5000"))
+                    if (_Calculator_Instance_m_p.CreateForm(m_dgViewCalibration_2[nColumnIndex, nRowindex].ToString(), "0", "5000"))
                     {
                         _Calculator_Instance_m_p.GetResult(ref dWriteValue);
                         ProtecLaserChannelCalibration_2.GetInstance().UpdateCalibrationInformation(ComboBox_Channel_2.SelectedIndex, nRowindex, (int)EN_CALIBRATION_INDEX_2.POWER_INPUT_VOLT, dWriteValue);
@@ -1039,7 +1036,7 @@ namespace FrameOfSystem3.Views.Operation
                     break;
 
                 case 3: //output watt
-                    if (_Calculator_Instance_m_p.CreateForm(m_dgViewCalibration[nColumnIndex, nRowindex].ToString(), "0", "5000"))
+                    if (_Calculator_Instance_m_p.CreateForm(m_dgViewCalibration_2[nColumnIndex, nRowindex].ToString(), "0", "5000"))
                     {
                         _Calculator_Instance_m_p.GetResult(ref dWriteValue);
                         ProtecLaserChannelCalibration_2.GetInstance().UpdateCalibrationInformation(ComboBox_Channel_2.SelectedIndex, nRowindex, (int)EN_CALIBRATION_INDEX_2.POWER_OUTPUT_WATT, dWriteValue);
@@ -1105,43 +1102,43 @@ namespace FrameOfSystem3.Views.Operation
 
             GridViewControl_Parameter.ParameterItem AddParaItem;
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_SELLECTED_CHANNEL_2);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_2_SELLECTED_CHANNEL);
             AddParaItem.DisplayName = "SELLECT CH";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_WATT_2);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_2_WATT);
             AddParaItem.DisplayName = "TARGET WATT";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_VOLT_2);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_2_VOLT);
             AddParaItem.DisplayName = "TARGET VOLT";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_SHOT_TIME_2);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_2_SHOT_TIME);
             AddParaItem.DisplayName = "LASER TIME";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_WAIT_TIME_2);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_2_WAIT_TIME);
             AddParaItem.DisplayName = "WAIT TIME";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_REPEAT_COUNT_2);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_2_REPEAT_COUNT);
             AddParaItem.DisplayName = "REPEAT COUNT";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_REST_TIME_2);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_2_REST_TIME);
             AddParaItem.DisplayName = "REST TIME";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_CALIBRATION_MIN_VOLT_2);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_CALIBRATION_2_MIN_VOLT);
             AddParaItem.DisplayName = "CAL START VOLT";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_CALIBRATION_MAX_VOLT_2);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_CALIBRATION_2_MAX_VOLT);
             AddParaItem.DisplayName = "CAL END VOLT";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_CALIBRATION_STEP_COUNT_2);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_CALIBRATION_2_STEP_COUNT);
             AddParaItem.DisplayName = "CAL STEP";
             parameterList.Add(AddParaItem);
 

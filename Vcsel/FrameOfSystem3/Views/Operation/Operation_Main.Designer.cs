@@ -64,10 +64,6 @@
             this.sys3GroupBox5 = new Sys3Controls.Sys3GroupBox();
             this.m_labelRunMode = new Sys3Controls.Sys3Label();
             this.m_groupRunMode = new Sys3Controls.Sys3GroupBoxContainer();
-            this.gridViewControl_Power_Measure_Parameter = new FrameOfSystem3.Component.GridViewControl_Parameter();
-            this.gridViewControl_Laser_Parameter = new FrameOfSystem3.Component.GridViewControl_Parameter();
-            this.gridVeiwControl_Laser_Device = new FrameOfSystem3.Component.GridVeiwControl_Device();
-            this.gridViewControl_Enable_Parameter = new FrameOfSystem3.Component.GridViewControl_Parameter();
             this.m_btnInitialize = new Sys3Controls.Sys3button();
             this.m_lblCalFileName_2 = new Sys3Controls.Sys3Label();
             this.btn_CalLoad_2 = new Sys3Controls.Sys3button();
@@ -80,7 +76,6 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sys3GroupBox4 = new Sys3Controls.Sys3GroupBox();
-            this.gridViewControl_Power_Measure_Parameter_2 = new FrameOfSystem3.Component.GridViewControl_Parameter();
             this.btn_EMO_2 = new Sys3Controls.Sys3button();
             this.btn_Reset_2 = new Sys3Controls.Sys3button();
             this.m_lblAlarmCodeMonitor_2 = new Sys3Controls.Sys3Label();
@@ -92,9 +87,14 @@
             this.sys3Label15 = new Sys3Controls.Sys3Label();
             this.sys3Label16 = new Sys3Controls.Sys3Label();
             this.sys3GroupBox6 = new Sys3Controls.Sys3GroupBox();
+            this.gridViewControl_Power_Measure_Parameter_2 = new FrameOfSystem3.Component.GridViewControl_Parameter();
             this.gridViewControl_Laser_Parameter_2 = new FrameOfSystem3.Component.GridViewControl_Parameter();
             this.gridVeiwControl_Laser_Device_2 = new FrameOfSystem3.Component.GridVeiwControl_Device();
             this.gridViewControl_Enable_Parameter_2 = new FrameOfSystem3.Component.GridViewControl_Parameter();
+            this.gridViewControl_Power_Measure_Parameter = new FrameOfSystem3.Component.GridViewControl_Parameter();
+            this.gridViewControl_Laser_Parameter = new FrameOfSystem3.Component.GridViewControl_Parameter();
+            this.gridVeiwControl_Laser_Device = new FrameOfSystem3.Component.GridVeiwControl_Device();
+            this.gridViewControl_Enable_Parameter = new FrameOfSystem3.Component.GridViewControl_Parameter();
             ((System.ComponentModel.ISupportInitialize)(this.m_dgViewCalibration)).BeginInit();
             this.m_groupRunMode.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.m_dgViewCalibration_2)).BeginInit();
@@ -347,6 +347,7 @@
             this.ComboBox_Channel.Name = "ComboBox_Channel";
             this.ComboBox_Channel.Size = new System.Drawing.Size(74, 37);
             this.ComboBox_Channel.TabIndex = 20896;
+            this.ComboBox_Channel.SelectedIndexChanged += new System.EventHandler(this.ComboBox_Channel_SelectedIndexChanged);
             // 
             // m_dgViewCalibration
             // 
@@ -1080,45 +1081,6 @@
             this.m_groupRunMode.UseLabelBorder = true;
             this.m_groupRunMode.UseTitle = true;
             // 
-            // gridViewControl_Power_Measure_Parameter
-            // 
-            this.gridViewControl_Power_Measure_Parameter.Control_Enable = true;
-            this.gridViewControl_Power_Measure_Parameter.controlCollection = null;
-            this.gridViewControl_Power_Measure_Parameter.Location = new System.Drawing.Point(424, 212);
-            this.gridViewControl_Power_Measure_Parameter.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.gridViewControl_Power_Measure_Parameter.Name = "gridViewControl_Power_Measure_Parameter";
-            this.gridViewControl_Power_Measure_Parameter.Size = new System.Drawing.Size(221, 255);
-            this.gridViewControl_Power_Measure_Parameter.TabIndex = 20901;
-            // 
-            // gridViewControl_Laser_Parameter
-            // 
-            this.gridViewControl_Laser_Parameter.Control_Enable = true;
-            this.gridViewControl_Laser_Parameter.controlCollection = null;
-            this.gridViewControl_Laser_Parameter.Location = new System.Drawing.Point(3, 133);
-            this.gridViewControl_Laser_Parameter.Name = "gridViewControl_Laser_Parameter";
-            this.gridViewControl_Laser_Parameter.Size = new System.Drawing.Size(642, 78);
-            this.gridViewControl_Laser_Parameter.TabIndex = 20880;
-            // 
-            // gridVeiwControl_Laser_Device
-            // 
-            this.gridVeiwControl_Laser_Device.Control_Enable = true;
-            this.gridVeiwControl_Laser_Device.controlCollection = null;
-            this.gridVeiwControl_Laser_Device.Location = new System.Drawing.Point(646, 133);
-            this.gridVeiwControl_Laser_Device.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.gridVeiwControl_Laser_Device.Name = "gridVeiwControl_Laser_Device";
-            this.gridVeiwControl_Laser_Device.Size = new System.Drawing.Size(490, 178);
-            this.gridVeiwControl_Laser_Device.TabIndex = 20879;
-            // 
-            // gridViewControl_Enable_Parameter
-            // 
-            this.gridViewControl_Enable_Parameter.Control_Enable = true;
-            this.gridViewControl_Enable_Parameter.controlCollection = null;
-            this.gridViewControl_Enable_Parameter.Location = new System.Drawing.Point(3, 79);
-            this.gridViewControl_Enable_Parameter.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
-            this.gridViewControl_Enable_Parameter.Name = "gridViewControl_Enable_Parameter";
-            this.gridViewControl_Enable_Parameter.Size = new System.Drawing.Size(1133, 53);
-            this.gridViewControl_Enable_Parameter.TabIndex = 20878;
-            // 
             // m_btnInitialize
             // 
             this.m_btnInitialize.BorderWidth = 5;
@@ -1359,6 +1321,7 @@
             this.ComboBox_Channel_2.Name = "ComboBox_Channel_2";
             this.ComboBox_Channel_2.Size = new System.Drawing.Size(74, 37);
             this.ComboBox_Channel_2.TabIndex = 20919;
+            this.ComboBox_Channel_2.SelectedIndexChanged += new System.EventHandler(this.ComboBox_Channel_SelectedIndexChanged_2);
             // 
             // m_dgViewCalibration_2
             // 
@@ -1471,16 +1434,6 @@
             this.sys3GroupBox4.TextAlign = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
             this.sys3GroupBox4.ThemeIndex = 0;
             this.sys3GroupBox4.UseLabelBorder = true;
-            // 
-            // gridViewControl_Power_Measure_Parameter_2
-            // 
-            this.gridViewControl_Power_Measure_Parameter_2.Control_Enable = true;
-            this.gridViewControl_Power_Measure_Parameter_2.controlCollection = null;
-            this.gridViewControl_Power_Measure_Parameter_2.Location = new System.Drawing.Point(424, 639);
-            this.gridViewControl_Power_Measure_Parameter_2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.gridViewControl_Power_Measure_Parameter_2.Name = "gridViewControl_Power_Measure_Parameter_2";
-            this.gridViewControl_Power_Measure_Parameter_2.Size = new System.Drawing.Size(221, 255);
-            this.gridViewControl_Power_Measure_Parameter_2.TabIndex = 20924;
             // 
             // btn_EMO_2
             // 
@@ -1887,6 +1840,16 @@
             this.sys3GroupBox6.ThemeIndex = 0;
             this.sys3GroupBox6.UseLabelBorder = true;
             // 
+            // gridViewControl_Power_Measure_Parameter_2
+            // 
+            this.gridViewControl_Power_Measure_Parameter_2.Control_Enable = true;
+            this.gridViewControl_Power_Measure_Parameter_2.controlCollection = null;
+            this.gridViewControl_Power_Measure_Parameter_2.Location = new System.Drawing.Point(424, 639);
+            this.gridViewControl_Power_Measure_Parameter_2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.gridViewControl_Power_Measure_Parameter_2.Name = "gridViewControl_Power_Measure_Parameter_2";
+            this.gridViewControl_Power_Measure_Parameter_2.Size = new System.Drawing.Size(221, 255);
+            this.gridViewControl_Power_Measure_Parameter_2.TabIndex = 20924;
+            // 
             // gridViewControl_Laser_Parameter_2
             // 
             this.gridViewControl_Laser_Parameter_2.Control_Enable = true;
@@ -1915,6 +1878,45 @@
             this.gridViewControl_Enable_Parameter_2.Name = "gridViewControl_Enable_Parameter_2";
             this.gridViewControl_Enable_Parameter_2.Size = new System.Drawing.Size(1133, 53);
             this.gridViewControl_Enable_Parameter_2.TabIndex = 20905;
+            // 
+            // gridViewControl_Power_Measure_Parameter
+            // 
+            this.gridViewControl_Power_Measure_Parameter.Control_Enable = true;
+            this.gridViewControl_Power_Measure_Parameter.controlCollection = null;
+            this.gridViewControl_Power_Measure_Parameter.Location = new System.Drawing.Point(424, 212);
+            this.gridViewControl_Power_Measure_Parameter.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.gridViewControl_Power_Measure_Parameter.Name = "gridViewControl_Power_Measure_Parameter";
+            this.gridViewControl_Power_Measure_Parameter.Size = new System.Drawing.Size(221, 255);
+            this.gridViewControl_Power_Measure_Parameter.TabIndex = 20901;
+            // 
+            // gridViewControl_Laser_Parameter
+            // 
+            this.gridViewControl_Laser_Parameter.Control_Enable = true;
+            this.gridViewControl_Laser_Parameter.controlCollection = null;
+            this.gridViewControl_Laser_Parameter.Location = new System.Drawing.Point(3, 133);
+            this.gridViewControl_Laser_Parameter.Name = "gridViewControl_Laser_Parameter";
+            this.gridViewControl_Laser_Parameter.Size = new System.Drawing.Size(642, 78);
+            this.gridViewControl_Laser_Parameter.TabIndex = 20880;
+            // 
+            // gridVeiwControl_Laser_Device
+            // 
+            this.gridVeiwControl_Laser_Device.Control_Enable = true;
+            this.gridVeiwControl_Laser_Device.controlCollection = null;
+            this.gridVeiwControl_Laser_Device.Location = new System.Drawing.Point(646, 133);
+            this.gridVeiwControl_Laser_Device.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.gridVeiwControl_Laser_Device.Name = "gridVeiwControl_Laser_Device";
+            this.gridVeiwControl_Laser_Device.Size = new System.Drawing.Size(490, 178);
+            this.gridVeiwControl_Laser_Device.TabIndex = 20879;
+            // 
+            // gridViewControl_Enable_Parameter
+            // 
+            this.gridViewControl_Enable_Parameter.Control_Enable = true;
+            this.gridViewControl_Enable_Parameter.controlCollection = null;
+            this.gridViewControl_Enable_Parameter.Location = new System.Drawing.Point(3, 79);
+            this.gridViewControl_Enable_Parameter.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
+            this.gridViewControl_Enable_Parameter.Name = "gridViewControl_Enable_Parameter";
+            this.gridViewControl_Enable_Parameter.Size = new System.Drawing.Size(1133, 53);
+            this.gridViewControl_Enable_Parameter.TabIndex = 20878;
             // 
             // Operation_Main
             // 

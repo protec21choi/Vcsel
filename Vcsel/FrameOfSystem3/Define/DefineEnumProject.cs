@@ -192,12 +192,14 @@ namespace Define
                     SHOT_PARAMETER_STEP_TIME_5,
                     SHOT_PARAMETER_STEP_POWER_5,
 
-                    SHOT_PARAMETER_ENABLE_18_2,
+                    // 2025.3.11 by ecchoi [ADD] Laser 2
+                    SHOT_PARAMETER_2_ENABLE_18,
 
-                    SHOT_PARAMETER_STEP_TIME_5_2,
-                    SHOT_PARAMETER_STEP_POWER_5_2,
+                    SHOT_PARAMETER_2_STEP_TIME_5,
+                    SHOT_PARAMETER_2_STEP_POWER_5,
 
                     SIDE_POWER_PERCENT,
+                    SIDE_POWER_2_PERCENT,
                     #endregion
 
                     #region TEMPERATURE SAFTY AREA
