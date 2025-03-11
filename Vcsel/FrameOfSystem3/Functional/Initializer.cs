@@ -755,11 +755,11 @@ namespace FrameOfSystem3.Functional
                     ExternalDevice.Serial.Powermeter.GetInstance().SetDeviceType(Config.SystemConfig.GetInstance().Powermeter);
                     #endregion /POWERMETER
 
-                    #region Laser LD
+                    #region Laser LD 1
                     int nLaserCount = 18;
                     int[] arControl = new int[]{(int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_CONTROL_1
-                                                , (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_CONTROL_2
-                                                , (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_CONTROL_3};
+                                              , (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_CONTROL_2
+                                              , (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_CONTROL_3};
                     bResult &= ExternalDevice.Serial.ProtecLaserController.GetInstance().Initialize(arControl, (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_MONITOR);
                     bResult &= Laser.ProtecLaserMananger.GetInstance().Init(nLaserCount);
 
@@ -768,7 +768,22 @@ namespace FrameOfSystem3.Functional
                     {
                         Laser.ProtecLaserChannelCalibration.GetInstance().LinkLaserChannel(nIndex, (int)Define.DefineEnumProject.AnalogIO.EN_ANALOG_IN.POWER_CH_1 + nIndex);
                     }
-                    #endregion /Laser LD
+                    #endregion /Laser LD 1
+
+                    #region Laser LD 2
+                    int nLaserCount_2 = 18;
+                    int[] arControl_2 = new int[]{(int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_2_CONTROL_1
+                                                , (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_2_CONTROL_2
+                                                , (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_2_CONTROL_3};
+                    bResult &= ExternalDevice.Serial.ProtecLaserController_2.GetInstance().Initialize(arControl_2, (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_2_MONITOR);
+                    bResult &= Laser.ProtecLaserMananger_2.GetInstance().Init(nLaserCount_2);
+
+                    Laser.ProtecLaserChannelCalibration_2.GetInstance().Init(nLaserCount_2);
+                    for (int nIndex = 0; nIndex < nLaserCount_2; nIndex++)
+                    {
+                        Laser.ProtecLaserChannelCalibration_2.GetInstance().LinkLaserChannel(nIndex, (int)Define.DefineEnumProject.AnalogIO.EN_ANALOG_IN.POWER_2_CH_1 + nIndex);
+                    }
+                    #endregion /Laser LD 2
 
                     #region CHILLER
                     int nChilerIndex = (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.MODBUS_CHILLER;

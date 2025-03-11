@@ -47,6 +47,12 @@ namespace FrameOfSystem3.Recipe
         POWER_CALIBRATION_MIN_VOLT,
 
         POWER_CALIBRATION_STEP_COUNT,
+
+        // 2025.3.11 by ecchoi [ADD] Laser 2
+        POWER_CALIBRATION_MAX_VOLT_2,
+        POWER_CALIBRATION_MIN_VOLT_2,
+
+        POWER_CALIBRATION_STEP_COUNT_2,
         #endregion
 
         #region POWER MEASURE
@@ -72,6 +78,17 @@ namespace FrameOfSystem3.Recipe
         POWER_MEASURE_REPEAT_COUNT,
         POWER_MEASURE_REST_TIME,
 
+        // 2025.3.11 by ecchoi [ADD] Laser 2
+        POWER_MEASURE_SELLECTED_CHANNEL_2, //측정할 때 측정 위치 결정 
+
+        POWER_MEASURE_WATT_2,
+        POWER_MEASURE_VOLT_2,
+
+        POWER_MEASURE_SHOT_TIME_2,
+        POWER_MEASURE_WAIT_TIME_2,
+
+        POWER_MEASURE_REPEAT_COUNT_2,
+        POWER_MEASURE_REST_TIME_2,
         #endregion
 
         #region HeadFlow

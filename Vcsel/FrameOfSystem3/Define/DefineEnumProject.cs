@@ -192,6 +192,11 @@ namespace Define
                     SHOT_PARAMETER_STEP_TIME_5,
                     SHOT_PARAMETER_STEP_POWER_5,
 
+                    SHOT_PARAMETER_ENABLE_18_2,
+
+                    SHOT_PARAMETER_STEP_TIME_5_2,
+                    SHOT_PARAMETER_STEP_POWER_5_2,
+
                     SIDE_POWER_PERCENT,
                     #endregion
 
@@ -856,8 +861,12 @@ namespace Define
                 POWERMETER = 5,
                 MODBUS_CHILLER = 6,
                 FFU = 7,
+                LD_2_CONTROL_1 = 8,
+                LD_2_CONTROL_2 = 9,
+                LD_2_CONTROL_3 = 10,
+                LD_2_MONITOR = 11,
 
-			}
+            }
 		}
 
 		namespace DigitalIO
@@ -894,8 +903,23 @@ namespace Define
                 LD_3_ALARM = 55,
                 LD_3_ON = 56,
 
-                MONITOR_ALARM = 60
-			}
+                MONITOR_ALARM = 60,
+
+                // 2025.3.11 by ecchoi [ADD] Laser No.2
+                LD_1_READY_2 = 144,
+                LD_1_ALARM_2 = 145,
+                LD_1_ON_2 = 146,
+
+                LD_2_READY_2 = 149,
+                LD_2_ALARM_2 = 150,
+                LD_2_ON_2 = 151,
+
+                LD_3_READY_2 = 154,
+                LD_3_ALARM_2 = 155,
+                LD_3_ON_2 = 156,
+
+                MONITOR_ALARM_2 = 160
+            }
 
 			public enum EN_DIGITAL_OUT
 			{
@@ -948,7 +972,26 @@ namespace Define
 
                 MONITOR_ALARM_CLEAR = 59,
                 MONITOR_EMO = 60,
-			}
+
+                // 2025.3.11 by ecchoi [ADD] Laser No.2
+                LD_1_ALARM_CLEAR_2 = 144,
+                LD_1_EMO_2 = 145,
+                LD_1_ON_2 = 146,
+                LD_1_READY_2 = 147,
+
+                LD_2_ALARM_CLEAR_2 = 149,
+                LD_2_EMO_2 = 150,
+                LD_2_ON_2 = 151,
+                LD_2_READY_2 = 152,
+
+                LD_3_ALARM_CLEAR_2 = 154,
+                LD_3_EMO_2 = 155,
+                LD_3_ON_2 = 156,
+                LD_3_READY_2 = 157,
+
+                MONITOR_ALARM_CLEAR_2 = 159,
+                MONITOR_EMO_2 = 160,
+            }
 		}
 
 		namespace AnalogIO
@@ -973,6 +1016,25 @@ namespace Define
                 POWER_CH_16 = 15,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
                 POWER_CH_17 = 16,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
                 POWER_CH_18 = 17,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+
+                POWER_2_CH_1 = 40,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_2 = 41,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_3 = 42,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_4 = 43,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_5 = 44,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_6 = 45,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_7 = 46,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_8 = 47,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_9 = 48,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_10 = 49,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_11 = 50,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_12 = 51,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_13 = 52,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_14 = 53,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_15 = 54,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_16 = 55,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_17 = 56,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_18 = 57,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
 
                 MAIN_AIR = 24,
                 MAIN_VAC = 25,
