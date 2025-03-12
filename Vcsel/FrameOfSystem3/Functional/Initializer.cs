@@ -230,12 +230,12 @@ namespace FrameOfSystem3.Functional
             m_instanceSerial.Execute();
             m_instanceVision.Execute();
 
-            ExternalDevice.Serial.Powermeter.GetInstance().Execute();
-            ExternalDevice.Socket.IR.GetInstance().Execute();
-            ExternalDevice.Serial.ModbusRTU.GetInstance((int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.MODBUS_CHILLER).Execute();
-            ExternalDevice.Serial.ModbusRTU.GetInstance((int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.HEATER).Execute();
-            ExternalDevice.TransportWIR.GetInstance().Execute();
-            ExternalDevice.EFEMManager.GetInstance().Execute();
+            //ExternalDevice.Serial.Powermeter.GetInstance().Execute();
+            //ExternalDevice.Socket.IR.GetInstance().Execute();
+            //ExternalDevice.Serial.ModbusRTU.GetInstance((int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.MODBUS_CHILLER).Execute();
+            //ExternalDevice.Serial.ModbusRTU.GetInstance((int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.HEATER).Execute();
+            //ExternalDevice.TransportWIR.GetInstance().Execute();
+            //ExternalDevice.EFEMManager.GetInstance().Execute();
         }
 
         /// <summary>
@@ -320,35 +320,35 @@ namespace FrameOfSystem3.Functional
 
         #region External
 
-        void WhenRecipeChangedHeater(bool result, List<Recipe.Recipe.ParameterItem> changeList)
-        {
-            if (result == false)
-                return;
+        //void WhenRecipeChangedHeater(bool result, List<Recipe.Recipe.ParameterItem> changeList)
+        //{
+        //    if (result == false)
+        //        return;
 
-            double dTemp = Recipe.Recipe.GetInstance().GetValue(EN_TASK_LIST.WORK_ZONE.ToString(), WORKZONE_TASK_PARAM.HEATER_TARGET_TEMP.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-            ExternalDevice.Heater.Heater.GetInstance().SetTargetTemp((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, dTemp);
+        //    double dTemp = Recipe.Recipe.GetInstance().GetValue(EN_TASK_LIST.WORK_ZONE.ToString(), WORKZONE_TASK_PARAM.HEATER_TARGET_TEMP.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+        //    ExternalDevice.Heater.Heater.GetInstance().SetTargetTemp((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, dTemp);
 
-            double dCh1Offset = Recipe.Recipe.GetInstance().GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WORK_BLOCK_CH_OFFSET_8.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-            ExternalDevice.Heater.Heater.GetInstance().SetChannelTempOffset((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, 1, dCh1Offset, false);
+        //    double dCh1Offset = Recipe.Recipe.GetInstance().GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WORK_BLOCK_CH_OFFSET_8.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+        //    ExternalDevice.Heater.Heater.GetInstance().SetChannelTempOffset((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, 1, dCh1Offset, false);
 
-            double dCh2Offset = Recipe.Recipe.GetInstance().GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WORK_BLOCK_CH_OFFSET_8.ToString(), 1, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-            ExternalDevice.Heater.Heater.GetInstance().SetChannelTempOffset((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, 2, dCh2Offset, false);
+        //    double dCh2Offset = Recipe.Recipe.GetInstance().GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WORK_BLOCK_CH_OFFSET_8.ToString(), 1, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+        //    ExternalDevice.Heater.Heater.GetInstance().SetChannelTempOffset((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, 2, dCh2Offset, false);
 
-            double dCh3Offset = Recipe.Recipe.GetInstance().GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WORK_BLOCK_CH_OFFSET_8.ToString(), 2, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-            ExternalDevice.Heater.Heater.GetInstance().SetChannelTempOffset((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, 3, dCh3Offset, false);
+        //    double dCh3Offset = Recipe.Recipe.GetInstance().GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WORK_BLOCK_CH_OFFSET_8.ToString(), 2, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+        //    ExternalDevice.Heater.Heater.GetInstance().SetChannelTempOffset((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, 3, dCh3Offset, false);
 
-            double dCh4Offset = Recipe.Recipe.GetInstance().GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WORK_BLOCK_CH_OFFSET_8.ToString(), 3, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-            ExternalDevice.Heater.Heater.GetInstance().SetChannelTempOffset((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, 4, dCh4Offset, false);
+        //    double dCh4Offset = Recipe.Recipe.GetInstance().GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WORK_BLOCK_CH_OFFSET_8.ToString(), 3, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+        //    ExternalDevice.Heater.Heater.GetInstance().SetChannelTempOffset((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, 4, dCh4Offset, false);
 
-            double dZoneOffset = Recipe.Recipe.GetInstance().GetValue(EN_TASK_LIST.WORK_ZONE.ToString(), WORKZONE_TASK_PARAM.HEATER_OFFSET_TEMP.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-            ExternalDevice.Heater.Heater.GetInstance().SetTempOffset((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, dZoneOffset);
+        //    double dZoneOffset = Recipe.Recipe.GetInstance().GetValue(EN_TASK_LIST.WORK_ZONE.ToString(), WORKZONE_TASK_PARAM.HEATER_OFFSET_TEMP.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+        //    ExternalDevice.Heater.Heater.GetInstance().SetTempOffset((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, dZoneOffset);
 
-            double dPlusTolerance = Recipe.Recipe.GetInstance().GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WORK_BLOCK_TOLERANCE_MAX.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-            ExternalDevice.Heater.Heater.GetInstance().SetTempPlusTolerance((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, dPlusTolerance);
+        //    double dPlusTolerance = Recipe.Recipe.GetInstance().GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WORK_BLOCK_TOLERANCE_MAX.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+        //    ExternalDevice.Heater.Heater.GetInstance().SetTempPlusTolerance((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, dPlusTolerance);
 
-            double dMinusTolerance = Recipe.Recipe.GetInstance().GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WORK_BLOCK_TOLERANCE_MIN.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-            ExternalDevice.Heater.Heater.GetInstance().SetTempMinusTolerance((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, dMinusTolerance);
-        }
+        //    double dMinusTolerance = Recipe.Recipe.GetInstance().GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WORK_BLOCK_TOLERANCE_MIN.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+        //    ExternalDevice.Heater.Heater.GetInstance().SetTempMinusTolerance((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, dMinusTolerance);
+        //}
         #endregion
         #endregion
 
@@ -378,7 +378,7 @@ namespace FrameOfSystem3.Functional
         public void Exit()
 		{
             // 2021.08.14 by junho [ADD] FFU : 중지가 Recipe보다 먼저 수행되어야 한다.
-            ExternalDevice.FFUManager.GetInstance().Deactivate();
+            //ExternalDevice.FFUManager.GetInstance().Deactivate();
 
 			// Save 이후 인스턴스 소멸동작이 아닌
 			// 클래스 내부에서 사용하는 인스턴스들을 유지하고, Process Recipe Save 동작만 하도록 변경
@@ -749,11 +749,11 @@ namespace FrameOfSystem3.Functional
 
                 case EN_INITIALIZATION_STEP.INIT_EXTERNAL_DEVICE_END:
                     bResult = true;
-                    #region POWERMETER
-                    //Powermeter
-                    ExternalDevice.Serial.Powermeter.GetInstance().Init((int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.POWERMETER);
-                    ExternalDevice.Serial.Powermeter.GetInstance().SetDeviceType(Config.SystemConfig.GetInstance().Powermeter);
-                    #endregion /POWERMETER
+                    //#region POWERMETER
+                    ////Powermeter
+                    //ExternalDevice.Serial.Powermeter.GetInstance().Init((int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.POWERMETER);
+                    //ExternalDevice.Serial.Powermeter.GetInstance().SetDeviceType(Config.SystemConfig.GetInstance().Powermeter);
+                    //#endregion /POWERMETER
 
                     #region Laser LD 1
                     int nLaserCount = 18;
@@ -785,50 +785,50 @@ namespace FrameOfSystem3.Functional
                     }
                     #endregion /Laser LD 2
 
-                    #region CHILLER
-                    int nChilerIndex = (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.MODBUS_CHILLER;
-                    bResult &= ExternalDevice.Serial.ModbusRTU.GetInstance(nChilerIndex).Init(nChilerIndex);
-                    ExternalDevice.Serial.ChillerCX9230Modbus Chiller = new ExternalDevice.Serial.ChillerCX9230Modbus(nChilerIndex, 1);
-                    ExternalDevice.Serial.ModbusRTU.GetInstance(nChilerIndex).AddDevice(Chiller);
-                    #endregion /CHILLER
+                    //#region CHILLER
+                    //int nChilerIndex = (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.MODBUS_CHILLER;
+                    //bResult &= ExternalDevice.Serial.ModbusRTU.GetInstance(nChilerIndex).Init(nChilerIndex);
+                    //ExternalDevice.Serial.ChillerCX9230Modbus Chiller = new ExternalDevice.Serial.ChillerCX9230Modbus(nChilerIndex, 1);
+                    //ExternalDevice.Serial.ModbusRTU.GetInstance(nChilerIndex).AddDevice(Chiller);
+                    //#endregion /CHILLER
 
-                    #region Heater
-                    //Heater
-                    int nHeaterSerialIndex = (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.HEATER;
-                    bResult &= ExternalDevice.Serial.ModbusRTU.GetInstance(nHeaterSerialIndex).Init(nHeaterSerialIndex);
-                    ExternalDevice.Serial.Heater_TX4S Heater = new ExternalDevice.Serial.Heater_TX4S(nHeaterSerialIndex, 1);
-                    ExternalDevice.Serial.ModbusRTU.GetInstance(nHeaterSerialIndex).AddDevice(Heater);
-                    Heater = new ExternalDevice.Serial.Heater_TX4S(nHeaterSerialIndex, 2);
-                    ExternalDevice.Serial.ModbusRTU.GetInstance(nHeaterSerialIndex).AddDevice(Heater);
-                    ExternalDevice.Heater.Heater.GetInstance().AddSerialHeaterZone((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, nHeaterSerialIndex, 1, 2);
+                    //#region Heater
+                    ////Heater
+                    //int nHeaterSerialIndex = (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.HEATER;
+                    //bResult &= ExternalDevice.Serial.ModbusRTU.GetInstance(nHeaterSerialIndex).Init(nHeaterSerialIndex);
+                    //ExternalDevice.Serial.Heater_TX4S Heater = new ExternalDevice.Serial.Heater_TX4S(nHeaterSerialIndex, 1);
+                    //ExternalDevice.Serial.ModbusRTU.GetInstance(nHeaterSerialIndex).AddDevice(Heater);
+                    //Heater = new ExternalDevice.Serial.Heater_TX4S(nHeaterSerialIndex, 2);
+                    //ExternalDevice.Serial.ModbusRTU.GetInstance(nHeaterSerialIndex).AddDevice(Heater);
+                    //ExternalDevice.Heater.Heater.GetInstance().AddSerialHeaterZone((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, nHeaterSerialIndex, 1, 2);
                
-                    double dTemp = Recipe.Recipe.GetInstance().GetValue(EN_TASK_LIST.WORK_ZONE.ToString(), WORKZONE_TASK_PARAM.HEATER_TARGET_TEMP.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-                    ExternalDevice.Heater.Heater.GetInstance().SetTargetTemp((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, dTemp, false);
+                    //double dTemp = Recipe.Recipe.GetInstance().GetValue(EN_TASK_LIST.WORK_ZONE.ToString(), WORKZONE_TASK_PARAM.HEATER_TARGET_TEMP.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+                    //ExternalDevice.Heater.Heater.GetInstance().SetTargetTemp((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, dTemp, false);
 
-                    double dPlusTolerance = Recipe.Recipe.GetInstance().GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WORK_BLOCK_TOLERANCE_MAX.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-                    ExternalDevice.Heater.Heater.GetInstance().SetTempPlusTolerance((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, dPlusTolerance);
+                    //double dPlusTolerance = Recipe.Recipe.GetInstance().GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WORK_BLOCK_TOLERANCE_MAX.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+                    //ExternalDevice.Heater.Heater.GetInstance().SetTempPlusTolerance((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, dPlusTolerance);
 
-                    double dMinusTolerance = Recipe.Recipe.GetInstance().GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WORK_BLOCK_TOLERANCE_MIN.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-                    ExternalDevice.Heater.Heater.GetInstance().SetTempMinusTolerance((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, dMinusTolerance);
+                    //double dMinusTolerance = Recipe.Recipe.GetInstance().GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.WORK_BLOCK_TOLERANCE_MIN.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+                    //ExternalDevice.Heater.Heater.GetInstance().SetTempMinusTolerance((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, dMinusTolerance);
 
-                    Recipe.Recipe.ParameterChangedNotify += WhenRecipeChangedHeater;
+                    //Recipe.Recipe.ParameterChangedNotify += WhenRecipeChangedHeater;
 
-                    #endregion /Heater
+                    //#endregion /Heater
 
-                    #region IR CAM
-                    bResult &= ExternalDevice.Socket.IR.GetInstance().Init((int)Define.DefineEnumProject.Socket.EN_SOCKET_INDEX.IR);
-                    #endregion /IR CAM
+                    //#region IR CAM
+                    //bResult &= ExternalDevice.Socket.IR.GetInstance().Init((int)Define.DefineEnumProject.Socket.EN_SOCKET_INDEX.IR);
+                    //#endregion /IR CAM
 
-                    #region FFU
-                    bResult &= ExternalDevice.FFUManager.GetInstance().Activate();
-                    #endregion /FFU
+                    //#region FFU
+                    //bResult &= ExternalDevice.FFUManager.GetInstance().Activate();
+                    //#endregion /FFU
 
-                    #region WCF
-                    ExternalDevice.TransportWIR.GetInstance().Init();
+                    //#region WCF
+                    //ExternalDevice.TransportWIR.GetInstance().Init();
 
-                    ExternalDevice.EFEMManager.GetInstance().Init();
+                    //ExternalDevice.EFEMManager.GetInstance().Init();
 
-                    #endregion
+                    //#endregion
 
                     break;
                 #endregion

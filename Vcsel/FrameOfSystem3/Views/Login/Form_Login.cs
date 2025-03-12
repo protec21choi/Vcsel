@@ -352,7 +352,7 @@ namespace FrameOfSystem3.Views.Login
 						ResetSelectedItem();
 						SetLoginState(true);
 						CheckMasterMode();
-                        ExternalDevice.Socket.IR.GetInstance().Login();
+                        //ExternalDevice.Socket.IR.GetInstance().Login();
 
 						m_strInputPW	= string.Empty;
 						m_labelPW.Text	= "";

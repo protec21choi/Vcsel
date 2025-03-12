@@ -909,7 +909,7 @@ namespace FrameOfSystem3.Views.Setup
             double[] arTotalPower = new double[5];
 
             bool[] arUsed = new bool[Laser.ProtecLaserMananger.GetInstance().ChannelCount];
-            double dSidePercent = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SIDE_POWER_PERCENT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+            //double dSidePercent = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SIDE_POWER_PERCENT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
             int[] arSideCh = new int[] { 0, 8, 9, 17 };
 
             for (int nCh = 0; nCh < Laser.ProtecLaserMananger.GetInstance().ChannelCount; ++nCh)

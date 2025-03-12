@@ -92,13 +92,13 @@ namespace FrameOfSystem3.Views
 		Views.Recipe.Recipe_Options m_viewRecipeOptions = new Recipe.Recipe_Options();
         #endregion
 
-		#region Setup
-        Views.Setup.Setup_Work                  m_viewSetupWork                 = new Setup.Setup_Work();
-		//Views.Setup.Setup_Transfer				m_viewSetupTransfer			    = new Setup.Setup_Transfer();
-		Views.Setup.Setup_Equipment				m_viewSetupEquipment			= new Setup.Setup_Equipment();
-		#endregion
+        #region Setup
+        Views.Setup.Setup_Work                      m_viewSetupWork                 = new Setup.Setup_Work();
+        //Views.Setup.Setup_Transfer				m_viewSetupTransfer			    = new Setup.Setup_Transfer();
+        //Views.Setup.Setup_Equipment				m_viewSetupEquipment			= new Setup.Setup_Equipment();
+        #endregion
 
-		#region History
+        #region History
         Views.History.History_MainLog       m_viewHistoryMainLog            = new History.History_MainLog();
         #endregion
 
@@ -280,14 +280,14 @@ namespace FrameOfSystem3.Views
             m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.HISTORY_MAIN_LOG, m_viewHistoryMainLog);
             #endregion
 
-			#region Setup
+            #region Setup
             m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.SETUP_WORK, m_viewSetupWork);
             //m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.SETUP_TRANSFER, m_viewSetupTransfer);
-            m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.SETUP_EQUIPMENT, m_viewSetupEquipment);
-			#endregion
+            //m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.SETUP_EQUIPMENT, m_viewSetupEquipment);
+            #endregion
 
-			#region Config
-			m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.CONFIG_ALARM, m_viewConfigAlarm);
+            #region Config
+            m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.CONFIG_ALARM, m_viewConfigAlarm);
             m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.CONFIG_ANALOG, m_viewConfigAnalog);
             m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.CONFIG_CYLINDER, m_viewConfigCylindre);
             m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.CONFIG_DIGITAL, m_viewConfigDigital);

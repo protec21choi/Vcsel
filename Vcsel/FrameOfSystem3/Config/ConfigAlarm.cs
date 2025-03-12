@@ -389,7 +389,7 @@ namespace FrameOfSystem3.Config
 
 
             // 2021.12.14 by junho [ADD] Secsgem ALID send
-            ExternalDevice.EFEMManager.GetInstance().UpdateALID(nAlarmCode, enType);
+            //ExternalDevice.EFEMManager.GetInstance().UpdateALID(nAlarmCode, enType);
 			
             // 4. If the releasing the alarm, remove the sub information.
             switch(enType)

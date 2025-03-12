@@ -16,14 +16,14 @@ namespace FrameOfSystem3.SubSequence.SubLaserWork
     class SubCtrlMonitoringIR : ASubControl, IMonitoringControl
     {
         #region <FIELD>
-        ExternalDevice.Socket.IR m_IR = ExternalDevice.Socket.IR.GetInstance();
+        //ExternalDevice.Socket.IR m_IR = ExternalDevice.Socket.IR.GetInstance();
         #endregion </FIELD>
 
         #region <CONSTRUCTOR>
         public SubCtrlMonitoringIR(Task.RunningTaskEx tRunningTask)
             : base(tRunningTask)
         {
-			m_IR = ExternalDevice.Socket.IR.GetInstance();
+			//m_IR = ExternalDevice.Socket.IR.GetInstance();
         }
         #endregion </CONSTRUCTOR>
 
@@ -33,8 +33,8 @@ namespace FrameOfSystem3.SubSequence.SubLaserWork
             if (!bUsed)
                 return true;
 
-            if (m_IR.DoWorkStart() == ExternalDevice.Socket.IR_Property.Enumerable.EN_SEQUENCE_RESULT.OK)
-                return true;
+            //if (m_IR.DoWorkStart() == ExternalDevice.Socket.IR_Property.Enumerable.EN_SEQUENCE_RESULT.OK)
+            //    return true;
             else 
                 return false;
         }
@@ -75,8 +75,8 @@ namespace FrameOfSystem3.SubSequence.SubLaserWork
             if (!bUsed)
                 return true;
 
-            if (m_IR.DoWorkEnd() != ExternalDevice.Socket.IR_Property.Enumerable.EN_SEQUENCE_RESULT.WORKING)
-                return true;
+            //if (m_IR.DoWorkEnd() != ExternalDevice.Socket.IR_Property.Enumerable.EN_SEQUENCE_RESULT.WORKING)
+            //    return true;
             else 
                 return false;
         }

@@ -933,26 +933,26 @@ namespace FrameOfSystem3.Task
         }
 		#endregion </INTERFACE>
 
-        #region PreHeating
-        public void ResetPreHeatingTimer()
-        {
-            string strParaName = DefineTask.BondHead.PARAM_PROCESS.MATERIAL_PREHEATING_TIME.ToString();
+        //#region PreHeating
+        //public void ResetPreHeatingTimer()
+        //{
+        //    string strParaName = DefineTask.BondHead.PARAM_PROCESS.MATERIAL_PREHEATING_TIME.ToString();
 
-            int nPreHeatingTime = _recipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), strParaName, 0, Recipe.EN_RECIPE_PARAM_TYPE.VALUE, 0);
+        //    int nPreHeatingTime = _recipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), strParaName, 0, Recipe.EN_RECIPE_PARAM_TYPE.VALUE, 0);
 
-            m_tickForPreHeating.SetTickCount((uint)nPreHeatingTime);
-        }
+        //    m_tickForPreHeating.SetTickCount((uint)nPreHeatingTime);
+        //}
 
-        public bool IsPreHeatingOver()
-        {
-            return m_tickForPreHeating.IsTickOver(true);
-        }
+        //public bool IsPreHeatingOver()
+        //{
+        //    return m_tickForPreHeating.IsTickOver(true);
+        //}
 
-        public ulong GetPreHeatingTime()
-        {
-            return m_tickForPreHeating.GetTickCount();
-        }
-        #endregion
+        //public ulong GetPreHeatingTime()
+        //{
+        //    return m_tickForPreHeating.GetTickCount();
+        //}
+        //#endregion
 
         /// <summary>
         /// 2022.01.18 by junho [ADD] Check machine is not working.

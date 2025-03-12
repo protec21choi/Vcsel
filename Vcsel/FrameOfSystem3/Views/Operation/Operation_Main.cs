@@ -174,11 +174,11 @@ namespace FrameOfSystem3.Views.Operation
                     }
                     break;
                 case 1: // RUN
-                    if (m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.LASER_USED.ToString(), false) == false)
-                    {
-                        if (m_InstanceMessageBox.ShowMessage("LASER PARAMETER OFF\nDO YOU WANT RUN?", "CONFIRMATION MESSAGE", true) == false)
-                            return;
-                    }
+                    //if (m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.LASER_USED.ToString(), false) == false)
+                    //{
+                    //    if (m_InstanceMessageBox.ShowMessage("LASER PARAMETER OFF\nDO YOU WANT RUN?", "CONFIRMATION MESSAGE", true) == false)
+                    //        return;
+                    //}
                     Task.TaskOperator.GetInstance().SetOperation(OPERATION_EQUIPMENT.RUN);
                     break;
                 case 2: // STOP
@@ -848,7 +848,7 @@ namespace FrameOfSystem3.Views.Operation
             double[] arTotalPower = new double[5];
 
             bool[] arUsed = new bool[Laser.ProtecLaserMananger.GetInstance().ChannelCount];
-            double dSidePercent = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SIDE_POWER_PERCENT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+            //double dSidePercent = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SIDE_POWER_PERCENT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
             int[] arSideCh = new int[] { 0, 8, 9, 17 };
 
             for (int nCh = 0; nCh < Laser.ProtecLaserMananger.GetInstance().ChannelCount; ++nCh)
@@ -877,7 +877,7 @@ namespace FrameOfSystem3.Views.Operation
             double[] arTotalPower = new double[5];
 
             bool[] arUsed = new bool[Laser.ProtecLaserMananger_2.GetInstance().ChannelCount];
-            double dSidePercent = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SIDE_POWER_2_PERCENT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+            //double dSidePercent = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SIDE_POWER_2_PERCENT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
             int[] arSideCh = new int[] { 0, 8, 9, 17 };
 
             for (int nCh = 0; nCh < Laser.ProtecLaserMananger_2.GetInstance().ChannelCount; ++nCh)

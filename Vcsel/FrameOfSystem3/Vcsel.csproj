@@ -304,6 +304,7 @@
     <Compile Include="DynamicLink\NodeLink.cs" />
     <Compile Include="DynamicLink\PortLink.cs" />
     <Compile Include="ExternalDevice\Serial\Laser_Protec_2.cs" />
+    <Compile Include="ExternalDevice\Serial\Powermeter.cs" />
     <Compile Include="Laser\ProtecLaserChannelCalibration_2.cs" />
     <Compile Include="Laser\ProtecLaserMananger_2.cs" />
     <Compile Include="RAMMetrics\RAM_Metrics.cs" />
@@ -311,31 +312,7 @@
     <Compile Include="EquipmentProperty\RawMaterialPortManager.cs" />
     <Compile Include="ExternalDevice\Heater.cs" />
     <Compile Include="ExternalDevice\ModbusServerData.cs" />
-    <Compile Include="ExternalDevice\Serial\DeviceModbusRTU\Chiller_DOTECH_CX9230.cs" />
-    <Compile Include="ExternalDevice\Serial\DeviceModbusRTU\Heater_TX4S.cs" />
-    <Compile Include="ExternalDevice\Serial\FFUMainManager.cs" />
     <Compile Include="ExternalDevice\Serial\Laser_Protec.cs" />
-    <Compile Include="ExternalDevice\Serial\Heater_RKC.cs" />
-    <Compile Include="ExternalDevice\Serial\Homogenizer.cs" />
-    <Compile Include="ExternalDevice\Serial\ModbusRTU.cs" />
-    <Compile Include="ExternalDevice\Serial\Powermeter.cs" />
-    <Compile Include="ExternalDevice\Serial\Pyrometer_Optris_CT.cs" />
-    <Compile Include="ExternalDevice\Serial\TouchProbe.cs" />
-    <Compile Include="ExternalDevice\Socket\DeviceModbusTCP\Heater_Azbil_C7.cs" />
-    <Compile Include="ExternalDevice\Socket\EFEM\EFEMManager.cs" />
-    <Compile Include="ExternalDevice\Socket\EFEM\WCFforEFEM.cs" />
-    <Compile Include="ExternalDevice\Socket\EFEM\WCFforEFEM_Common.cs" />
-    <Compile Include="ExternalDevice\Socket\EFEM\WCFforEFEM_Contract.cs" />
-    <Compile Include="ExternalDevice\Socket\EFEM\WCFforEFEM_Service.cs" />
-    <Compile Include="ExternalDevice\Socket\TransportWIR.cs" />
-    <Compile Include="ExternalDevice\Socket\WCF\WCF.cs" />
-    <Compile Include="ExternalDevice\Socket\IPGLaser.cs" />
-    <Compile Include="ExternalDevice\Socket\IR.cs" />
-    <Compile Include="ExternalDevice\Socket\ModbusTCP.cs" />
-    <Compile Include="ExternalDevice\Socket\WCF\WcfManager.cs" />
-    <Compile Include="ExternalDevice\Socket\WCF\WCF_Common.cs" />
-    <Compile Include="ExternalDevice\Socket\WCF\WCF_Contract.cs" />
-    <Compile Include="ExternalDevice\Socket\WCF\WCF_Service.cs" />
     <Compile Include="Functional\Compression.cs" />
     <Compile Include="Functional\FunctionsETC.cs" />
     <Compile Include="Functional\IniControl.cs" />
@@ -668,12 +645,6 @@
     <Compile Include="Views\Functional\Form_MessageBox.Designer.cs">
       <DependentUpon>Form_MessageBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Functional\Form_Monitor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Functional\Form_Monitor.Designer.cs">
-      <DependentUpon>Form_Monitor.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\Functional\Form_Progress.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -766,24 +737,6 @@
     <Compile Include="Views\Operation\Operation_Main.Designer.cs">
       <DependentUpon>Operation_Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Operation\Operation_RAMMetrics.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Operation\Operation_RAMMetrics.Designer.cs">
-      <DependentUpon>Operation_RAMMetrics.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Operation\Operation_StateMonitor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Operation\Operation_StateMonitor.Designer.cs">
-      <DependentUpon>Operation_StateMonitor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Operation\Operation_Tracking.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Operation\Operation_Tracking.Designer.cs">
-      <DependentUpon>Operation_Tracking.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\PanelInterface.cs" />
     <Compile Include="Views\ParameterGroupPanel.cs">
       <SubType>UserControl</SubType>
@@ -827,78 +780,12 @@
     <Compile Include="Views\Setup\Panel\1. Options\SetupOptionEquipment.Designer.cs">
       <DependentUpon>SetupOptionEquipment.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Setup\Panel\Equipment\Equipment_EFEMComm.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Setup\Panel\Equipment\Equipment_EFEMComm.Designer.cs">
-      <DependentUpon>Equipment_EFEMComm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Setup\Panel\Equipment\Equipment_PreEquipComm.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Setup\Panel\Equipment\Equipment_PreEquipComm.Designer.cs">
-      <DependentUpon>Equipment_PreEquipComm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Setup\Panel\Equipment\Equipment_Laser.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Setup\Panel\Equipment\Equipment_Laser.Designer.cs">
-      <DependentUpon>Equipment_Laser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Setup\Panel\Equipment\Equipment_Device.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Setup\Panel\Equipment\Equipment_Device.Designer.cs">
-      <DependentUpon>Equipment_Device.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Setup\Panel\Equipment\Equipment_Tool.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Setup\Panel\Equipment\Equipment_Tool.Designer.cs">
-      <DependentUpon>Equipment_Tool.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\Setup\Panel\ISetupPanel.cs" />
-    <Compile Include="Views\Setup\Panel\Transfer\Transfer_PreEquipment.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Setup\Panel\Transfer\Transfer_PreEquipment.Designer.cs">
-      <DependentUpon>Transfer_PreEquipment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Setup\Setup_Equipment.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Setup\Setup_Equipment.Designer.cs">
-      <DependentUpon>Setup_Equipment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Setup\Setup_Options.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Setup\Setup_Options.Designer.cs">
-      <DependentUpon>Setup_Options.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Setup\Setup_Transfer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Setup\Setup_Transfer.Designer.cs">
-      <DependentUpon>Setup_Transfer.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\Setup\Setup_Work.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\Setup\Setup_Work.Designer.cs">
       <DependentUpon>Setup_Work.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Setup\Setup_Vision.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Setup\Setup_Vision.Designer.cs">
-      <DependentUpon>Setup_Vision.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Setup\Panel\Transfer\Transfer_Block.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Setup\Panel\Transfer\Transfer_Block.Designer.cs">
-      <DependentUpon>Transfer_Block.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\SubMenu.cs">
       <SubType>UserControl</SubType>
@@ -1076,9 +963,6 @@
     <EmbeddedResource Include="Views\Functional\Form_MessageBox.resx">
       <DependentUpon>Form_MessageBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Functional\Form_Monitor.resx">
-      <DependentUpon>Form_Monitor.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\Functional\Form_Progress.resx">
       <DependentUpon>Form_Progress.cs</DependentUpon>
     </EmbeddedResource>
@@ -1124,15 +1008,6 @@
     <EmbeddedResource Include="Views\Operation\Operation_Main.resx">
       <DependentUpon>Operation_Main.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Operation\Operation_RAMMetrics.resx">
-      <DependentUpon>Operation_RAMMetrics.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Operation\Operation_StateMonitor.resx">
-      <DependentUpon>Operation_StateMonitor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Operation\Operation_Tracking.resx">
-      <DependentUpon>Operation_Tracking.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\ParameterGroupPanel.resx">
       <DependentUpon>ParameterGroupPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -1154,41 +1029,8 @@
     <EmbeddedResource Include="Views\Setup\Panel\1. Options\SetupOptionEquipment.resx">
       <DependentUpon>SetupOptionEquipment.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Setup\Panel\Equipment\Equipment_EFEMComm.resx">
-      <DependentUpon>Equipment_EFEMComm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Setup\Panel\Equipment\Equipment_PreEquipComm.resx">
-      <DependentUpon>Equipment_PreEquipComm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Setup\Panel\Equipment\Equipment_Laser.resx">
-      <DependentUpon>Equipment_Laser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Setup\Panel\Equipment\Equipment_Device.resx">
-      <DependentUpon>Equipment_Device.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Setup\Panel\Equipment\Equipment_Tool.resx">
-      <DependentUpon>Equipment_Tool.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Setup\Panel\Transfer\Transfer_PreEquipment.resx">
-      <DependentUpon>Transfer_PreEquipment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Setup\Setup_Equipment.resx">
-      <DependentUpon>Setup_Equipment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Setup\Setup_Options.resx">
-      <DependentUpon>Setup_Options.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Setup\Setup_Transfer.resx">
-      <DependentUpon>Setup_Transfer.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\Setup\Setup_Work.resx">
       <DependentUpon>Setup_Work.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Setup\Setup_Vision.resx">
-      <DependentUpon>Setup_Vision.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Setup\Panel\Transfer\Transfer_Block.resx">
-      <DependentUpon>Transfer_Block.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\SubMenu.resx">
       <DependentUpon>SubMenu.cs</DependentUpon>
@@ -1331,7 +1173,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ExternalDevice\Serial\DeviceModbusRTU\" />
     <Folder Include="SubSequence\SubLaserWork\Cotnrol\Modulation\" />
+    <Folder Include="Views\Setup\Panel\Equipment\" />
+    <Folder Include="Views\Setup\Panel\Transfer\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

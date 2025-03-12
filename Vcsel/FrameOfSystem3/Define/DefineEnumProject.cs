@@ -184,8 +184,8 @@ namespace Define
                 public enum PARAM_PROCESS
                 {
                     #region LASER PARAMETER
-                    LASER_WORK_POSITION_X,
-                    LASER_WORK_POSITION_Y,
+                    //LASER_WORK_POSITION_X,
+                    //LASER_WORK_POSITION_Y,
 
                     SHOT_PARAMETER_ENABLE_18,
 
@@ -198,31 +198,31 @@ namespace Define
                     SHOT_PARAMETER_2_STEP_TIME_5,
                     SHOT_PARAMETER_2_STEP_POWER_5,
 
-                    SIDE_POWER_PERCENT,
-                    SIDE_POWER_2_PERCENT,
+                    //SIDE_POWER_PERCENT,
+                    //SIDE_POWER_2_PERCENT,
                     #endregion
 
-                    #region TEMPERATURE SAFTY AREA
-                    TEMPERATURE_SAFTY_EMG_HIGH_LIMIT,
+                    //#region TEMPERATURE SAFTY AREA
+                    //TEMPERATURE_SAFTY_EMG_HIGH_LIMIT,
 
-                    TEMPERATURE_SAFTY_AREA_HIGH_LIMIT_5,
-                    TEMPERATURE_SAFTY_AREA_LOW_LIMIT_5,
-                    TEMPERATURE_SAFTY_AREA_TIME_5,
+                    //TEMPERATURE_SAFTY_AREA_HIGH_LIMIT_5,
+                    //TEMPERATURE_SAFTY_AREA_LOW_LIMIT_5,
+                    //TEMPERATURE_SAFTY_AREA_TIME_5,
 
-                    TEMPERATURE_LIVE_TARTGET_MAX,
-                    TEMPERATURE_LIVE_TARTGET_MIN,
+                    //TEMPERATURE_LIVE_TARTGET_MAX,
+                    //TEMPERATURE_LIVE_TARTGET_MIN,
 
-                    TEMPERATURE_SAVE_PRE_DELAY,
-                    TEMPERATURE_SAVE_POST_DELAY,
-                    #endregion /TEMPERATURE SAFTY AREA
+                    //TEMPERATURE_SAVE_PRE_DELAY,
+                    //TEMPERATURE_SAVE_POST_DELAY,
+                    //#endregion /TEMPERATURE SAFTY AREA
 
-                    #region COOLING
-                    MATERIAL_COOLING_TIME,
-                    #endregion
+                    //#region COOLING
+                    //MATERIAL_COOLING_TIME,
+                    //#endregion
 
-                    #region PREHEATING
-                    MATERIAL_PREHEATING_TIME,
-                    #endregion
+                    //#region PREHEATING
+                    //MATERIAL_PREHEATING_TIME,
+                    //#endregion
                 }
                 #endregion
 
@@ -725,7 +725,7 @@ namespace Define
 
                 SETUP_WORK,
                 //SETUP_TRANSFER,
-                SETUP_EQUIPMENT,
+                //SETUP_EQUIPMENT,
                 //SETUP_MONITOR,
                 //SETUP_JOG,
 
