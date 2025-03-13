@@ -2156,7 +2156,7 @@ namespace FrameOfSystem3.Task
             m_nCalibrationCurrentStep = 0;
             for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
             {
-                if (m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
+                if (m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
                 {
                     m_nCalibrationChannel = nCh;
                     break;
@@ -2166,20 +2166,20 @@ namespace FrameOfSystem3.Task
             ProtecLaserChannelCalibration.GetInstance().NewChannelCalibrationFile(m_nCalibrationChannel);
 
 
-            m_nCalibrationStep = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT
-                , PARAM_EQUIPMENT.POWER_CALIBRATION_STEP_COUNT.ToString()
+            m_nCalibrationStep = m_Recipe.GetValue(GetTaskName()
+                , PARAM_PROCESS.POWER_CALIBRATION_STEP_COUNT.ToString()
                 , 0
                 , EN_RECIPE_PARAM_TYPE.VALUE
                 , 1);
 
             m_arCalibrationStepVolt = new double[m_nCalibrationStep];
-            double dblCalMaxVolt = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT
-                , PARAM_EQUIPMENT.POWER_CALIBRATION_MAX_VOLT.ToString()
+            double dblCalMaxVolt = m_Recipe.GetValue(GetTaskName()
+                , PARAM_PROCESS.POWER_CALIBRATION_MAX_VOLT.ToString()
                 , 0
                 , EN_RECIPE_PARAM_TYPE.VALUE
                 , -1.0);
-            double dblCalMinVolt = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT
-                , PARAM_EQUIPMENT.POWER_CALIBRATION_MIN_VOLT.ToString()
+            double dblCalMinVolt = m_Recipe.GetValue(GetTaskName()
+                , PARAM_PROCESS.POWER_CALIBRATION_MIN_VOLT.ToString()
                 , 0
                 , EN_RECIPE_PARAM_TYPE.VALUE
                 , -1.0);

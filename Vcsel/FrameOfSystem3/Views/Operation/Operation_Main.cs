@@ -579,22 +579,22 @@ namespace FrameOfSystem3.Views.Operation
             bool[] arUsed = new bool[ProtecLaserMananger.GetInstance().ChannelCount];
             for (int nCh = 0; nCh < ProtecLaserMananger.GetInstance().ChannelCount; ++nCh)
             {
-                arUsed[nCh] = m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                arUsed[nCh] = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
             }
 
-            m_instanceRecipe.SetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.POWER_MEASURE_WATT.ToString(), 0, EN_RECIPE_PARAM_TYPE.MAX, m_LaserCalManager.GetMaxPower(arUsed).ToString());
-            m_instanceRecipe.SetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.POWER_MEASURE_WATT.ToString(), 0, EN_RECIPE_PARAM_TYPE.MIN, m_LaserCalManager.GetMinPower(arUsed).ToString());
+            m_instanceRecipe.SetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.POWER_MEASURE_WATT.ToString(), 0, EN_RECIPE_PARAM_TYPE.MAX, m_LaserCalManager.GetMaxPower(arUsed).ToString());
+            m_instanceRecipe.SetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.POWER_MEASURE_WATT.ToString(), 0, EN_RECIPE_PARAM_TYPE.MIN, m_LaserCalManager.GetMinPower(arUsed).ToString());
         }
         private void SetPowerMinMax_2()
         {
             bool[] arUsed = new bool[ProtecLaserMananger_2.GetInstance().ChannelCount];
             for (int nCh = 0; nCh < ProtecLaserMananger_2.GetInstance().ChannelCount; ++nCh)
             {
-                arUsed[nCh] = m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.POWER_MEASURE_2_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                arUsed[nCh] = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.POWER_MEASURE_2_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
             }
 
-            m_instanceRecipe.SetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.POWER_MEASURE_2_WATT.ToString(), 0, EN_RECIPE_PARAM_TYPE.MAX, m_LaserCalManager_2.GetMaxPower(arUsed).ToString());
-            m_instanceRecipe.SetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.POWER_MEASURE_2_WATT.ToString(), 0, EN_RECIPE_PARAM_TYPE.MIN, m_LaserCalManager_2.GetMinPower(arUsed).ToString());
+            m_instanceRecipe.SetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.POWER_MEASURE_2_WATT.ToString(), 0, EN_RECIPE_PARAM_TYPE.MAX, m_LaserCalManager_2.GetMaxPower(arUsed).ToString());
+            m_instanceRecipe.SetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.POWER_MEASURE_2_WATT.ToString(), 0, EN_RECIPE_PARAM_TYPE.MIN, m_LaserCalManager_2.GetMinPower(arUsed).ToString());
         }
 
         private void UpdateAlamCode()
@@ -1054,43 +1054,53 @@ namespace FrameOfSystem3.Views.Operation
 
             GridViewControl_Parameter.ParameterItem AddParaItem;
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_SELLECTED_CHANNEL);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_SELLECTED_CHANNEL.ToString());
             AddParaItem.DisplayName = "SELLECT CH";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_WATT);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_WATT.ToString());
             AddParaItem.DisplayName = "TARGET WATT";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_VOLT);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_VOLT.ToString());
             AddParaItem.DisplayName = "TARGET VOLT";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_SHOT_TIME);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_SHOT_TIME.ToString());
             AddParaItem.DisplayName = "LASER TIME";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_WAIT_TIME);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_WAIT_TIME.ToString());
             AddParaItem.DisplayName = "WAIT TIME";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_REPEAT_COUNT);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_REPEAT_COUNT.ToString());
             AddParaItem.DisplayName = "REPEAT COUNT";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_REST_TIME);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_REST_TIME.ToString());
             AddParaItem.DisplayName = "REST TIME";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_CALIBRATION_MIN_VOLT);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_CALIBRATION_MIN_VOLT.ToString());
             AddParaItem.DisplayName = "CAL START VOLT";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_CALIBRATION_MAX_VOLT);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_CALIBRATION_MAX_VOLT.ToString());
             AddParaItem.DisplayName = "CAL END VOLT";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_CALIBRATION_STEP_COUNT);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_CALIBRATION_STEP_COUNT.ToString());
             AddParaItem.DisplayName = "CAL STEP";
             parameterList.Add(AddParaItem);
 
@@ -1102,43 +1112,53 @@ namespace FrameOfSystem3.Views.Operation
 
             GridViewControl_Parameter.ParameterItem AddParaItem;
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_2_SELLECTED_CHANNEL);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_2_SELLECTED_CHANNEL.ToString());
             AddParaItem.DisplayName = "SELLECT CH";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_2_WATT);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_2_WATT.ToString());
             AddParaItem.DisplayName = "TARGET WATT";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_2_VOLT);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_2_VOLT.ToString());
             AddParaItem.DisplayName = "TARGET VOLT";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_2_SHOT_TIME);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_2_SHOT_TIME.ToString());
             AddParaItem.DisplayName = "LASER TIME";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_2_WAIT_TIME);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_2_WAIT_TIME.ToString());
             AddParaItem.DisplayName = "WAIT TIME";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_2_REPEAT_COUNT);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_2_REPEAT_COUNT.ToString()); 
             AddParaItem.DisplayName = "REPEAT COUNT";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_MEASURE_2_REST_TIME);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_2_REST_TIME.ToString());
             AddParaItem.DisplayName = "REST TIME";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_CALIBRATION_2_MIN_VOLT);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_CALIBRATION_2_MIN_VOLT.ToString());
             AddParaItem.DisplayName = "CAL START VOLT";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_CALIBRATION_2_MAX_VOLT);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_CALIBRATION_2_MAX_VOLT.ToString());
             AddParaItem.DisplayName = "CAL END VOLT";
             parameterList.Add(AddParaItem);
 
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EQUIPMENT_PARAM.POWER_CALIBRATION_2_STEP_COUNT);
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_CALIBRATION_2_STEP_COUNT.ToString());
             AddParaItem.DisplayName = "CAL STEP";
             parameterList.Add(AddParaItem);
 

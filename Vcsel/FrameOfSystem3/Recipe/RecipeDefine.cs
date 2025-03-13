@@ -23,75 +23,75 @@ namespace FrameOfSystem3.Recipe
         MachineName,
         UnlockParameterChange,
 
-        #region Laser
-        LASER_SETTING_DELAY,
-        #endregion
+        //#region Laser
+        //LASER_SETTING_DELAY,
+        //#endregion
 
-        #region Bond Head Calibration
-        #endregion
+        //#region Bond Head Calibration
+        //#endregion
 
-        //#region AVOID POSITION
-        //HEAD_READY_POSITION_X,
-        //HEAD_READY_POSITION_Y,
-        //#endregion /AVOID POSITION
+        ////#region AVOID POSITION
+        ////HEAD_READY_POSITION_X,
+        ////HEAD_READY_POSITION_Y,
+        ////#endregion /AVOID POSITION
 
-        //#region HEATER PARAMETER
-        //WORK_BLOCK_TOLERANCE_MIN,
-        //WORK_BLOCK_TOLERANCE_MAX,
+        ////#region HEATER PARAMETER
+        ////WORK_BLOCK_TOLERANCE_MIN,
+        ////WORK_BLOCK_TOLERANCE_MAX,
 
-        //WORK_BLOCK_CH_OFFSET_8,
-        //#endregion /HEATER PARAMETER
+        ////WORK_BLOCK_CH_OFFSET_8,
+        ////#endregion /HEATER PARAMETER
 
-        #region CALIBRATION
-        POWER_CALIBRATION_MAX_VOLT,
-        POWER_CALIBRATION_MIN_VOLT,
+        //#region CALIBRATION
+        //POWER_CALIBRATION_MAX_VOLT,
+        //POWER_CALIBRATION_MIN_VOLT,
 
-        POWER_CALIBRATION_STEP_COUNT,
+        //POWER_CALIBRATION_STEP_COUNT,
 
-        // 2025.3.11 by ecchoi [ADD] Laser 2
-        POWER_CALIBRATION_2_MAX_VOLT,
-        POWER_CALIBRATION_2_MIN_VOLT,
+        //// 2025.3.11 by ecchoi [ADD] Laser 2
+        //POWER_CALIBRATION_2_MAX_VOLT,
+        //POWER_CALIBRATION_2_MIN_VOLT,
 
-        POWER_CALIBRATION_2_STEP_COUNT,
-        #endregion
+        //POWER_CALIBRATION_2_STEP_COUNT,
+        //#endregion
 
-        #region POWER MEASURE
-        POWER_MEASURE_SELLECTED_CHANNEL, //측정할 때 측정 위치 결정 
+        //#region POWER MEASURE
+        //POWER_MEASURE_SELLECTED_CHANNEL, //측정할 때 측정 위치 결정 
 
-        //POWER_MEASURE_BLOCK_AVOID_POSITION_X,
-        //POWER_MEASURE_HEAD_AVOID_POSITION_Y,
+        ////POWER_MEASURE_BLOCK_AVOID_POSITION_X,
+        ////POWER_MEASURE_HEAD_AVOID_POSITION_Y,
 
-        //POWERMETER_READY_POSITION_X,
-        //POWERMETER_READY_POSITION_Y,
+        ////POWERMETER_READY_POSITION_X,
+        ////POWERMETER_READY_POSITION_Y,
 
-        //POWER_MEASURE_POSITION_X_18,
-        //POWER_MEASURE_POSITION_Y_18,
+        ////POWER_MEASURE_POSITION_X_18,
+        ////POWER_MEASURE_POSITION_Y_18,
 
-        POWER_MEASURE_CHANNEL_ENABLE_18,
+        //POWER_MEASURE_CHANNEL_ENABLE_18,
 
-        POWER_MEASURE_WATT,
-        POWER_MEASURE_VOLT,
+        //POWER_MEASURE_WATT,
+        //POWER_MEASURE_VOLT,
 
-        POWER_MEASURE_SHOT_TIME,
-        POWER_MEASURE_WAIT_TIME,
+        //POWER_MEASURE_SHOT_TIME,
+        //POWER_MEASURE_WAIT_TIME,
 
-        POWER_MEASURE_REPEAT_COUNT,
-        POWER_MEASURE_REST_TIME,
+        //POWER_MEASURE_REPEAT_COUNT,
+        //POWER_MEASURE_REST_TIME,
 
-        // 2025.3.11 by ecchoi [ADD] Laser 2
-        POWER_MEASURE_2_SELLECTED_CHANNEL, //측정할 때 측정 위치 결정 
+        //// 2025.3.11 by ecchoi [ADD] Laser 2
+        //POWER_MEASURE_2_SELLECTED_CHANNEL, //측정할 때 측정 위치 결정 
 
-        POWER_MEASURE_2_CHANNEL_ENABLE_18,
+        //POWER_MEASURE_2_CHANNEL_ENABLE_18,
 
-        POWER_MEASURE_2_WATT,
-        POWER_MEASURE_2_VOLT,
+        //POWER_MEASURE_2_WATT,
+        //POWER_MEASURE_2_VOLT,
 
-        POWER_MEASURE_2_SHOT_TIME,
-        POWER_MEASURE_2_WAIT_TIME,
+        //POWER_MEASURE_2_SHOT_TIME,
+        //POWER_MEASURE_2_WAIT_TIME,
 
-        POWER_MEASURE_2_REPEAT_COUNT,
-        POWER_MEASURE_2_REST_TIME,
-        #endregion
+        //POWER_MEASURE_2_REPEAT_COUNT,
+        //POWER_MEASURE_2_REST_TIME,
+        //#endregion
 
         //#region HeadFlow
         //HEAD_FLOW_THRESHOLD,

@@ -184,8 +184,6 @@ namespace Define
                 public enum PARAM_PROCESS
                 {
                     #region LASER PARAMETER
-                    //LASER_WORK_POSITION_X,
-                    //LASER_WORK_POSITION_Y,
 
                     SHOT_PARAMETER_ENABLE_18,
 
@@ -197,32 +195,80 @@ namespace Define
 
                     SHOT_PARAMETER_2_STEP_TIME_5,
                     SHOT_PARAMETER_2_STEP_POWER_5,
-
-                    //SIDE_POWER_PERCENT,
-                    //SIDE_POWER_2_PERCENT,
                     #endregion
 
-                    //#region TEMPERATURE SAFTY AREA
-                    //TEMPERATURE_SAFTY_EMG_HIGH_LIMIT,
 
-                    //TEMPERATURE_SAFTY_AREA_HIGH_LIMIT_5,
-                    //TEMPERATURE_SAFTY_AREA_LOW_LIMIT_5,
-                    //TEMPERATURE_SAFTY_AREA_TIME_5,
+                    // 2025.3.12 by ecchoi [ADD] Parameter 이동 (Equipment -> Process)
+                    #region Laser
+                    LASER_SETTING_DELAY,
+                    #endregion
 
-                    //TEMPERATURE_LIVE_TARTGET_MAX,
-                    //TEMPERATURE_LIVE_TARTGET_MIN,
+                    #region Bond Head Calibration
+                    #endregion
 
-                    //TEMPERATURE_SAVE_PRE_DELAY,
-                    //TEMPERATURE_SAVE_POST_DELAY,
-                    //#endregion /TEMPERATURE SAFTY AREA
+                    //#region AVOID POSITION
+                    //HEAD_READY_POSITION_X,
+                    //HEAD_READY_POSITION_Y,
+                    //#endregion /AVOID POSITION
 
-                    //#region COOLING
-                    //MATERIAL_COOLING_TIME,
-                    //#endregion
+                    //#region HEATER PARAMETER
+                    //WORK_BLOCK_TOLERANCE_MIN,
+                    //WORK_BLOCK_TOLERANCE_MAX,
 
-                    //#region PREHEATING
-                    //MATERIAL_PREHEATING_TIME,
-                    //#endregion
+                    //WORK_BLOCK_CH_OFFSET_8,
+                    //#endregion /HEATER PARAMETER
+
+                    #region CALIBRATION
+                    POWER_CALIBRATION_MAX_VOLT,
+                    POWER_CALIBRATION_MIN_VOLT,
+
+                    POWER_CALIBRATION_STEP_COUNT,
+
+                    // 2025.3.11 by ecchoi [ADD] Laser 2
+                    POWER_CALIBRATION_2_MAX_VOLT,
+                    POWER_CALIBRATION_2_MIN_VOLT,
+
+                    POWER_CALIBRATION_2_STEP_COUNT,
+                    #endregion
+
+                    #region POWER MEASURE
+                    POWER_MEASURE_SELLECTED_CHANNEL, //측정할 때 측정 위치 결정 
+
+                    //POWER_MEASURE_BLOCK_AVOID_POSITION_X,
+                    //POWER_MEASURE_HEAD_AVOID_POSITION_Y,
+
+                    //POWERMETER_READY_POSITION_X,
+                    //POWERMETER_READY_POSITION_Y,
+
+                    //POWER_MEASURE_POSITION_X_18,
+                    //POWER_MEASURE_POSITION_Y_18,
+
+                    POWER_MEASURE_CHANNEL_ENABLE_18,
+
+                    POWER_MEASURE_WATT,
+                    POWER_MEASURE_VOLT,
+
+                    POWER_MEASURE_SHOT_TIME,
+                    POWER_MEASURE_WAIT_TIME,
+
+                    POWER_MEASURE_REPEAT_COUNT,
+                    POWER_MEASURE_REST_TIME,
+
+                    // 2025.3.11 by ecchoi [ADD] Laser 2
+                    POWER_MEASURE_2_SELLECTED_CHANNEL, //측정할 때 측정 위치 결정 
+
+                    POWER_MEASURE_2_CHANNEL_ENABLE_18,
+
+                    POWER_MEASURE_2_WATT,
+                    POWER_MEASURE_2_VOLT,
+
+                    POWER_MEASURE_2_SHOT_TIME,
+                    POWER_MEASURE_2_WAIT_TIME,
+
+                    POWER_MEASURE_2_REPEAT_COUNT,
+                    POWER_MEASURE_2_REST_TIME,
+                    #endregion
+
                 }
                 #endregion
 
