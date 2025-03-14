@@ -64,7 +64,6 @@
             this.sys3GroupBox5 = new Sys3Controls.Sys3GroupBox();
             this.m_labelRunMode = new Sys3Controls.Sys3Label();
             this.m_groupRunMode = new Sys3Controls.Sys3GroupBoxContainer();
-            this.m_btnInitialize = new Sys3Controls.Sys3button();
             this.m_lblCalFileName_2 = new Sys3Controls.Sys3Label();
             this.btn_CalLoad_2 = new Sys3Controls.Sys3button();
             this.sys3Label5 = new Sys3Controls.Sys3Label();
@@ -95,6 +94,7 @@
             this.gridViewControl_Laser_Parameter = new FrameOfSystem3.Component.GridViewControl_Parameter();
             this.gridVeiwControl_Laser_Device = new FrameOfSystem3.Component.GridVeiwControl_Device();
             this.gridViewControl_Enable_Parameter = new FrameOfSystem3.Component.GridViewControl_Parameter();
+            this.sys3button1 = new Sys3Controls.Sys3button();
             ((System.ComponentModel.ISupportInitialize)(this.m_dgViewCalibration)).BeginInit();
             this.m_groupRunMode.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.m_dgViewCalibration_2)).BeginInit();
@@ -978,7 +978,7 @@
             this.m_btnRun.ImagePosition = new System.Drawing.Point(37, 25);
             this.m_btnRun.ImageSize = new System.Drawing.Point(30, 30);
             this.m_btnRun.LoadImage = null;
-            this.m_btnRun.Location = new System.Drawing.Point(226, 2);
+            this.m_btnRun.Location = new System.Drawing.Point(3, 2);
             this.m_btnRun.MainFont = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.m_btnRun.MainFontColor = System.Drawing.Color.White;
             this.m_btnRun.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -1080,46 +1080,6 @@
             this.m_groupRunMode.ThemeIndex = 0;
             this.m_groupRunMode.UseLabelBorder = true;
             this.m_groupRunMode.UseTitle = true;
-            // 
-            // m_btnInitialize
-            // 
-            this.m_btnInitialize.BorderWidth = 5;
-            this.m_btnInitialize.ButtonClicked = false;
-            this.m_btnInitialize.ClickedEmphasizeTextColor = System.Drawing.Color.White;
-            this.m_btnInitialize.CustomClickedGradientFirstColor = System.Drawing.Color.White;
-            this.m_btnInitialize.CustomClickedGradientSecondColor = System.Drawing.Color.White;
-            this.m_btnInitialize.Description = "";
-            this.m_btnInitialize.DisabledColor = System.Drawing.Color.DarkGray;
-            this.m_btnInitialize.EdgeRadius = 5;
-            this.m_btnInitialize.GradientAngle = 60F;
-            this.m_btnInitialize.GradientFirstColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(150)))), ((int)(((byte)(255)))));
-            this.m_btnInitialize.GradientSecondColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(65)))), ((int)(((byte)(200)))));
-            this.m_btnInitialize.HoverEmphasizeCustomColor = System.Drawing.Color.White;
-            this.m_btnInitialize.ImagePosition = new System.Drawing.Point(37, 7);
-            this.m_btnInitialize.ImageSize = new System.Drawing.Point(30, 30);
-            this.m_btnInitialize.LoadImage = global::FrameOfSystem3.Properties.Resources.Home_White;
-            this.m_btnInitialize.Location = new System.Drawing.Point(3, 2);
-            this.m_btnInitialize.MainFont = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.m_btnInitialize.MainFontColor = System.Drawing.Color.White;
-            this.m_btnInitialize.Name = "m_btnInitialize";
-            this.m_btnInitialize.Size = new System.Drawing.Size(222, 43);
-            this.m_btnInitialize.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
-            this.m_btnInitialize.SubFontColor = System.Drawing.Color.Black;
-            this.m_btnInitialize.SubText = "";
-            this.m_btnInitialize.TabIndex = 0;
-            this.m_btnInitialize.Text = "　　INITIALIZE";
-            this.m_btnInitialize.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnInitialize.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnInitialize.ThemeIndex = 0;
-            this.m_btnInitialize.UseBorder = true;
-            this.m_btnInitialize.UseClickedEmphasizeTextColor = false;
-            this.m_btnInitialize.UseCustomizeClickedColor = false;
-            this.m_btnInitialize.UseEdge = true;
-            this.m_btnInitialize.UseHoverEmphasizeCustomColor = false;
-            this.m_btnInitialize.UseImage = true;
-            this.m_btnInitialize.UserHoverEmpahsize = true;
-            this.m_btnInitialize.UseSubFont = false;
-            this.m_btnInitialize.Click += new System.EventHandler(this.Click_OperationButton);
             // 
             // m_lblCalFileName_2
             // 
@@ -1918,9 +1878,51 @@
             this.gridViewControl_Enable_Parameter.Size = new System.Drawing.Size(1133, 53);
             this.gridViewControl_Enable_Parameter.TabIndex = 20878;
             // 
+            // sys3button1
+            // 
+            this.sys3button1.BorderWidth = 5;
+            this.sys3button1.ButtonClicked = false;
+            this.sys3button1.ClickedEmphasizeTextColor = System.Drawing.Color.White;
+            this.sys3button1.CustomClickedGradientFirstColor = System.Drawing.Color.White;
+            this.sys3button1.CustomClickedGradientSecondColor = System.Drawing.Color.White;
+            this.sys3button1.Description = "";
+            this.sys3button1.DisabledColor = System.Drawing.Color.DarkGray;
+            this.sys3button1.EdgeRadius = 5;
+            this.sys3button1.GradientAngle = 60F;
+            this.sys3button1.GradientFirstColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(230)))), ((int)(((byte)(115)))));
+            this.sys3button1.GradientSecondColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(135)))), ((int)(((byte)(20)))));
+            this.sys3button1.HoverEmphasizeCustomColor = System.Drawing.Color.White;
+            this.sys3button1.ImagePosition = new System.Drawing.Point(37, 25);
+            this.sys3button1.ImageSize = new System.Drawing.Point(30, 30);
+            this.sys3button1.LoadImage = null;
+            this.sys3button1.Location = new System.Drawing.Point(226, 2);
+            this.sys3button1.MainFont = new System.Drawing.Font("맑은 고딕", 13F, System.Drawing.FontStyle.Bold);
+            this.sys3button1.MainFontColor = System.Drawing.Color.White;
+            this.sys3button1.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.sys3button1.Name = "sys3button1";
+            this.sys3button1.Size = new System.Drawing.Size(222, 43);
+            this.sys3button1.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
+            this.sys3button1.SubFontColor = System.Drawing.Color.Black;
+            this.sys3button1.SubText = "";
+            this.sys3button1.TabIndex = 20925;
+            this.sys3button1.Tag = "";
+            this.sys3button1.Text = "LASER CALIBRATION";
+            this.sys3button1.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
+            this.sys3button1.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
+            this.sys3button1.ThemeIndex = 0;
+            this.sys3button1.UseBorder = true;
+            this.sys3button1.UseClickedEmphasizeTextColor = false;
+            this.sys3button1.UseCustomizeClickedColor = false;
+            this.sys3button1.UseEdge = true;
+            this.sys3button1.UseHoverEmphasizeCustomColor = false;
+            this.sys3button1.UseImage = true;
+            this.sys3button1.UserHoverEmpahsize = false;
+            this.sys3button1.UseSubFont = false;
+            // 
             // Operation_Main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.Controls.Add(this.sys3button1);
             this.Controls.Add(this.m_lblCalFileName_2);
             this.Controls.Add(this.btn_CalLoad_2);
             this.Controls.Add(this.sys3Label5);
@@ -1943,7 +1945,6 @@
             this.Controls.Add(this.gridViewControl_Laser_Parameter_2);
             this.Controls.Add(this.gridVeiwControl_Laser_Device_2);
             this.Controls.Add(this.gridViewControl_Enable_Parameter_2);
-            this.Controls.Add(this.m_btnInitialize);
             this.Controls.Add(this.m_lblCalFileName);
             this.Controls.Add(this.btn_CalLoad);
             this.Controls.Add(this.sys3Label3);
@@ -2018,7 +2019,6 @@
         private Sys3Controls.Sys3GroupBox sys3GroupBox5;
         private Sys3Controls.Sys3Label m_labelRunMode;
         private Sys3Controls.Sys3GroupBoxContainer m_groupRunMode;
-        private Sys3Controls.Sys3button m_btnInitialize;
         private Sys3Controls.Sys3Label m_lblCalFileName_2;
         private Sys3Controls.Sys3button btn_CalLoad_2;
         private Sys3Controls.Sys3Label sys3Label5;
@@ -2045,5 +2045,6 @@
         private Component.GridViewControl_Parameter gridViewControl_Laser_Parameter_2;
         private Component.GridVeiwControl_Device gridVeiwControl_Laser_Device_2;
         private Component.GridViewControl_Parameter gridViewControl_Enable_Parameter_2;
+        private Sys3Controls.Sys3button sys3button1;
     }
 }
