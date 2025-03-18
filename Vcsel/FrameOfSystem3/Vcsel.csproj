@@ -621,6 +621,12 @@
     <Compile Include="Views\Functional\Form_ColorPalette.Designer.cs">
       <DependentUpon>Form_ColorPalette.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Functional\Form_IR_Monitor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Functional\Form_IR_Monitor.Designer.cs">
+      <DependentUpon>Form_IR_Monitor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Functional\Form_Jog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -950,6 +956,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Functional\Form_ColorPalette.resx">
       <DependentUpon>Form_ColorPalette.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Functional\Form_IR_Monitor.resx">
+      <DependentUpon>Form_IR_Monitor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Functional\Form_Jog.resx">
       <DependentUpon>Form_Jog.cs</DependentUpon>

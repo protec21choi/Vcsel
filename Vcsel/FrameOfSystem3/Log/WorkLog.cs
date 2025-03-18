@@ -52,6 +52,11 @@ namespace FrameOfSystem3.Log
             HEAD_FLOW,
             POWER_ON,
             MAX_COUNT,
+
+            IR_SENSOR_1,
+            IR_SENSOR_2,
+            IR_SENSOR_3,
+            IR_SENSOR_4,
         }
 
         #region SingleTone

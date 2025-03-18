@@ -760,11 +760,12 @@ namespace Define
 			public enum EN_BUTTONEVENT_SUBMENU
 			{
 				OPERATION_MAIN,
-				//OPERATION_MANUAL,
-				//OPERATION_MONITORING,
-				//OPERATION_RAM_METRICS,
+                OPERATION_IR_MONITOR,
+                //OPERATION_MANUAL,
+                //OPERATION_MONITORING,
+                //OPERATION_RAM_METRICS,
 
-				RECIPE_MAIN,
+                RECIPE_MAIN,
 				//RECIPE_OPTIONS,
 
 				HISTORY_MAIN_LOG,
@@ -1101,7 +1102,12 @@ namespace Define
                 HEAD_TOTAL_FLOW = 37,
                 HEAD_LEFT_FLOW = 38,
                 HEAD_RIGHT_FLOW = 39,
-			}
+
+                IR_SENSOR_1 = 40,
+                IR_SENSOR_2 = 41,
+                IR_SENSOR_3 = 42,
+                IR_SENSOR_4 = 43,
+            }
 			public enum EN_ANALOG_OUT
 			{
 				NONE = 0,		// 0V ~ 5V				// SCALE RANGE (16bit) -10V ~ +10V
