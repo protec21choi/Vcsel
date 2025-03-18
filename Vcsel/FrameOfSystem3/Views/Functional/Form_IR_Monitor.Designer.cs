@@ -52,8 +52,6 @@
             this.sys3button1 = new Sys3Controls.Sys3button();
             this.LB_STEP = new Sys3Controls.Sys3Label();
             this.sys3Label31 = new Sys3Controls.Sys3Label();
-            this.btn_Save = new Sys3Controls.Sys3button();
-            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -528,12 +526,12 @@
             this.sys3button1.MainFontColor = System.Drawing.Color.White;
             this.sys3button1.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.sys3button1.Name = "sys3button1";
-            this.sys3button1.Size = new System.Drawing.Size(99, 49);
+            this.sys3button1.Size = new System.Drawing.Size(121, 49);
             this.sys3button1.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
             this.sys3button1.SubFontColor = System.Drawing.Color.Black;
             this.sys3button1.SubText = "";
             this.sys3button1.TabIndex = 20883;
-            this.sys3button1.Text = "LIVE";
+            this.sys3button1.Text = "RESTART";
             this.sys3button1.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
             this.sys3button1.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
             this.sys3button1.ThemeIndex = 0;
@@ -627,65 +625,12 @@
             this.sys3Label31.UseSubFont = true;
             this.sys3Label31.UseUnitFont = false;
             // 
-            // btn_Save
-            // 
-            this.btn_Save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_Save.BorderWidth = 5;
-            this.btn_Save.ButtonClicked = false;
-            this.btn_Save.ClickedEmphasizeTextColor = System.Drawing.Color.White;
-            this.btn_Save.CustomClickedGradientFirstColor = System.Drawing.Color.White;
-            this.btn_Save.CustomClickedGradientSecondColor = System.Drawing.Color.White;
-            this.btn_Save.Description = "";
-            this.btn_Save.DisabledColor = System.Drawing.Color.DarkGray;
-            this.btn_Save.EdgeRadius = 1;
-            this.btn_Save.GradientAngle = 60F;
-            this.btn_Save.GradientFirstColor = System.Drawing.Color.WhiteSmoke;
-            this.btn_Save.GradientSecondColor = System.Drawing.Color.DimGray;
-            this.btn_Save.HoverEmphasizeCustomColor = System.Drawing.Color.White;
-            this.btn_Save.ImagePosition = new System.Drawing.Point(37, 25);
-            this.btn_Save.ImageSize = new System.Drawing.Point(30, 30);
-            this.btn_Save.LoadImage = null;
-            this.btn_Save.Location = new System.Drawing.Point(258, 401);
-            this.btn_Save.MainFont = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_Save.MainFontColor = System.Drawing.Color.White;
-            this.btn_Save.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.btn_Save.Name = "btn_Save";
-            this.btn_Save.Size = new System.Drawing.Size(100, 49);
-            this.btn_Save.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
-            this.btn_Save.SubFontColor = System.Drawing.Color.Black;
-            this.btn_Save.SubText = "";
-            this.btn_Save.TabIndex = 20941;
-            this.btn_Save.Text = "SAVE";
-            this.btn_Save.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.btn_Save.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.btn_Save.ThemeIndex = 0;
-            this.btn_Save.UseBorder = true;
-            this.btn_Save.UseClickedEmphasizeTextColor = false;
-            this.btn_Save.UseCustomizeClickedColor = false;
-            this.btn_Save.UseEdge = true;
-            this.btn_Save.UseHoverEmphasizeCustomColor = false;
-            this.btn_Save.UseImage = true;
-            this.btn_Save.UserHoverEmpahsize = false;
-            this.btn_Save.UseSubFont = false;
-            this.btn_Save.Click += new System.EventHandler(this.Click_Save);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(364, 430);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(142, 12);
-            this.label1.TabIndex = 20942;
-            this.label1.Text = "File Path : D:\\IR_LOG\\";
-            // 
             // Form_IR_Monitor
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1187, 451);
             this.ControlBox = false;
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.btn_Save);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.BT_Play);
             this.Controls.Add(this.BT_Pause);
@@ -713,7 +658,6 @@
             this.Resize += new System.EventHandler(this.Form_Monitor_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
 		}
 
@@ -737,7 +681,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private Sys3Controls.Sys3Label LB_STEP;
         private Sys3Controls.Sys3Label sys3Label31;
-        private Sys3Controls.Sys3button btn_Save;
-        private System.Windows.Forms.Label label1;
     }
 }

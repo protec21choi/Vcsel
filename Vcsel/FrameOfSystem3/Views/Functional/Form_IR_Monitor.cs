@@ -570,11 +570,11 @@ namespace FrameOfSystem3.Views.Functional
         }
         public void UpdateLabel()
         {
-            LB_SAVE_STATE.Text = m_InstanceOfLaserMonitor.enStatus.ToString();
-            if (m_InstanceOfLaserMonitor.enStatus == Log.WorkLog.EN_SAVE_STATUS.WAIT)
-                btn_Save.Text = "SAVE";
-            else
-                btn_Save.Text = "STOP";
+            //LB_SAVE_STATE.Text = m_InstanceOfLaserMonitor.enStatus.ToString();
+            //if (m_InstanceOfLaserMonitor.enStatus == Log.WorkLog.EN_SAVE_STATUS.WAIT)
+            //    btn_Save.Text = "SAVE";
+            //else
+            //    btn_Save.Text = "STOP";
 
             switch (m_enGraphMode)
             {
