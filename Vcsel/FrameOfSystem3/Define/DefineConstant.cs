@@ -105,7 +105,7 @@ namespace Define
 
             public static readonly string FILEPATH_CALIBRATION_LASER = FILEPATH_EXE + "\\Calibration\\Laser";
 
-            public static readonly string FILEPATH_LASER_WORK_LOG = "D:\\WORKLOG";
+            public static readonly string FILEPATH_LASER_WORK_LOG = "D:\\IR_LOG";
             public static readonly string FILEPATH_TEST_LOG = "D:\\TESTLOG";
         }
         #endregion

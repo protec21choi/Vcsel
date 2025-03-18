@@ -21,42 +21,44 @@ namespace FrameOfSystem3.Log
 
         public enum EN_LOG_ITEM
         {
-            POWER_1,
-            POWER_2,
-            POWER_3,
-            POWER_4,
-            POWER_5,
-            POWER_6,
-            POWER_7,
-            POWER_8,
-            POWER_9,
-            POWER_10,
-            POWER_11,
-            POWER_12,
-            POWER_13,
-            POWER_14,
-            POWER_15,
-            POWER_16,
-            POWER_17,
-            POWER_18,
+            //POWER_1,
+            //POWER_2,
+            //POWER_3,
+            //POWER_4,
+            //POWER_5,
+            //POWER_6,
+            //POWER_7,
+            //POWER_8,
+            //POWER_9,
+            //POWER_10,
+            //POWER_11,
+            //POWER_12,
+            //POWER_13,
+            //POWER_14,
+            //POWER_15,
+            //POWER_16,
+            //POWER_17,
+            //POWER_18,
 
-            POWER_TOTAL,
+            //POWER_TOTAL,
 
-            PYRO_TEMP_1,
-            PYRO_TEMP_2,
-            PYRO_TEMP_3,
-            PYRO_TEMP_4,
-            PYRO_TEMP_5,
+            //PYRO_TEMP_1,
+            //PYRO_TEMP_2,
+            //PYRO_TEMP_3,
+            //PYRO_TEMP_4,
+            //PYRO_TEMP_5,
 
-            BLOCK_VAC,
-            HEAD_FLOW,
-            POWER_ON,
-            MAX_COUNT,
+            //BLOCK_VAC,
+            //HEAD_FLOW,
 
             IR_SENSOR_1,
             IR_SENSOR_2,
             IR_SENSOR_3,
             IR_SENSOR_4,
+
+            POWER_ON,
+            MAX_COUNT,
+
         }
 
         #region SingleTone
@@ -229,62 +231,27 @@ namespace FrameOfSystem3.Log
 
             Dictionary<EN_LOG_ITEM, double> dicMonitoringValue = new Dictionary<EN_LOG_ITEM, double>();
 
-            dicMonitoringValue.Add(EN_LOG_ITEM.POWER_1, m_Analog.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_1));
-            dicMonitoringValue.Add(EN_LOG_ITEM.POWER_2, m_Analog.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_2));
-            dicMonitoringValue.Add(EN_LOG_ITEM.POWER_3, m_Analog.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_3));
-            dicMonitoringValue.Add(EN_LOG_ITEM.POWER_4, m_Analog.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_4));
-            dicMonitoringValue.Add(EN_LOG_ITEM.POWER_5, m_Analog.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_5));
-            dicMonitoringValue.Add(EN_LOG_ITEM.POWER_6, m_Analog.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_6));
-            dicMonitoringValue.Add(EN_LOG_ITEM.POWER_7, m_Analog.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_7));
-            dicMonitoringValue.Add(EN_LOG_ITEM.POWER_8, m_Analog.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_8));
-            dicMonitoringValue.Add(EN_LOG_ITEM.POWER_9, m_Analog.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_9));
-            dicMonitoringValue.Add(EN_LOG_ITEM.POWER_10, m_Analog.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_10));
-            dicMonitoringValue.Add(EN_LOG_ITEM.POWER_11, m_Analog.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_11));
-            dicMonitoringValue.Add(EN_LOG_ITEM.POWER_12, m_Analog.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_12));
-            dicMonitoringValue.Add(EN_LOG_ITEM.POWER_13, m_Analog.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_13));
-            dicMonitoringValue.Add(EN_LOG_ITEM.POWER_14, m_Analog.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_14));
-            dicMonitoringValue.Add(EN_LOG_ITEM.POWER_15, m_Analog.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_15));
-            dicMonitoringValue.Add(EN_LOG_ITEM.POWER_16, m_Analog.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_16));
-            dicMonitoringValue.Add(EN_LOG_ITEM.POWER_17, m_Analog.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_17));
-            dicMonitoringValue.Add(EN_LOG_ITEM.POWER_18, m_Analog.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_18));
-
-            double dTotalPower = 0;
-            dTotalPower += dicMonitoringValue[EN_LOG_ITEM.POWER_1];
-            dTotalPower += dicMonitoringValue[EN_LOG_ITEM.POWER_2];
-            dTotalPower += dicMonitoringValue[EN_LOG_ITEM.POWER_3];
-            dTotalPower += dicMonitoringValue[EN_LOG_ITEM.POWER_4];
-            dTotalPower += dicMonitoringValue[EN_LOG_ITEM.POWER_5];
-            dTotalPower += dicMonitoringValue[EN_LOG_ITEM.POWER_6];
-            dTotalPower += dicMonitoringValue[EN_LOG_ITEM.POWER_7];
-            dTotalPower += dicMonitoringValue[EN_LOG_ITEM.POWER_8];
-            dTotalPower += dicMonitoringValue[EN_LOG_ITEM.POWER_9];
-            dTotalPower += dicMonitoringValue[EN_LOG_ITEM.POWER_10];
-            dTotalPower += dicMonitoringValue[EN_LOG_ITEM.POWER_11];
-            dTotalPower += dicMonitoringValue[EN_LOG_ITEM.POWER_12];
-            dTotalPower += dicMonitoringValue[EN_LOG_ITEM.POWER_13];
-            dTotalPower += dicMonitoringValue[EN_LOG_ITEM.POWER_14];
-            dTotalPower += dicMonitoringValue[EN_LOG_ITEM.POWER_15];
-            dTotalPower += dicMonitoringValue[EN_LOG_ITEM.POWER_16];
-            dTotalPower += dicMonitoringValue[EN_LOG_ITEM.POWER_17];
-            dTotalPower += dicMonitoringValue[EN_LOG_ITEM.POWER_18];
-
-            dicMonitoringValue.Add(EN_LOG_ITEM.POWER_TOTAL, dTotalPower);
-
-            dicMonitoringValue.Add(EN_LOG_ITEM.PYRO_TEMP_1, m_Analog.ReadInputValue((int)EN_ANALOG_IN.TEMP_CH_1));
-            dicMonitoringValue.Add(EN_LOG_ITEM.PYRO_TEMP_2, m_Analog.ReadInputValue((int)EN_ANALOG_IN.TEMP_CH_2));
-            dicMonitoringValue.Add(EN_LOG_ITEM.PYRO_TEMP_3, m_Analog.ReadInputValue((int)EN_ANALOG_IN.TEMP_CH_3));
-            dicMonitoringValue.Add(EN_LOG_ITEM.PYRO_TEMP_4, m_Analog.ReadInputValue((int)EN_ANALOG_IN.TEMP_CH_4));
-            dicMonitoringValue.Add(EN_LOG_ITEM.PYRO_TEMP_5, m_Analog.ReadInputValue((int)EN_ANALOG_IN.TEMP_CH_5));
-
-            dicMonitoringValue.Add(EN_LOG_ITEM.BLOCK_VAC, m_Analog.ReadInputValue((int)EN_ANALOG_IN.BLOCK_MATERIAL_VAC));
-
-            dicMonitoringValue.Add(EN_LOG_ITEM.HEAD_FLOW, m_Analog.ReadInputValue((int)EN_ANALOG_IN.HEAD_TOTAL_FLOW));
+            dicMonitoringValue.Add(EN_LOG_ITEM.IR_SENSOR_1, m_Analog.ReadInputValue((int)EN_ANALOG_IN.IR_SENSOR_1));
+            dicMonitoringValue.Add(EN_LOG_ITEM.IR_SENSOR_2, m_Analog.ReadInputValue((int)EN_ANALOG_IN.IR_SENSOR_2));
+            dicMonitoringValue.Add(EN_LOG_ITEM.IR_SENSOR_3, m_Analog.ReadInputValue((int)EN_ANALOG_IN.IR_SENSOR_3));
+            dicMonitoringValue.Add(EN_LOG_ITEM.IR_SENSOR_4, m_Analog.ReadInputValue((int)EN_ANALOG_IN.IR_SENSOR_4));
 
             bool bPowerON =m_Digital.ReadInput((int)EN_DIGITAL_IN.LD_1_ON)
                             ||m_Digital.ReadInput((int)EN_DIGITAL_IN.LD_2_ON)
-                            ||m_Digital.ReadInput((int)EN_DIGITAL_IN.LD_3_ON);
+                            ||m_Digital.ReadInput((int)EN_DIGITAL_IN.LD_3_ON)
+                            ||m_Digital.ReadInput((int)EN_DIGITAL_IN.LD_1_ON_2)
+                            ||m_Digital.ReadInput((int)EN_DIGITAL_IN.LD_2_ON_2)
+                            ||m_Digital.ReadInput((int)EN_DIGITAL_IN.LD_3_ON_2);
 
             dicMonitoringValue.Add(EN_LOG_ITEM.POWER_ON, bPowerON ? 1 : 0);
+
+            // 2025.3.18 by ecchoi [ADD] Graph Test Value
+            double baseValue = 50; // 기본 값
+            double fluctuation = 30 * Math.Sin(DateTime.Now.Second / 5.0 * Math.PI);
+            dicMonitoringValue[EN_LOG_ITEM.IR_SENSOR_1] = baseValue + fluctuation;
+            dicMonitoringValue[EN_LOG_ITEM.IR_SENSOR_2] = baseValue - fluctuation;
+            dicMonitoringValue[EN_LOG_ITEM.IR_SENSOR_3] = baseValue + fluctuation / 2;
+            dicMonitoringValue[EN_LOG_ITEM.IR_SENSOR_4] = baseValue - fluctuation / 2; // 2025.3.18 by ecchoi [ADD] 여기까지 Test
 
             if (!m_dicWorkLog.ContainsKey(nTime))
                 m_dicWorkLog.Add(nTime, dicMonitoringValue);

@@ -571,10 +571,10 @@ namespace FrameOfSystem3.Views.Functional
         public void UpdateLabel()
         {
             LB_SAVE_STATE.Text = m_InstanceOfLaserMonitor.enStatus.ToString();
-            //if (m_InstanceOfLaserMonitor.enStatus == Log.WorkLog.EN_SAVE_STATUS.WAIT)
-            //    btn_Save.Text = "SAVE";
-            //else
-            //    btn_Save.Text = "STOP";
+            if (m_InstanceOfLaserMonitor.enStatus == Log.WorkLog.EN_SAVE_STATUS.WAIT)
+                btn_Save.Text = "SAVE";
+            else
+                btn_Save.Text = "STOP";
 
             switch (m_enGraphMode)
             {
@@ -680,7 +680,7 @@ namespace FrameOfSystem3.Views.Functional
         {
             // 2025.3.18 by ecchoi [ADD] Graph Test Value
             double baseValue = 50; // 기본 값
-            double fluctuation = 10 * Math.Sin(DateTime.Now.Second / 5.0 * Math.PI); // 5초 간격으로 변동
+            double fluctuation = 30 * Math.Sin(DateTime.Now.Second / 5.0 * Math.PI); // 5초 간격으로 변동
 
             m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_1] = baseValue + fluctuation;
             m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_2] = baseValue - fluctuation;
@@ -864,7 +864,28 @@ namespace FrameOfSystem3.Views.Functional
         #region Event
         private void Click_Save(object sender, EventArgs e)
         {
+            if (EquipmentState_.EquipmentState.GetInstance().GetState() != EquipmentState_.EQUIPMENT_STATE.IDLE
+                && EquipmentState_.EquipmentState.GetInstance().GetState() != EquipmentState_.EQUIPMENT_STATE.PAUSE)
+                return;
 
+            Control ctrl = sender as Control;
+
+            switch (m_InstanceOfLaserMonitor.enStatus)
+            {
+                case Log.WorkLog.EN_SAVE_STATUS.WAIT:
+                    m_enGraphMode = EN_GRAPH_MODE.LIVE;
+                    InitializeGraph();
+                    SetSectionArea();
+                    m_InstanceOfLaserMonitor.SaveStart();
+                    break;
+
+                case Log.WorkLog.EN_SAVE_STATUS.GET_DATA:
+                    m_InstanceOfLaserMonitor.SaveStop();
+
+                    break;
+            }
+
+            _Graph.Refresh();
         }
 
         private void Click_Live(object sender, EventArgs e)
@@ -874,7 +895,46 @@ namespace FrameOfSystem3.Views.Functional
 
         private void Click_Load(object sender, EventArgs e)
         {
+            OpenFileDialog ofDialog = new OpenFileDialog();
 
+            if (m_strWorkLogPath == "")
+            {
+                string strFolderName = string.Format("{0}-{1}-{2}", System.DateTime.Now.Year, System.DateTime.Now.Month, System.DateTime.Now.Day);
+                m_strWorkLogPath = string.Format("{0}\\{1}", Define.DefineConstant.FilePath.FILEPATH_LASER_WORK_LOG, strFolderName);
+                DirectoryInfo di = new DirectoryInfo(m_strWorkLogPath);
+                if (!di.Exists)
+                    m_strWorkLogPath = Define.DefineConstant.FilePath.FILEPATH_LASER_WORK_LOG;
+            }
+            ofDialog.InitialDirectory = m_strWorkLogPath;
+
+            if (DialogResult.OK != ofDialog.ShowDialog())
+            {
+                return;
+            }
+
+            string fullPathName = ofDialog.FileName;
+            string fileName = ofDialog.SafeFileName;
+            string pathName = fullPathName.Substring(0, (fullPathName.Length - fileName.Length));
+
+            m_strWorkLogPath = pathName;
+
+            m_enGraphMode = EN_GRAPH_MODE.LOAD;
+            string strFileName = ofDialog.FileName;
+
+            if (!m_InstanceOfLaserMonitor.ReadLog(strFileName))
+                return;
+
+            InitializeGraph();
+
+            SetSectionArea();
+
+            SB_GraphTime.SmallChange = m_nStepTime;
+
+            SB_GraphTime.Minimum = 0;
+            SB_GraphTime.Maximum = m_InstanceOfLaserMonitor.dicLoadedLog.Count - 1;
+            m_nCurrentGraphTime = 0;
+
+            SetEnableStroll(true);
         }
         private void SetEnableStroll(bool bEnable)
         {
