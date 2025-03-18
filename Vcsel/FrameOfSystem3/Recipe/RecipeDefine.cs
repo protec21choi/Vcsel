@@ -35,6 +35,11 @@ namespace FrameOfSystem3.Recipe
         MONITORING_IR_SENSOR_4_VISIBLE,
         MONITORING_IR_SENSOR_4_COLOR,
 
+        //#region GRAPH SCALE
+        //GRAPH_SCALE_TEMP_MAX,
+        //GRAPH_SCALE_TEMP_MIN,
+        //#endregion
+
         //#region Laser
         //LASER_SETTING_DELAY,
         //#endregion
