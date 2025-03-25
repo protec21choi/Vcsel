@@ -612,12 +612,12 @@ namespace FrameOfSystem3.Views
                                         , m_enClickedMainMenu.ToString()
                                         , strEnum.Replace(' ', '_'));
 
-            //if(EN_BUTTONEVENT_SUBMENU.SETUP_JOG.ToString() == strSubMenu)
-            //{
-            //	Functional.Jog.Form_Jog.GetInstance().CreateForm();
+            if (EN_BUTTONEVENT_SUBMENU.OPERATION_CAL_MONITOR.ToString() == strSubMenu)
+            {
+                Functional.Form_CAL_Monitor.GetInstance().CreateForm();
 
-            //	return false;
-            //}
+                return false;
+            }
 
             if (EN_BUTTONEVENT_SUBMENU.OPERATION_IR_MONITOR.ToString() == strSubMenu)
             {
