@@ -87,6 +87,7 @@ namespace FrameOfSystem3.Views.Operation
         private FileDialog m_instanceFile = new OpenFileDialog();
         private Functional.Form_Calculator _Calculator_Instance_m_p = null;
         Laser.ProtecLaserMananger m_Laser = Laser.ProtecLaserMananger.GetInstance();
+        Laser.ProtecLaserMananger_2 m_Laser_2 = Laser.ProtecLaserMananger_2.GetInstance();
         private TickCounter m_tickCount = new TickCounter();
 
         Dictionary<string, RUN_MODE> m_DicForRunMode = new Dictionary<string, RUN_MODE>();
@@ -589,6 +590,7 @@ namespace FrameOfSystem3.Views.Operation
             switch (ctrl.TabIndex)
             {
                 case 0:
+                    #region Laser#1
                     bool[] arUsed = new bool[m_Laser.ChannelCount];
                     double arPower = 0.0;
                     int arTime = 0;
@@ -609,15 +611,16 @@ namespace FrameOfSystem3.Views.Operation
                         case ProtecLaserMananger.EN_SET_RESULT.WORKING:
                             break;
                         case ProtecLaserMananger.EN_SET_RESULT.POWER_OVER_MAX:
-                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 1, false); //POWER OVER MAX
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 101, false); //POWER IS TOO HIGH
                             break;
                         case ProtecLaserMananger.EN_SET_RESULT.CH_POWER_OVER:
-                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 2, false); //CHANNEL POWER IS TOO HIGH
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 102, false); //CHANNEL POWER IS TOO HIGH
                             break;
                         case ProtecLaserMananger.EN_SET_RESULT.POWER_UNDER_MIN:
-                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 3, false); //POWER IS TOO LOW
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 103, false); //POWER IS TOO LOW
                             break;
                         default:
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 104, false); //LASER COMMUNICATION FAIL
                             break;
 
                     }
@@ -625,9 +628,47 @@ namespace FrameOfSystem3.Views.Operation
                     FrameOfSystem3.Config.ConfigDigitalIO.GetInstance().WriteOutput(true, (int)EN_DIGITAL_OUT.LD_1_ON);
                     FrameOfSystem3.Config.ConfigDigitalIO.GetInstance().WriteOutput(true, (int)EN_DIGITAL_OUT.LD_2_ON);
                     FrameOfSystem3.Config.ConfigDigitalIO.GetInstance().WriteOutput(true, (int)EN_DIGITAL_OUT.LD_3_ON);
+                    #endregion /Laser#1
+
+                    #region Laser#2
+                    bool[] arUsed_2 = new bool[m_Laser_2.ChannelCount];
+                    double arPower_2 = 0.0;
+                    int arTime_2 = 0;
+
+                    for (int nCh = 0; nCh < m_Laser_2.ChannelCount; ++nCh)
+                    {
+                        arUsed_2[nCh] = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_2_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                    }
+
+                    arPower_2 = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_POWER_5.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+                    arTime_2 = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_TIME_5.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                    switch (m_Laser_2.SetParameter(arUsed_2, arPower_2, arTime_2))
+                    {
+                        case ProtecLaserMananger_2.EN_SET_RESULT_2.OK:
+                            int nDelay = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.LASER_SETTING_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                            m_tickCount.SetTickCount((uint)Math.Max(0, nDelay));
+                            break;
+                        case ProtecLaserMananger_2.EN_SET_RESULT_2.WORKING:
+                            break;
+                        case ProtecLaserMananger_2.EN_SET_RESULT_2.POWER_OVER_MAX:
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 201, false); //LASER#2 POWER IS TOO HIGH
+                            break;
+                        case ProtecLaserMananger_2.EN_SET_RESULT_2.CH_POWER_OVER:
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 202, false); //LASER#2 CHANNEL POWER IS TOO HIGH
+                            break;
+                        case ProtecLaserMananger_2.EN_SET_RESULT_2.POWER_UNDER_MIN:
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 203, false); //LASER#2 POWER IS TOO LOW
+                            break;
+                        default:
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 204, false); //LASER#2 COMMUNICATION FAIL
+                            break;
+
+                    }
+
                     FrameOfSystem3.Config.ConfigDigitalIO.GetInstance().WriteOutput(true, (int)EN_DIGITAL_OUT.LD_1_ON_2);
                     FrameOfSystem3.Config.ConfigDigitalIO.GetInstance().WriteOutput(true, (int)EN_DIGITAL_OUT.LD_2_ON_2);
                     FrameOfSystem3.Config.ConfigDigitalIO.GetInstance().WriteOutput(true, (int)EN_DIGITAL_OUT.LD_3_ON_2);
+                    #endregion /Laser#2
 
                     break;
                 case 1:
