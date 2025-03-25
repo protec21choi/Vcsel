@@ -645,9 +645,12 @@ namespace Define
                 {
 
                 }
-
+                public enum EN_SYSTEM_ALARM
+                {
+                    HOST_CONNECTION_ALARM
+                }
                 #endregion
-            }
+                }
 		}
 
 		namespace Map
