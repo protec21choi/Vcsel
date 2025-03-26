@@ -33,6 +33,8 @@ namespace FrameOfSystem3.Views.Functional
             Task.TaskOperator.GetInstance().GetTaskInstance(Define.DefineEnumProject.Task.EN_TASK_LIST.BOND_HEAD.ToString(), ref pTempTask);
             m_TaskBonder_Instance = pTempTask as Task.TaskBondHead;
             #endregion
+
+            UpdatePowerMeasureResult();
         }
 
         #region 싱글톤

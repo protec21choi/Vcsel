@@ -75,7 +75,7 @@
             this.sys3GroupBox8.Name = "sys3GroupBox8";
             this.sys3GroupBox8.Size = new System.Drawing.Size(1184, 304);
             this.sys3GroupBox8.TabIndex = 20877;
-            this.sys3GroupBox8.Text = "LASER CAL MONITOR";
+            this.sys3GroupBox8.Text = "LASER CALIBRATION MONITOR";
             this.sys3GroupBox8.TextAlign = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
             this.sys3GroupBox8.ThemeIndex = 0;
             this.sys3GroupBox8.UseLabelBorder = true;
