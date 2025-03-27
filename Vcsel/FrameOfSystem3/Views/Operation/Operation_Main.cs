@@ -627,9 +627,8 @@ namespace FrameOfSystem3.Views.Operation
                         arUsed[nCh] = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
                     }
 
-                    arPower = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-                    arTime = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_TIME_5.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-                    switch (m_Laser.SetParameter(arUsed, arPower, arTime))
+                    arPower = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARA_CONTINUOUS_POWER_18.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+                    switch (m_Laser.SetParameterIOMode(arUsed, arPower))
                     {
                         case ProtecLaserMananger.EN_SET_RESULT.OK:
                             int nDelay = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.LASER_SETTING_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);

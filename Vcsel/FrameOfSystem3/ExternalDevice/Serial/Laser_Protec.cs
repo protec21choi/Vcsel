@@ -296,7 +296,7 @@ namespace FrameOfSystem3.ExternalDevice.Serial
         #region ControlBoard
         #region Send Value To Controller
 
-        public EN_RESULT SetInitVoltage(int nPortIndex, bool[] arEnable, double[] arValue)
+        public EN_RESULT SetInitVoltageIOMode(int nPortIndex, bool[] arEnable, double[] arValue)
         {
             if (arEnable.Length != 6
                 || arValue.Length != 6)
