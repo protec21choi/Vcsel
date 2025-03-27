@@ -357,6 +357,7 @@ namespace FrameOfSystem3.Component
         {
             dataGridView.ColumnHeadersVisible = true;
             base.Height += 25;
+            dataGridView.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Bold);
             for (int i = 0; i < lstHeaderName.Count; i++ )
             {
                 dataGridView.Columns[i].HeaderText = lstHeaderName[i];
