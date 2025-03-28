@@ -458,39 +458,39 @@ namespace FrameOfSystem3.Laser
                     m_nSeq++;
                     break;
 
-                case 3:
-                    StringBuilder commandBuilder = new StringBuilder("(STX)S");
+                //case 3:
+                //    StringBuilder commandBuilder = new StringBuilder("(STX)S");
 
-                    for (int nIndex = 0; nIndex < m_nChannelCount; nIndex++)
-                    {
-                        int voltageValue = m_dicLaserParam[nIndex].Voltage;
-                        int ssrState = m_dicLaserParam[nIndex].Enable ? 1 : 0;
-                        commandBuilder.Append($"{ssrState}{voltageValue:D5},");
+                //    for (int nIndex = 0; nIndex < m_nChannelCount; nIndex++)
+                //    {
+                //        int voltageValue = m_dicLaserParam[nIndex].Voltage;
+                //        int ssrState = m_dicLaserParam[nIndex].Enable ? 1 : 0;
+                //        commandBuilder.Append($"{ssrState}{voltageValue:D5},");
 
-                        if (!arPortSettingDone[m_dicLaserParam[nIndex].PortIndex] &&
-                            m_ProtecLaser.SetInitVoltageIOMode(m_dicLaserParam[nIndex].PortIndex, m_dicLaserParam[nIndex].Enable, voltageValue) == ProtecLaserController.EN_RESULT.DONE)
-                        {
-                            arPortSettingDone[m_dicLaserParam[nIndex].PortIndex] = true;
-                        }
-                    }
+                //        if (!arPortSettingDone[m_dicLaserParam[nIndex].PortIndex] &&
+                //            m_ProtecLaser.SetInitVoltageIOMode(m_dicLaserParam[nIndex].PortIndex, m_dicLaserParam[nIndex].Enable, voltageValue) == ProtecLaserController.EN_RESULT.DONE)
+                //        {
+                //            arPortSettingDone[m_dicLaserParam[nIndex].PortIndex] = true;
+                //        }
+                //    }
 
-                    commandBuilder.Length--;
-                    commandBuilder.Append("^(ETX)");
-                    SendCommand(commandBuilder.ToString());
+                //    commandBuilder.Length--;
+                //    commandBuilder.Append("^(ETX)");
+                //    SendCommand(commandBuilder.ToString());
 
-                    SetDisablePortSettingDone();
-                    SetNoneExistChannelSettingDone(m_nSettingChannel);
+                //    SetDisablePortSettingDone();
+                //    SetNoneExistChannelSettingDone(m_nSettingChannel);
 
-                    if (IsPortSettingDone())
-                    {
-                        InitPortSettingDone();
-                        m_ProtecLaser.ClearAllPortData();
-                        m_nSettingChannel++;
-                    }
+                //    if (IsPortSettingDone())
+                //    {
+                //        InitPortSettingDone();
+                //        m_ProtecLaser.ClearAllPortData();
+                //        m_nSettingChannel++;
+                //    }
 
-                    if (m_nSettingChannel >= m_nChannelCountInPort)
-                        m_nSeq++;
-                    break;
+                //    if (m_nSettingChannel >= m_nChannelCountInPort)
+                //        m_nSeq++;
+                //    break;
 
                 case 4:
                     m_nSeq++;

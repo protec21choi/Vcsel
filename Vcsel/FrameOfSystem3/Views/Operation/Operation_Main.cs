@@ -299,7 +299,7 @@ namespace FrameOfSystem3.Views.Operation
             AddParaItem.AfterSetParameter = SetPowerMinMax;
             parameterList.Add(AddParaItem);
 
-            gridViewControl_Enable_Parameter.Initialize(parameterList, -1, 60);
+            gridViewControl_Enable_Parameter.Initialize(parameterList, -1, 110);
         }
         private void InitGridEnableParameter_2()
         {
@@ -486,76 +486,61 @@ namespace FrameOfSystem3.Views.Operation
 
             gridVeiwControl_Laser_Device_2.ShowHeader(lstHeader);
         }
-        //private void InitGridLaserParameter()
-        //{
-        //    List<GridViewControl_Parameter.ParameterItem> parameterList = new List<GridViewControl_Parameter.ParameterItem>();
-
-        //    List<int> AddParaIndexList = new List<int>();
-        //    AddParaIndexList.Add(0);
-        //    AddParaIndexList.Add(1);
-        //    AddParaIndexList.Add(2);
-        //    AddParaIndexList.Add(3);
-        //    AddParaIndexList.Add(4);
-
-        //    List<string> AddParaList = new List<string>();
-
-        //    AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5.ToString());
-        //    AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5.ToString());
-        //    AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5.ToString());
-        //    AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5.ToString());
-        //    AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5.ToString());
-        //    GridViewControl_Parameter.ParameterItem AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList);
-        //    AddParaItem.DisplayName = "LASER POWER";
-        //    parameterList.Add(AddParaItem);
-
-        //    AddParaList = new List<string>();
-        //    AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_TIME_5.ToString());
-        //    AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_TIME_5.ToString());
-        //    AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_TIME_5.ToString());
-        //    AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_TIME_5.ToString());
-        //    AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_TIME_5.ToString());
-        //    AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList);
-        //    AddParaItem.DisplayName = "LASER TIME";
-        //    parameterList.Add(AddParaItem);
-
-        //    gridViewControl_Laser_Parameter.Initialize(parameterList, -1, 85);
-
-        //    List<string> HeaderList = new List<string>();
-        //    HeaderList.Add("");
-        //    HeaderList.Add("STEP 1");
-        //    HeaderList.Add("STEP 2");
-        //    HeaderList.Add("STEP 3");
-        //    HeaderList.Add("STEP 4");
-        //    HeaderList.Add("STEP 5");
-        //    gridViewControl_Laser_Parameter.ShowHeader(HeaderList);
-        //}
         private void InitGridLaserParameter()
         {
             List<GridViewControl_Parameter.ParameterItem> parameterList = new List<GridViewControl_Parameter.ParameterItem>();
-            List<int> addParaIndexList = Enumerable.Range(0, 18).ToList(); 
 
-            AddLaserParameter(parameterList, BONDER_TASK_PARAM.SHOT_PARA_CONTINUOUS_POWER_18, "LASER POWER", addParaIndexList);
+            List<int> AddParaIndexList = new List<int>();
+            AddParaIndexList.Add(0);
+            AddParaIndexList.Add(1);
+            AddParaIndexList.Add(2);
+            AddParaIndexList.Add(3);
+            AddParaIndexList.Add(4);
 
-            gridViewControl_Laser_Parameter.Initialize(parameterList, -1, 55);
-            gridViewControl_Laser_Parameter.ShowHeader(GenerateHeaderList(18));
+            List<string> AddParaList = new List<string>();
+
+            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_TOTAL_POWER.ToString());
+
+            GridViewControl_Parameter.ParameterItem AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList);
+            AddParaItem.DisplayName = "LASER TOTAL POWER";
+            parameterList.Add(AddParaItem);
+
+            
+
+            gridViewControl_Laser_Parameter.Initialize(parameterList, -1, 105);
+
+            List<string> HeaderList = new List<string>();
+            HeaderList.Add("");
+            HeaderList.Add("WATT");
+            gridViewControl_Laser_Parameter.ShowHeader(HeaderList);
         }
+        //private void InitGridLaserParameter()
+        //{
+        //    List<GridViewControl_Parameter.ParameterItem> parameterList = new List<GridViewControl_Parameter.ParameterItem>();
+        //    List<int> addParaIndexList = Enumerable.Range(0, 18).ToList(); 
 
-        private void AddLaserParameter(List<GridViewControl_Parameter.ParameterItem> parameterList, BONDER_TASK_PARAM param, string displayName, List<int> indexList)
-        {
-            List<string> addParaList = Enumerable.Repeat(param.ToString(), indexList.Count).ToList();
-            var addParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, addParaList, indexList)
-            {
-                DisplayName = displayName
-            };
-            parameterList.Add(addParaItem);
-        }
+        //    AddLaserParameter(parameterList, BONDER_TASK_PARAM.SHOT_PARA_CONTINUOUS_POWER_18, "LASER POWER", addParaIndexList);
 
-        private List<string> GenerateHeaderList(int stepCount)
-        {
-            List<string> headerList = new List<string> { "" };
-            headerList.AddRange(Enumerable.Range(1, stepCount).Select(step => $"CH {step}"));
-            return headerList;
-        }
+        //    gridViewControl_Laser_Parameter.Initialize(parameterList, -1, 55);
+        //    gridViewControl_Laser_Parameter.ShowHeader(GenerateHeaderList(18));
+        //}
+
+        //private void AddLaserParameter(List<GridViewControl_Parameter.ParameterItem> parameterList, BONDER_TASK_PARAM param, string displayName, List<int> indexList)
+        //{
+        //    List<string> addParaList = Enumerable.Repeat(param.ToString(), indexList.Count).ToList();
+        //    var addParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, addParaList, indexList)
+        //    {
+        //        DisplayName = displayName
+        //    };
+        //    parameterList.Add(addParaItem);
+        //}
+
+        //private List<string> GenerateHeaderList(int stepCount)
+        //{
+        //    List<string> headerList = new List<string> { "" };
+        //    headerList.AddRange(Enumerable.Range(1, stepCount).Select(step => $"CH {step}"));
+        //    return headerList;
+        //}
         private void InitGridLaserParameter_2()
         {
             List<GridViewControl_Parameter.ParameterItem> parameterList = new List<GridViewControl_Parameter.ParameterItem>();
@@ -627,7 +612,7 @@ namespace FrameOfSystem3.Views.Operation
                         arUsed[nCh] = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
                     }
 
-                    arPower = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARA_CONTINUOUS_POWER_18.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+                    arPower = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_TOTAL_POWER.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
                     switch (m_Laser.SetParameterIOMode(arUsed, arPower))
                     {
                         case ProtecLaserMananger.EN_SET_RESULT.OK:

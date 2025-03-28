@@ -190,7 +190,7 @@ namespace Define
                     SHOT_PARAMETER_STEP_TIME_5,
                     SHOT_PARAMETER_STEP_POWER_5,
 
-                    SHOT_PARA_CONTINUOUS_POWER_18,
+                    SHOT_PARAMETER_TOTAL_POWER,
 
                     // 2025.3.11 by ecchoi [ADD] Laser 2
                     SHOT_PARAMETER_2_ENABLE_18,
@@ -198,7 +198,7 @@ namespace Define
                     SHOT_PARAMETER_2_STEP_TIME_5,
                     SHOT_PARAMETER_2_STEP_POWER_5,
 
-                    SHOT_PARA_2_CONTINUOUS_POWER_18,
+                    SHOT_PARAMETER_2_TOTAL_POWER,
                     #endregion
 
 
