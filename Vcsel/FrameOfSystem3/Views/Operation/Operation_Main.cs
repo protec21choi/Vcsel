@@ -604,7 +604,7 @@ namespace FrameOfSystem3.Views.Operation
                 case 0:
                     #region Laser#1
                     bool[] arUsed = new bool[m_Laser.ChannelCount];
-                    double arPower = 0.0;
+                    double arTotalPower = 0.0;
                     int arTime = 0;
 
                     for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
@@ -612,8 +612,8 @@ namespace FrameOfSystem3.Views.Operation
                         arUsed[nCh] = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
                     }
 
-                    arPower = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_TOTAL_POWER.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-                    switch (m_Laser.SetParameterIOMode(arUsed, arPower))
+                    arTotalPower = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.SHOT_PARAMETER_TOTAL_POWER.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+                    switch (m_Laser.SetParameterIOMode(arUsed, arTotalPower))
                     {
                         case ProtecLaserMananger.EN_SET_RESULT.OK:
                             int nDelay = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.LASER_SETTING_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);

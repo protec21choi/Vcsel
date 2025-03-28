@@ -398,16 +398,16 @@ namespace FrameOfSystem3.Laser
             return EN_SET_RESULT.WORKING;
         }
 
-        public EN_SET_RESULT SetParameterIOMode(bool[] bEnable, double dPower)
+        public EN_SET_RESULT SetParameterIOMode(bool[] bEnable, double dTotalPower)
         {
             switch (m_nSeq)
             {
                 case 0:
-                    if (m_LaserCal.GetMinPower(bEnable) > dPower)
+                    if (m_LaserCal.GetMinPower(bEnable) > dTotalPower)
                     {
                         return EN_SET_RESULT.POWER_UNDER_MIN;
                     }
-                    if (m_LaserCal.GetMaxPower(bEnable) < dPower)
+                    if (m_LaserCal.GetMaxPower(bEnable) < dTotalPower)
                     {
                         return EN_SET_RESULT.POWER_OVER_MAX;
                     }
@@ -429,25 +429,24 @@ namespace FrameOfSystem3.Laser
                     for (int nIndex = 0; nIndex < m_nPortCount; nIndex++)
                     {
                         m_dicLaserParam[nIndex].Enable = bEnable[nIndex];
+
                         if (bEnable[nIndex])
                         {
-                            // PowerIOMode는 배열이므로, 각 채널에 대해 배열로 설정
-                            double IOModePower = dPower / nUsedChannelCount; 
-                            m_dicLaserParam[nIndex].PowerIOMode = new double[18];
+                            double IOModePower = dTotalPower / nUsedChannelCount;
+                            double[] tempPowerIOMode = new double[18];
+                            double[] tempVoltageIOMode = new double[18];
+
                             for (int i = 0; i < 18; i++)
                             {
-                                m_dicLaserParam[nIndex].PowerIOMode[i] = IOModePower; // 동일한 power 값 반복 설정
+                                tempPowerIOMode[i] = IOModePower;
+                                tempVoltageIOMode[i] = m_LaserCal.GetProcessCalibrationChannelData(nIndex, EN_CALIBRATION_PROCESS_LIST.POWER_WATT_VOLT, IOModePower);
                             }
 
-                            // VoltageIOMode는 GetProcessCalibrationChannelData를 통해 각 채널에 대해 배열로 설정
-                            m_dicLaserParam[nIndex].VoltageIOMode = new double[18];
-                            for (int i = 0; i < 18; i++)
-                            {
-                                // 각 단계에 맞는 전압 값을 계산하여 배열에 저장
-                                m_dicLaserParam[nIndex].VoltageIOMode[i] = m_LaserCal.GetProcessCalibrationChannelData(nIndex, EN_CALIBRATION_PROCESS_LIST.POWER_WATT_VOLT, IOModePower);
-                            }
+                            m_dicLaserParam[nIndex].PowerIOMode = tempPowerIOMode;
+                            m_dicLaserParam[nIndex].VoltageIOMode = tempVoltageIOMode;
                         }
                     }
+
 
                     m_nSeq++;
                     break;
@@ -458,6 +457,58 @@ namespace FrameOfSystem3.Laser
                     m_nSeq++;
                     break;
 
+                case 3: //step volt
+                    for (int nPort = 0; nPort < m_nPortCount; nPort++)
+                    {
+                        bool[] arEnable = new bool[6];
+                        double[] arVoltage = new double[6];
+
+                        for (int nChannel = 0; nChannel < m_nChannelCount; nChannel++)
+                        {
+                            if (m_dicLaserParam[nChannel].PortIndex == nPort)
+                            {
+                                int channelInPort = m_dicLaserParam[nChannel].ChannelIndex; // Port 내에서 0~5의 인덱스를 가져야 함
+                                if (channelInPort >= 0 && channelInPort < 6)
+                                {
+                                    arEnable[channelInPort] = m_dicLaserParam[nChannel].Enable;
+                                    arVoltage[channelInPort] = m_dicLaserParam[nChannel].VoltageIOMode[channelInPort];
+                                }
+                            }
+                        }
+
+                        if (!arPortSettingDone[nPort])
+                        {
+                            if (m_ProtecLaser.SetInitVoltageIOMode(nPort, arEnable, arVoltage) == ProtecLaserController.EN_RESULT.DONE)
+                            {
+                                arPortSettingDone[nPort] = true;
+                            }
+                        }
+                    }
+                    //for (int nIndex = 0; nIndex < m_nChannelCount; nIndex++)
+                    //{
+                    //    if (m_dicLaserParam[nIndex].ChannelIndex == m_nSettingChannel)
+                    //    {
+                    //        if (arPortSettingDone[m_dicLaserParam[nIndex].PortIndex] == false)
+                    //            if (m_ProtecLaser.SetInitVoltageIOMode(m_dicLaserParam[nIndex].PortIndex, m_dicLaserParam[nIndex].Enable, m_dicLaserParam[nIndex].VoltageIOMode)
+                    //                 == ProtecLaserController.EN_RESULT.DONE)
+                    //            {
+                    //                arPortSettingDone[m_dicLaserParam[nIndex].PortIndex] = true;
+                    //            }
+                    //    }
+                    //}
+                    SetDisablePortSettingDone();
+                    SetNoneExistChannelSettingDone(m_nSettingChannel);
+
+                    if (IsPortSettingDone())
+                    {
+                        InitPortSettingDone();
+                        m_ProtecLaser.ClearAllPortData();
+                        m_nSettingChannel++;
+                    }
+
+                    if (m_nSettingChannel >= m_nChannelCountInPort)
+                        m_nSeq++;
+                    break;
                 //case 3:
                 //    StringBuilder commandBuilder = new StringBuilder("(STX)S");
 
