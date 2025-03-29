@@ -188,6 +188,7 @@ namespace FrameOfSystem3.Task
         private int m_nCalChannelAnalogInput = 0;
         private List<double> m_lstCurrentVolt = new List<double>();
         private TickCounter_.TickCounter m_tickForPowerMeasureRest = new TickCounter_.TickCounter();
+        private TickCounter_.TickCounter m_tickForSerialCommunication = new TickCounter_.TickCounter();
         #endregion
         #endregion
 
@@ -242,42 +243,9 @@ namespace FrameOfSystem3.Task
             switch (m_nSeqNum)
             {
                 case (int)EN_INITIALIZE_STEP.START:
-                    m_instanceProgress.ShowForm(m_enTaskName.ToString()
-                        , (int)EN_INITIALIZE_STEP.END);
-
-                    PostOffice.GetInstance().EmptyMailBoxAll();
-                    m_nSeqNum = (int)EN_INITIALIZE_STEP.PYROMETER;
-                    break;
-
-                #region Cylinder
-                case (int)EN_INITIALIZE_STEP.PYROMETER:
-                    MoveToHome((int)EN_AXIS_LIST.POWERMETER_X, true);                  
-                    ++m_nSeqNum;
-                    break;
-
-                case (int)EN_INITIALIZE_STEP.PYROMETER + 1:
-                    if (Cylinder_.CYLINDER_RESULT.OK != MoveBackward((int)EN_CYLINDER_LIST.POWERMETER, true))
-                    {
-                        m_arAlarmSubInfo = new string[] { "POWERMETER CYLINDER" };
-                        GenerateSequenceAlarm((int)EN_TASK_ALARM.MOVE_FAIL, false, ref m_arAlarmSubInfo);
-                        m_nSeqNum = (int)EN_INITIALIZE_STEP.END;
-                        break;
-                    }
-                    m_nSeqNum = (int)EN_INITIALIZE_STEP.HEAD;
-                    break;
-                #endregion /Cylinder
-
-                #region Motion
-                case (int)EN_INITIALIZE_STEP.HEAD:
-                    SendMail(EN_SUBSCRIBER.TASK_TRANSFER, EN_MAIL.POWERMETEER_HOME_DONE);
-                    MoveToHome((int)EN_AXIS_LIST.HEAD_Y, true);
-                    ++m_nSeqNum;
-                    break;
-
-                case (int)EN_INITIALIZE_STEP.HEAD + 1:
+                    
                     m_nSeqNum = (int)EN_INITIALIZE_STEP.END;
                     break;
-                #endregion /Motion
 
                 case (int)EN_INITIALIZE_STEP.END:
                     return true;
@@ -297,66 +265,7 @@ namespace FrameOfSystem3.Task
             switch (m_nSeqNum)
             {
                 case (int)EN_ENTRY_STEP.START:
-                    PostOffice.GetInstance().EmptyMailBoxAll();
-                    //m_instanceOperator.MainVacControl(true);
-                    //m_nRunRatio = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.RUN_RATIO.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 100);
-                    ++m_nSeqNum;
-                    break;
-
-                case (int)EN_ENTRY_STEP.START + 1:
-                    //ExternalDevice.EFEMManager.GetInstance().UpdateECID_ALL();
-                    m_nSeqNum = (int)EN_ENTRY_STEP.READY_DEVICE;
-                    break;
-
-                #region READY DEVICE
-                case (int)EN_ENTRY_STEP.READY_DEVICE:
-                    m_Laser.ResetSeqNum();
-                    ++m_nSeqNum;
-                    break;
-                case (int)EN_ENTRY_STEP.READY_DEVICE + 1:
-                    //bool bIRUsed = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.IR_USED.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, false);
-                    //m_instanceIR.bUsedOption = bIRUsed;
-                    //m_instanceIR.InitSequence();
-                    //m_tickTimeOut.SetTickCount(5000);
-                    m_nSeqNum++;
-                    break;
-                case (int)EN_ENTRY_STEP.READY_DEVICE + 2:
-                    //switch (m_instanceIR.DoEntrySequence())
-                    //{
-                    //    case ExternalDevice.Socket.IR_Property.Enumerable.EN_SEQUENCE_RESULT.WORKING:
-                    //        if (m_tickTimeOut.IsTickOver(false))
-                    //        {
-                    //            m_arAlarmSubInfo[0] = "ENTRY TIMEOUT";
-                    //            GenerateSequenceAlarm((int)EN_TASK_ALARM.IR_COMMNUNICATION_ALARM, false, ref m_arAlarmSubInfo);
-                    //            m_nSeqNum = (int)EN_ENTRY_STEP.END;
-                    //            break;
-                    //        }
-                    //        break;
-                    //    case ExternalDevice.Socket.IR_Property.Enumerable.EN_SEQUENCE_RESULT.OK:
-                    //        m_nSeqNum++;
-                    //        break;
-
-                    //    default:
-                    //        m_arAlarmSubInfo = new string[] { "ENTRY SEQ : " + m_nSeqNum, "" };
-                    //        GenerateSequenceAlarm((int)EN_TASK_ALARM.IR_COMMNUNICATION_ALARM, false, ref m_arAlarmSubInfo);
-                    //        m_nSeqNum = (int)EN_ENTRY_STEP.END;
-                    //        break;
-                    //}
-                    m_nSeqNum++;
-                    break;
-                case (int)EN_ENTRY_STEP.READY_DEVICE + 3:
-                    m_nSeqNum = (int)EN_ENTRY_STEP.INITIALIZE;
-                    break;
-                #endregion
-
-                case (int)EN_ENTRY_STEP.INITIALIZE:
-                    RunningMain_.TaskData pTaskTransferData = null;
-                    if (m_instanceOperator.GetTaskInformation((int)EN_TASK_LIST.TRANSFER, ref pTaskTransferData) == false
-                        || pTaskTransferData.strTaskState != TaskState_.TASK_STATE.READY.ToString())
-                        break;
-                    _DynamicLink.InitializeNodeLink(GetTaskName());
-                    _DynamicLink.InitializePortLink(GetTaskName());
-                    EntryNodeState();
+                    
                     m_nSeqNum = (int)EN_ENTRY_STEP.END;
                     break;
 
@@ -377,8 +286,8 @@ namespace FrameOfSystem3.Task
             switch (m_enAction)
             {
                 case EN_TASK_ACTION.LASER_WORK:
-                    //if (ActionLaserWork())
-                    //    return true;
+                    if (ActionLaserWork())
+                        return true;
                     break;
 
                 case EN_TASK_ACTION.MEASURE_POWER:
@@ -988,490 +897,58 @@ namespace FrameOfSystem3.Task
 
         #region Action Sequence List
         #region Auto
-        #region Laser Bonding
-//        private bool ActionLaserWork()
-//        {
-//            switch (m_nSeqNum)
-//            {
-//                #region ACTION START (0 ~ )
-//                case (int)EN_LASER_WORK_STEP.ACTION_START:
-//                    if (m_instanceOperator.GetRunMode() == RunningMain_.RUN_MODE.SIMULATION)
-//                    {
-//                        SetDelayForSequence(2000);
-//                        m_nSeqNum = (int)EN_LASER_WORK_STEP.WORK_FINISH;
-//                        break;
-//                    }
-//                    ClearLaserWorkTool();
-//                    m_nSeqNum = (int)EN_LASER_WORK_STEP.MOVE_POS;
-//                    break;
-//                #endregion
+        private bool ActionLaserWork()
+        {
+            switch (m_nSeqNum)
+            {
+                case (int)EN_LASER_WORK_STEP.ACTION_START:
+                    #region Laser#1
+                    bool[] arUsed = new bool[m_Laser.ChannelCount];
+                    double arTotalPower = 0.0;
 
-//                #region MOVE
-//                case (int)EN_LASER_WORK_STEP.MOVE_POS:
-//                    double Shot_Position_X = 0;
-//                    double Shot_Position_Y = 0;
+                    for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
+                    {
+                        arUsed[nCh] = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.SHOT_PARAMETER_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                    }
 
-//                    Shot_Position_X = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.LASER_WORK_POSITION_X.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-//                    Shot_Position_Y = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.LASER_WORK_POSITION_Y.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+                    arTotalPower = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.SHOT_PARAMETER_TOTAL_POWER.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+                    switch (m_Laser.SetParameterIOMode(arUsed, arTotalPower))
+                    {
+                        case ProtecLaserMananger.EN_SET_RESULT.OK:
+                            int nDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_SETTING_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                            m_tickForSerialCommunication.SetTickCount((uint)Math.Max(0, nDelay));
+                            break;
+                        case ProtecLaserMananger.EN_SET_RESULT.WORKING:
+                            break;
+                        case ProtecLaserMananger.EN_SET_RESULT.POWER_OVER_MAX:
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 101, false); //POWER IS TOO HIGH
+                            break;
+                        case ProtecLaserMananger.EN_SET_RESULT.CH_POWER_OVER:
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 102, false); //CHANNEL POWER IS TOO HIGH
+                            break;
+                        case ProtecLaserMananger.EN_SET_RESULT.POWER_UNDER_MIN:
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 103, false); //POWER IS TOO LOW
+                            break;
+                        default:
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 104, false); //LASER COMMUNICATION FAIL
+                            break;
 
-//                    MOTION_RESULT enResultX = MoveAbsolutely((int)EN_AXIS_LIST.HEAD_X,
-//                                    Shot_Position_X,
-//                                    MOTION_SPEED_CONTENT.RUN,
-//                                    m_nRunRatio,
-//                                    0,
-//                                    true);
-//                    MOTION_RESULT enResultY = MoveAbsolutely((int)EN_AXIS_LIST.HEAD_Y,
-//                                    Shot_Position_Y,
-//                                    MOTION_SPEED_CONTENT.RUN,
-//                                    m_nRunRatio,
-//                                    0,
-//                                    true);
+                    }
 
-//                    if (enResultX == MOTION_RESULT.OK
-//                        && enResultY == MOTION_RESULT.OK)
-//                        m_nSeqNum++;
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, true);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, true);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, true);
+                    #endregion /Laser#1
 
-//                    if (GetSequenceTime() > 3000)
-//                    {
-//                        if (enResultX != MOTION_RESULT.OK)
-//                        {
-//                            m_arAlarmSubInfo[0] = "BLOCK X MOVE FAIL";
-//                            GenerateSequenceAlarm((int)EN_TASK_ALARM.INTERLOCK_TIMEOUT, false, ref m_arAlarmSubInfo);
-//                        }
-//                        if (enResultY != MOTION_RESULT.OK)
-//                        {
-//                            m_arAlarmSubInfo[0] = "HEAD Y MOVE FAIL";
-//                            GenerateSequenceAlarm((int)EN_TASK_ALARM.INTERLOCK_TIMEOUT, false, ref m_arAlarmSubInfo);
-//                        }
-//                        m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-//                        break;
-//                    }
-//                    break;
-//                case (int)EN_LASER_WORK_STEP.MOVE_POS + 1:
-//                    switch (MoveBlockWork())
-//                    {
-//                        case MOTION_RESULT.OK:
-//                            m_nSeqNum++;
-//                            break;
-//                        case MOTION_RESULT.OCCUR_INTERLOCK:
-//                            if (GetSequenceTime() > 3000)
-//                            {
-//                                m_arAlarmSubInfo[0] = "BLOCK MOVE FAIL";
-//                                GenerateSequenceAlarm((int)EN_TASK_ALARM.INTERLOCK_TIMEOUT, false, ref m_arAlarmSubInfo);
-//                                m_nSeqNum = (int)EN_LASER_WORK_STEP.ACTION_FINISH;
-//                                break;
-//                            }
-//                            break;
-//                    }
-//                    break;
-//                case (int)EN_LASER_WORK_STEP.MOVE_POS + 2:
-//                    m_nSeqNum = (int)EN_LASER_WORK_STEP.CHECK_STATUS;
-//                    break;
-//                #endregion
+                    m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
+                    break;
 
-//                #region Check Status
-//                case (int)EN_LASER_WORK_STEP.CHECK_STATUS:
-//                    if (m_instanceOperator.GetRunMode() == RunningMain_.RUN_MODE.DRY_RUN)
-//                    {
-//                        m_nSeqNum = (int)EN_LASER_WORK_STEP.READY_IR;
-//                        break;
-//                    }
-//                    if (CheckHeadFlowLow())
-//                    {
-//                        m_arAlarmSubInfo[0] = "";
+                case (int)EN_LASER_WORK_STEP.FINISH:
+                    return true;
+            }
 
-//                        GenerateSequenceAlarm((int)EN_TASK_ALARM.HEAD_FLOW_LOW, false, ref m_arAlarmSubInfo);
-//                        m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-//                        break;
-//                    }
-//                    if (CheckMaterialExist() == false)
-//                    {
-//                        m_arAlarmSubInfo[0] = "";
-//                        GenerateSequenceAlarm((int)EN_TASK_ALARM.MATERIAL_NOT_EXIST, false, ref m_arAlarmSubInfo);
-//                        m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-//                        break;
-//                    }
-//                    if (CheckHeaterError())
-//                    {
-//                        m_arAlarmSubInfo[0] = "";
-//                        GenerateSequenceAlarm((int)EN_TASK_ALARM.HEATER_TEMP_TOL_OVER, false, ref m_arAlarmSubInfo);
-//                        m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-//                        break;
-//                    }
-//                    if (Chiller.GetInstance().enAlarm != EN_CHILLER_ALARM.None)
-//                    {
-//                         m_arAlarmSubInfo[0] = Chiller.GetInstance().enAlarm.ToString();
-//                        GenerateSequenceAlarm((int)EN_TASK_ALARM.CHILLER_ALARM, false, ref m_arAlarmSubInfo);
-//                        m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-//                        break;
-//                    }
-//                    m_nSeqNum = (int)EN_LASER_WORK_STEP.READY_IR;
-//                    break;
-//                #endregion /Check Status
-
-//                #region IR READY
-//                case (int)EN_LASER_WORK_STEP.READY_IR:
-//                    switch (m_instanceIR.DoWorkReady())
-//                    {
-//                        case ExternalDevice.Socket.IR_Property.Enumerable.EN_SEQUENCE_RESULT.WORKING:
-//                            break;
-//                        case ExternalDevice.Socket.IR_Property.Enumerable.EN_SEQUENCE_RESULT.OK:
-//                            m_nSeqNum++;
-//                            break;
-
-//                        case ExternalDevice.Socket.IR_Property.Enumerable.EN_SEQUENCE_RESULT.FULL_CAPACITY:
-//                            m_arAlarmSubInfo[0] = "FULL CAPACITY";
-//                            m_arAlarmSubInfo[1] = "";
-//                            GenerateSequenceAlarm((int)EN_TASK_ALARM.IR_ALARM, false, ref m_arAlarmSubInfo);
-//                            m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-//                            break;
-//                        default:
-//                            m_arAlarmSubInfo[0] = "";
-//                            m_arAlarmSubInfo[1] = "";
-//                            GenerateSequenceAlarm((int)EN_TASK_ALARM.IR_COMMNUNICATION_ALARM, false, ref m_arAlarmSubInfo);
-//                            m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-//                            break;
-//                    }
-//                    break;
-//                case (int)EN_LASER_WORK_STEP.READY_IR + 1:
-//                    switch (m_instanceIR.DoWorkUnitInformation())
-//                    {
-//                        case ExternalDevice.Socket.IR_Property.Enumerable.EN_SEQUENCE_RESULT.WORKING:
-//                            break;
-//                        case ExternalDevice.Socket.IR_Property.Enumerable.EN_SEQUENCE_RESULT.OK:
-//                            m_nSeqNum++;
-//                            break;
-
-//                        default:
-//                            m_arAlarmSubInfo[0] = "";
-//                            m_arAlarmSubInfo[1] = "";
-//                            GenerateSequenceAlarm((int)EN_TASK_ALARM.IR_COMMNUNICATION_ALARM, false, ref m_arAlarmSubInfo);
-//                            m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-//                            break;
-//                    }
-//                    break;
-//                case (int)EN_LASER_WORK_STEP.READY_IR + 2:
-//                    m_nSeqNum = (int)EN_LASER_WORK_STEP.WORK_READY;
-//                    break;
-//                #endregion /IR READY
-
-//                #region WORK READY
-//                case (int)EN_LASER_WORK_STEP.WORK_READY:
-//                    m_nSeqNum++;
-//                    break;
-
-//                case (int)EN_LASER_WORK_STEP.WORK_READY + 1:
-//                    m_tickTimeOut.SetTickCount(5000);
-//                    m_nSeqNum++;
-//                    break;
-
-//                #region LD PARAMETER READY
-//                case (int)EN_LASER_WORK_STEP.WORK_READY + 2:
-//                    bool bLaserUsed = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.LASER_USED.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, false);
-//                    if (!bLaserUsed)
-//                    {
-//                        m_nSeqNum++;
-//                        break;
-//                    }
-//                    if (m_tickTimeOut.IsTickOver(false))
-//                    {
-//                        m_arAlarmSubInfo[0] = "";
-//                        GenerateSequenceAlarm((int)EN_TASK_ALARM.LD_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
-//                        m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-//                        break;
-//                    }
-//                    bool[] arUsed = new bool[m_Laser.ChannelCount];
-//                    double[] arPower = new double[5];
-//                    int[] arTime = new int[5];
-
-//                    for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
-//                    {
-//                        arUsed[nCh] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
-//                    }
-
-//                    for (int nStep = 0; nStep < 5; ++nStep)
-//                    {
-//                        arPower[nStep] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_STEP_POWER_5.ToString(), nStep, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-//                        arTime[nStep] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_STEP_TIME_5.ToString(), nStep, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-//                    }
-//                    //240719 [ADD] by wdw side Power
-//                    double dSidePercent = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SIDE_POWER_PERCENT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-//                    int[] arSideCh = new int[] { 0, 8, 9, 17 };
-//                    switch (m_Laser.SetParameter(arUsed, arPower, arTime, dSidePercent, arSideCh))
-//                    {
-//                        case ProtecLaserMananger.EN_SET_RESULT.OK:
-//                            int nDelay = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.LASER_SETTING_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-//                            SetDelayForSequence(nDelay);
-//                            m_nSeqNum++;
-//                            break;
-//                        case ProtecLaserMananger.EN_SET_RESULT.WORKING:
-//                            break;
-//                        case ProtecLaserMananger.EN_SET_RESULT.POWER_OVER_MAX:
-//                            m_arAlarmSubInfo[0] = "POWER IS TOO HIGH";
-//                            m_arAlarmSubInfo[1] = "";
-//                            GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
-//                            m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-//                            break;
-//                        case ProtecLaserMananger.EN_SET_RESULT.CH_POWER_OVER:
-//                            m_arAlarmSubInfo[0] = "CHANNEL POWER IS TOO HIGH";
-//                            m_arAlarmSubInfo[1] = "";
-//                            GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
-//                            m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-//                            break;
-//                        case ProtecLaserMananger.EN_SET_RESULT.POWER_UNDER_MIN:
-//                            m_arAlarmSubInfo[0] = "POWER IS TOO LOW";
-//                            m_arAlarmSubInfo[1] = "";
-//                            GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
-//                            m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-//                            break;
-//                        default:
-//                            m_arAlarmSubInfo[0] = "";
-//                            m_arAlarmSubInfo[1] = "";
-//                            GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
-//                            m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-//                            break;
-//                    }
-//                    break;
-//                #endregion /LD PARAMETER READY
-
-//                #region LASER SUB SEQ READY
-//                case (int)EN_LASER_WORK_STEP.WORK_READY + 3:
-//                    SubSeqLaserWorkParam[] LaserWorkPara = new SubSeqLaserWorkParam[3];
-
-//                    for (int nPortIndex = 0; nPortIndex < 3; nPortIndex++)
-//                    {
-//                        LaserWorkPara[nPortIndex] = new SubSeqLaserWorkParam();
-
-//                        bLaserUsed = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.LASER_USED.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, false);
-
-//                        LaserWorkPara[nPortIndex].LaserUsed = bLaserUsed && m_Laser.GetEnablePort(nPortIndex);
-//                        LaserWorkPara[nPortIndex].CurrentParamIndex = 1;
-//                        LaserWorkPara[nPortIndex].KeepLastValuePower = false;
-//                        LaserWorkPara[nPortIndex].KeepLastValueSizeX = true;
-//                        LaserWorkPara[nPortIndex].KeepLastValueSizeY = true;
-
-//                        LaserWorkPara[nPortIndex].ParamUsed[0] = true;
-//                        LaserWorkPara[nPortIndex].LaserSizeStepUsed[0] = false;
-//                        LaserWorkPara[nPortIndex].LaserSizeStepUsed[0] = false;
-
-//                        for (int nStep = 0; nStep < 5; ++nStep)
-//                        {
-//                            //설정에 사용은 안되지만 MONITORING 확인용
-//                            LaserWorkPara[nPortIndex].LaserPower[nStep, 0] = m_Laser.GetChannelPower(nStep);
-//                            LaserWorkPara[nPortIndex].LaserTime[nStep, 0] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_STEP_TIME_5.ToString(), nStep, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-
-//                            LaserWorkPara[nPortIndex].LaserPowerMode[nStep, 0] = EN_OUTPUT_MODE.STEP.ToString();
-//                            LaserWorkPara[nPortIndex].LaserSizeX[nStep, 0] = 0;
-//                            LaserWorkPara[nPortIndex].LaserSizeY[nStep, 0] = 0;
-//                            LaserWorkPara[nPortIndex].LaserSizeMode[nStep, 0] = EN_OUTPUT_MODE.STEP.ToString();
-//                        }
-//                    }
-
-//                    SubSeqLaserMonitorParam[] LaserMoinotrPara = new SubSeqLaserMonitorParam[20];
-//                    for (int nChCount = 0; nChCount < 18; nChCount++)
-//                    {
-//                        LaserMoinotrPara[nChCount] = new SubSeqLaserMonitorParam();
-//                        LaserMoinotrPara[nChCount].MonitorUsed = true;
-
-//                        LaserMoinotrPara[nChCount].MonitorPreDelay = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.TEMPERATURE_SAVE_PRE_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-//                        LaserMoinotrPara[nChCount].MonitorPostDelay = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.TEMPERATURE_SAVE_POST_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-
-////                      //temp sesor 제거
-////                         if (nChCount < 5)//Temp Sensor는 5개
-////                         {
-////                             LaserMoinotrPara[nChCount].TempCheckUsed = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.PYROMETER_USED.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true);
-////                             LaserMoinotrPara[nChCount].EMGTemp = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.TEMPERATURE_SAFTY_EMG_HIGH_LIMIT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-//// 
-////                             for (int nStep = 0; nStep < 5; ++nStep)
-////                             {
-////                                 LaserMoinotrPara[nChCount].SectionHighTemp[nStep] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.TEMPERATURE_SAFTY_AREA_HIGH_LIMIT_5.ToString(), nStep, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-////                                 LaserMoinotrPara[nChCount].SectionLowTemp[nStep] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.TEMPERATURE_SAFTY_AREA_LOW_LIMIT_5.ToString(), nStep, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-////                                 LaserMoinotrPara[nChCount].SectionTime[nStep] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.TEMPERATURE_SAFTY_AREA_TIME_5.ToString(), nStep, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-////                             }
-//// 
-////                             LaserMoinotrPara[nChCount].AbortUsed = false;
-////                             LaserMoinotrPara[nChCount].AbortTemp = 500;
-////                         }
-////                         else
-////                        {
-////                        LaserMoinotrPara[nChCount].TempCheckUsed = false;
-////                        LaserMoinotrPara[nChCount].EMGTemp = 500;
-////                        LaserMoinotrPara[nChCount].AbortUsed = false;
-////                        LaserMoinotrPara[nChCount].AbortTemp = 500;
-////                        }
- 
-//                        LaserMoinotrPara[nChCount].TempCheckUsed = false;
-//                        LaserMoinotrPara[nChCount].EMGTemp = 500;
-//                        LaserMoinotrPara[nChCount].AbortUsed = false;
-//                        LaserMoinotrPara[nChCount].AbortTemp = 500;
-
-//                        LaserMoinotrPara[nChCount].PowerCheckUsed = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWERCHECK_USED.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, false);
-//                        LaserMoinotrPara[nChCount].PowerCheckTolerance = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWERCHECK_TOLERANCE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 10.0) / 100;
-//                    }
-
-//                    // WorkLog
-//                    LaserMoinotrPara[18] = new SubSeqLaserMonitorParam();
-//                    LaserMoinotrPara[18].MonitorUsed = true;
-//                    LaserMoinotrPara[18].MonitorPreDelay = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.TEMPERATURE_SAVE_PRE_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-//                    LaserMoinotrPara[18].MonitorPostDelay = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.TEMPERATURE_SAVE_POST_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-
-//                    bool bIRUsed = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.IR_USED.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, false);
-//                    LaserMoinotrPara[19] = new SubSeqLaserMonitorParam();
-//                    LaserMoinotrPara[19].MonitorUsed = bIRUsed;
-//                    LaserMoinotrPara[19].MonitorPreDelay = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.TEMPERATURE_SAVE_PRE_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-//                    LaserMoinotrPara[19].MonitorPostDelay = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.TEMPERATURE_SAVE_POST_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-
-//                    m_Subseq_Laser_Work.AddMonitorParameter(LaserMoinotrPara);
-
-//                    m_Subseq_Laser_Work.Activate = true;
-//                    m_Subseq_Laser_Work.AddParameter(LaserWorkPara);
-//                    m_nSeqNum = (int)EN_LASER_WORK_STEP.LASER_WORKING;
-//                    break;
-//                #endregion /LASER SUB SEQ READY
-
-//                #endregion
-
-//                #region LASER SUB SEQ
-//                case (int)EN_LASER_WORK_STEP.LASER_WORKING:
-//                    if (m_instanceOperator.IsPreHeatingOver())
-//                    {
-//                        EFEMManager.GetInstance().AddQueCeid(EFEMManager.EN_CEID.BOND_START);
-//                        m_nSeqNum++;
-//                    }
-//                    break;
-//                case (int)EN_LASER_WORK_STEP.LASER_WORKING + 1:
-//                    switch (m_Subseq_Laser_Work.SubSequenceProcedure())
-//                    {
-//                        case EN_SUBSEQUENCE_RESULT.OK:
-//                            Tool.WorkTool.GetInstance().UseWorkTool((int)EN_WORK_TOOL.LD_GLASS);
-//                            m_nSeqNum = (int)EN_LASER_WORK_STEP.LASER_FINISH;
-//                            break;
-
-
-//                        case EN_SUBSEQUENCE_RESULT.WORKING:
-//                            CheckLaserWorkTool();
-//                            if (ReadInput((int)EN_DIGITAL_INPUT_LIST.LD_ALARM_PORT_1, false)
-//                                    || ReadInput((int)EN_DIGITAL_INPUT_LIST.LD_ALARM_PORT_2, false)
-//                                    || ReadInput((int)EN_DIGITAL_INPUT_LIST.LD_ALARM_PORT_3, false))
-//                            {
-//                                m_arAlarmSubInfo[0] = "DETECT ALARM FROM LASER SOURCE [SUB SEQ : " + m_Subseq_Laser_Work.SequenceNum.ToString() + "]";
-//                                GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_EMISSION_ALARM, false, ref m_arAlarmSubInfo);
-//                                WorkMap.GetInstance().SetWorkStatus(Work.EN_WORK_STATUS.SOURCE_ALARM);
-//                                m_nSeqNum = (int)EN_LASER_WORK_STEP.ACTION_FINISH;
-//                                break;
-//                            }
-//                            break;
-
-
-//                        case EN_SUBSEQUENCE_RESULT.ERROR_READY:
-//                            m_arAlarmSubInfo[0] = m_Subseq_Laser_Work.GetActionResultInfo() + "[SUB SEQ : " + m_Subseq_Laser_Work.SequenceNum.ToString() + "]";
-//                            GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_EMISSION_ALARM, false, ref m_arAlarmSubInfo);
-//                            m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-//                            break;
-
-//                        default:
-//                            m_arAlarmSubInfo[0] = m_Subseq_Laser_Work.GetActionResultInfo() + "[SUB SEQ : " + m_Subseq_Laser_Work.SequenceNum.ToString() + "]";
-//                            GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_EMISSION_ALARM, false, ref m_arAlarmSubInfo);
-//                            m_nSeqNum = (int)EN_LASER_WORK_STEP.LASER_FINISH;
-//                            break;
-//                    }
-//                    break;
-//                #endregion /  LASER SUB SEQ
-
-//                #region LASER_FINISH (300 ~ )
-//                case (int)EN_LASER_WORK_STEP.LASER_FINISH:
-//                    int nCoolingTime = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.MATERIAL_COOLING_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-//                    SetDelayForSequence(nCoolingTime);
-//                    m_nSeqNum = (int)EN_LASER_WORK_STEP.WORK_FINISH;
-//                    break;
-//                #endregion
-
-//                #region WORK FINISH (400 ~ )
-//                case (int)EN_LASER_WORK_STEP.WORK_FINISH:
-//                    if (m_Subseq_Laser_Work.GetMonitorResult() == SubSeqLaserWork.EN_MONITOR_RESULT.POWER_TOLERANCE_OVER)
-//                    {
-//                        m_arAlarmSubInfo[0] = m_Subseq_Laser_Work.GetActionResultInfo();
-//                        GenerateSequenceAlarm((int)EN_TASK_ALARM.WORK_RESULT_FAIL, false, ref m_arAlarmSubInfo);
-//                        WorkMap.GetInstance().SetWorkStatus(Work.EN_WORK_STATUS.POWER_FAULT);
-//                        m_nSeqNum = (int)EN_LASER_WORK_STEP.ACTION_FINISH;
-//                        break;
-//                    }
-//                    bIRUsed = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.IR_USED.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, false);
-//                    if (bIRUsed)
-//                    {
-//                        if (!m_instanceIR.ResultStatus.ContainsKey(1))
-//                        {
-//                            m_arAlarmSubInfo[0] = "FAIL GET RESULT";
-//                            GenerateSequenceAlarm((int)EN_TASK_ALARM.IR_COMMNUNICATION_ALARM, false, ref m_arAlarmSubInfo);
-//                            WorkMap.GetInstance().SetWorkStatus(Work.EN_WORK_STATUS.RESULT_GETFAIL);
-//                            m_nSeqNum = (int)EN_LASER_WORK_STEP.ACTION_FINISH;
-//                            break;
-//                        }
-//                        if (m_instanceIR.ResultStatus[1] > (int)ExternalDevice.Socket.IR.EN_IR_UNIT_STATUS.WORK_DONE)
-//                        {
-//                            m_arAlarmSubInfo[0] = "STATUS : " + ((ExternalDevice.Socket.IR.EN_IR_UNIT_STATUS)m_instanceIR.ResultStatus[1]).ToString().Replace('_', ' ');
-//                            GenerateSequenceAlarm((int)EN_TASK_ALARM.WORK_RESULT_FAIL, false, ref m_arAlarmSubInfo);
-//                            WorkMap.GetInstance().SetWorkStatus(m_instanceIR.ResultStatus[1].ToString());
-//                            m_nSeqNum = (int)EN_LASER_WORK_STEP.ACTION_FINISH;
-//                            break;
-//                        }
-//                    }
-//                    WorkMap.GetInstance().SetWorkStatus(Work.EN_WORK_STATUS.DONE);
-
-//                        //temp sensor 제거
-////                         switch (m_Subseq_Laser_Work.GetMonitorResult())
-////                         {
-////                             case SubSeqLaserWork.EN_MONITOR_RESULT.NORMAL:
-////                             case SubSeqLaserWork.EN_MONITOR_RESULT.ABORT:
-////                                 WorkMap.GetInstance().SetWorkStatus(Work.EN_WORK_STATUS.DONE);
-////                                 break;
-//// 
-////                             case SubSeqLaserWork.EN_MONITOR_RESULT.HIGH_TEMP:
-////                                 m_arAlarmSubInfo[0] = m_Subseq_Laser_Work.GetActionResultInfo();
-////                                 GenerateSequenceAlarm((int)EN_TASK_ALARM.WORK_RESULT_FAIL, false, ref m_arAlarmSubInfo);
-////                                 WorkMap.GetInstance().SetWorkStatus(Work.EN_WORK_STATUS.HIGH_TEMP);
-////                                 break;
-//// 
-////                             case SubSeqLaserWork.EN_MONITOR_RESULT.LOW_TEMP:
-////                                 m_arAlarmSubInfo[0] = m_Subseq_Laser_Work.GetActionResultInfo();
-////                                 GenerateSequenceAlarm((int)EN_TASK_ALARM.WORK_RESULT_FAIL, false, ref m_arAlarmSubInfo);
-////                                 WorkMap.GetInstance().SetWorkStatus(Work.EN_WORK_STATUS.LOW_TEMP);
-////                                 break;
-//// 
-////                             case SubSeqLaserWork.EN_MONITOR_RESULT.POWER_TOLERANCE_OVER:
-////                              
-////                                 break;
-//// 
-////                             case SubSeqLaserWork.EN_MONITOR_RESULT.EMG:
-////                                 m_arAlarmSubInfo[0] = m_Subseq_Laser_Work.GetActionResultInfo();
-////                                 GenerateSequenceAlarm((int)EN_TASK_ALARM.WORK_RESULT_FAIL, false, ref m_arAlarmSubInfo);
-////                                 WorkMap.GetInstance().SetWorkStatus(Work.EN_WORK_STATUS.EMG_HIGH_TEMP);
-////                                 break;
-////                         }
-//                    m_nSeqNum = (int)EN_LASER_WORK_STEP.ACTION_FINISH;
-//                    break;
-//                #endregion
-
-//                #region ACTION FINISH (9900 ~ )
-//                case (int)EN_LASER_WORK_STEP.ACTION_FINISH:
-//                    _DynamicLink.SetPortStatus(GetTaskName(), EN_PORT_LIST.WORK_PORT.ToString(), DynamicLink_.EN_PORT_STATUS.FINISHED);
-//                    EFEMManager.GetInstance().AddQueCeid(EFEMManager.EN_CEID.BOND_END);
-
-//                    m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-//                    break;
-//                #endregion
-
-//                #region FINISH
-//                case (int)EN_LASER_WORK_STEP.FINISH:
-
-//                    // Tool.WorkTool.GetInstance().NotifyWorkEnd(Tool.EN_WORK_END.UNIT_PROCESS);
-//                    return true;
-//                #endregion
-//            }
-
-//            return false;
-//        }
-        #endregion
+            return false;
+        }
         #endregion
 
         //#region Manaul
@@ -2548,22 +2025,7 @@ namespace FrameOfSystem3.Task
         {
             ACTION_START = 0,
 
-            MOVE_POS = 100,
-
-            CHECK_STATUS = 200,
-
-            READY_IR = 300,
-
-            WORK_READY = 400,
-
-            LASER_WORKING = 500,
-
-            LASER_FINISH = 600,
-
-            WORK_FINISH = 700,
-
-
-            LASER_EMG_STOP = 1000,
+            
 
             ACTION_FINISH = 9900,
             FINISH = 10000,

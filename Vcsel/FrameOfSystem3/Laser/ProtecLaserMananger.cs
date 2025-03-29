@@ -400,90 +400,97 @@ namespace FrameOfSystem3.Laser
 
         public EN_SET_RESULT SetParameterIOMode(bool[] bEnable, double dTotalPower)
         {
-            //if (m_LaserCal.GetMinPower(bEnable) > dTotalPower)
-            //{
-            //    return EN_SET_RESULT.POWER_UNDER_MIN;
-            //}
-            //if (m_LaserCal.GetMaxPower(bEnable) < dTotalPower)
-            //{
-            //    return EN_SET_RESULT.POWER_OVER_MAX;
-            //}
-
-            m_ProtecLaser.ClearAllPortData();
-            int nUsedChannelCount = 0;
-
-            for (int nIndex = 0; nIndex < m_nChannelCount; nIndex++)
+            switch (m_nSeq)
             {
-                m_dicLaserParam[nIndex].Enable = bEnable[nIndex];
-                if (bEnable[nIndex])
-                {
-                    nUsedChannelCount++;
-                }
-            }
+                case 0:
+                    //if (m_LaserCal.GetMinPower(bEnable) > dTotalPower)
+                    //{
+                    //    return EN_SET_RESULT.POWER_UNDER_MIN;
+                    //}
+                    //if (m_LaserCal.GetMaxPower(bEnable) < dTotalPower)
+                    //{
+                    //    return EN_SET_RESULT.POWER_OVER_MAX;
+                    //}
+                    m_nSeq++;
+                    break;
 
-            double IOModePower = dTotalPower / nUsedChannelCount;
+                case 1:
+                    m_ProtecLaser.ClearAllPortData();
+                    int nUsedChannelCount = 0;
 
-            for (int nIndex = 0; nIndex < m_nChannelCount; nIndex++)
-            {
-                if (m_dicLaserParam[nIndex].Enable) 
-                {
-                    m_dicLaserParam[nIndex].PowerIOMode = IOModePower;
-                    m_dicLaserParam[nIndex].VoltageIOMode = m_LaserCal.GetProcessCalibrationChannelData(nIndex, EN_CALIBRATION_PROCESS_LIST.POWER_WATT_VOLT, IOModePower);
-                }
-            }
-
-            InitPortSettingDone();
-            m_nSettingChannel = 0;
-
-            for (int nPort = 0; nPort < m_nPortCount; nPort++)
-            {
-                bool[] arEnable = new bool[6];
-                double[] arVoltage = new double[6];
-
-                for (int nChannel = 0; nChannel < m_nChannelCount; nChannel++)
-                {
-                    if (m_dicLaserParam[nChannel].PortIndex == nPort)
+                    for (int nIndex = 0; nIndex < m_nChannelCount; nIndex++)
                     {
-                        int channelInPort = m_dicLaserParam[nChannel].ChannelIndex % 6;
-                        if (channelInPort >= 0 && channelInPort < 6)
+                        m_dicLaserParam[nIndex].Enable = bEnable[nIndex];
+                        if (bEnable[nIndex])
                         {
-                            arEnable[channelInPort] = m_dicLaserParam[nChannel].Enable;
-                            arVoltage[channelInPort] = m_dicLaserParam[nChannel].VoltageIOMode;
-
+                            nUsedChannelCount++;
                         }
                     }
-                }
-                if (arPortSettingDone[m_dicLaserParam[nPort].PortIndex] == false)
-                {
-                    if (m_ProtecLaser.SetInitVoltageIOMode(nPort, arEnable, arVoltage)
-                                     == ProtecLaserController.EN_RESULT.DONE)
+
+                    double IOModePower = dTotalPower / nUsedChannelCount;
+
+                    for (int nIndex = 0; nIndex < m_nChannelCount; nIndex++)
                     {
-                        arPortSettingDone[m_dicLaserParam[nPort].PortIndex] = true;
+                        if (m_dicLaserParam[nIndex].Enable)
+                        {
+                            m_dicLaserParam[nIndex].PowerIOMode = IOModePower;
+                            m_dicLaserParam[nIndex].VoltageIOMode = m_LaserCal.GetProcessCalibrationChannelData(nIndex, EN_CALIBRATION_PROCESS_LIST.POWER_WATT_VOLT, IOModePower);
+                        }
                     }
-                }
-            }
-            
+                    m_nSeq++;
+                    break;
 
-            
+                case 2:
+                    InitPortSettingDone();
+                    m_nSettingChannel = 0;
+                    m_nSeq++;
+                    break;
 
-            SetDisablePortSettingDone();
-            SetNoneExistChannelSettingDone(m_nSettingChannel);
+                case 3:
+                    for (int nPort = 0; nPort < m_nPortCount; nPort++)
+                    {
+                        bool[] arEnable = new bool[6];
+                        double[] arVoltage = new double[6];
 
-            if (IsPortSettingDone())
-            {
-                InitPortSettingDone();
-                m_ProtecLaser.ClearAllPortData();
-                m_nSettingChannel++;
-            }
+                        for (int nChannel = 0; nChannel < m_nChannelCount; nChannel++)
+                        {
+                            if (m_dicLaserParam[nChannel].PortIndex == nPort)
+                            {
+                                int channelInPort = m_dicLaserParam[nChannel].ChannelIndex % 6;
+                                if (channelInPort >= 0 && channelInPort < 6)
+                                {
+                                    arEnable[channelInPort] = m_dicLaserParam[nChannel].Enable;
+                                    arVoltage[channelInPort] = m_dicLaserParam[nChannel].VoltageIOMode;
 
-            
+                                }
+                            }
+                        }
+                        if (arPortSettingDone[m_dicLaserParam[nPort].PortIndex] == false)
+                        {
+                            if (m_ProtecLaser.SetInitVoltageIOMode(nPort, arEnable, arVoltage)
+                                             == ProtecLaserController.EN_RESULT.DONE)
+                            {
+                                arPortSettingDone[m_dicLaserParam[nPort].PortIndex] = true;
+                            }
+                        }
+                    }
 
-            SetDisablePortSettingDone();
-            if (IsPortSettingDone())
-            {
-                InitPortSettingDone();
-                m_ProtecLaser.ClearAllPortData();
-                return EN_SET_RESULT.OK;
+                    SetDisablePortSettingDone();
+                    SetNoneExistChannelSettingDone(m_nSettingChannel);
+
+                    if (IsPortSettingDone())
+                    {
+                        InitPortSettingDone();
+                        m_ProtecLaser.ClearAllPortData();
+                        m_nSettingChannel++;
+                    }
+                    if (m_nSettingChannel >= m_nChannelCountInPort)
+                        m_nSeq++;
+                    break;
+
+                case 4:
+                    m_nSeq = 0;
+                    return EN_SET_RESULT.OK;
             }
 
             return EN_SET_RESULT.WORKING;
