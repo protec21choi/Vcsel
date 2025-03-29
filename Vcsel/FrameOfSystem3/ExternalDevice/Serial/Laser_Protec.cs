@@ -324,7 +324,7 @@ namespace FrameOfSystem3.ExternalDevice.Serial
                         strMessage += string.Format(",{0}{1:00000}", nEnable, (int)(arValue[nChannel] * 10));
                     }
 
-                    strMessage += ",000000"; // For Match Data Length
+                    //strMessage += ",000000"; // "S" Command 삭제
 
                     strMessage += CheckSum(strMessage);
                     strMessage += System.Text.Encoding.ASCII.GetString(ETX);
