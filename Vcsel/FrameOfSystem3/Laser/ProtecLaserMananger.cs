@@ -453,19 +453,16 @@ namespace FrameOfSystem3.Laser
                         }
                     }
                 }
-                for (int nIndex = 0; nIndex < m_nPortCount; nIndex++)
+                if (arPortSettingDone[m_dicLaserParam[nPort].PortIndex] == false)
                 {
-                    if (arPortSettingDone[m_dicLaserParam[nIndex].PortIndex] == false)
-                        if (m_dicLaserParam[nIndex].ChannelIndex == m_nSettingChannel)
-                        {
-                            if (m_ProtecLaser.SetInitVoltageIOMode(nPort, arEnable, arVoltage)
-                                         == ProtecLaserController.EN_RESULT.DONE)
-                            {
-                                arPortSettingDone[m_dicLaserParam[nIndex].PortIndex] = true;
-                            }
-                        }
+                    if (m_ProtecLaser.SetInitVoltageIOMode(nPort, arEnable, arVoltage)
+                                     == ProtecLaserController.EN_RESULT.DONE)
+                    {
+                        arPortSettingDone[m_dicLaserParam[nPort].PortIndex] = true;
+                    }
                 }
             }
+            
 
             
 
