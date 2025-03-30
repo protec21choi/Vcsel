@@ -82,13 +82,13 @@ namespace FrameOfSystem3.Views
 
 		#region Operation
 		Views.Operation.Operation_Main			m_viewOperationMain				= new Operation.Operation_Main();
-		//Views.Operation.Operation_StateMonitor	m_viewOperationMonitor			= new Operation.Operation_StateMonitor();
-		//Views.Operation.Operation_Tracking		m_viewOperationTracking			= new Operation.Operation_Tracking();
-  //      Views.Operation.Operation_RAMMetrics    m_viewOperationRAMMetrics       = new Operation.Operation_RAMMetrics();
-		#endregion
+        Views.Operation.Operation_StateMonitor m_viewOperationMonitor = new Operation.Operation_StateMonitor();
+        //Views.Operation.Operation_Tracking		m_viewOperationTracking			= new Operation.Operation_Tracking();
+        //      Views.Operation.Operation_RAMMetrics    m_viewOperationRAMMetrics       = new Operation.Operation_RAMMetrics();
+        #endregion
 
-		#region Recipe
-		Views.Recipe.Recipe_Main	m_viewRecipeMain	= new Recipe.Recipe_Main();
+        #region Recipe
+        Views.Recipe.Recipe_Main	m_viewRecipeMain	= new Recipe.Recipe_Main();
 		Views.Recipe.Recipe_Options m_viewRecipeOptions = new Recipe.Recipe_Options();
         #endregion
 
@@ -266,13 +266,13 @@ namespace FrameOfSystem3.Views
 
 			#region Operation
 			m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_MAIN, m_viewOperationMain);
-            //m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_MONITORING, m_viewOperationMonitor);
+            m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_STATE_MONITOR, m_viewOperationMonitor);
             //m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_RAM_METRICS, m_viewOperationRAMMetrics);
-			//m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_TRACKING, m_viewOperationTracking);
-			#endregion
+            //m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_TRACKING, m_viewOperationTracking);
+            #endregion
 
-			#region Recipe
-			m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.RECIPE_MAIN, m_viewRecipeMain);
+            #region Recipe
+            m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.RECIPE_MAIN, m_viewRecipeMain);
 			//m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.RECIPE_OPTIONS, m_viewRecipeOptions);
             #endregion
 

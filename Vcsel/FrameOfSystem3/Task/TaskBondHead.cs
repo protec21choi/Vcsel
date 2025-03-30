@@ -294,13 +294,13 @@ namespace FrameOfSystem3.Task
                 case EN_TASK_ACTION.MEASURE_VOLT:
                 case EN_TASK_ACTION.CALIBRATION_CHANNEL_POWER:
                 case EN_TASK_ACTION.CALIBRATION_POWER_LOSS_RATE:
-                    //if (Action_PowerMeasure())
-                    //    return true;
+                    if (Action_PowerMeasure())
+                        return true;
                     break;
 
                 case EN_TASK_ACTION.SHORT_TEST:
-                    //if (ActionShortCheck())
-                    //    return true;
+                    if (ActionShortCheck())
+                        return true;
                     break;
 
                 case EN_TASK_ACTION.MOVE_READY:
@@ -902,7 +902,19 @@ namespace FrameOfSystem3.Task
             switch (m_nSeqNum)
             {
                 case (int)EN_LASER_WORK_STEP.ACTION_START:
+                    //m_tickTimeOut.SetTickCount(5000);
+                    m_nSeqNum = (int)EN_LASER_WORK_STEP.PARAMETER_READY;
+                    break;
+
+                case (int)EN_LASER_WORK_STEP.PARAMETER_READY:
                     #region Laser#1
+                    //if (m_tickTimeOut.IsTickOver(false))
+                    //{
+                    //    m_arAlarmSubInfo[0] = "";
+                    //    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
+                    //    m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
+                    //    break;
+                    //}
                     bool[] arUsed = new bool[m_Laser.ChannelCount];
                     double arTotalPower = 0.0;
 
@@ -917,6 +929,7 @@ namespace FrameOfSystem3.Task
                         case ProtecLaserMananger.EN_SET_RESULT.OK:
                             int nDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_SETTING_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
                             m_tickForSerialCommunication.SetTickCount((uint)Math.Max(0, nDelay));
+                            m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
                             break;
                         case ProtecLaserMananger.EN_SET_RESULT.WORKING:
                             break;
@@ -934,16 +947,14 @@ namespace FrameOfSystem3.Task
                             break;
 
                     }
-
-                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, true);
-                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, true);
-                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, true);
+                    
                     #endregion /Laser#1
-
-                    m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
                     break;
 
                 case (int)EN_LASER_WORK_STEP.FINISH:
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, true);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, true);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, true);
                     return true;
             }
 
@@ -951,649 +962,521 @@ namespace FrameOfSystem3.Task
         }
         #endregion
 
-        //#region Manaul
-        //private bool Action_PowerMeasure()
-        //{
-        //    switch (m_nSeqNum)
-        //    {
-        //        case (int)EN_POWER_MEASURE_STEP.ACTION_START:
-        //            Powermeter.GetInstance().Open();
-        //            ClearLaserWorkTool();
-        //            if (CheckHeadFlowLow())
-        //            {
-        //                m_arAlarmSubInfo[0] = "";
-
-        //                GenerateSequenceAlarm((int)EN_TASK_ALARM.HEAD_FLOW_LOW, false, ref m_arAlarmSubInfo);
-        //                m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
-        //                break;
-        //            }
-        //            if (Chiller.GetInstance().enAlarm != EN_CHILLER_ALARM.None)
-        //            {
-        //                m_arAlarmSubInfo[0] = Chiller.GetInstance().enAlarm.ToString();
-        //                GenerateSequenceAlarm((int)EN_TASK_ALARM.CHILLER_ALARM, false, ref m_arAlarmSubInfo);
-        //                m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
-        //                break;
-        //            }
-        //            SetDelayForSequence(1000);
-        //            ++m_nSeqNum;
-        //            break;
-        //        case (int)EN_POWER_MEASURE_STEP.ACTION_START + 1:
-        //            if (m_enAction == EN_TASK_ACTION.CALIBRATION_CHANNEL_POWER)
-        //                InitializeCalibrationData();
-        //            m_nPowerMeasureCurrentRepeatCount = 0;
-        //            m_lstCurrentVolt.Clear();
-        //            m_tickForPowerMeasureRest.SetTickCount(1);
-        //            m_nSeqNum = (int)EN_POWER_MEASURE_STEP.POWERMETER_READY;
-        //            break;
-
-        //        case (int)EN_POWER_MEASURE_STEP.POWERMETER_READY:
-        //            Powermeter.GetInstance().ClearRepeatData();
-        //            Powermeter.GetInstance().nWait_Time = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_WAIT_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-        //            ++m_nSeqNum;
-        //            break;
-
-        //        case (int)EN_POWER_MEASURE_STEP.POWERMETER_READY + 1:
-        //            Powermeter.GetInstance().SetCommand(EN_POWERMETER_COMMAND.HANDCHECKING_OFF);
-        //            SetDelayForSequence(300);
-        //            m_nSeqNum++;
-        //            break;
-        //        case (int)EN_POWER_MEASURE_STEP.POWERMETER_READY + 2:
-        //            Powermeter.GetInstance().SetCommand(EN_POWERMETER_COMMAND.RECIEVE_LAST);
-        //            SetDelayForSequence(300);
-        //            m_nSeqNum++;
-        //            break;
-        //        case (int)EN_POWER_MEASURE_STEP.POWERMETER_READY + 3:
-        //            Powermeter.GetInstance().SetCommand(EN_POWERMETER_COMMAND.RECIEVE_ONLY_POWER);
-        //            SetDelayForSequence(300);
-        //            m_nSeqNum++;
-        //            break;
-        //        case (int)EN_POWER_MEASURE_STEP.POWERMETER_READY + 4:
-        //            Powermeter.GetInstance().SetCommand(EN_POWERMETER_COMMAND.ERROR_CLEAR);
-        //            SetDelayForSequence(300);
-        //            m_nSeqNum++;
-        //            break;
-        //        case (int)EN_POWER_MEASURE_STEP.POWERMETER_READY + 5:
-        //            m_nSeqNum = (int)EN_POWER_MEASURE_STEP.MOVE_SHOT_POSITION;
-        //            break;
-
-        //        #region MOVE SHOT POSITION
-        //        case (int)EN_POWER_MEASURE_STEP.MOVE_SHOT_POSITION:
-        //            double Block_Avoic_Position_X = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_BLOCK_AVOID_POSITION_X.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-
-        //            MOTION_RESULT enResultX = MoveAbsolutely((int)EN_AXIS_LIST.HEAD_X,
-        //                            Block_Avoic_Position_X,
-        //                            MOTION_SPEED_CONTENT.RUN,
-        //                            m_nRunRatio,
-        //                            0,
-        //                            true);
-
-        //            if (enResultX == MOTION_RESULT.OK)
-        //                m_nSeqNum++;
-
-        //            break;
-        //        case (int)EN_POWER_MEASURE_STEP.MOVE_SHOT_POSITION + 1:
-        //            CYLINDER_RESULT enResultCylinder = MoveForward((int)EN_CYLINDER_LIST.POWERMETER, true);
-
-        //            if (enResultCylinder == CYLINDER_RESULT.OK)
-        //                m_nSeqNum++;
-        //            break;
-        //        case (int)EN_POWER_MEASURE_STEP.MOVE_SHOT_POSITION + 2:
-        //            double Shot_Position_X = 0;
-        //            double Shot_Position_Y = 0;
-        //            switch (m_enAction)
-        //            {
-        //                case EN_TASK_ACTION.MEASURE_POWER:
-        //                case EN_TASK_ACTION.MEASURE_VOLT:
-        //                case EN_TASK_ACTION.CALIBRATION_POWER_LOSS_RATE:
-        //                    int ChMeasureCount = 0;
-        //                    int nMeasureCh = 0;
-        //                        for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
-        //                        {
-        //                            if (m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
-        //                            {
-        //                                ChMeasureCount++;
-        //                                nMeasureCh = nCh;
-        //                            }
-        //                        }
-        //                        if (ChMeasureCount > 1)
-        //                            nMeasureCh = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_SELLECTED_CHANNEL.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0) - 1;
-        //                    Shot_Position_X = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_POSITION_X_18.ToString(), nMeasureCh, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-        //                    Shot_Position_Y = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_POSITION_Y_18.ToString(), nMeasureCh, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-        //                    break;
-
-        //                case EN_TASK_ACTION.CALIBRATION_CHANNEL_POWER:
-        //                    Shot_Position_X = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_POSITION_X_18.ToString(), m_nCalibrationChannel, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-        //                    Shot_Position_Y = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_POSITION_Y_18.ToString(), m_nCalibrationChannel, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-        //                    break;
-        //            }
-
-        //            enResultX = MoveAbsolutely((int)EN_AXIS_LIST.POWERMETER_X,
-        //                            Shot_Position_X,
-        //                            MOTION_SPEED_CONTENT.RUN,
-        //                            m_nRunRatio,
-        //                            0,
-        //                            true);
-        //            MOTION_RESULT enResultY = MoveAbsolutely((int)EN_AXIS_LIST.HEAD_Y,
-        //                            Shot_Position_Y,
-        //                            MOTION_SPEED_CONTENT.RUN,
-        //                            m_nRunRatio,
-        //                            0,
-        //                            true);
-
-        //            if (enResultX == MOTION_RESULT.OK
-        //                                     && enResultY == MOTION_RESULT.OK)
-        //                m_nSeqNum = (int)EN_POWER_MEASURE_STEP.LASER_READY;
-
-        //            break;
-        //        #endregion
-
-        //        #region LASER READY SUB SEQ
-        //        case (int)EN_POWER_MEASURE_STEP.LASER_READY:
-        //            if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
-        //                m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
-        //            if (m_tickForPowerMeasureRest.IsTickOver(true))
-        //            {
-        //                int nRestTime = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-        //                m_tickForPowerMeasureRest.SetTickCount((uint)nRestTime);
-        //                m_tickTimeOut.SetTickCount(2000);
-        //                m_nSeqNum++;
-        //            }
-        //            break;
-        //        case (int)EN_POWER_MEASURE_STEP.LASER_READY + 1:
-        //            bool bLaserUsed = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.LASER_USED.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, false);
-        //            if (!bLaserUsed)
-        //            {
-        //                m_nSeqNum++;
-        //                break;
-        //            }
-        //            if (m_tickTimeOut.IsTickOver(false))
-        //            {
-        //                m_arAlarmSubInfo[0] = "";
-        //                GenerateSequenceAlarm((int)EN_TASK_ALARM.LD_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
-        //                m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
-        //                break;
-        //            }
-        //            bool[] arUsed = new bool[m_Laser.ChannelCount];
-        //            int nTime = 0;
-        //            double dOutput = 0;
-
-        //            nTime = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_SHOT_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-
-        //            switch (m_enAction)
-        //            {
-        //                case EN_TASK_ACTION.MEASURE_POWER:
-        //                    for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
-        //                    {
-        //                        arUsed[nCh] = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
-        //                    }
-        //                    dOutput = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_WATT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-        //                    switch (m_Laser.SetParameter(arUsed, dOutput, nTime))
-        //                    {
-        //                        case ProtecLaserMananger.EN_SET_RESULT.OK:
-        //                            m_nSeqNum++;
-        //                            break;
-        //                        case ProtecLaserMananger.EN_SET_RESULT.WORKING:
-        //                            break;
-        //                        case ProtecLaserMananger.EN_SET_RESULT.POWER_OVER_MAX:
-        //                            m_arAlarmSubInfo[0] = "POWER IS TOO HIGH";
-        //                            m_arAlarmSubInfo[1] = "";
-        //                            GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
-        //                            m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
-        //                            break;
-        //                        case ProtecLaserMananger.EN_SET_RESULT.POWER_UNDER_MIN:
-        //                            m_arAlarmSubInfo[0] = "POWER IS TOO LOW";
-        //                            m_arAlarmSubInfo[1] = "";
-        //                            GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
-        //                            m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
-        //                            break;
-        //                        default:
-        //                            m_arAlarmSubInfo[0] = "";
-        //                            m_arAlarmSubInfo[1] = "";
-        //                            GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
-        //                            m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
-        //                            break;
-        //                    }
-        //                    break;
-        //                case EN_TASK_ACTION.MEASURE_VOLT:
-        //                    for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
-        //                    {
-        //                        arUsed[nCh] = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
-        //                    }
-        //                    dOutput = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_VOLT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-        //                    switch (m_Laser.SetParameterVolt(arUsed, dOutput, nTime))
-        //                    {
-        //                        case ProtecLaserMananger.EN_SET_RESULT.OK:
-        //                            m_nSeqNum++;
-        //                            break;
-        //                        case ProtecLaserMananger.EN_SET_RESULT.WORKING:
-        //                            break;
-        //                        case ProtecLaserMananger.EN_SET_RESULT.POWER_OVER_MAX:
-        //                            m_arAlarmSubInfo[0] = "POWER IS TOO HIGH";
-        //                            m_arAlarmSubInfo[1] = "";
-        //                            GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
-        //                            m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
-        //                            break;
-        //                        case ProtecLaserMananger.EN_SET_RESULT.POWER_UNDER_MIN:
-        //                            m_arAlarmSubInfo[0] = "POWER IS TOO LOW";
-        //                            m_arAlarmSubInfo[1] = "";
-        //                            GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
-        //                            m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
-        //                            break;
-        //                        default:
-        //                            m_arAlarmSubInfo[0] = "";
-        //                            m_arAlarmSubInfo[1] = "";
-        //                            GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
-        //                            m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
-        //                            break;
-        //                    }
-        //                    break;
-
-        //                case EN_TASK_ACTION.CALIBRATION_CHANNEL_POWER:
-        //                    for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
-        //                    {
-        //                        if (m_nCalibrationChannel == nCh)
-        //                        {
-        //                            arUsed[nCh] = true;
-        //                            m_nCalChannelAnalogInput = (int)EN_ANALOG_INPUT_LIST.LD_POWER_1 + nCh;
-        //                        }
-        //                        else
-        //                        {
-        //                            arUsed[nCh] = false;
-        //                        }
-        //                    }
-        //                    dOutput = m_arCalibrationStepVolt[m_nCalibrationCurrentStep];
-        //                    switch (m_Laser.SetParameterVolt(arUsed, dOutput, nTime))
-        //                    {
-        //                        case ProtecLaserMananger.EN_SET_RESULT.OK:
-        //                            m_nSeqNum++;
-        //                            break;
-        //                        case ProtecLaserMananger.EN_SET_RESULT.WORKING:
-        //                            break;
-        //                        default:
-        //                            //alarm 추가
-        //                            break;
-        //                    }
-        //                    break;
-
-
-        //                //                         case EN_TASK_ACTION.CALIBRATION_POWER_LOSS_RATE:
-        //                //                             for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
-        //                //                             {
-        //                //                                 arUsed[nCh] = false;
-        //                //                             }
-        //                //                             dOutput = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_VOLT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-        //                //                             if (m_Laser.SetParameterVolt(arUsed, dOutput, nTime))
-        //                //                                 m_nSeqNum++;
-        //                //                             break;
-
-        //            }
-        //            break;
-        //        case (int)EN_POWER_MEASURE_STEP.LASER_READY + 2:
-        //            #region SetSubSeqPara
-        //            SubSeqLaserWorkParam[] LaserWorkPara = new SubSeqLaserWorkParam[3];
-
-        //            for (int nPortIndex = 0; nPortIndex < 3; nPortIndex++)
-        //            {
-        //                bLaserUsed = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.LASER_USED.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, false);
-
-        //                LaserWorkPara[nPortIndex] = new SubSeqLaserWorkParam();
-        //                LaserWorkPara[nPortIndex].LaserUsed = bLaserUsed && m_Laser.GetEnablePort(nPortIndex);
-        //                LaserWorkPara[nPortIndex].CurrentParamIndex = 1;
-        //                LaserWorkPara[nPortIndex].KeepLastValuePower = false;
-        //                LaserWorkPara[nPortIndex].KeepLastValueSizeX = true;
-        //                LaserWorkPara[nPortIndex].KeepLastValueSizeY = true;
-
-        //                LaserWorkPara[nPortIndex].ParamUsed[0] = true;
-        //                LaserWorkPara[nPortIndex].LaserSizeStepUsed[0] = false;
-        //                LaserWorkPara[nPortIndex].LaserSizeStepUsed[0] = false;
-
-        //                for (int nStep = 0; nStep < 5; ++nStep)
-        //                {
-        //                    LaserWorkPara[nPortIndex].LaserPower[nStep, 0] = 0;
-        //                    LaserWorkPara[nPortIndex].LaserTime[nStep, 0] = 0;
-
-        //                    LaserWorkPara[nPortIndex].LaserPowerMode[nStep, 0] = EN_OUTPUT_MODE.STEP.ToString();
-        //                    LaserWorkPara[nPortIndex].LaserSizeX[nStep, 0] = 0;
-        //                    LaserWorkPara[nPortIndex].LaserSizeY[nStep, 0] = 0;
-        //                    LaserWorkPara[nPortIndex].LaserSizeMode[nStep, 0] = EN_OUTPUT_MODE.STEP.ToString();
-        //                }
-        //                LaserWorkPara[nPortIndex].LaserTime[0, 0] = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_SHOT_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-
-        //            }
-
-        //            SubSeqLaserMonitorParam[] LaserMoinotrPara = new SubSeqLaserMonitorParam[20];
-        //            for (int nChCount = 0; nChCount < 18; nChCount++)
-        //            {
-        //                LaserMoinotrPara[nChCount] = new SubSeqLaserMonitorParam();
-        //                LaserMoinotrPara[nChCount].MonitorUsed = false;
-        //                LaserMoinotrPara[nChCount].MonitorPreDelay = 0;
-        //                LaserMoinotrPara[nChCount].MonitorPostDelay = 0;
-
-        //                if (nChCount < 5)//Temp Sensor는 5개
-        //                {
-        //                    LaserMoinotrPara[nChCount].TempCheckUsed = true;
-        //                    LaserMoinotrPara[nChCount].EMGTemp = 500;
-        //                    LaserMoinotrPara[nChCount].AbortUsed = false;
-        //                    LaserMoinotrPara[nChCount].AbortTemp = 500;
-        //                }
-        //                else
-        //                {
-        //                    LaserMoinotrPara[nChCount].TempCheckUsed = false;
-        //                    LaserMoinotrPara[nChCount].EMGTemp = 500;
-        //                    LaserMoinotrPara[nChCount].AbortUsed = false;
-        //                    LaserMoinotrPara[nChCount].AbortTemp = 500;
-        //                }
-
-        //                LaserMoinotrPara[nChCount].PowerCheckUsed = false;
-        //                LaserMoinotrPara[nChCount].PowerCheckTolerance = 0.1;
-        //            }
-
-        //            // WorkLog
-        //            LaserMoinotrPara[18] = new SubSeqLaserMonitorParam();
-        //            LaserMoinotrPara[18].MonitorUsed = false;
-
-        //            LaserMoinotrPara[19] = new SubSeqLaserMonitorParam();
-        //            LaserMoinotrPara[19].MonitorUsed = false;
-
-
-        //            m_Subseq_Laser_Work.AddMonitorParameter(LaserMoinotrPara);
-
-
-        //            m_Subseq_Laser_Work.Activate = true;
-        //            m_Subseq_Laser_Work.AddParameter(LaserWorkPara);
-        //            #endregion
-        //            Powermeter.GetInstance().SetCommand(EN_POWERMETER_COMMAND.START);
-        //            m_TickForDelay.SetTickCount(90);
-        //            m_nSeqNum = (int)EN_POWER_MEASURE_STEP.LASER_WORKING;
-        //            break;
-
-        //        #endregion
-
-        //        #region Laser Working
-        //        case (int)EN_POWER_MEASURE_STEP.LASER_WORKING:
-        //            //m_nSeqNum++;
-        //            //             break;
-        //            switch (m_Subseq_Laser_Work.SubSequenceProcedure())
-        //            {
-        //                case EN_SUBSEQUENCE_RESULT.OK:
-        //                    m_nSeqNum++;
-        //                    break;
-
-        //                case EN_SUBSEQUENCE_RESULT.WORKING:
-        //                    CheckLaserWorkTool();
-
-        //                    if (m_TickForDelay.IsTickOver(true)
-        //                       && (ReadOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, false) //LASER ON 중에만 측정
-        //                            || ReadOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, false)
-        //                            || ReadOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, false)))
-        //                    {
-        //                        m_Laser.ReadMessage();// 출력 모니터링 통신 받기 위해. 실제 모니터링은 AnalogInput을 사용. Parsing 안함
-
-        //                        m_lstCurrentVolt.Add(ReadAnalogInputVolt(m_nCalChannelAnalogInput));
-
-        //                        if (ExternalDevice.Serial.Powermeter.GetInstance().RecieveDone)
-        //                        {
-        //                            Powermeter.GetInstance().SetCommand(EN_POWERMETER_COMMAND.READ);
-        //                        }
-        //                        m_TickForDelay.SetTickCount(90);
-        //                    }
-
-        //                    if (ReadInput((int)EN_DIGITAL_INPUT_LIST.LD_ALARM_PORT_1, false)
-        //                            || ReadInput((int)EN_DIGITAL_INPUT_LIST.LD_ALARM_PORT_2, false)
-        //                            || ReadInput((int)EN_DIGITAL_INPUT_LIST.LD_ALARM_PORT_3, false))
-        //                    {
-        //                        m_arAlarmSubInfo[0] = "DETECT ALARM FROM LASER SOURCE";
-        //                        GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_EMISSION_ALARM, false, ref m_arAlarmSubInfo);
-        //                        m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
-        //                        break;
-        //                    }
-        //                    break;
-
-        //                default:
-        //                    m_arAlarmSubInfo[0] = m_Subseq_Laser_Work.GetActionResultInfo();
-        //                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_EMISSION_ALARM, false, ref m_arAlarmSubInfo);
-        //                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
-        //                    break;
-        //            }
-        //            break;
-        //        case (int)EN_POWER_MEASURE_STEP.LASER_WORKING + 1:
-        //            Powermeter.GetInstance().SetCommand(EN_POWERMETER_COMMAND.STOP);
-        //            SetDelayForSequence(300);
-        //            m_nPowerMeasureCurrentRepeatCount++;
-        //            m_nSeqNum = (int)EN_POWER_MEASURE_STEP.CHECK_REPEAT;
-        //            break;
-        //        #endregion
-
-        //        case (int)EN_POWER_MEASURE_STEP.CHECK_REPEAT:
-        //            if (m_enAction == EN_TASK_ACTION.MEASURE_POWER
-        //                    || m_enAction == EN_TASK_ACTION.MEASURE_VOLT)
-        //            {
-        //                if (m_nPowerMeasureCurrentRepeatCount >= m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_REPEAT_COUNT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0))
-        //                {
-        //                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
-        //                }
-        //                else
-        //                {
-        //                    int nRestTime = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-        //                    m_tickForPowerMeasureRest.SetTickCount((uint)nRestTime);
-        //                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP.LASER_READY;
-        //                }
-        //            }
-        //            else
-        //            {
-        //                if (m_nPowerMeasureCurrentRepeatCount >= m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_REPEAT_COUNT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0))
-        //                {
-        //                    m_nPowerMeasureCurrentRepeatCount = 0;
-        //                    Powermeter.GetInstance().ClearRepeatData();
-        //                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP.SET_CALIBRATION_DATA;
-        //                }
-        //                else
-        //                {
-        //                    int nRestTime = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-        //                    m_tickForPowerMeasureRest.SetTickCount((uint)nRestTime);
-        //                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP.LASER_READY;
-        //                }
-        //            }
-        //            break;
-
-
-        //        case (int)EN_POWER_MEASURE_STEP.SET_CALIBRATION_DATA:
-        //            if (m_enAction == EN_TASK_ACTION.CALIBRATION_CHANNEL_POWER)
-        //            {
-        //                ProtecLaserChannelCalibration.GetInstance().UpdateCalibrationInformation(m_nCalibrationChannel, m_nCalibrationCurrentStep, (int)EN_CALIBRATION_INDEX.TARGET_VOLT, m_arCalibrationStepVolt[m_nCalibrationCurrentStep]);
-        //                ProtecLaserChannelCalibration.GetInstance().UpdateCalibrationInformation(m_nCalibrationChannel, m_nCalibrationCurrentStep, (int)EN_CALIBRATION_INDEX.POWER_OUTPUT_WATT, Powermeter.GetInstance().Measure_Repeat_Avg);
-        //                if (m_lstCurrentVolt.Count > 0)
-        //                    ProtecLaserChannelCalibration.GetInstance().UpdateCalibrationInformation(m_nCalibrationChannel, m_nCalibrationCurrentStep, (int)EN_CALIBRATION_INDEX.POWER_INPUT_VOLT, m_lstCurrentVolt.Average());
-        //                m_lstCurrentVolt.Clear();
-
-        //                PostOffice.GetInstance().SendMail(EN_SUBSCRIBER.Unknown, EN_SUBSCRIBER.SETUP_EQUP_LASER, EN_MAIL.UPDATE_UI); //Caldata UI 통지
-
-        //                m_nCalibrationCurrentStep++;
-        //                //다음 Step 측정
-        //                if (m_nCalibrationStep > m_nCalibrationCurrentStep)
-        //                {
-        //                    int nRestTime = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-        //                    m_tickForPowerMeasureRest.SetTickCount((uint)nRestTime);
-        //                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP.LASER_READY;
-        //                    break;
-        //                }
-        //                else
-        //                {
-        //                    //다음 channel 측정
-        //                    for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
-        //                    {
-        //                        if (m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
-        //                        {
-        //                            if (m_nCalibrationChannel < nCh)
-        //                            {
-        //                                m_nCalibrationCurrentStep = 0;
-        //                                m_nCalibrationChannel = nCh;
-        //                                ProtecLaserChannelCalibration.GetInstance().NewChannelCalibrationFile(m_nCalibrationChannel);
-
-        //                                int nRestTime = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-        //                                m_tickForPowerMeasureRest.SetTickCount((uint)nRestTime);
-        //                                m_nSeqNum = (int)EN_POWER_MEASURE_STEP.MOVE_SHOT_POSITION;
-        //                                return false;
-        //                            }
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //            if (m_enAction == EN_TASK_ACTION.CALIBRATION_POWER_LOSS_RATE)
-        //            {
-        //                //구현 필요
-        //            }
-        //            m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
-        //            break;
-
-
-        //        case (int)EN_POWER_MEASURE_STEP.ACTION_FINISH:
-        //            double PowermeterReadyPosition = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWERMETER_READY_POSITION_X.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-
-        //            enResultX = MoveAbsolutely((int)EN_AXIS_LIST.POWERMETER_X,
-        //                           PowermeterReadyPosition,
-        //                           MOTION_SPEED_CONTENT.RUN,
-        //                           m_nRunRatio,
-        //                           0,
-        //                           true);
-
-        //            if (enResultX == MOTION_RESULT.OK)
-        //                m_nSeqNum++;
-        //            break;
-
-        //        case (int)EN_POWER_MEASURE_STEP.ACTION_FINISH + 1:
-        //            enResultCylinder = MoveBackward((int)EN_CYLINDER_LIST.POWERMETER, true);
-
-        //            if (enResultCylinder == CYLINDER_RESULT.OK)
-        //                m_nSeqNum = (int)EN_POWER_MEASURE_STEP.FINISH;
-        //            break;
-
-        //        case (int)EN_POWER_MEASURE_STEP.FINISH:
-        //            return true;
-        //    }
-        //    return false;
-        //}
-
-        //private bool ActionShortCheck()
-        //{
-        //    switch (m_nSeqNum)
-        //    {
-        //        #region ACTION START (0 ~ )
-        //        case (int)EN_LASER_SHORT_TEST_STEP.ACTION_START:
-        //            m_nSeqNum = (int)EN_LASER_SHORT_TEST_STEP.MOVE_POS;
-        //            break;
-        //        #endregion
-
-        //        #region MOVE
-        //        case (int)EN_LASER_SHORT_TEST_STEP.MOVE_POS:
-        //            double Shot_Position_X = 0;
-        //            double Shot_Position_Y = 0;
-
-        //            Shot_Position_X = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.LASER_WORK_POSITION_X.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-        //            Shot_Position_Y = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.LASER_WORK_POSITION_Y.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-
-        //            MOTION_RESULT enResultX = MoveAbsolutely((int)EN_AXIS_LIST.HEAD_X,
-        //                            Shot_Position_X,
-        //                            MOTION_SPEED_CONTENT.RUN,
-        //                            m_nRunRatio,
-        //                            0,
-        //                            true);
-        //            MOTION_RESULT enResultY = MoveAbsolutely((int)EN_AXIS_LIST.HEAD_Y,
-        //                            Shot_Position_Y,
-        //                            MOTION_SPEED_CONTENT.RUN,
-        //                            m_nRunRatio,
-        //                            0,
-        //                            true);
-
-        //            if (enResultX == MOTION_RESULT.OK
-        //                && enResultY == MOTION_RESULT.OK)
-        //                m_nSeqNum++;
-        //            if (GetSequenceTime() > 3000)
-        //            {
-        //                m_arAlarmSubInfo[0] = "HEAD MOVE FAIL";
-        //                GenerateSequenceAlarm((int)EN_TASK_ALARM.INTERLOCK_TIMEOUT, false, ref m_arAlarmSubInfo);
-        //                m_nSeqNum = (int)EN_LASER_SHORT_TEST_STEP.ACTION_FINISH;
-        //                break;
-        //            }
-        //            break;
-        //        case (int)EN_LASER_SHORT_TEST_STEP.MOVE_POS + 1:
-        //            switch (MoveBlockWork())
-        //            {
-        //                case MOTION_RESULT.OK:
-        //                    m_nSeqNum++;
-        //                    break;
-        //                case MOTION_RESULT.OCCUR_INTERLOCK:
-        //                    if (GetSequenceTime() > 3000)
-        //                    {
-        //                        m_arAlarmSubInfo[0] = "BLOCK MOVE FAIL";
-        //                        GenerateSequenceAlarm((int)EN_TASK_ALARM.INTERLOCK_TIMEOUT, false, ref m_arAlarmSubInfo);
-        //                        m_nSeqNum = (int)EN_LASER_SHORT_TEST_STEP.ACTION_FINISH;
-        //                        break;
-        //                    }
-        //                    break;
-        //            }
-        //            break;
-        //        case (int)EN_LASER_SHORT_TEST_STEP.MOVE_POS + 2:
-        //            m_nSeqNum = (int)EN_LASER_SHORT_TEST_STEP.SHORT_TEST;
-        //            break;
-        //        #endregion
-
-        //        #region SHORT CHECK
-        //        case (int)EN_LASER_SHORT_TEST_STEP.SHORT_TEST:
-        //            m_tickTimeOut.SetTickCount(60000);
-        //            m_nSeqNum++;
-        //            break;
-
-        //        case (int)EN_LASER_SHORT_TEST_STEP.SHORT_TEST + 1:
-        //            if (m_tickTimeOut.IsTickOver(false))
-        //            {
-        //                m_arAlarmSubInfo[0] = "SHORT CHECK";
-        //                GenerateSequenceAlarm((int)EN_TASK_ALARM.LD_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
-        //                m_nSeqNum = (int)EN_LASER_SHORT_TEST_STEP.ACTION_FINISH;
-        //                break;
-        //            }
-        //            bool[] arUsed = new bool[m_Laser.ChannelCount];
-
-        //            for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
-        //            {
-        //                // arUsed[nCh] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_ENABLE_16.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
-        //                arUsed[nCh] = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
-        //            }
-
-        //            switch (m_Laser.CheckShort(arUsed))
-        //            {
-        //                case ProtecLaserMananger.EN_SET_RESULT.OK:
-        //                    m_nSeqNum = (int)EN_LASER_SHORT_TEST_STEP.ACTION_FINISH;
-        //                    break;
-        //                case ProtecLaserMananger.EN_SET_RESULT.WORKING:
-        //                    break;
-        //                default:
-        //                    m_arAlarmSubInfo[0] = "";
-        //                    m_arAlarmSubInfo[1] = "";
-        //                    GenerateSequenceAlarm((int)EN_TASK_ALARM.SHORT_CHECK_FAIL, false, ref m_arAlarmSubInfo);
-        //                    m_nSeqNum = (int)EN_LASER_SHORT_TEST_STEP.ACTION_FINISH;
-        //                    break;
-        //            }
-        //            break;
-
-
-
-        //        #endregion
-
-        //        #region ACTION FINISH (9900 ~ )
-        //        case (int)EN_LASER_SHORT_TEST_STEP.ACTION_FINISH:
-        //            m_nSeqNum = (int)EN_LASER_SHORT_TEST_STEP.FINISH;
-        //            break;
-        //        #endregion
-
-        //        #region FINISH
-        //        case (int)EN_LASER_SHORT_TEST_STEP.FINISH:
-        //            return true;
-        //        #endregion
-        //    }
-
-        //    return false;
-        //}
+        #region Manaul
+        private bool Action_PowerMeasure()
+        {
+            switch (m_nSeqNum)
+            {
+                case (int)EN_POWER_MEASURE_STEP.ACTION_START:
+                    Powermeter.GetInstance().Open();
+                    SetDelayForSequence(1000);
+                    ++m_nSeqNum;
+                    break;
+                case (int)EN_POWER_MEASURE_STEP.ACTION_START + 1:
+                    if (m_enAction == EN_TASK_ACTION.CALIBRATION_CHANNEL_POWER)
+                        InitializeCalibrationData();
+                    m_nPowerMeasureCurrentRepeatCount = 0;
+                    m_lstCurrentVolt.Clear();
+                    m_tickForPowerMeasureRest.SetTickCount(1);
+                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP.POWERMETER_READY;
+                    break;
+
+                case (int)EN_POWER_MEASURE_STEP.POWERMETER_READY:
+                    Powermeter.GetInstance().ClearRepeatData();
+                    Powermeter.GetInstance().nWait_Time = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_WAIT_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                    ++m_nSeqNum;
+                    break;
+
+                case (int)EN_POWER_MEASURE_STEP.POWERMETER_READY + 1:
+                    Powermeter.GetInstance().SetCommand(EN_POWERMETER_COMMAND.HANDCHECKING_OFF);
+                    SetDelayForSequence(300);
+                    m_nSeqNum++;
+                    break;
+                case (int)EN_POWER_MEASURE_STEP.POWERMETER_READY + 2:
+                    Powermeter.GetInstance().SetCommand(EN_POWERMETER_COMMAND.RECIEVE_LAST);
+                    SetDelayForSequence(300);
+                    m_nSeqNum++;
+                    break;
+                case (int)EN_POWER_MEASURE_STEP.POWERMETER_READY + 3:
+                    Powermeter.GetInstance().SetCommand(EN_POWERMETER_COMMAND.RECIEVE_ONLY_POWER);
+                    SetDelayForSequence(300);
+                    m_nSeqNum++;
+                    break;
+                case (int)EN_POWER_MEASURE_STEP.POWERMETER_READY + 4:
+                    Powermeter.GetInstance().SetCommand(EN_POWERMETER_COMMAND.ERROR_CLEAR);
+                    SetDelayForSequence(300);
+                    m_nSeqNum++;
+                    break;
+                case (int)EN_POWER_MEASURE_STEP.POWERMETER_READY + 5:
+                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP.MOVE_SHOT_POSITION;
+                    break;
+
+                #region MOVE SHOT POSITION
+                case (int)EN_POWER_MEASURE_STEP.MOVE_SHOT_POSITION:
+                    switch (m_enAction)
+                    {
+                        case EN_TASK_ACTION.MEASURE_POWER:
+                        case EN_TASK_ACTION.MEASURE_VOLT:
+                        case EN_TASK_ACTION.CALIBRATION_POWER_LOSS_RATE:
+                            int ChMeasureCount = 0;
+                            int nMeasureCh = 0;
+                            for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
+                            {
+                                if (m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
+                                {
+                                    ChMeasureCount++;
+                                    nMeasureCh = nCh;
+                                }
+                            }
+                            if (ChMeasureCount > 1)
+                                nMeasureCh = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_SELLECTED_CHANNEL.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0) - 1;
+                            break;
+
+                        case EN_TASK_ACTION.CALIBRATION_CHANNEL_POWER:
+                            break;
+                    }
+
+                        m_nSeqNum = (int)EN_POWER_MEASURE_STEP.LASER_READY;
+
+                    break;
+                #endregion
+
+                #region LASER READY SUB SEQ
+                case (int)EN_POWER_MEASURE_STEP.LASER_READY:
+                    if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
+                        m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
+                    if (m_tickForPowerMeasureRest.IsTickOver(true))
+                    {
+                        int nRestTime = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                        m_tickForPowerMeasureRest.SetTickCount((uint)nRestTime);
+                        m_tickTimeOut.SetTickCount(2000);
+                        m_nSeqNum++;
+                    }
+                    break;
+                case (int)EN_POWER_MEASURE_STEP.LASER_READY + 1:
+                    
+                    if (m_tickTimeOut.IsTickOver(false))
+                    {
+                        m_arAlarmSubInfo[0] = "";
+                        GenerateSequenceAlarm((int)EN_TASK_ALARM.LD_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
+                        m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
+                        break;
+                    }
+                    bool[] arUsed = new bool[m_Laser.ChannelCount];
+                    int nTime = 0;
+                    double dOutput = 0;
+
+                    nTime = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_SHOT_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+
+                    switch (m_enAction)
+                    {
+                        case EN_TASK_ACTION.MEASURE_POWER:
+                            for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
+                            {
+                                arUsed[nCh] = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                            }
+                            dOutput = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_WATT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+                            switch (m_Laser.SetParameter(arUsed, dOutput, nTime))
+                            {
+                                case ProtecLaserMananger.EN_SET_RESULT.OK:
+                                    m_nSeqNum++;
+                                    break;
+                                case ProtecLaserMananger.EN_SET_RESULT.WORKING:
+                                    break;
+                                case ProtecLaserMananger.EN_SET_RESULT.POWER_OVER_MAX:
+                                    m_arAlarmSubInfo[0] = "POWER IS TOO HIGH";
+                                    m_arAlarmSubInfo[1] = "";
+                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
+                                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
+                                    break;
+                                case ProtecLaserMananger.EN_SET_RESULT.POWER_UNDER_MIN:
+                                    m_arAlarmSubInfo[0] = "POWER IS TOO LOW";
+                                    m_arAlarmSubInfo[1] = "";
+                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
+                                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
+                                    break;
+                                default:
+                                    m_arAlarmSubInfo[0] = "";
+                                    m_arAlarmSubInfo[1] = "";
+                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
+                                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
+                                    break;
+                            }
+                            break;
+                        case EN_TASK_ACTION.MEASURE_VOLT:
+                            for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
+                            {
+                                arUsed[nCh] = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                            }
+                            dOutput = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_VOLT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+                            switch (m_Laser.SetParameterVolt(arUsed, dOutput, nTime))
+                            {
+                                case ProtecLaserMananger.EN_SET_RESULT.OK:
+                                    m_nSeqNum++;
+                                    break;
+                                case ProtecLaserMananger.EN_SET_RESULT.WORKING:
+                                    break;
+                                case ProtecLaserMananger.EN_SET_RESULT.POWER_OVER_MAX:
+                                    m_arAlarmSubInfo[0] = "POWER IS TOO HIGH";
+                                    m_arAlarmSubInfo[1] = "";
+                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
+                                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
+                                    break;
+                                case ProtecLaserMananger.EN_SET_RESULT.POWER_UNDER_MIN:
+                                    m_arAlarmSubInfo[0] = "POWER IS TOO LOW";
+                                    m_arAlarmSubInfo[1] = "";
+                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
+                                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
+                                    break;
+                                default:
+                                    m_arAlarmSubInfo[0] = "";
+                                    m_arAlarmSubInfo[1] = "";
+                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
+                                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
+                                    break;
+                            }
+                            break;
+
+                        case EN_TASK_ACTION.CALIBRATION_CHANNEL_POWER:
+                            for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
+                            {
+                                if (m_nCalibrationChannel == nCh)
+                                {
+                                    arUsed[nCh] = true;
+                                    m_nCalChannelAnalogInput = (int)EN_ANALOG_INPUT_LIST.LD_POWER_1 + nCh;
+                                }
+                                else
+                                {
+                                    arUsed[nCh] = false;
+                                }
+                            }
+                            dOutput = m_arCalibrationStepVolt[m_nCalibrationCurrentStep];
+                            switch (m_Laser.SetParameterVolt(arUsed, dOutput, nTime))
+                            {
+                                case ProtecLaserMananger.EN_SET_RESULT.OK:
+                                    m_nSeqNum++;
+                                    break;
+                                case ProtecLaserMananger.EN_SET_RESULT.WORKING:
+                                    break;
+                                default:
+                                    //alarm 추가
+                                    break;
+                            }
+                            break;
+
+
+                            //                         case EN_TASK_ACTION.CALIBRATION_POWER_LOSS_RATE:
+                            //                             for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
+                            //                             {
+                            //                                 arUsed[nCh] = false;
+                            //                             }
+                            //                             dOutput = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_VOLT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+                            //                             if (m_Laser.SetParameterVolt(arUsed, dOutput, nTime))
+                            //                                 m_nSeqNum++;
+                            //                             break;
+
+                    }
+                    break;
+                case (int)EN_POWER_MEASURE_STEP.LASER_READY + 2:
+                    #region SetSubSeqPara
+                    SubSeqLaserWorkParam[] LaserWorkPara = new SubSeqLaserWorkParam[3];
+
+                    for (int nPortIndex = 0; nPortIndex < 3; nPortIndex++)
+                    {
+                        //bLaserUsed = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.LASER_USED.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, false);
+
+                        LaserWorkPara[nPortIndex] = new SubSeqLaserWorkParam();
+                        //LaserWorkPara[nPortIndex].LaserUsed = bLaserUsed && m_Laser.GetEnablePort(nPortIndex);
+                        LaserWorkPara[nPortIndex].CurrentParamIndex = 1;
+                        LaserWorkPara[nPortIndex].KeepLastValuePower = false;
+                        LaserWorkPara[nPortIndex].KeepLastValueSizeX = true;
+                        LaserWorkPara[nPortIndex].KeepLastValueSizeY = true;
+
+                        LaserWorkPara[nPortIndex].ParamUsed[0] = true;
+                        LaserWorkPara[nPortIndex].LaserSizeStepUsed[0] = false;
+                        LaserWorkPara[nPortIndex].LaserSizeStepUsed[0] = false;
+
+                        for (int nStep = 0; nStep < 5; ++nStep)
+                        {
+                            LaserWorkPara[nPortIndex].LaserPower[nStep, 0] = 0;
+                            LaserWorkPara[nPortIndex].LaserTime[nStep, 0] = 0;
+
+                            LaserWorkPara[nPortIndex].LaserPowerMode[nStep, 0] = EN_OUTPUT_MODE.STEP.ToString();
+                            LaserWorkPara[nPortIndex].LaserSizeX[nStep, 0] = 0;
+                            LaserWorkPara[nPortIndex].LaserSizeY[nStep, 0] = 0;
+                            LaserWorkPara[nPortIndex].LaserSizeMode[nStep, 0] = EN_OUTPUT_MODE.STEP.ToString();
+                        }
+                        LaserWorkPara[nPortIndex].LaserTime[0, 0] = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_SHOT_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+
+                    }
+
+                    SubSeqLaserMonitorParam[] LaserMoinotrPara = new SubSeqLaserMonitorParam[20];
+                    for (int nChCount = 0; nChCount < 18; nChCount++)
+                    {
+                        LaserMoinotrPara[nChCount] = new SubSeqLaserMonitorParam();
+                        LaserMoinotrPara[nChCount].MonitorUsed = false;
+                        LaserMoinotrPara[nChCount].MonitorPreDelay = 0;
+                        LaserMoinotrPara[nChCount].MonitorPostDelay = 0;
+
+                        if (nChCount < 5)//Temp Sensor는 5개
+                        {
+                            LaserMoinotrPara[nChCount].TempCheckUsed = true;
+                            LaserMoinotrPara[nChCount].EMGTemp = 500;
+                            LaserMoinotrPara[nChCount].AbortUsed = false;
+                            LaserMoinotrPara[nChCount].AbortTemp = 500;
+                        }
+                        else
+                        {
+                            LaserMoinotrPara[nChCount].TempCheckUsed = false;
+                            LaserMoinotrPara[nChCount].EMGTemp = 500;
+                            LaserMoinotrPara[nChCount].AbortUsed = false;
+                            LaserMoinotrPara[nChCount].AbortTemp = 500;
+                        }
+
+                        LaserMoinotrPara[nChCount].PowerCheckUsed = false;
+                        LaserMoinotrPara[nChCount].PowerCheckTolerance = 0.1;
+                    }
+
+                    // WorkLog
+                    LaserMoinotrPara[18] = new SubSeqLaserMonitorParam();
+                    LaserMoinotrPara[18].MonitorUsed = false;
+
+                    LaserMoinotrPara[19] = new SubSeqLaserMonitorParam();
+                    LaserMoinotrPara[19].MonitorUsed = false;
+
+
+                    m_Subseq_Laser_Work.AddMonitorParameter(LaserMoinotrPara);
+
+
+                    m_Subseq_Laser_Work.Activate = true;
+                    m_Subseq_Laser_Work.AddParameter(LaserWorkPara);
+                    #endregion
+                    Powermeter.GetInstance().SetCommand(EN_POWERMETER_COMMAND.START);
+                    m_TickForDelay.SetTickCount(90);
+                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP.LASER_WORKING;
+                    break;
+
+                #endregion
+
+                #region Laser Working
+                case (int)EN_POWER_MEASURE_STEP.LASER_WORKING:
+                    //m_nSeqNum++;
+                    //             break;
+                    switch (m_Subseq_Laser_Work.SubSequenceProcedure())
+                    {
+                        case EN_SUBSEQUENCE_RESULT.OK:
+                            m_nSeqNum++;
+                            break;
+
+                        case EN_SUBSEQUENCE_RESULT.WORKING:
+                            //CheckLaserWorkTool();
+
+                            if (m_TickForDelay.IsTickOver(true)
+                               && (ReadOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, false) //LASER ON 중에만 측정
+                                    || ReadOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, false)
+                                    || ReadOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, false)))
+                            {
+                                m_Laser.ReadMessage();// 출력 모니터링 통신 받기 위해. 실제 모니터링은 AnalogInput을 사용. Parsing 안함
+
+                                m_lstCurrentVolt.Add(ReadAnalogInputVolt(m_nCalChannelAnalogInput));
+
+                                if (ExternalDevice.Serial.Powermeter.GetInstance().RecieveDone)
+                                {
+                                    Powermeter.GetInstance().SetCommand(EN_POWERMETER_COMMAND.READ);
+                                }
+                                m_TickForDelay.SetTickCount(90);
+                            }
+
+                            if (ReadInput((int)EN_DIGITAL_INPUT_LIST.LD_ALARM_PORT_1, false)
+                                    || ReadInput((int)EN_DIGITAL_INPUT_LIST.LD_ALARM_PORT_2, false)
+                                    || ReadInput((int)EN_DIGITAL_INPUT_LIST.LD_ALARM_PORT_3, false))
+                            {
+                                m_arAlarmSubInfo[0] = "DETECT ALARM FROM LASER SOURCE";
+                                GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_EMISSION_ALARM, false, ref m_arAlarmSubInfo);
+                                m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
+                                break;
+                            }
+                            break;
+
+                        default:
+                            m_arAlarmSubInfo[0] = m_Subseq_Laser_Work.GetActionResultInfo();
+                            GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_EMISSION_ALARM, false, ref m_arAlarmSubInfo);
+                            m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
+                            break;
+                    }
+                    break;
+                case (int)EN_POWER_MEASURE_STEP.LASER_WORKING + 1:
+                    Powermeter.GetInstance().SetCommand(EN_POWERMETER_COMMAND.STOP);
+                    SetDelayForSequence(300);
+                    m_nPowerMeasureCurrentRepeatCount++;
+                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP.CHECK_REPEAT;
+                    break;
+                #endregion
+
+                case (int)EN_POWER_MEASURE_STEP.CHECK_REPEAT:
+                    if (m_enAction == EN_TASK_ACTION.MEASURE_POWER
+                            || m_enAction == EN_TASK_ACTION.MEASURE_VOLT)
+                    {
+                        if (m_nPowerMeasureCurrentRepeatCount >= m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_REPEAT_COUNT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0))
+                        {
+                            m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
+                        }
+                        else
+                        {
+                            int nRestTime = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                            m_tickForPowerMeasureRest.SetTickCount((uint)nRestTime);
+                            m_nSeqNum = (int)EN_POWER_MEASURE_STEP.LASER_READY;
+                        }
+                    }
+                    else
+                    {
+                        if (m_nPowerMeasureCurrentRepeatCount >= m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_REPEAT_COUNT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0))
+                        {
+                            m_nPowerMeasureCurrentRepeatCount = 0;
+                            Powermeter.GetInstance().ClearRepeatData();
+                            m_nSeqNum = (int)EN_POWER_MEASURE_STEP.SET_CALIBRATION_DATA;
+                        }
+                        else
+                        {
+                            int nRestTime = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                            m_tickForPowerMeasureRest.SetTickCount((uint)nRestTime);
+                            m_nSeqNum = (int)EN_POWER_MEASURE_STEP.LASER_READY;
+                        }
+                    }
+                    break;
+
+
+                case (int)EN_POWER_MEASURE_STEP.SET_CALIBRATION_DATA:
+                    if (m_enAction == EN_TASK_ACTION.CALIBRATION_CHANNEL_POWER)
+                    {
+                        ProtecLaserChannelCalibration.GetInstance().UpdateCalibrationInformation(m_nCalibrationChannel, m_nCalibrationCurrentStep, (int)EN_CALIBRATION_INDEX.TARGET_VOLT, m_arCalibrationStepVolt[m_nCalibrationCurrentStep]);
+                        ProtecLaserChannelCalibration.GetInstance().UpdateCalibrationInformation(m_nCalibrationChannel, m_nCalibrationCurrentStep, (int)EN_CALIBRATION_INDEX.POWER_OUTPUT_WATT, Powermeter.GetInstance().Measure_Repeat_Avg);
+                        if (m_lstCurrentVolt.Count > 0)
+                            ProtecLaserChannelCalibration.GetInstance().UpdateCalibrationInformation(m_nCalibrationChannel, m_nCalibrationCurrentStep, (int)EN_CALIBRATION_INDEX.POWER_INPUT_VOLT, m_lstCurrentVolt.Average());
+                        m_lstCurrentVolt.Clear();
+
+                        PostOffice.GetInstance().SendMail(EN_SUBSCRIBER.Unknown, EN_SUBSCRIBER.SETUP_EQUP_LASER, EN_MAIL.UPDATE_UI); //Caldata UI 통지
+
+                        m_nCalibrationCurrentStep++;
+                        //다음 Step 측정
+                        if (m_nCalibrationStep > m_nCalibrationCurrentStep)
+                        {
+                            int nRestTime = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                            m_tickForPowerMeasureRest.SetTickCount((uint)nRestTime);
+                            m_nSeqNum = (int)EN_POWER_MEASURE_STEP.LASER_READY;
+                            break;
+                        }
+                        else
+                        {
+                            //다음 channel 측정
+                            for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
+                            {
+                                if (m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
+                                {
+                                    if (m_nCalibrationChannel < nCh)
+                                    {
+                                        m_nCalibrationCurrentStep = 0;
+                                        m_nCalibrationChannel = nCh;
+                                        ProtecLaserChannelCalibration.GetInstance().NewChannelCalibrationFile(m_nCalibrationChannel);
+
+                                        int nRestTime = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                                        m_tickForPowerMeasureRest.SetTickCount((uint)nRestTime);
+                                        m_nSeqNum = (int)EN_POWER_MEASURE_STEP.MOVE_SHOT_POSITION;
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (m_enAction == EN_TASK_ACTION.CALIBRATION_POWER_LOSS_RATE)
+                    {
+                        //구현 필요
+                    }
+                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
+                    break;
+
+
+                case (int)EN_POWER_MEASURE_STEP.ACTION_FINISH:
+                    
+                        m_nSeqNum++;
+                    break;
+
+                case (int)EN_POWER_MEASURE_STEP.ACTION_FINISH + 1:
+                    
+                        m_nSeqNum = (int)EN_POWER_MEASURE_STEP.FINISH;
+                    break;
+
+                case (int)EN_POWER_MEASURE_STEP.FINISH:
+                    return true;
+            }
+            return false;
+        }
+
+        private bool ActionShortCheck()
+        {
+            switch (m_nSeqNum)
+            {
+                #region ACTION START (0 ~ )
+                case (int)EN_LASER_SHORT_TEST_STEP.ACTION_START:
+                    m_nSeqNum = (int)EN_LASER_SHORT_TEST_STEP.SHORT_TEST;
+                    break;
+                #endregion
+
+                #region SHORT CHECK
+                case (int)EN_LASER_SHORT_TEST_STEP.SHORT_TEST:
+                    m_tickTimeOut.SetTickCount(60000);
+                    m_nSeqNum++;
+                    break;
+
+                case (int)EN_LASER_SHORT_TEST_STEP.SHORT_TEST + 1:
+                    if (m_tickTimeOut.IsTickOver(false))
+                    {
+                        m_arAlarmSubInfo[0] = "SHORT CHECK";
+                        GenerateSequenceAlarm((int)EN_TASK_ALARM.LD_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
+                        m_nSeqNum = (int)EN_LASER_SHORT_TEST_STEP.ACTION_FINISH;
+                        break;
+                    }
+                    bool[] arUsed = new bool[m_Laser.ChannelCount];
+
+                    for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
+                    {
+                        arUsed[nCh] = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                    }
+
+                    switch (m_Laser.CheckShort(arUsed))
+                    {
+                        case ProtecLaserMananger.EN_SET_RESULT.OK:
+                            m_nSeqNum = (int)EN_LASER_SHORT_TEST_STEP.ACTION_FINISH;
+                            break;
+                        case ProtecLaserMananger.EN_SET_RESULT.WORKING:
+                            break;
+                        default:
+                            m_arAlarmSubInfo[0] = "";
+                            m_arAlarmSubInfo[1] = "";
+                            GenerateSequenceAlarm((int)EN_TASK_ALARM.SHORT_CHECK_FAIL, false, ref m_arAlarmSubInfo);
+                            m_nSeqNum = (int)EN_LASER_SHORT_TEST_STEP.ACTION_FINISH;
+                            break;
+                    }
+                    break;
+
+
+
+                #endregion
+
+                #region ACTION FINISH (9900 ~ )
+                case (int)EN_LASER_SHORT_TEST_STEP.ACTION_FINISH:
+                    m_nSeqNum = (int)EN_LASER_SHORT_TEST_STEP.FINISH;
+                    break;
+                #endregion
+
+                #region FINISH
+                case (int)EN_LASER_SHORT_TEST_STEP.FINISH:
+                    return true;
+                    #endregion
+            }
+
+            return false;
+        }
 
         //private bool ActionMoveReady()
         //{
@@ -1618,12 +1501,12 @@ namespace FrameOfSystem3.Task
         //        #region FINISH
         //        case (int)EN_LASER_WORK_STEP.FINISH:
         //            return true;
-        //        #endregion
+        //            #endregion
         //    }
 
         //    return false;
         //}
-        //#endregion
+        #endregion
         #endregion Action Sequence List
 
         #region Calibration Data
@@ -2025,7 +1908,7 @@ namespace FrameOfSystem3.Task
         {
             ACTION_START = 0,
 
-            
+            PARAMETER_READY,
 
             ACTION_FINISH = 9900,
             FINISH = 10000,

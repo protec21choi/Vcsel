@@ -324,13 +324,13 @@ namespace FrameOfSystem3.ExternalDevice.Serial
                         strMessage += string.Format(",{0}{1:00000}", nEnable, (int)(arValue[nChannel] * 10));
                     }
 
-                    //strMessage += ",000000"; // "S" Command 삭제
+                    //strMessage += ",000000"; // 2025.3.29 by ecchoi [ADD] "S" 커맨드는 이부분 삭제
 
                     strMessage += CheckSum(strMessage);
                     strMessage += System.Text.Encoding.ASCII.GetString(ETX);
 
                     if (m_InstanceSerial.Write(m_dicLaserPort[nPortIndex].SerialPortIndex, strMessage) == false)
-                        return EN_RESULT.FAIL;
+                        //return EN_RESULT.FAIL; // 2025.3.29 by ecchoi [ADD] Test후 복구
                     AddCommLog(nPortIndex, strMessage);
                     m_dicLaserPort[nPortIndex].Seq++;
                     break;

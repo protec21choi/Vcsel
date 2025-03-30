@@ -770,7 +770,7 @@ namespace Define
                 OPERATION_IR_MONITOR,
                 OPERATION_CAL_MONITOR,
                 //OPERATION_MANUAL,
-                //OPERATION_MONITORING,
+                OPERATION_STATE_MONITOR,
                 //OPERATION_RAM_METRICS,
 
                 RECIPE_MAIN,

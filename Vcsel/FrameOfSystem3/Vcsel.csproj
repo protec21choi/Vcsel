@@ -749,6 +749,12 @@
     <Compile Include="Views\Operation\Operation_Main.Designer.cs">
       <DependentUpon>Operation_Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Operation\Operation_StateMonitor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Operation\Operation_StateMonitor.Designer.cs">
+      <DependentUpon>Operation_StateMonitor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\PanelInterface.cs" />
     <Compile Include="Views\ParameterGroupPanel.cs">
       <SubType>UserControl</SubType>
@@ -1025,6 +1031,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Operation\Operation_Main.resx">
       <DependentUpon>Operation_Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Operation\Operation_StateMonitor.resx">
+      <DependentUpon>Operation_StateMonitor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ParameterGroupPanel.resx">
       <DependentUpon>ParameterGroupPanel.cs</DependentUpon>

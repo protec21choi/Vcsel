@@ -461,31 +461,41 @@ namespace FrameOfSystem3.Laser
                                 {
                                     arEnable[channelInPort] = m_dicLaserParam[nChannel].Enable;
                                     arVoltage[channelInPort] = m_dicLaserParam[nChannel].VoltageIOMode;
-
                                 }
                             }
                         }
-                        if (arPortSettingDone[m_dicLaserParam[nPort].PortIndex] == false)
+
+                        if (!arPortSettingDone[m_dicLaserParam[nPort].PortIndex])
                         {
-                            if (m_ProtecLaser.SetInitVoltageIOMode(nPort, arEnable, arVoltage)
-                                             == ProtecLaserController.EN_RESULT.DONE)
+                            var result = m_ProtecLaser.SetInitVoltageIOMode(nPort, arEnable, arVoltage);
+                            if (result == ProtecLaserController.EN_RESULT.DONE)
                             {
-                                arPortSettingDone[m_dicLaserParam[nPort].PortIndex] = true;
+                                var resultMode = m_ProtecLaser.SetIOMode(nPort);
+                                if (resultMode == ProtecLaserController.EN_RESULT.DONE)
+                                {
+                                    arPortSettingDone[m_dicLaserParam[nPort].PortIndex] = true;
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                break;
                             }
                         }
                     }
 
-                    SetDisablePortSettingDone();
-                    SetNoneExistChannelSettingDone(m_nSettingChannel);
+                    SetDisablePortSettingDone(); // Disable Port 포트를 확인해서 DONE처리 
 
-                    if (IsPortSettingDone())
+                    if (IsPortSettingDone()) //arPortSettingDone Check
                     {
+                        
                         InitPortSettingDone();
                         m_ProtecLaser.ClearAllPortData();
-                        m_nSettingChannel++;
-                    }
-                    if (m_nSettingChannel >= m_nChannelCountInPort)
                         m_nSeq++;
+                    }
                     break;
 
                 case 4:
@@ -781,7 +791,7 @@ namespace FrameOfSystem3.Laser
                 arPortSettingDone[m_nPortCount - 1] = true;
         }
 
-        private void SetDisablePortSettingDone()
+        private void SetDisablePortSettingDone() 
         {
             for (int nIndex = 0; nIndex < m_nPortCount; nIndex++)
             {
