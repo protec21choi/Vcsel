@@ -146,7 +146,7 @@ namespace FrameOfSystem3.Functional
 
 			Config.ConfigAlarm.GetInstance().RegisterSubject(subjectAlarm);
         }
-
+         
         /// <summary>
         /// 2020.10.07 by yjlee [ADD] Get the instances of the dlls.
         /// </summary>
