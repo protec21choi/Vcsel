@@ -403,6 +403,7 @@ namespace FrameOfSystem3.Laser
             switch (m_nSeq)
             {
                 case 0:
+                    // 2025.3.31 by ecchoi [ADD] Test 후 복구
                     //if (m_LaserCal.GetMinPower(bEnable) > dTotalPower)
                     //{
                     //    return EN_SET_RESULT.POWER_UNDER_MIN;
@@ -468,17 +469,10 @@ namespace FrameOfSystem3.Laser
                         if (!arPortSettingDone[m_dicLaserParam[nPort].PortIndex])
                         {
                             var result = m_ProtecLaser.SetInitVoltageIOMode(nPort, arEnable, arVoltage);
+
                             if (result == ProtecLaserController.EN_RESULT.DONE)
                             {
-                                var resultMode = m_ProtecLaser.SetIOMode(nPort);
-                                if (resultMode == ProtecLaserController.EN_RESULT.DONE)
-                                {
-                                    arPortSettingDone[m_dicLaserParam[nPort].PortIndex] = true;
-                                }
-                                else
-                                {
-                                    break;
-                                }
+                                arPortSettingDone[m_dicLaserParam[nPort].PortIndex] = true;
                             }
                             else
                             {
@@ -486,12 +480,11 @@ namespace FrameOfSystem3.Laser
                             }
                         }
                     }
-
+                    
                     SetDisablePortSettingDone(); // Disable Port 포트를 확인해서 DONE처리 
 
                     if (IsPortSettingDone()) //arPortSettingDone Check
                     {
-                        
                         InitPortSettingDone();
                         m_ProtecLaser.ClearAllPortData();
                         m_nSeq++;
@@ -499,6 +492,25 @@ namespace FrameOfSystem3.Laser
                     break;
 
                 case 4:
+                    for (int nIndex = 0; nIndex < m_nPortCount; nIndex++)
+                    {
+                        var resultMode = m_ProtecLaser.SetIOMode(nIndex);
+                        if (resultMode == ProtecLaserController.EN_RESULT.DONE)
+                        {
+                            arPortSettingDone[m_dicLaserParam[nIndex].PortIndex] = true;
+                        }
+                    }
+                    SetDisablePortSettingDone();
+
+                    if (IsPortSettingDone())
+                    {
+                        InitPortSettingDone();
+                        m_ProtecLaser.ClearAllPortData();
+                        m_nSeq++;
+                    }
+                    break;
+
+                case 5:
                     m_nSeq = 0;
                     return EN_SET_RESULT.OK;
             }

@@ -92,14 +92,14 @@ namespace FrameOfSystem3.Views.Functional
 
             if (bBuzzer)
             {
-                DigitalIO_.DigitalIO.GetInstance().WriteOutput((int)Define.DefineEnumProject.DigitalIO.EN_DIGITAL_OUT.BUZZER, true);
+                //DigitalIO_.DigitalIO.GetInstance().WriteOutput((int)Define.DefineEnumProject.DigitalIO.EN_DIGITAL_OUT.BUZZER, true);
             }
             this.CenterToScreen();
 
             if(!this.Modal)
                 this.ShowDialog();
 
-            DigitalIO_.DigitalIO.GetInstance().WriteOutput((int)Define.DefineEnumProject.DigitalIO.EN_DIGITAL_OUT.BUZZER, false);
+            //DigitalIO_.DigitalIO.GetInstance().WriteOutput((int)Define.DefineEnumProject.DigitalIO.EN_DIGITAL_OUT.BUZZER, false);
 
             if (this.DialogResult == System.Windows.Forms.DialogResult.OK)
             {

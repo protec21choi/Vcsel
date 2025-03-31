@@ -908,6 +908,7 @@ namespace FrameOfSystem3.Task
 
                 case (int)EN_LASER_WORK_STEP.PARAMETER_READY:
                     #region Laser#1
+                    // 2025.3.31 by ecchoi [ADD] Test 후 복구
                     //if (m_tickTimeOut.IsTickOver(false))
                     //{
                     //    m_arAlarmSubInfo[0] = "";

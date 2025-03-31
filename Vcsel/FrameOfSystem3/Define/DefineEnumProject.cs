@@ -931,124 +931,91 @@ namespace Define
 		{
 			public enum EN_DIGITAL_IN
 			{
-				NONE = 0,					// > X00
+				EMS_RACK = 0,					// > X00
 
-                DOOR_LOCK_1 = 8,
-                DOOR_LOCK_2 = 9,
+                DC_FAN_1 = 2,
+                DC_FAN_2,
+                DC_FAN_3,
+                DC_FAN_4,
+                DC_FAN_5,
+                DC_FAN_6,
 
-                PRE_SMEMA_SUB_PORT1 = 14,
-                PRE_SMEMA_SUB_PORT2 = 15,
-                
-                WAFER_DETECT = 18,
+                FROM_PLC_IN_1 = 8,
+                FROM_PLC_IN_2 = 9,
 
-                COVER_1 = 26,
-                COVER_2 = 27,
+                LD_1_READY = 16,
+                LD_1_ALARM = 17,
+                LD_1_ON = 18,
 
-                PRE_SMEMA_PORT1 = 40,
-                POST_SMEMA_PORT1 = 41,
-                PRE_SMEMA_PORT2 = 42,
-                POST_SMEMA_PORT2 = 43,
+                LD_2_READY = 21,
+                LD_2_ALARM = 22,
+                LD_2_ON = 23,
 
-                LD_1_READY = 44,
-                LD_1_ALARM = 45,
-                LD_1_ON = 46,
+                LD_3_READY = 26,
+                LD_3_ALARM = 27,
+                LD_3_ON = 28,
 
-                LD_2_READY = 49,
-                LD_2_ALARM = 50,
-                LD_2_ON = 51,
-
-                LD_3_READY = 54,
-                LD_3_ALARM = 55,
-                LD_3_ON = 56,
-
-                MONITOR_ALARM = 60,
+                MONITOR_ALARM = 32,
 
                 // 2025.3.11 by ecchoi [ADD] Laser No.2
-                LD_1_READY_2 = 144,
-                LD_1_ALARM_2 = 145,
-                LD_1_ON_2 = 146,
+                LD_1_READY_2 = 36,
+                LD_1_ALARM_2 = 37,
+                LD_1_ON_2 = 38,
 
-                LD_2_READY_2 = 149,
-                LD_2_ALARM_2 = 150,
-                LD_2_ON_2 = 151,
+                LD_2_READY_2 = 41,
+                LD_2_ALARM_2 = 42,
+                LD_2_ON_2 = 43,
 
-                LD_3_READY_2 = 154,
-                LD_3_ALARM_2 = 155,
-                LD_3_ON_2 = 156,
+                LD_3_READY_2 = 46,
+                LD_3_ALARM_2 = 47,
+                LD_3_ON_2 = 48,
 
-                MONITOR_ALARM_2 = 160
+                MONITOR_ALARM_2 = 52,
             }
 
 			public enum EN_DIGITAL_OUT
 			{
-				NONE = 0,
+				SAFETY_RESET = 0,
 
-                BUZZER = 3,
+                TO_PLC_OUT_1 = 8,
+                TO_PLC_OUT_2 = 9,
 
-                DOOR_MAGNETIC_1 = 4,
+                LD_1_ALARM_CLEAR = 16,
+                LD_1_EMO = 17,
+                LD_1_ON = 18,
+                LD_1_READY = 19,
 
-                DOOR_LOCK_1 = 8,
-                DOOR_LOCK_2 = 9,
+                LD_2_ALARM_CLEAR = 21,
+                LD_2_EMO = 22,
+                LD_2_ON = 23,
+                LD_2_READY = 24,
 
-                LASER_GUIDE = 12,
+                LD_3_ALARM_CLEAR = 26,
+                LD_3_EMO = 27,
+                LD_3_ON = 28,
+                LD_3_READY = 29,
 
-                DOOR_MAGNETIC_2 = 13,
-
-                PRE_SMEMA_SUB_PORT1 = 14,
-                PRE_SMEMA_SUB_PORT2 = 15,
-
-                BLOCK_MATERIAL_BLOW = 22,
-                LIFT_MATERIAL_VAC = 23,
-
-                BLOCK_MATERIAL_VAC_1 = 24,
-                BLOCK_MATERIAL_VAC_2 = 25,
-
-                PLATE_BLOCK_VAC = 26,
-
-                HANDLER_MATERIAL_BLOW = 32,
-                HANDLER_MATERIAL_VAC = 33,
-
-                PRE_SMEMA_PORT1 = 40,
-                POST_SMEMA_PORT1 = 41,
-                PRE_SMEMA_PORT2 = 42,
-                POST_SMEMA_PORT2 = 43,
-
-                LD_1_ALARM_CLEAR = 44,
-                LD_1_EMO = 45,
-                LD_1_ON = 46,
-                LD_1_READY = 47,
-
-                LD_2_ALARM_CLEAR = 49,
-                LD_2_EMO = 50,
-                LD_2_ON = 51,
-                LD_2_READY = 52,
-
-                LD_3_ALARM_CLEAR = 54,
-                LD_3_EMO = 55,
-                LD_3_ON = 56,
-                LD_3_READY = 57,
-
-                MONITOR_ALARM_CLEAR = 59,
-                MONITOR_EMO = 60,
+                MONITOR_ALARM_CLEAR = 31,
+                MONITOR_EMO = 32,
 
                 // 2025.3.11 by ecchoi [ADD] Laser No.2
-                LD_1_ALARM_CLEAR_2 = 144,
-                LD_1_EMO_2 = 145,
-                LD_1_ON_2 = 146,
-                LD_1_READY_2 = 147,
+                LD_1_ALARM_CLEAR_2 = 36,
+                LD_1_EMO_2 = 37,
+                LD_1_ON_2 = 38,
+                LD_1_READY_2 = 39,
 
-                LD_2_ALARM_CLEAR_2 = 149,
-                LD_2_EMO_2 = 150,
-                LD_2_ON_2 = 151,
-                LD_2_READY_2 = 152,
+                LD_2_ALARM_CLEAR_2 = 41,
+                LD_2_EMO_2 = 42,
+                LD_2_ON_2 = 43,
+                LD_2_READY_2 = 44,
 
-                LD_3_ALARM_CLEAR_2 = 154,
-                LD_3_EMO_2 = 155,
-                LD_3_ON_2 = 156,
-                LD_3_READY_2 = 157,
+                LD_3_ALARM_CLEAR_2 = 46,
+                LD_3_EMO_2 = 47,
+                LD_3_ON_2 = 48,
+                LD_3_READY_2 = 49,
 
-                MONITOR_ALARM_CLEAR_2 = 159,
-                MONITOR_EMO_2 = 160,
+                MONITOR_ALARM_CLEAR_2 = 51,
+                MONITOR_EMO_2 = 52,
             }
 		}
 
@@ -1075,46 +1042,29 @@ namespace Define
                 POWER_CH_17 = 16,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
                 POWER_CH_18 = 17,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
 
-                POWER_2_CH_1 = 40,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
-                POWER_2_CH_2 = 41,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
-                POWER_2_CH_3 = 42,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
-                POWER_2_CH_4 = 43,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
-                POWER_2_CH_5 = 44,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
-                POWER_2_CH_6 = 45,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
-                POWER_2_CH_7 = 46,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
-                POWER_2_CH_8 = 47,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
-                POWER_2_CH_9 = 48,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
-                POWER_2_CH_10 = 49,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
-                POWER_2_CH_11 = 50,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
-                POWER_2_CH_12 = 51,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
-                POWER_2_CH_13 = 52,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
-                POWER_2_CH_14 = 53,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
-                POWER_2_CH_15 = 54,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
-                POWER_2_CH_16 = 55,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
-                POWER_2_CH_17 = 56,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
-                POWER_2_CH_18 = 57,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_1 = 18,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_2 = 19,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_3 = 20,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_4 = 21,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_5 = 22,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_6 = 23,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_7 = 24,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_8 = 25,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_9 = 26,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_10 = 27,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_11 = 28,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_12 = 29,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_13 = 30,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_14 = 31,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_15 = 32,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_16 = 33,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_17 = 34,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
+                POWER_2_CH_18 = 35,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
 
-                MAIN_AIR = 24,
-                MAIN_VAC = 25,
-                BLOCK_MATERIAL_VAC = 26,
-                PLATE_BLOCK_VAC = 27,
-                LIFT_MATERIAL_VAC = 28,
-                HANDLER_MATERIAL_VAC = 29,
-
-                TEMP_CH_1 = 32,
-                TEMP_CH_2 = 33,
-                TEMP_CH_3 = 34,
-                TEMP_CH_4 = 35,
-                TEMP_CH_5 = 36,
-
-                HEAD_TOTAL_FLOW = 37,
-                HEAD_LEFT_FLOW = 38,
-                HEAD_RIGHT_FLOW = 39,
-
-                IR_SENSOR_1 = 40,
-                IR_SENSOR_2 = 41,
-                IR_SENSOR_3 = 42,
-                IR_SENSOR_4 = 43,
+                HEAD_TEMP_IR_SENSOR_1 = 40,     //4mA ~ 20mA
+                HEAD_TEMP_IR_SENSOR_2 = 41,     //4mA ~ 20mA
+                HEAD_TEMP_IR_SENSOR_3 = 42,     //4mA ~ 20mA
+                HEAD_TEMP_IR_SENSOR_4 = 43,     //4mA ~ 20mA
             }
 			public enum EN_ANALOG_OUT
 			{
@@ -1130,7 +1080,7 @@ namespace Define
 
                 WARPAGE_PRESS = 0,
                 POWERMETER = 1,
-			}
+            }
 		}
 
 		namespace Motion
@@ -1139,15 +1089,15 @@ namespace Define
 			{
 				NONE = -1,
 
-                GANTRY_Y = 0,
-                BLOCK_X = 1,
-                BLOCK_Z = 2,
-                LIFT_Z = 3,
-                HANDLER_Y = 4,
-                HANDLER_X = 5,
-                HANDLER_Z = 6,
-                HANDLER_R = 7,
-                POWERMETER_X = 8,
+                //GANTRY_Y = 0,
+                //BLOCK_X = 1,
+                //BLOCK_Z = 2,
+                //LIFT_Z = 3,
+                //HANDLER_Y = 4,
+                //HANDLER_X = 5,
+                //HANDLER_Z = 6,
+                //HANDLER_R = 7,
+                //POWERMETER_X = 8,
 			}
 		}
 

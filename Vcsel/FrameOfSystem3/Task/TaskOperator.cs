@@ -189,9 +189,9 @@ namespace FrameOfSystem3.Task
         /// </summary>
         protected override void StartBuzzer()
         {
-            m_nIndexOfBuzzerOutput = (int)Define.DefineEnumProject.DigitalIO.EN_DIGITAL_OUT.BUZZER;
+   //         m_nIndexOfBuzzerOutput = (int)Define.DefineEnumProject.DigitalIO.EN_DIGITAL_OUT.BUZZER;
 
-			DigitalIO_.DigitalIO.GetInstance().WriteOutput(m_nIndexOfBuzzerOutput, true);
+			//DigitalIO_.DigitalIO.GetInstance().WriteOutput(m_nIndexOfBuzzerOutput, true);
         }
 
         /// <summary>
@@ -199,7 +199,7 @@ namespace FrameOfSystem3.Task
         /// </summary>
         protected override void StopBuzzer()
         {
-			DigitalIO_.DigitalIO.GetInstance().WriteOutput(m_nIndexOfBuzzerOutput, false);
+			//DigitalIO_.DigitalIO.GetInstance().WriteOutput(m_nIndexOfBuzzerOutput, false);
         }
         #endregion
 
