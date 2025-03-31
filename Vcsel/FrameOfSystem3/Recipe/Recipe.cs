@@ -1243,11 +1243,11 @@ namespace FrameOfSystem3.Recipe
                             //IR은local path
                             //ExternalDevice.Socket.IR.GetInstance().UpdateRecipe();
 
-                            double dBlockTemp = GetValue(Define.DefineEnumProject.Task.EN_TASK_LIST.WORK_ZONE.ToString(), Define.DefineEnumProject.Task.WorkZone.PARAM_PROCESS.HEATER_TARGET_TEMP.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-                            ExternalDevice.Heater.Heater.GetInstance().SetTargetTemp((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, dBlockTemp);
+                            //double dBlockTemp = GetValue(Define.DefineEnumProject.Task.EN_TASK_LIST.WORK_ZONE.ToString(), Define.DefineEnumProject.Task.WorkZone.PARAM_PROCESS.HEATER_TARGET_TEMP.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+                            //ExternalDevice.Heater.Heater.GetInstance().SetTargetTemp((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, dBlockTemp);
 
-                            double dBlockOffset = GetValue(Define.DefineEnumProject.Task.EN_TASK_LIST.WORK_ZONE.ToString(), Define.DefineEnumProject.Task.WorkZone.PARAM_PROCESS.HEATER_OFFSET_TEMP.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-                            ExternalDevice.Heater.Heater.GetInstance().SetTempOffset((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, dBlockOffset);
+                            //double dBlockOffset = GetValue(Define.DefineEnumProject.Task.EN_TASK_LIST.WORK_ZONE.ToString(), Define.DefineEnumProject.Task.WorkZone.PARAM_PROCESS.HEATER_OFFSET_TEMP.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+                            //ExternalDevice.Heater.Heater.GetInstance().SetTempOffset((int)Define.DefineEnumProject.Heater.EN_HEATER_ZONE_LIST.BLCOK, dBlockOffset);
 
 
                             return true;

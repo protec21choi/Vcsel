@@ -4,7 +4,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <PropertyGroup>
-    <ReferencePath>C:\Users\xodns\Documents\Visual Studio 2013\Projects\FrameOfSystem3\FrameOfSystem3\Release\</ReferencePath>
+    <ReferencePath>C:\PROTEC\C#\VcselModule\SourceCode\Vcsel\Release\</ReferencePath>
     <ProjectView>ShowAllFiles</ProjectView>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">

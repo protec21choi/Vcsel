@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using TickCounter_;
-using FrameOfSystem3.ExternalDevice.Heater;
+//using FrameOfSystem3.ExternalDevice.Heater;
 
 namespace FrameOfSystem3.ExternalDevice.Serial
 {

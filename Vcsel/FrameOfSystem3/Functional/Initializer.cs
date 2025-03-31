@@ -37,7 +37,7 @@ using FrameOfSystem3.Recipe;
 
 using EQUIPMENT_PARAM = FrameOfSystem3.Recipe.PARAM_EQUIPMENT;
 using BONDER_TASK_PARAM = Define.DefineEnumProject.Task.BondHead.PARAM_PROCESS;
-using WORKZONE_TASK_PARAM = Define.DefineEnumProject.Task.WorkZone.PARAM_PROCESS;
+//using WORKZONE_TASK_PARAM = Define.DefineEnumProject.Task.WorkZone.PARAM_PROCESS;
 
 
 namespace FrameOfSystem3.Functional
@@ -516,10 +516,10 @@ namespace FrameOfSystem3.Functional
 
                 case EN_INITIALIZATION_STEP.INIT_ANALOG_IO_END:
                     // AnalogIO.AnalogIOController
-                    //m_arAnalogIOController = new AnalogIOController[1];
+                    m_arAnalogIOController = new AnalogIOController[1];
 
                     //m_arAnalogIOController[0] = new Controller.AnalogIO.RSAAnalogIOController();
-                    //bResult = AnalogIO.GetInstance().Init(ref m_arAnalogIOController);
+                    bResult = AnalogIO.GetInstance().Init(ref m_arAnalogIOController);
                     break;
                 #endregion
 
@@ -530,10 +530,10 @@ namespace FrameOfSystem3.Functional
 
                 case EN_INITIALIZATION_STEP.INIT_DIGITAL_IO_END:
                     // DigitalIO.DigitalIOController
-                    //m_arDigitalIOController = new DigitalIOController[1];
+                    m_arDigitalIOController = new DigitalIOController[1];
 
                     //m_arDigitalIOController[0] = new Controller.DigitalIO.RSADigitalIOController();
-                    //bResult = DigitalIO.GetInstance().Init(ref m_arDigitalIOController);
+                    bResult = DigitalIO.GetInstance().Init(ref m_arDigitalIOController);
                     break;
                 #endregion
 
@@ -589,9 +589,9 @@ namespace FrameOfSystem3.Functional
 
                 case EN_INITIALIZATION_STEP.INIT_MOTION_END:
                     // Motion.MotionController
-                    //m_arMotionController = new MotionController[1];
+                    m_arMotionController = new MotionController[1];
                     //m_arMotionController[0] = new FrameOfSystem3.Controller.Motion.RSAMotionController();	// < RSA 일경우
-                    //m_arMotionController[0] = null;
+                    m_arMotionController[0] = null;
 
                     bResult = Motion_.Motion.GetInstance().Init(ref m_arMotionController, Define.DefineConstant.Motion.INTERVAL_CHECKING_CONNECTION);
                     break;

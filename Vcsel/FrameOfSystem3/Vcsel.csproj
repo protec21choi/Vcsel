@@ -310,7 +310,6 @@
     <Compile Include="RAMMetrics\RAM_Metrics.cs" />
     <Compile Include="EquipmentProperty\EquipmentProperty.cs" />
     <Compile Include="EquipmentProperty\RawMaterialPortManager.cs" />
-    <Compile Include="ExternalDevice\Heater.cs" />
     <Compile Include="ExternalDevice\ModbusServerData.cs" />
     <Compile Include="ExternalDevice\Serial\Laser_Protec.cs" />
     <Compile Include="Functional\Compression.cs" />
@@ -342,7 +341,6 @@
     <Compile Include="SubSequence\SubLaserWork\Cotnrol\Device\SubCtrlDeviceIPG.cs" />
     <Compile Include="SubSequence\SubLaserWork\Cotnrol\Device\SubCtrlDeviceProtecLaser.cs" />
     <Compile Include="SubSequence\SubLaserWork\Cotnrol\Device\SubCtrlDeviceLaserLine.cs" />
-    <Compile Include="SubSequence\SubLaserWork\Cotnrol\Heater\SubCtrlHeatel.cs" />
     <Compile Include="SubSequence\SubLaserWork\Cotnrol\Monitor\SubCtrlMonitoringAnalog.cs" />
     <Compile Include="SubSequence\SubLaserWork\Cotnrol\Monitor\SubCtrlMonitoringIR.cs" />
     <Compile Include="SubSequence\SubLaserWork\Cotnrol\Monitor\SubCtrlMonitoringWorkLog.cs" />
@@ -1201,6 +1199,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ExternalDevice\Serial\DeviceModbusRTU\" />
+    <Folder Include="SubSequence\SubLaserWork\Cotnrol\Heater\" />
     <Folder Include="SubSequence\SubLaserWork\Cotnrol\Modulation\" />
     <Folder Include="Views\Setup\Panel\Equipment\" />
     <Folder Include="Views\Setup\Panel\Transfer\" />

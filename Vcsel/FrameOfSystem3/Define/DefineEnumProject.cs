@@ -40,8 +40,6 @@ namespace Define
 			public enum EN_TASK_LIST
 			{
                 BOND_HEAD,
-                TRANSFER,
-                WORK_ZONE,
 			}
 
 			public enum EN_MOTION_ALARM_TYPE
@@ -85,16 +83,31 @@ namespace Define
                     LD_POWER_17 = 17,
                     LD_POWER_18 = 18,
 
-                    TEMP_SENSOR_1 = 19,
-                    TEMP_SENSOR_2 = 20,
-                    TEMP_SENSOR_3 = 21,
-                    TEMP_SENSOR_4 = 22,
-                    TEMP_SENSOR_5 = 23,
+                    LD_2_POWER_1 = 19,
+                    LD_2_POWER_2 = 20,
+                    LD_2_POWER_3 = 21,
+                    LD_2_POWER_4 = 22,
+                    LD_2_POWER_5 = 23,
+                    LD_2_POWER_6 = 24,
 
-                    BLOCK_VAC = 24,
-                    HEAD_TOTAL_FLOW = 25,
-                    HEAD_LEFT_FLOW = 26,
-                    HEAD_RIGHT_FLOW = 27,
+                    LD_2_POWER_7 = 25,
+                    LD_2_POWER_8 = 26,
+                    LD_2_POWER_9 = 27,
+                    LD_2_POWER_10 = 28,
+                    LD_2_POWER_11 = 29,
+                    LD_2_POWER_12 = 30,
+
+                    LD_2_POWER_13 = 31,
+                    LD_2_POWER_14 = 32,
+                    LD_2_POWER_15 = 33,
+                    LD_2_POWER_16 = 34,
+                    LD_2_POWER_17 = 35,
+                    LD_2_POWER_18 = 18,
+
+                    TEMP_SENSOR_1 = 40,
+                    TEMP_SENSOR_2 = 41,
+                    TEMP_SENSOR_3 = 42,
+                    TEMP_SENSOR_4 = 43,
 
                 }
                 #endregion
@@ -160,7 +173,7 @@ namespace Define
                 /// </summary>
                 public enum EN_CYLINDER_LIST
                 {
-                    POWERMETER = 1,
+                    NONE = -1,
                 }
                 #endregion
 
@@ -170,10 +183,7 @@ namespace Define
                 /// </summary>
                 public enum EN_AXIS_LIST
                 {
-                    HEAD_X = 1,
-                    HEAD_Y = 2,
-                    BLOCK_Z = 3,
-                    POWERMETER_X = 4,
+                    NONE = -1,
                 }
                 #endregion
 
@@ -334,327 +344,327 @@ namespace Define
                 #endregion
             }
 
-            namespace WorkZone
-            {
-                #region Analog Input
-                /// <summary>
-                /// 2020.09.10 by ssh [ADD] Enumerate the Analog Input list of the task.
-                /// </summary>
-                public enum EN_ANALOG_INPUT_LIST
-                {
-                    BLOCK_MATERIAL_VAC = 1,
-                    PLATE_BLOCK_VAC,
-                    LIFT_MATERIAL_VAC,
-                }
-                #endregion
+            //namespace WorkZone
+            //{
+            //    #region Analog Input
+            //    /// <summary>
+            //    /// 2020.09.10 by ssh [ADD] Enumerate the Analog Input list of the task.
+            //    /// </summary>
+            //    public enum EN_ANALOG_INPUT_LIST
+            //    {
+            //        BLOCK_MATERIAL_VAC = 1,
+            //        PLATE_BLOCK_VAC,
+            //        LIFT_MATERIAL_VAC,
+            //    }
+            //    #endregion
 
-                #region Analog Output
-                /// <summary>
-                /// 2020.09.10 by ssh [ADD] Enumerate the Analog Output list of the task.
-                /// </summary>
-                public enum EN_ANALOG_OUTPUT_LIST
-                {
+            //    #region Analog Output
+            //    /// <summary>
+            //    /// 2020.09.10 by ssh [ADD] Enumerate the Analog Output list of the task.
+            //    /// </summary>
+            //    public enum EN_ANALOG_OUTPUT_LIST
+            //    {
                  
-                }
-                #endregion
+            //    }
+            //    #endregion
 
-                #region Digital Input
-                /// <summary>
-                /// 2020.09.10 by ssh [ADD] Enumerate the Digital Input list of the task.
-                /// </summary>
-                public enum EN_DIGITAL_INPUT_LIST
-                {
-                    WARPAGE_PUSHER_DETECT = 1,
-                }
-                #endregion
+            //    #region Digital Input
+            //    /// <summary>
+            //    /// 2020.09.10 by ssh [ADD] Enumerate the Digital Input list of the task.
+            //    /// </summary>
+            //    public enum EN_DIGITAL_INPUT_LIST
+            //    {
+            //        WARPAGE_PUSHER_DETECT = 1,
+            //    }
+            //    #endregion
 
-                #region Digital Output
-                /// <summary>
-                /// 2020.09.10 by ssh [ADD] Enumerate the Digital Output list of the task.
-                /// </summary>
-                public enum EN_DIGITAL_OUTPUT_LIST
-                {
-                    BLOCK_MATERIAL_VAC_1 = 1,
-                    BLOCK_MATERIAL_VAC_2,
-                    BLOCK_MATERIAL_BLOW,
-                    PLATE_BLOCK_VAC,
-                    LIFT_MATERIAL_VAC,
-                }
-                #endregion
+            //    #region Digital Output
+            //    /// <summary>
+            //    /// 2020.09.10 by ssh [ADD] Enumerate the Digital Output list of the task.
+            //    /// </summary>
+            //    public enum EN_DIGITAL_OUTPUT_LIST
+            //    {
+            //        BLOCK_MATERIAL_VAC_1 = 1,
+            //        BLOCK_MATERIAL_VAC_2,
+            //        BLOCK_MATERIAL_BLOW,
+            //        PLATE_BLOCK_VAC,
+            //        LIFT_MATERIAL_VAC,
+            //    }
+            //    #endregion
 
-                #region Cylinder
-                /// <summary>
-                /// 2020.09.10 by ssh [ADD] Enumerate the Cylinder list of the task.
-                /// </summary>
-                public enum EN_CYLINDER_LIST
-                {
-                    WARPAGE_PUSHER = 1,
-                }
-                #endregion
+            //    #region Cylinder
+            //    /// <summary>
+            //    /// 2020.09.10 by ssh [ADD] Enumerate the Cylinder list of the task.
+            //    /// </summary>
+            //    public enum EN_CYLINDER_LIST
+            //    {
+            //        WARPAGE_PUSHER = 1,
+            //    }
+            //    #endregion
 
-                #region Axis
-                /// <summary>
-                /// 2020.09.10 by ssh [ADD] Enumerate the Axis list of the task.
-                /// </summary>
-                public enum EN_AXIS_LIST
-                {
-                    BLOCK_Z = 1,
-                    BLOCK_X,
-                    HEAD_Y,
-                    LIFT_Z,
-                }
-                #endregion
+            //    #region Axis
+            //    /// <summary>
+            //    /// 2020.09.10 by ssh [ADD] Enumerate the Axis list of the task.
+            //    /// </summary>
+            //    public enum EN_AXIS_LIST
+            //    {
+            //        BLOCK_Z = 1,
+            //        BLOCK_X,
+            //        HEAD_Y,
+            //        LIFT_Z,
+            //    }
+            //    #endregion
 
-                #region Parameter
-                /// <summary>
-                /// 2020.06.02 by yjlee [ADD] Define the parameters in process of this task.
-                /// </summary>
-                public enum PARAM_PROCESS
-                {
-                    BLOCK_TRANSFER_POSITION_Z,
+            //    #region Parameter
+            //    /// <summary>
+            //    /// 2020.06.02 by yjlee [ADD] Define the parameters in process of this task.
+            //    /// </summary>
+            //    public enum PARAM_PROCESS
+            //    {
+            //        BLOCK_TRANSFER_POSITION_Z,
 
-                    BLOCK_READY_POSITION_Z,
-                    BLOCK_WORK_POSITION_Z,
+            //        BLOCK_READY_POSITION_Z,
+            //        BLOCK_WORK_POSITION_Z,
 
-                    BLOCK_TRANSFER_POSITION_X,
-                    BLOCK_WARPAGE_PRESS_POSITION_X,
-                    HEAD_WARPAGE_PRESS_POSITION_Y,
+            //        BLOCK_TRANSFER_POSITION_X,
+            //        BLOCK_WARPAGE_PRESS_POSITION_X,
+            //        HEAD_WARPAGE_PRESS_POSITION_Y,
 
-                    LIFT_TRANSFER_POSITION_Z,
-                    LIFT_READY_POSITION_Z,
+            //        LIFT_TRANSFER_POSITION_Z,
+            //        LIFT_READY_POSITION_Z,
 
-                    BLOCK_MATERIAL_VAC_THRESHOLD,
-                    BLOCK_MATERIAL_VAC_TIMELAG_DELAY,
-                    BLOCK_MATERIAL_VAC_ON_DELAY,
-                    BLOCK_MATERIAL_VAC_OFF_DELAY,
+            //        BLOCK_MATERIAL_VAC_THRESHOLD,
+            //        BLOCK_MATERIAL_VAC_TIMELAG_DELAY,
+            //        BLOCK_MATERIAL_VAC_ON_DELAY,
+            //        BLOCK_MATERIAL_VAC_OFF_DELAY,
 
-                    LIFT_MATERIAL_VAC_THRESHOLD,
-                    LIFT_MATERIAL_VAC_ON_DELAY,
-                    LIFT_MATERIAL_VAC_OFF_DELAY,
+            //        LIFT_MATERIAL_VAC_THRESHOLD,
+            //        LIFT_MATERIAL_VAC_ON_DELAY,
+            //        LIFT_MATERIAL_VAC_OFF_DELAY,
 
-                    HEATER_TARGET_TEMP,
-                    HEATER_OFFSET_TEMP,
+            //        HEATER_TARGET_TEMP,
+            //        HEATER_OFFSET_TEMP,
 
-                    WARPAGE_PRESS_USED,
-                    WARPAGE_PRESS_TIME,
-                }
-                #endregion
+            //        WARPAGE_PRESS_USED,
+            //        WARPAGE_PRESS_TIME,
+            //    }
+            //    #endregion
 
-                #region Action
-                public enum EN_TASK_ACTION
-                {
-                    STOP = 0,
+            //    #region Action
+            //    public enum EN_TASK_ACTION
+            //    {
+            //        STOP = 0,
 
-                    #region AUTO
+            //        #region AUTO
 
-                    LOADING,
-                    UNLOADING,
+            //        LOADING,
+            //        UNLOADING,
 
-                    #endregion
+            //        #endregion
 
-                    #region Manual
-                    MANUAL_LOADING,
-                    MATERIAL_RELEASE,
-                    #endregion
+            //        #region Manual
+            //        MANUAL_LOADING,
+            //        MATERIAL_RELEASE,
+            //        #endregion
 
-                }
+            //    }
 
            
-                public enum EN_PORT_LIST
-                {
-                    WORK_PORT,
-                }
-                #endregion
+            //    public enum EN_PORT_LIST
+            //    {
+            //        WORK_PORT,
+            //    }
+            //    #endregion
 
-                #region Alarm
-                public enum EN_TASK_ALARM
-                {
-                    MAETRIAL_NOT_EXIST = 1,
-                    STATUS_MISMATCH = 2,
-                    INTERLOCK_TIMEOUT = 3,
-                    VAC_CHECK_FAIL = 4,
-                    MOVE_FALE = 5,
-                }
-                public enum EN_TASK_ALARM_MESSAGE_EN
-                {
+            //    #region Alarm
+            //    public enum EN_TASK_ALARM
+            //    {
+            //        MAETRIAL_NOT_EXIST = 1,
+            //        STATUS_MISMATCH = 2,
+            //        INTERLOCK_TIMEOUT = 3,
+            //        VAC_CHECK_FAIL = 4,
+            //        MOVE_FALE = 5,
+            //    }
+            //    public enum EN_TASK_ALARM_MESSAGE_EN
+            //    {
 
-                }
-                public enum EN_TASK_ALARM_MESSAGE_KR
-                {
+            //    }
+            //    public enum EN_TASK_ALARM_MESSAGE_KR
+            //    {
 
-                }
+            //    }
 
-                #endregion
-            }
+            //    #endregion
+            //}
 
-            //우선 하나로 하자 추후 필요시 IN,OUT 분리
-            namespace Transfer
-            {
-                #region Analog Input
-                /// <summary>
-                /// 2020.09.10 by ssh [ADD] Enumerate the Analog Input list of the task.
-                /// </summary>
-                public enum EN_ANALOG_INPUT_LIST
-                {
-                    HANDLER_MATERIAL_VAC = 1,
-                    LIFT_MATERIAL_VAC,
-                    BLOCK_MATERIAL_VAC,
-                }
-                #endregion
+            ////우선 하나로 하자 추후 필요시 IN,OUT 분리
+            //namespace Transfer
+            //{
+            //    #region Analog Input
+            //    /// <summary>
+            //    /// 2020.09.10 by ssh [ADD] Enumerate the Analog Input list of the task.
+            //    /// </summary>
+            //    public enum EN_ANALOG_INPUT_LIST
+            //    {
+            //        HANDLER_MATERIAL_VAC = 1,
+            //        LIFT_MATERIAL_VAC,
+            //        BLOCK_MATERIAL_VAC,
+            //    }
+            //    #endregion
 
-                #region Analog Output
-                /// <summary>
-                /// 2020.09.10 by ssh [ADD] Enumerate the Analog Output list of the task.
-                /// </summary>
-                public enum EN_ANALOG_OUTPUT_LIST
-                {
+            //    #region Analog Output
+            //    /// <summary>
+            //    /// 2020.09.10 by ssh [ADD] Enumerate the Analog Output list of the task.
+            //    /// </summary>
+            //    public enum EN_ANALOG_OUTPUT_LIST
+            //    {
 
-                }
-                #endregion
+            //    }
+            //    #endregion
 
-                #region Digital Input
-                /// <summary>
-                /// 2020.09.10 by ssh [ADD] Enumerate the Digital Input list of the task.
-                /// </summary>
-                public enum EN_DIGITAL_INPUT_LIST
-                {
-                    PRE_SMEMA_PORT1 = 1,
-                    PRE_SMEMA_PORT2,
-                    POST_SMEMA_PORT1,
-                    POST_SMEMA_PORT2,
-                    PRE_SMEMA_SUB_PORT1,
-                    PRE_SMEMA_SUB_PORT2,
-                }
-                #endregion
+            //    #region Digital Input
+            //    /// <summary>
+            //    /// 2020.09.10 by ssh [ADD] Enumerate the Digital Input list of the task.
+            //    /// </summary>
+            //    public enum EN_DIGITAL_INPUT_LIST
+            //    {
+            //        PRE_SMEMA_PORT1 = 1,
+            //        PRE_SMEMA_PORT2,
+            //        POST_SMEMA_PORT1,
+            //        POST_SMEMA_PORT2,
+            //        PRE_SMEMA_SUB_PORT1,
+            //        PRE_SMEMA_SUB_PORT2,
+            //    }
+            //    #endregion
 
-                #region Digital Output
-                /// <summary>
-                /// 2020.09.10 by ssh [ADD] Enumerate the Digital Output list of the task.
-                /// </summary>
-                public enum EN_DIGITAL_OUTPUT_LIST
-                {
-                    HANDLER_MATERIAL_VAC = 1,
-                    HANDLER_MATERIAL_BLOW,
-                    LIFT_MATERIAL_VAC,
-                    PRE_SMEMA_PORT_1,
-                    PRE_SMEMA_PORT_2,
-                    POST_SMEMA_PORT_1,
-                    POST_SMEMA_PORT_2,
-                    PRE_SMEMA_SUB_PORT_1,
-                    PRE_SMEMA_SUB_PORT_2,
-                    BLOCK_MATERIAL_VAC_1,
-                    BLOCK_MATERIAL_VAC_2,
-                    BLOCK_MATERIAL_BLOW,
-                }
-                #endregion
+            //    #region Digital Output
+            //    /// <summary>
+            //    /// 2020.09.10 by ssh [ADD] Enumerate the Digital Output list of the task.
+            //    /// </summary>
+            //    public enum EN_DIGITAL_OUTPUT_LIST
+            //    {
+            //        HANDLER_MATERIAL_VAC = 1,
+            //        HANDLER_MATERIAL_BLOW,
+            //        LIFT_MATERIAL_VAC,
+            //        PRE_SMEMA_PORT_1,
+            //        PRE_SMEMA_PORT_2,
+            //        POST_SMEMA_PORT_1,
+            //        POST_SMEMA_PORT_2,
+            //        PRE_SMEMA_SUB_PORT_1,
+            //        PRE_SMEMA_SUB_PORT_2,
+            //        BLOCK_MATERIAL_VAC_1,
+            //        BLOCK_MATERIAL_VAC_2,
+            //        BLOCK_MATERIAL_BLOW,
+            //    }
+            //    #endregion
 
-                #region Cylinder
-                /// <summary>
-                /// 2020.09.10 by ssh [ADD] Enumerate the Cylinder list of the task.
-                /// </summary>
-                public enum EN_CYLINDER_LIST
-                {
-                    WARPAGE_PUSHER = 1,
-                }
-                #endregion
+            //    #region Cylinder
+            //    /// <summary>
+            //    /// 2020.09.10 by ssh [ADD] Enumerate the Cylinder list of the task.
+            //    /// </summary>
+            //    public enum EN_CYLINDER_LIST
+            //    {
+            //        WARPAGE_PUSHER = 1,
+            //    }
+            //    #endregion
 
-                #region Axis
-                /// <summary>
-                /// 2020.09.10 by ssh [ADD] Enumerate the Axis list of the task.
-                /// </summary>
-                public enum EN_AXIS_LIST
-                {
-                    HANDLER_X = 1,
-                    HANDLER_Y,
-                    HANDLER_Z,
-                    HANDLER_R,
-                    BLOCK_X,
-                    BLOCK_Z,
-                    LIFT_Z,
-                }
-                #endregion
+            //    #region Axis
+            //    /// <summary>
+            //    /// 2020.09.10 by ssh [ADD] Enumerate the Axis list of the task.
+            //    /// </summary>
+            //    public enum EN_AXIS_LIST
+            //    {
+            //        HANDLER_X = 1,
+            //        HANDLER_Y,
+            //        HANDLER_Z,
+            //        HANDLER_R,
+            //        BLOCK_X,
+            //        BLOCK_Z,
+            //        LIFT_Z,
+            //    }
+            //    #endregion
 
-                #region Parameter
-                /// <summary>
-                /// 2020.06.02 by yjlee [ADD] Define the parameters in process of this task.
-                /// </summary>
-                public enum PARAM_PROCESS
-                {
-                    HANDLER_PRE_EQUIPMENT_TRANSFER_POSITION_Y_2,
-                    HANDLER_PRE_EQUIPMENT_TRANSFER_POSITION_X_2,
-                    HANDLER_PRE_EQUIPMENT_TRANSFER_OFFSET_Y_2,
-                    HANDLER_PRE_EQUIPMENT_TRANSFER_UP_POSITION_Z_2,
-                    HANDLER_PRE_EQUIPMENT_TRANSFER_CONTACT_POSITION_Z_2,
-                    HANDLER_PRE_EQUIPMENT_TRANSFER_DOWN_POSITION_Z_2,
-                    HANDLER_PRE_EQUIPMENT_TRANSFER_POSITION_R,
+            //    #region Parameter
+            //    /// <summary>
+            //    /// 2020.06.02 by yjlee [ADD] Define the parameters in process of this task.
+            //    /// </summary>
+            //    public enum PARAM_PROCESS
+            //    {
+            //        HANDLER_PRE_EQUIPMENT_TRANSFER_POSITION_Y_2,
+            //        HANDLER_PRE_EQUIPMENT_TRANSFER_POSITION_X_2,
+            //        HANDLER_PRE_EQUIPMENT_TRANSFER_OFFSET_Y_2,
+            //        HANDLER_PRE_EQUIPMENT_TRANSFER_UP_POSITION_Z_2,
+            //        HANDLER_PRE_EQUIPMENT_TRANSFER_CONTACT_POSITION_Z_2,
+            //        HANDLER_PRE_EQUIPMENT_TRANSFER_DOWN_POSITION_Z_2,
+            //        HANDLER_PRE_EQUIPMENT_TRANSFER_POSITION_R,
 
-                    HANDLER_WORKBLOCK_TRANSFER_POSITION_X,
-                    HANDLER_WORKBLOCK_TRANSFER_POSITION_Y,
-                    HANDLER_WORKBLOCK_TRANSFER_UP_POSITION_Z,
-                    HANDLER_WORKBLOCK_TRANSFER_CONTACT_POSITION_Z,
-                    HANDLER_WORKBLOCK_TRANSFER_DOWN_POSITION_Z,
-                    HANDLER_WORKBLOCK_TRANSFER_POSITION_R,
+            //        HANDLER_WORKBLOCK_TRANSFER_POSITION_X,
+            //        HANDLER_WORKBLOCK_TRANSFER_POSITION_Y,
+            //        HANDLER_WORKBLOCK_TRANSFER_UP_POSITION_Z,
+            //        HANDLER_WORKBLOCK_TRANSFER_CONTACT_POSITION_Z,
+            //        HANDLER_WORKBLOCK_TRANSFER_DOWN_POSITION_Z,
+            //        HANDLER_WORKBLOCK_TRANSFER_POSITION_R,
 
-                    HANDLER_MATERIAL_VAC_THRESHOLD,
-                    HANDLER_MATERIAL_VAC_ON_DELAY,
-                    HANDLER_MATERIAL_VAC_OFF_DELAY,
-                    HANDLER_MATERIAL_BLOW_USED,
+            //        HANDLER_MATERIAL_VAC_THRESHOLD,
+            //        HANDLER_MATERIAL_VAC_ON_DELAY,
+            //        HANDLER_MATERIAL_VAC_OFF_DELAY,
+            //        HANDLER_MATERIAL_BLOW_USED,
 
             
-                }
-                #endregion
+            //    }
+            //    #endregion
 
-                #region Action
-                public enum EN_TASK_ACTION
-                {
-                    STOP = 0,
+            //    #region Action
+            //    public enum EN_TASK_ACTION
+            //    {
+            //        STOP = 0,
 
-                    #region AUTO
-                    EQUIPMENT_LOADING,
-                    BLOCK_LOADING,
+            //        #region AUTO
+            //        EQUIPMENT_LOADING,
+            //        BLOCK_LOADING,
 
-                    BLOCK_UNLOADING,
-                    EQUIPMENT_UNLOADING,
-                    #endregion
+            //        BLOCK_UNLOADING,
+            //        EQUIPMENT_UNLOADING,
+            //        #endregion
 
-                    #region MANUAL
-                    MOVE_AVOID,
-                    #endregion
-                }
+            //        #region MANUAL
+            //        MOVE_AVOID,
+            //        #endregion
+            //    }
 
-                public enum EN_PORT_LIST
-                {
-                    WORK_PORT,
-                }
-                #endregion
+            //    public enum EN_PORT_LIST
+            //    {
+            //        WORK_PORT,
+            //    }
+            //    #endregion
 
-                #region Alarm
-                public enum EN_TASK_ALARM
-                {
-                    MAETRIAL_NOT_EXIST = 1,
-                    MAETRIAL_EXIST = 2,
-                    MOVE_FAIL = 3,
-                    STATUS_MISMATCH = 4,
-                    INTERLOCK_TIMEOUT = 5,
-                    VAC_CHECK_FAIL = 6,
-                    RECOVERY_STATUS_ALARM = 7,
-                    COMMUNICATION_TIMEOUT = 8,
-                    COMMUNICATION_ALARM = 9,
-                }
-                public enum EN_TASK_ALARM_MESSAGE_EN
-                {
+            //    #region Alarm
+            //    public enum EN_TASK_ALARM
+            //    {
+            //        MAETRIAL_NOT_EXIST = 1,
+            //        MAETRIAL_EXIST = 2,
+            //        MOVE_FAIL = 3,
+            //        STATUS_MISMATCH = 4,
+            //        INTERLOCK_TIMEOUT = 5,
+            //        VAC_CHECK_FAIL = 6,
+            //        RECOVERY_STATUS_ALARM = 7,
+            //        COMMUNICATION_TIMEOUT = 8,
+            //        COMMUNICATION_ALARM = 9,
+            //    }
+            //    public enum EN_TASK_ALARM_MESSAGE_EN
+            //    {
 
-                }
-                public enum EN_TASK_ALARM_MESSAGE_KR
-                {
+            //    }
+            //    public enum EN_TASK_ALARM_MESSAGE_KR
+            //    {
 
-                }
-                public enum EN_SYSTEM_ALARM
-                {
-                    HOST_CONNECTION_ALARM
-                }
-                #endregion
-                }
+            //    }
+            //    public enum EN_SYSTEM_ALARM
+            //    {
+            //        HOST_CONNECTION_ALARM
+            //    }
+            //    #endregion
+            //    }
 		}
 
 		namespace Map
@@ -1077,9 +1087,6 @@ namespace Define
 			public enum EN_CYLINDER
 			{
 				NONE = -1,
-
-                WARPAGE_PRESS = 0,
-                POWERMETER = 1,
             }
 		}
 

@@ -14,7 +14,7 @@ using System.Threading;
 
 using FrameOfSystem3.Recipe;
 using Define.DefineEnumProject.Task;
-using WORKZONE_TASK_PARAM = Define.DefineEnumProject.Task.WorkZone.PARAM_PROCESS;
+//using WORKZONE_TASK_PARAM = Define.DefineEnumProject.Task.WorkZone.PARAM_PROCESS;
 
 namespace FrameOfSystem3.Views.Recipe
 {

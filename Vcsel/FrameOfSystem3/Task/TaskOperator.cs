@@ -900,37 +900,37 @@ namespace FrameOfSystem3.Task
             }
         }
 
-        public void MainVacControl(bool bOnOff)
-        {
-            //정지시 자재가 없다면 off
+        //public void MainVacControl(bool bOnOff)
+        //{
+        //    //정지시 자재가 없다면 off
   
-            string strPortName = "WORK_PORT";
-            string TransferState = "";
-            string WorkZoneState = "";
-            string BondHeadState = "";
+        //    string strPortName = "WORK_PORT";
+        //    string TransferState = "";
+        //    string WorkZoneState = "";
+        //    string BondHeadState = "";
 
-            FrameOfSystem3.Config.ConfigPort.GetInstance().GetPortStatus(EN_TASK_LIST.TRANSFER.ToString(), strPortName, ref TransferState);
-            FrameOfSystem3.Config.ConfigPort.GetInstance().GetPortStatus(EN_TASK_LIST.WORK_ZONE.ToString(), strPortName, ref WorkZoneState);
-            FrameOfSystem3.Config.ConfigPort.GetInstance().GetPortStatus(EN_TASK_LIST.BOND_HEAD.ToString(), strPortName, ref BondHeadState);
+        //    FrameOfSystem3.Config.ConfigPort.GetInstance().GetPortStatus(EN_TASK_LIST.TRANSFER.ToString(), strPortName, ref TransferState);
+        //    FrameOfSystem3.Config.ConfigPort.GetInstance().GetPortStatus(EN_TASK_LIST.WORK_ZONE.ToString(), strPortName, ref WorkZoneState);
+        //    FrameOfSystem3.Config.ConfigPort.GetInstance().GetPortStatus(EN_TASK_LIST.BOND_HEAD.ToString(), strPortName, ref BondHeadState);
         
-            int nMainVacTriggerIndex = 7;
+        //    int nMainVacTriggerIndex = 7;
 
-            if (bOnOff == false)
-            {
-                if (TransferState == DynamicLink_.EN_PORT_STATUS.EMPTY.ToString()
-                    && WorkZoneState == DynamicLink_.EN_PORT_STATUS.EMPTY.ToString()
-                    && (BondHeadState == DynamicLink_.EN_PORT_STATUS.EMPTY.ToString()
-                    || BondHeadState == DynamicLink_.EN_PORT_STATUS.FINISHED.ToString()))
-                {
-                    Config.ConfigTrigger.GetInstance().SetParameter(nMainVacTriggerIndex, Config.ConfigTrigger.EN_PARAM_TRIGGER.ENABLE, bOnOff);
-                }
-            }
-            else
-            {
-                Config.ConfigTrigger.GetInstance().SetParameter(nMainVacTriggerIndex, Config.ConfigTrigger.EN_PARAM_TRIGGER.ENABLE, bOnOff);
-            }
+        //    if (bOnOff == false)
+        //    {
+        //        if (TransferState == DynamicLink_.EN_PORT_STATUS.EMPTY.ToString()
+        //            && WorkZoneState == DynamicLink_.EN_PORT_STATUS.EMPTY.ToString()
+        //            && (BondHeadState == DynamicLink_.EN_PORT_STATUS.EMPTY.ToString()
+        //            || BondHeadState == DynamicLink_.EN_PORT_STATUS.FINISHED.ToString()))
+        //        {
+        //            Config.ConfigTrigger.GetInstance().SetParameter(nMainVacTriggerIndex, Config.ConfigTrigger.EN_PARAM_TRIGGER.ENABLE, bOnOff);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Config.ConfigTrigger.GetInstance().SetParameter(nMainVacTriggerIndex, Config.ConfigTrigger.EN_PARAM_TRIGGER.ENABLE, bOnOff);
+        //    }
 
-        }
+        //}
 		#endregion </INTERFACE>
 
         //#region PreHeating
