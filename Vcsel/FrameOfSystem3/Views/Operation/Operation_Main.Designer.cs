@@ -2058,6 +2058,7 @@
             this.m_btnShortTest2.UseImage = true;
             this.m_btnShortTest2.UserHoverEmpahsize = false;
             this.m_btnShortTest2.UseSubFont = false;
+            this.m_btnShortTest2.Click += new System.EventHandler(this.Click_Action);
             // 
             // m_btnMeasureVolt2
             // 
@@ -2099,6 +2100,7 @@
             this.m_btnMeasureVolt2.UseImage = true;
             this.m_btnMeasureVolt2.UserHoverEmpahsize = false;
             this.m_btnMeasureVolt2.UseSubFont = false;
+            this.m_btnMeasureVolt2.Click += new System.EventHandler(this.Click_Action);
             // 
             // m_btnCalCHPower2
             // 
@@ -2140,6 +2142,7 @@
             this.m_btnCalCHPower2.UseImage = true;
             this.m_btnCalCHPower2.UserHoverEmpahsize = false;
             this.m_btnCalCHPower2.UseSubFont = false;
+            this.m_btnCalCHPower2.Click += new System.EventHandler(this.Click_Action);
             // 
             // m_btnMeasurePower2
             // 
@@ -2181,6 +2184,7 @@
             this.m_btnMeasurePower2.UseImage = true;
             this.m_btnMeasurePower2.UserHoverEmpahsize = false;
             this.m_btnMeasurePower2.UseSubFont = false;
+            this.m_btnMeasurePower2.Click += new System.EventHandler(this.Click_Action);
             // 
             // gridViewControl_Power_Measure_Parameter_2
             // 

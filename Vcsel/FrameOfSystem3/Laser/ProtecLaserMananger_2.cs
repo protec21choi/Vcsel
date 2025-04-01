@@ -398,6 +398,126 @@ namespace FrameOfSystem3.Laser
             return EN_SET_RESULT_2.WORKING;
         }
 
+        public EN_SET_RESULT_2 SetParameterIOMode(bool[] bEnable, double dTotalPower)
+        {
+            switch (m_nSeq)
+            {
+                case 0:
+                    // 2025.3.31 by ecchoi [ADD] Test 후 복구
+                    //if (m_LaserCal.GetMinPower(bEnable) > dTotalPower)
+                    //{
+                    //    return EN_SET_RESULT.POWER_UNDER_MIN;
+                    //}
+                    //if (m_LaserCal.GetMaxPower(bEnable) < dTotalPower)
+                    //{
+                    //    return EN_SET_RESULT.POWER_OVER_MAX;
+                    //}
+                    m_nSeq++;
+                    break;
+
+                case 1:
+                    m_ProtecLaser.ClearAllPortData();
+                    int nUsedChannelCount = 0;
+
+                    for (int nIndex = 0; nIndex < m_nChannelCount; nIndex++)
+                    {
+                        m_dicLaserParam[nIndex].Enable = bEnable[nIndex];
+                        if (bEnable[nIndex])
+                        {
+                            nUsedChannelCount++;
+                        }
+                    }
+
+                    double IOModePower = dTotalPower / nUsedChannelCount;
+
+                    for (int nIndex = 0; nIndex < m_nChannelCount; nIndex++)
+                    {
+                        if (m_dicLaserParam[nIndex].Enable)
+                        {
+                            m_dicLaserParam[nIndex].PowerIOMode = IOModePower;
+                            m_dicLaserParam[nIndex].VoltageIOMode = m_LaserCal.GetProcessCalibrationChannelData(nIndex, EN_CALIBRATION_PROCESS_LIST_2.POWER_WATT_VOLT, IOModePower);
+                        }
+                    }
+                    m_nSeq++;
+                    break;
+
+                case 2:
+                    InitPortSettingDone();
+                    m_nSettingChannel = 0;
+                    m_nSeq++;
+                    break;
+
+                case 3:
+                    for (int nPort = 0; nPort < m_nPortCount; nPort++)
+                    {
+                        bool[] arEnable = new bool[6];
+                        double[] arVoltage = new double[6];
+
+                        for (int nChannel = 0; nChannel < m_nChannelCount; nChannel++)
+                        {
+                            if (m_dicLaserParam[nChannel].PortIndex == nPort)
+                            {
+                                int channelInPort = m_dicLaserParam[nChannel].ChannelIndex % 6;
+                                if (channelInPort >= 0 && channelInPort < 6)
+                                {
+                                    arEnable[channelInPort] = m_dicLaserParam[nChannel].Enable;
+                                    arVoltage[channelInPort] = m_dicLaserParam[nChannel].VoltageIOMode;
+                                }
+                            }
+                        }
+
+                        if (!arPortSettingDone[m_dicLaserParam[nPort].PortIndex])
+                        {
+                            var result = m_ProtecLaser.SetInitVoltageIOMode(nPort, arEnable, arVoltage);
+
+                            if (result == ProtecLaserController_2.EN_RESULT_2.DONE)
+                            {
+                                arPortSettingDone[m_dicLaserParam[nPort].PortIndex] = true;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                    }
+
+                    SetDisablePortSettingDone(); // Disable Port 포트를 확인해서 DONE처리 
+
+                    if (IsPortSettingDone()) //arPortSettingDone Check
+                    {
+                        InitPortSettingDone();
+                        m_ProtecLaser.ClearAllPortData();
+                        m_nSeq++;
+                    }
+                    break;
+
+                case 4:
+                    for (int nIndex = 0; nIndex < m_nPortCount; nIndex++)
+                    {
+                        var resultMode = m_ProtecLaser.SetIOMode(nIndex);
+                        if (resultMode == ProtecLaserController_2.EN_RESULT_2.DONE)
+                        {
+                            arPortSettingDone[m_dicLaserParam[nIndex].PortIndex] = true;
+                        }
+                    }
+                    SetDisablePortSettingDone();
+
+                    if (IsPortSettingDone())
+                    {
+                        InitPortSettingDone();
+                        m_ProtecLaser.ClearAllPortData();
+                        m_nSeq++;
+                    }
+                    break;
+
+                case 5:
+                    m_nSeq = 0;
+                    return EN_SET_RESULT_2.OK;
+            }
+
+            return EN_SET_RESULT_2.WORKING;
+        }
+
         public EN_SET_RESULT_2 SetParameterVolt(bool[] bEnable, double dVolt, int nTime)
         {
             switch (m_nSeq)
@@ -707,6 +827,10 @@ namespace FrameOfSystem3.Laser
             private int m_nChannelIndex = 0;
             private double[] m_arPower = new double[5]; // Unit [W]
             private double[] m_arStepVoltage = new double[5]; // Unit [V]
+
+            private double m_arPowerIOMode = 0.0; //WATT 
+            private double m_arVoltageIOMode = 0.0; //VOLT 
+
             private int[] m_arTime = new int[5]; // Unit [ms]
 
             #region Properties
@@ -716,6 +840,9 @@ namespace FrameOfSystem3.Laser
             public double[] StepPower { get { return m_arPower; } set { m_arPower = value; } }
             public double[] StepVoltage { get { return m_arStepVoltage; } set { m_arStepVoltage = value; } }
             public int[] StepTime { get { return m_arTime; } set { m_arTime = value; } }
+
+            public double PowerIOMode { get { return m_arPowerIOMode; } set { m_arPowerIOMode = value; } }
+            public double VoltageIOMode { get { return m_arVoltageIOMode; } set { m_arVoltageIOMode = value; } }
             #endregion /Properties
         }
         #endregion

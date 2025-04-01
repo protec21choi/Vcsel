@@ -138,6 +138,20 @@ namespace Define
                     LD_READY_PORT_3 = 7,
                     LD_ON_PORT_3 = 8,
                     LD_ALARM_PORT_3 = 9,
+
+                    #region Laser #2
+                    LD_2_READY_PORT_1 = 10,
+                    LD_2_ON_PORT_1 = 11,
+                    LD_2_ALARM_PORT_1 = 12,
+
+                    LD_2_READY_PORT_2 = 13,
+                    LD_2_ON_PORT_2 = 14,
+                    LD_2_ALARM_PORT_2 = 15,
+
+                    LD_2_READY_PORT_3 = 16,
+                    LD_2_ON_PORT_3 = 17,
+                    LD_2_ALARM_PORT_3 = 18,
+                    #endregion
                 }
                 #endregion
 
@@ -164,6 +178,26 @@ namespace Define
 
                     LD_MONITOR_EMO = 13,
                     LD_MONITOR_ALARM_CLEAR = 14,
+
+                    #region Laser #2
+                    LD_2_ON_PORT_1 = 15,
+                    LD_2_READY_PORT_1 = 16,
+                    LD_2_ALARM_CLEAR_PORT_1 = 17,
+                    LD_2_EMO_PORT_1 = 18,
+
+                    LD_2_ON_PORT_2 = 19,
+                    LD_2_READY_PORT_2 = 20,
+                    LD_2_ALARM_CLEAR_PORT_2 = 21,
+                    LD_2_EMO_PORT_2 = 22,
+
+                    LD_2_ON_PORT_3 = 23,
+                    LD_2_READY_PORT_3 = 24,
+                    LD_2_ALARM_CLEAR_PORT_3 = 25,
+                    LD_2_EMO_PORT_3 = 26,
+
+                    LD_2_MONITOR_EMO = 27,
+                    LD_2_MONITOR_ALARM_CLEAR = 28,
+                    #endregion
                 }
                 #endregion
 

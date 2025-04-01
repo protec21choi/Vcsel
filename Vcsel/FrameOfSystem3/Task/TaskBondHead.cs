@@ -619,7 +619,23 @@ namespace FrameOfSystem3.Task
                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_ON_PORT_1);
             SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.READY
                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_READY_PORT_1);
+            #region Laser #2
+            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.RESET
+                                                    , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_1);
+            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.READY
+                                                    , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_1);
+            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.ON
+                                                    , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1);
+            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.EMO
+                                                    , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_MONITOR_EMO);
 
+            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.ALARM
+                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_2_ALARM_PORT_1);
+            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.ON
+                                                  , (int)EN_DIGITAL_INPUT_LIST.LD_2_ON_PORT_1);
+            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.READY
+                                                  , (int)EN_DIGITAL_INPUT_LIST.LD_2_READY_PORT_1);
+            #endregion
             arCtrlLaserDevice[0] = SubCtrlLaserDevice;
 
 
@@ -641,6 +657,24 @@ namespace FrameOfSystem3.Task
             SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.READY
                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_READY_PORT_2);
 
+            #region Laser #2
+            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.RESET
+                                                    , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_2);
+            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.READY
+                                                    , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_2);
+            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.ON
+                                                    , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2);
+            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.EMO
+                                                    , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_MONITOR_EMO);
+
+            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.ALARM
+                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_2_ALARM_PORT_2);
+            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.ON
+                                                  , (int)EN_DIGITAL_INPUT_LIST.LD_2_ON_PORT_2);
+            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.READY
+                                                  , (int)EN_DIGITAL_INPUT_LIST.LD_2_READY_PORT_2);
+            #endregion
+
             arCtrlLaserDevice[1] = SubCtrlLaserDevice;
 
 
@@ -661,6 +695,24 @@ namespace FrameOfSystem3.Task
                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_ON_PORT_3);
             SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.READY
                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_READY_PORT_3);
+
+            #region Laser #2
+            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.RESET
+                                                    , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_3);
+            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.READY
+                                                    , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_3);
+            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.ON
+                                                    , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3);
+            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.EMO
+                                                    , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_MONITOR_EMO);
+
+            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.ALARM
+                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_2_ALARM_PORT_3);
+            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.ON
+                                                  , (int)EN_DIGITAL_INPUT_LIST.LD_2_ON_PORT_3);
+            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.READY
+                                                  , (int)EN_DIGITAL_INPUT_LIST.LD_2_READY_PORT_3);
+            #endregion
 
             arCtrlLaserDevice[2] = SubCtrlLaserDevice;
             #endregion
@@ -689,6 +741,27 @@ namespace FrameOfSystem3.Task
             SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_SERIAL.COTNROL
                                                   , (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_CONTROL_1);
 
+            #region Laser #2
+            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.RESET
+                                                  , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_1);
+            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.READY
+                                                    , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_1);
+            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.ON
+                                                    , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1);
+            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.EMO
+                                                    , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_MONITOR_EMO);
+
+            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.ALARM
+                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_2_ALARM_PORT_1);
+            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.ON
+                                                  , (int)EN_DIGITAL_INPUT_LIST.LD_2_ON_PORT_1);
+            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.READY
+                                                  , (int)EN_DIGITAL_INPUT_LIST.LD_2_READY_PORT_1);
+
+            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_SERIAL.COTNROL
+                                                  , (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_2_CONTROL_1);
+            #endregion
+
             arSubCtrlOutputProfile[0, 0] = SubCtrlOutputProfile;
 
             SubCtrlOutputProfile = new SubCtrlOutputProfileProtecLaser(this as RunningTaskEx);
@@ -711,6 +784,27 @@ namespace FrameOfSystem3.Task
 
             SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_SERIAL.COTNROL
                                                   , (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_CONTROL_2);
+
+            #region Laser #2
+            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.RESET
+                                                  , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_2);
+            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.READY
+                                                    , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_2);
+            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.ON
+                                                    , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2);
+            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.EMO
+                                                    , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_MONITOR_EMO);
+
+            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.ALARM
+                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_2_ALARM_PORT_2);
+            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.ON
+                                                  , (int)EN_DIGITAL_INPUT_LIST.LD_2_ON_PORT_2);
+            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.READY
+                                                  , (int)EN_DIGITAL_INPUT_LIST.LD_2_READY_PORT_2);
+
+            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_SERIAL.COTNROL
+                                                  , (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_2_CONTROL_2);
+            #endregion
 
             arSubCtrlOutputProfile[1, 0] = SubCtrlOutputProfile;
 
@@ -735,6 +829,27 @@ namespace FrameOfSystem3.Task
             SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_SERIAL.COTNROL
                                                   , (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_CONTROL_3);
 
+            #region Laser #2
+            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.RESET
+                                                  , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_3);
+            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.READY
+                                                    , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_3);
+            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.ON
+                                                    , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3);
+            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.EMO
+                                                    , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_MONITOR_EMO);
+
+            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.ALARM
+                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_2_ALARM_PORT_3);
+            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.ON
+                                                  , (int)EN_DIGITAL_INPUT_LIST.LD_2_ON_PORT_3);
+            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.READY
+                                                  , (int)EN_DIGITAL_INPUT_LIST.LD_2_READY_PORT_3);
+
+            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_SERIAL.COTNROL
+                                                  , (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_2_CONTROL_3);
+            #endregion
+
             arSubCtrlOutputProfile[2, 0] = SubCtrlOutputProfile;
 
             #endregion
@@ -742,7 +857,7 @@ namespace FrameOfSystem3.Task
             m_Subseq_Laser_Work = new SubSeqLaserWork(arCtrlLaserDevice, arSubCtrlOutputProfile);
 
             #region Monitor
-            ASubControl[] arCtrlMonitor = new ASubControl[20];
+            ASubControl[] arCtrlMonitor = new ASubControl[40];
 
 
             ASubControl SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
@@ -872,6 +987,132 @@ namespace FrameOfSystem3.Task
 
             arCtrlMonitor[19] = SubCtrlIRMonitor;
 
+            #region Laser #2
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+                                     , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_1);
+            //             SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.TEMP
+            //                                      , (int)EN_ANALOG_INPUT_LIST.TEMP_SENSOR_1);
+            arCtrlMonitor[20] = SubCtrlAnalogMonitor;
+
+            SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
+
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+                                     , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_2);
+            //             SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.TEMP
+            //                                      , (int)EN_ANALOG_INPUT_LIST.TEMP_SENSOR_2);
+            arCtrlMonitor[21] = SubCtrlAnalogMonitor;
+
+            SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
+
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+                                      , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_3);
+            //             SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.TEMP
+            //                                       , (int)EN_ANALOG_INPUT_LIST.TEMP_SENSOR_3);
+            arCtrlMonitor[22] = SubCtrlAnalogMonitor;
+
+            SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
+
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+                                      , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_4);
+            //             SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.TEMP
+            //                                       , (int)EN_ANALOG_INPUT_LIST.TEMP_SENSOR_4);
+            arCtrlMonitor[23] = SubCtrlAnalogMonitor;
+
+            SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
+
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+                                      , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_5);
+            //             SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.TEMP
+            //                                       , (int)EN_ANALOG_INPUT_LIST.TEMP_SENSOR_5);
+            arCtrlMonitor[24] = SubCtrlAnalogMonitor;
+
+            SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
+
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+                                      , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_6);
+            arCtrlMonitor[25] = SubCtrlAnalogMonitor;
+
+            SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
+
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+                                      , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_7);
+            arCtrlMonitor[26] = SubCtrlAnalogMonitor;
+
+            SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
+
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+                                      , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_8);
+            arCtrlMonitor[27] = SubCtrlAnalogMonitor;
+
+            SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
+
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+                                      , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_9);
+            arCtrlMonitor[28] = SubCtrlAnalogMonitor;
+
+            SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
+
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+                                      , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_10);
+            arCtrlMonitor[29] = SubCtrlAnalogMonitor;
+
+            SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
+
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+                                      , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_11);
+            arCtrlMonitor[30] = SubCtrlAnalogMonitor;
+
+            SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
+
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+                                      , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_12);
+            arCtrlMonitor[31] = SubCtrlAnalogMonitor;
+
+            SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
+
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+                                      , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_13);
+            arCtrlMonitor[32] = SubCtrlAnalogMonitor;
+
+            SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
+
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+                                      , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_14);
+            arCtrlMonitor[33] = SubCtrlAnalogMonitor;
+
+            SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
+
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+                                      , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_15);
+            arCtrlMonitor[34] = SubCtrlAnalogMonitor;
+
+            SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
+
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+                                      , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_16);
+            arCtrlMonitor[35] = SubCtrlAnalogMonitor;
+
+            SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
+
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+                                     , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_17);
+            arCtrlMonitor[36] = SubCtrlAnalogMonitor;
+
+            SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
+
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+                                     , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_18);
+            arCtrlMonitor[37] = SubCtrlAnalogMonitor;
+
+            SubCtrlMonitoringWorkLog SubCtrlWorkLogMonitor_2 = new SubCtrlMonitoringWorkLog(this as RunningTaskEx);
+
+            arCtrlMonitor[38] = SubCtrlWorkLogMonitor_2;
+
+            SubCtrlMonitoringIR SubCtrlIRMonitor_2 = new SubCtrlMonitoringIR(this as RunningTaskEx);
+
+            arCtrlMonitor[39] = SubCtrlIRMonitor_2;
+
+            #endregion
             m_Subseq_Laser_Work.AddMonitorControl(arCtrlMonitor);
             #endregion
 
@@ -972,9 +1213,10 @@ namespace FrameOfSystem3.Task
                     break;
 
                 case (int)EN_LASER_WORK_STEP.FINISH:
-                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, true);
-                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, true);
-                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, true);
+                    // 2025.4.1 by ecchoi [ADD] 트리거로 구현
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, true);
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, true);
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, true);
                     return true;
             }
 
@@ -983,6 +1225,67 @@ namespace FrameOfSystem3.Task
         #endregion
         private bool ActionLaserWork_2()
         {
+            switch (m_nSeqNum)
+            {
+                case (int)EN_LASER_WORK_STEP_2.ACTION_START:
+                    //m_tickTimeOut.SetTickCount(5000);
+                    m_nSeqNum = (int)EN_LASER_WORK_STEP_2.PARAMETER_READY;
+                    break;
+
+                case (int)EN_LASER_WORK_STEP_2.PARAMETER_READY:
+                    #region Laser#2
+                    // 2025.3.31 by ecchoi [ADD] Test 후 복구
+                    //if (m_tickTimeOut.IsTickOver(false))
+                    //{
+                    //    m_arAlarmSubInfo[0] = "";
+                    //    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
+                    //    m_nSeqNum = (int)EN_LASER_WORK_STEP_2.FINISH;
+                    //    break;
+                    //}
+                    bool[] arUsed = new bool[m_Laser_2.ChannelCount];
+                    double arTotalPower = 0.0;
+
+                    for (int nCh = 0; nCh < m_Laser_2.ChannelCount; ++nCh)
+                    {
+                        arUsed[nCh] = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.SHOT_PARAMETER_2_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                    }
+
+                    arTotalPower = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.SHOT_PARAMETER_2_TOTAL_POWER.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+                    switch (m_Laser_2.SetParameterIOMode(arUsed, arTotalPower))
+                    {
+                        case ProtecLaserMananger_2.EN_SET_RESULT_2.OK:
+                            int nDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_SETTING_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                            m_tickForSerialCommunication.SetTickCount((uint)Math.Max(0, nDelay));
+                            m_nSeqNum = (int)EN_LASER_WORK_STEP_2.FINISH;
+                            break;
+                        case ProtecLaserMananger_2.EN_SET_RESULT_2.WORKING:
+                            break;
+                        case ProtecLaserMananger_2.EN_SET_RESULT_2.POWER_OVER_MAX:
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 101, false); //POWER IS TOO HIGH
+                            break;
+                        case ProtecLaserMananger_2.EN_SET_RESULT_2.CH_POWER_OVER:
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 102, false); //CHANNEL POWER IS TOO HIGH
+                            break;
+                        case ProtecLaserMananger_2.EN_SET_RESULT_2.POWER_UNDER_MIN:
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 103, false); //POWER IS TOO LOW
+                            break;
+                        default:
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 104, false); //LASER COMMUNICATION FAIL
+                            break;
+
+                    }
+
+                    #endregion /Laser#1
+                    break;
+
+                case (int)EN_LASER_WORK_STEP_2.FINISH:
+                    // 2025.4.1 by ecchoi [ADD] 트리거로 구현
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, true);
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, true);
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, true);
+                    return true;
+            }
+
             return false;
         }
         #region Manaul
@@ -1439,7 +1742,452 @@ namespace FrameOfSystem3.Task
 
         private bool Action_PowerMeasure_2()
         {
-            
+            switch (m_nSeqNum)
+            {
+                case (int)EN_POWER_MEASURE_STEP_2.ACTION_START:
+                    Powermeter.GetInstance().Open();
+                    SetDelayForSequence(1000);
+                    ++m_nSeqNum;
+                    break;
+                case (int)EN_POWER_MEASURE_STEP_2.ACTION_START + 1:
+                    if (m_enAction == EN_TASK_ACTION.CALIBRATION_CHANNEL_POWER_2)
+                        InitializeCalibrationData_2();
+                    m_nPowerMeasureCurrentRepeatCount = 0;
+                    m_lstCurrentVolt.Clear();
+                    m_tickForPowerMeasureRest.SetTickCount(1);
+                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.POWERMETER_READY;
+                    break;
+
+                case (int)EN_POWER_MEASURE_STEP_2.POWERMETER_READY:
+                    Powermeter.GetInstance().ClearRepeatData();
+                    Powermeter.GetInstance().nWait_Time = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_2_WAIT_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                    ++m_nSeqNum;
+                    break;
+
+                case (int)EN_POWER_MEASURE_STEP_2.POWERMETER_READY + 1:
+                    Powermeter.GetInstance().SetCommand(EN_POWERMETER_COMMAND.HANDCHECKING_OFF);
+                    SetDelayForSequence(300);
+                    m_nSeqNum++;
+                    break;
+                case (int)EN_POWER_MEASURE_STEP_2.POWERMETER_READY + 2:
+                    Powermeter.GetInstance().SetCommand(EN_POWERMETER_COMMAND.RECIEVE_LAST);
+                    SetDelayForSequence(300);
+                    m_nSeqNum++;
+                    break;
+                case (int)EN_POWER_MEASURE_STEP_2.POWERMETER_READY + 3:
+                    Powermeter.GetInstance().SetCommand(EN_POWERMETER_COMMAND.RECIEVE_ONLY_POWER);
+                    SetDelayForSequence(300);
+                    m_nSeqNum++;
+                    break;
+                case (int)EN_POWER_MEASURE_STEP_2.POWERMETER_READY + 4:
+                    Powermeter.GetInstance().SetCommand(EN_POWERMETER_COMMAND.ERROR_CLEAR);
+                    SetDelayForSequence(300);
+                    m_nSeqNum++;
+                    break;
+                case (int)EN_POWER_MEASURE_STEP_2.POWERMETER_READY + 5:
+                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.MOVE_SHOT_POSITION;
+                    break;
+
+                #region MOVE SHOT POSITION
+                case (int)EN_POWER_MEASURE_STEP_2.MOVE_SHOT_POSITION:
+                    switch (m_enAction)
+                    {
+                        case EN_TASK_ACTION.MEASURE_POWER_2:
+                        case EN_TASK_ACTION.MEASURE_VOLT_2:
+                        case EN_TASK_ACTION.CALIBRATION_POWER_LOSS_RATE_2:
+                            int ChMeasureCount = 0;
+                            int nMeasureCh = 0;
+                            for (int nCh = 0; nCh < m_Laser_2.ChannelCount; ++nCh)
+                            {
+                                if (m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_2_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
+                                {
+                                    ChMeasureCount++;
+                                    nMeasureCh = nCh;
+                                }
+                            }
+                            if (ChMeasureCount > 1)
+                                nMeasureCh = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_2_SELLECTED_CHANNEL.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0) - 1;
+
+                            break;
+
+                        case EN_TASK_ACTION.CALIBRATION_CHANNEL_POWER_2:
+                            break;
+                    }
+
+                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.LASER_READY;
+
+                    break;
+                #endregion
+
+                #region LASER READY SUB SEQ
+                case (int)EN_POWER_MEASURE_STEP_2.LASER_READY:
+                    if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
+                        m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.ACTION_FINISH;
+                    if (m_tickForPowerMeasureRest.IsTickOver(true))
+                    {
+                        int nRestTime = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_2_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+
+                        m_tickForPowerMeasureRest.SetTickCount((uint)nRestTime);
+                        m_tickTimeOut.SetTickCount(2000);
+                        m_nSeqNum++;
+                    }
+                    break;
+                case (int)EN_POWER_MEASURE_STEP_2.LASER_READY + 1:
+
+                    if (m_tickTimeOut.IsTickOver(false))
+                    {
+                        m_arAlarmSubInfo[0] = "";
+                        GenerateSequenceAlarm((int)EN_TASK_ALARM.LD_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
+                        m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.ACTION_FINISH;
+                        break;
+                    }
+                    bool[] arUsed = new bool[m_Laser_2.ChannelCount];
+                    int nTime = 0;
+                    double dOutput = 0;
+
+                    nTime = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_2_SHOT_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+
+                    switch (m_enAction)
+                    {
+                        case EN_TASK_ACTION.MEASURE_POWER_2:
+                            for (int nCh = 0; nCh < m_Laser_2.ChannelCount; ++nCh)
+                            {
+                                arUsed[nCh] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_2_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                            }
+                            dOutput = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_WATT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+                            switch (m_Laser_2.SetParameter(arUsed, dOutput, nTime))
+                            {
+                                case ProtecLaserMananger_2.EN_SET_RESULT_2.OK:
+                                    m_nSeqNum++;
+                                    break;
+                                case ProtecLaserMananger_2.EN_SET_RESULT_2.WORKING:
+                                    break;
+                                case ProtecLaserMananger_2.EN_SET_RESULT_2.POWER_OVER_MAX:
+                                    m_arAlarmSubInfo[0] = "POWER IS TOO HIGH";
+                                    m_arAlarmSubInfo[1] = "";
+                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
+                                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.ACTION_FINISH;
+                                    break;
+                                case ProtecLaserMananger_2.EN_SET_RESULT_2.POWER_UNDER_MIN:
+                                    m_arAlarmSubInfo[0] = "POWER IS TOO LOW";
+                                    m_arAlarmSubInfo[1] = "";
+                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
+                                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.ACTION_FINISH;
+                                    break;
+                                default:
+                                    m_arAlarmSubInfo[0] = "";
+                                    m_arAlarmSubInfo[1] = "";
+                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
+                                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.ACTION_FINISH;
+                                    break;
+                            }
+                            break;
+                        case EN_TASK_ACTION.MEASURE_VOLT_2:
+                            for (int nCh = 0; nCh < m_Laser_2.ChannelCount; ++nCh)
+                            {
+                                arUsed[nCh] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_2_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                            }
+                            dOutput = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_VOLT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+                            switch (m_Laser_2.SetParameterVolt(arUsed, dOutput, nTime))
+                            {
+                                case ProtecLaserMananger_2.EN_SET_RESULT_2.OK:
+                                    m_nSeqNum++;
+                                    break;
+                                case ProtecLaserMananger_2.EN_SET_RESULT_2.WORKING:
+                                    break;
+                                case ProtecLaserMananger_2.EN_SET_RESULT_2.POWER_OVER_MAX:
+                                    m_arAlarmSubInfo[0] = "POWER IS TOO HIGH";
+                                    m_arAlarmSubInfo[1] = "";
+                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
+                                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.ACTION_FINISH;
+                                    break;
+                                case ProtecLaserMananger_2.EN_SET_RESULT_2.POWER_UNDER_MIN:
+                                    m_arAlarmSubInfo[0] = "POWER IS TOO LOW";
+                                    m_arAlarmSubInfo[1] = "";
+                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
+                                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.ACTION_FINISH;
+                                    break;
+                                default:
+                                    m_arAlarmSubInfo[0] = "";
+                                    m_arAlarmSubInfo[1] = "";
+                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
+                                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.ACTION_FINISH;
+                                    break;
+                            }
+                            break;
+
+                        case EN_TASK_ACTION.CALIBRATION_CHANNEL_POWER_2:
+                            for (int nCh = 0; nCh < m_Laser_2.ChannelCount; ++nCh)
+                            {
+                                if (m_nCalibrationChannel == nCh)
+                                {
+                                    arUsed[nCh] = true;
+                                    m_nCalChannelAnalogInput = (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_1 + nCh;
+                                }
+                                else
+                                {
+                                    arUsed[nCh] = false;
+                                }
+                            }
+                            dOutput = m_arCalibrationStepVolt[m_nCalibrationCurrentStep];
+                            switch (m_Laser_2.SetParameterVolt(arUsed, dOutput, nTime))
+                            {
+                                case ProtecLaserMananger_2.EN_SET_RESULT_2.OK:
+                                    m_nSeqNum++;
+                                    break;
+                                case ProtecLaserMananger_2.EN_SET_RESULT_2.WORKING:
+                                    break;
+                                default:
+                                    //alarm 추가
+                                    break;
+                            }
+                            break;
+
+
+                            //                         case EN_TASK_ACTION.CALIBRATION_POWER_LOSS_RATE:
+                            //                             for (int nCh = 0; nCh < m_Laser_2.ChannelCount; ++nCh)
+                            //                             {
+                            //                                 arUsed[nCh] = false;
+                            //                             }
+                            //                             dOutput = m_Recipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, PARAM_EQUIPMENT.POWER_MEASURE_VOLT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+                            //                             if (m_Laser_2.SetParameterVolt(arUsed, dOutput, nTime))
+                            //                                 m_nSeqNum++;
+                            //                             break;
+
+                    }
+                    break;
+                case (int)EN_POWER_MEASURE_STEP_2.LASER_READY + 2:
+                    #region SetSubSeqPara
+                    SubSeqLaserWorkParam[] LaserWorkPara = new SubSeqLaserWorkParam[3];
+
+                    for (int nPortIndex = 0; nPortIndex < 3; nPortIndex++)
+                    {
+                        //bLaserUsed = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.LASER_USED.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, false);
+
+                        LaserWorkPara[nPortIndex] = new SubSeqLaserWorkParam();
+                        LaserWorkPara[nPortIndex].LaserUsed = true;
+                        LaserWorkPara[nPortIndex].CurrentParamIndex = 1;
+                        LaserWorkPara[nPortIndex].KeepLastValuePower = false;
+                        LaserWorkPara[nPortIndex].KeepLastValueSizeX = true;
+                        LaserWorkPara[nPortIndex].KeepLastValueSizeY = true;
+
+                        LaserWorkPara[nPortIndex].ParamUsed[0] = true;
+                        LaserWorkPara[nPortIndex].LaserSizeStepUsed[0] = false;
+                        LaserWorkPara[nPortIndex].LaserSizeStepUsed[0] = false;
+
+                        for (int nStep = 0; nStep < 5; ++nStep)
+                        {
+                            LaserWorkPara[nPortIndex].LaserPower[nStep, 0] = 0;
+                            LaserWorkPara[nPortIndex].LaserTime[nStep, 0] = 0;
+
+                            LaserWorkPara[nPortIndex].LaserPowerMode[nStep, 0] = EN_OUTPUT_MODE.STEP.ToString();
+                            LaserWorkPara[nPortIndex].LaserSizeX[nStep, 0] = 0;
+                            LaserWorkPara[nPortIndex].LaserSizeY[nStep, 0] = 0;
+                            LaserWorkPara[nPortIndex].LaserSizeMode[nStep, 0] = EN_OUTPUT_MODE.STEP.ToString();
+                        }
+                        LaserWorkPara[nPortIndex].LaserTime[0, 0] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_2_SHOT_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+
+                    }
+
+                    SubSeqLaserMonitorParam[] LaserMoinotrPara = new SubSeqLaserMonitorParam[20];
+                    for (int nChCount = 0; nChCount < 18; nChCount++)
+                    {
+                        LaserMoinotrPara[nChCount] = new SubSeqLaserMonitorParam();
+                        LaserMoinotrPara[nChCount].MonitorUsed = false;
+                        LaserMoinotrPara[nChCount].MonitorPreDelay = 0;
+                        LaserMoinotrPara[nChCount].MonitorPostDelay = 0;
+
+                        if (nChCount < 5)//Temp Sensor는 5개
+                        {
+                            LaserMoinotrPara[nChCount].TempCheckUsed = true;
+                            LaserMoinotrPara[nChCount].EMGTemp = 500;
+                            LaserMoinotrPara[nChCount].AbortUsed = false;
+                            LaserMoinotrPara[nChCount].AbortTemp = 500;
+                        }
+                        else
+                        {
+                            LaserMoinotrPara[nChCount].TempCheckUsed = false;
+                            LaserMoinotrPara[nChCount].EMGTemp = 500;
+                            LaserMoinotrPara[nChCount].AbortUsed = false;
+                            LaserMoinotrPara[nChCount].AbortTemp = 500;
+                        }
+
+                        LaserMoinotrPara[nChCount].PowerCheckUsed = false;
+                        LaserMoinotrPara[nChCount].PowerCheckTolerance = 0.1;
+                    }
+
+                    // WorkLog
+                    LaserMoinotrPara[18] = new SubSeqLaserMonitorParam();
+                    LaserMoinotrPara[18].MonitorUsed = false;
+
+                    LaserMoinotrPara[19] = new SubSeqLaserMonitorParam();
+                    LaserMoinotrPara[19].MonitorUsed = false;
+
+
+                    m_Subseq_Laser_Work.AddMonitorParameter(LaserMoinotrPara);
+
+
+                    m_Subseq_Laser_Work.Activate = true;
+                    m_Subseq_Laser_Work.AddParameter(LaserWorkPara);
+                    #endregion
+                    Powermeter.GetInstance().SetCommand(EN_POWERMETER_COMMAND.START);
+                    m_TickForDelay.SetTickCount(90);
+                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.LASER_WORKING;
+                    break;
+
+                #endregion
+
+                #region Laser Working
+                case (int)EN_POWER_MEASURE_STEP_2.LASER_WORKING:
+                    //m_nSeqNum++;
+                    //             break;
+                    switch (m_Subseq_Laser_Work.SubSequenceProcedure())
+                    {
+                        case EN_SUBSEQUENCE_RESULT.OK:
+                            m_nSeqNum++;
+                            break;
+
+                        case EN_SUBSEQUENCE_RESULT.WORKING:
+                            //CheckLaserWorkTool();
+
+                            if (m_TickForDelay.IsTickOver(true)
+                               && (ReadOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, false) //LASER ON 중에만 측정
+                                    || ReadOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, false)
+                                    || ReadOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, false)))
+                            {
+                                m_Laser_2.ReadMessage();// 출력 모니터링 통신 받기 위해. 실제 모니터링은 AnalogInput을 사용. Parsing 안함
+
+                                m_lstCurrentVolt.Add(ReadAnalogInputVolt(m_nCalChannelAnalogInput));
+
+                                if (ExternalDevice.Serial.Powermeter.GetInstance().RecieveDone)
+                                {
+                                    Powermeter.GetInstance().SetCommand(EN_POWERMETER_COMMAND.READ);
+                                }
+                                m_TickForDelay.SetTickCount(90);
+                            }
+
+                            if (ReadInput((int)EN_DIGITAL_INPUT_LIST.LD_2_ALARM_PORT_1, false)
+                                    || ReadInput((int)EN_DIGITAL_INPUT_LIST.LD_2_ALARM_PORT_2, false)
+                                    || ReadInput((int)EN_DIGITAL_INPUT_LIST.LD_2_ALARM_PORT_3, false))
+                            {
+                                m_arAlarmSubInfo[0] = "DETECT ALARM FROM LASER SOURCE";
+                                GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_EMISSION_ALARM, false, ref m_arAlarmSubInfo);
+                                m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.ACTION_FINISH;
+                                break;
+                            }
+                            break;
+
+                        default:
+                            m_arAlarmSubInfo[0] = m_Subseq_Laser_Work.GetActionResultInfo();
+                            GenerateSequenceAlarm((int)EN_TASK_ALARM.LASER_EMISSION_ALARM, false, ref m_arAlarmSubInfo);
+                            m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.ACTION_FINISH;
+                            break;
+                    }
+                    break;
+                case (int)EN_POWER_MEASURE_STEP_2.LASER_WORKING + 1:
+                    Powermeter.GetInstance().SetCommand(EN_POWERMETER_COMMAND.STOP);
+                    SetDelayForSequence(300);
+                    m_nPowerMeasureCurrentRepeatCount++;
+                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.CHECK_REPEAT;
+                    break;
+                #endregion
+
+                case (int)EN_POWER_MEASURE_STEP_2.CHECK_REPEAT:
+                    if (m_enAction == EN_TASK_ACTION.MEASURE_POWER_2
+                            || m_enAction == EN_TASK_ACTION.MEASURE_VOLT_2)
+                    {
+                        if (m_nPowerMeasureCurrentRepeatCount >= m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_2_REPEAT_COUNT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0))
+                        {
+                            m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.ACTION_FINISH;
+                        }
+                        else
+                        {
+                            int nRestTime = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_2_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                            m_tickForPowerMeasureRest.SetTickCount((uint)nRestTime);
+                            m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.LASER_READY;
+                        }
+                    }
+                    else
+                    {
+                        if (m_nPowerMeasureCurrentRepeatCount >= m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_2_REPEAT_COUNT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0))
+                        {
+                            m_nPowerMeasureCurrentRepeatCount = 0;
+                            Powermeter.GetInstance().ClearRepeatData();
+                            m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.SET_CALIBRATION_DATA;
+                        }
+                        else
+                        {
+                            int nRestTime = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_2_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                            m_tickForPowerMeasureRest.SetTickCount((uint)nRestTime);
+                            m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.LASER_READY;
+                        }
+                    }
+                    break;
+
+
+                case (int)EN_POWER_MEASURE_STEP_2.SET_CALIBRATION_DATA:
+                    if (m_enAction == EN_TASK_ACTION.CALIBRATION_CHANNEL_POWER_2)
+                    {
+                        ProtecLaserChannelCalibration.GetInstance().UpdateCalibrationInformation(m_nCalibrationChannel, m_nCalibrationCurrentStep, (int)EN_CALIBRATION_INDEX.TARGET_VOLT, m_arCalibrationStepVolt[m_nCalibrationCurrentStep]);
+                        ProtecLaserChannelCalibration.GetInstance().UpdateCalibrationInformation(m_nCalibrationChannel, m_nCalibrationCurrentStep, (int)EN_CALIBRATION_INDEX.POWER_OUTPUT_WATT, Powermeter.GetInstance().Measure_Repeat_Avg);
+                        if (m_lstCurrentVolt.Count > 0)
+                            ProtecLaserChannelCalibration.GetInstance().UpdateCalibrationInformation(m_nCalibrationChannel, m_nCalibrationCurrentStep, (int)EN_CALIBRATION_INDEX.POWER_INPUT_VOLT, m_lstCurrentVolt.Average());
+                        m_lstCurrentVolt.Clear();
+
+                        PostOffice.GetInstance().SendMail(EN_SUBSCRIBER.Unknown, EN_SUBSCRIBER.SETUP_EQUP_LASER, EN_MAIL.UPDATE_UI); //Caldata UI 통지
+
+                        m_nCalibrationCurrentStep++;
+                        //다음 Step 측정
+                        if (m_nCalibrationStep > m_nCalibrationCurrentStep)
+                        {
+                            int nRestTime = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_2_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                            m_tickForPowerMeasureRest.SetTickCount((uint)nRestTime);
+                            m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.LASER_READY;
+                            break;
+                        }
+                        else
+                        {
+                            //다음 channel 측정
+                            for (int nCh = 0; nCh < m_Laser_2.ChannelCount; ++nCh)
+                            {
+                                if (m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
+                                {
+                                    if (m_nCalibrationChannel < nCh)
+                                    {
+                                        m_nCalibrationCurrentStep = 0;
+                                        m_nCalibrationChannel = nCh;
+                                        ProtecLaserChannelCalibration.GetInstance().NewChannelCalibrationFile(m_nCalibrationChannel);
+
+                                        int nRestTime = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_2_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                                        m_tickForPowerMeasureRest.SetTickCount((uint)nRestTime);
+                                        m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.MOVE_SHOT_POSITION;
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (m_enAction == EN_TASK_ACTION.CALIBRATION_POWER_LOSS_RATE_2)
+                    {
+                        //구현 필요
+                    }
+                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.ACTION_FINISH;
+                    break;
+
+
+                case (int)EN_POWER_MEASURE_STEP_2.ACTION_FINISH:
+
+                    m_nSeqNum++;
+                    break;
+
+                case (int)EN_POWER_MEASURE_STEP_2.ACTION_FINISH + 1:
+
+                    m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.FINISH;
+                    break;
+
+                case (int)EN_POWER_MEASURE_STEP_2.FINISH:
+                    return true;
+            }
             return false;
         }
 
@@ -1533,11 +2281,11 @@ namespace FrameOfSystem3.Task
                         m_nSeqNum = (int)EN_LASER_SHORT_TEST_STEP_2.ACTION_FINISH;
                         break;
                     }
-                    bool[] arUsed = new bool[m_Laser.ChannelCount];
+                    bool[] arUsed = new bool[m_Laser_2.ChannelCount];
 
-                    for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
+                    for (int nCh = 0; nCh < m_Laser_2.ChannelCount; ++nCh)
                     {
-                        arUsed[nCh] = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                        arUsed[nCh] = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_2_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
                     }
 
                     switch (m_Laser_2.CheckShort(arUsed))
@@ -1637,6 +2385,51 @@ namespace FrameOfSystem3.Task
                 , -1.0);
             double dblCalMinVolt = m_Recipe.GetValue(GetTaskName()
                 , PARAM_PROCESS.POWER_CALIBRATION_MIN_VOLT.ToString()
+                , 0
+                , EN_RECIPE_PARAM_TYPE.VALUE
+                , -1.0);
+
+            double dblCalStepVolt;
+            if (m_nCalibrationStep == 1)
+                dblCalStepVolt = 0;
+            else
+                dblCalStepVolt = (dblCalMaxVolt - dblCalMinVolt) / (m_nCalibrationStep - 1);
+
+            for (int i = 0; i < m_nCalibrationStep; i++)
+            {
+                m_arCalibrationStepVolt[i] = dblCalMinVolt + (i * dblCalStepVolt);
+            }
+        }
+        private void InitializeCalibrationData_2()
+        {
+            m_nCalibrationChannel = 0;
+            m_nCalibrationCurrentStep = 0;
+            for (int nCh = 0; nCh < m_Laser_2.ChannelCount; ++nCh)
+            {
+                if (m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_2_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
+                {
+                    m_nCalibrationChannel = nCh;
+                    break;
+                }
+            }
+
+            ProtecLaserChannelCalibration_2.GetInstance().NewChannelCalibrationFile(m_nCalibrationChannel);
+
+
+            m_nCalibrationStep = m_Recipe.GetValue(GetTaskName()
+                , PARAM_PROCESS.POWER_CALIBRATION_2_STEP_COUNT.ToString()
+                , 0
+                , EN_RECIPE_PARAM_TYPE.VALUE
+                , 1);
+
+            m_arCalibrationStepVolt = new double[m_nCalibrationStep];
+            double dblCalMaxVolt = m_Recipe.GetValue(GetTaskName()
+                , PARAM_PROCESS.POWER_CALIBRATION_2_MAX_VOLT.ToString()
+                , 0
+                , EN_RECIPE_PARAM_TYPE.VALUE
+                , -1.0);
+            double dblCalMinVolt = m_Recipe.GetValue(GetTaskName()
+                , PARAM_PROCESS.POWER_CALIBRATION_2_MIN_VOLT.ToString()
                 , 0
                 , EN_RECIPE_PARAM_TYPE.VALUE
                 , -1.0);
