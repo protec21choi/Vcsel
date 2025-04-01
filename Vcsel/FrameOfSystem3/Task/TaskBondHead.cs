@@ -114,6 +114,7 @@ namespace FrameOfSystem3.Task
         private Recipe.Recipe m_Recipe = Recipe.Recipe.GetInstance();
 
         Laser.ProtecLaserMananger m_Laser = Laser.ProtecLaserMananger.GetInstance();
+        Laser.ProtecLaserMananger_2 m_Laser_2 = Laser.ProtecLaserMananger_2.GetInstance();
 
         //#region IR
         //private ExternalDevice.Socket.IR m_instanceIR = ExternalDevice.Socket.IR.GetInstance();
@@ -290,6 +291,11 @@ namespace FrameOfSystem3.Task
                         return true;
                     break;
 
+                case EN_TASK_ACTION.LASER_WORK_2:
+                    if (ActionLaserWork_2())
+                        return true;
+                    break;
+
                 case EN_TASK_ACTION.MEASURE_POWER:
                 case EN_TASK_ACTION.MEASURE_VOLT:
                 case EN_TASK_ACTION.CALIBRATION_CHANNEL_POWER:
@@ -298,15 +304,28 @@ namespace FrameOfSystem3.Task
                         return true;
                     break;
 
+                case EN_TASK_ACTION.MEASURE_POWER_2:
+                case EN_TASK_ACTION.MEASURE_VOLT_2:
+                case EN_TASK_ACTION.CALIBRATION_CHANNEL_POWER_2:
+                case EN_TASK_ACTION.CALIBRATION_POWER_LOSS_RATE_2:
+                    if (Action_PowerMeasure_2())
+                        return true;
+                    break;
+
                 case EN_TASK_ACTION.SHORT_TEST:
                     if (ActionShortCheck())
                         return true;
                     break;
 
-                case EN_TASK_ACTION.MOVE_READY:
-                    //if (ActionMoveReady())
-                    //    return true;
+                case EN_TASK_ACTION.SHORT_TEST_2:
+                    if (ActionShortCheck_2())
+                        return true;
                     break;
+
+                //case EN_TASK_ACTION.MOVE_READY:
+                //    //if (ActionMoveReady())
+                //    //    return true;
+                //    break;
             }
 
             return false;
@@ -962,18 +981,49 @@ namespace FrameOfSystem3.Task
             return false;
         }
         #endregion
-
+        private bool ActionLaserWork_2()
+        {
+            return false;
+        }
         #region Manaul
         private bool Action_PowerMeasure()
         {
+            bool bResult = false;
+
             switch (m_nSeqNum)
             {
                 case (int)EN_POWER_MEASURE_STEP.ACTION_START:
+                    bResult = true;
+                    #region POWERMETER
+                    //Powermeter
+                    ExternalDevice.Serial.Powermeter.GetInstance().Init((int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.POWERMETER);
+                    ExternalDevice.Serial.Powermeter.GetInstance().SetDeviceType(Config.SystemConfig.GetInstance().Powermeter);
+                    #endregion /POWERMETER
+
+                    #region Laser LD
+                    int nLaserCount = 18;
+                    int[] arControl = new int[]{(int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_CONTROL_1
+                                                , (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_CONTROL_2
+                                                , (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_CONTROL_3};
+                    bResult &= ExternalDevice.Serial.ProtecLaserController.GetInstance().Initialize(arControl, (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_MONITOR);
+                    bResult &= Laser.ProtecLaserMananger.GetInstance().Init(nLaserCount);
+
+                    Laser.ProtecLaserChannelCalibration.GetInstance().Init(nLaserCount);
+                    for (int nIndex = 0; nIndex < nLaserCount; nIndex++)
+                    {
+                        Laser.ProtecLaserChannelCalibration.GetInstance().LinkLaserChannel(nIndex, (int)Define.DefineEnumProject.AnalogIO.EN_ANALOG_IN.POWER_CH_1 + nIndex);
+                    }
+                    #endregion /Laser LD
+                    ++m_nSeqNum;
+                    break;
+
+                case (int)EN_POWER_MEASURE_STEP.ACTION_START + 1:
                     Powermeter.GetInstance().Open();
                     SetDelayForSequence(1000);
                     ++m_nSeqNum;
                     break;
-                case (int)EN_POWER_MEASURE_STEP.ACTION_START + 1:
+
+                case (int)EN_POWER_MEASURE_STEP.ACTION_START + 2:
                     if (m_enAction == EN_TASK_ACTION.CALIBRATION_CHANNEL_POWER)
                         InitializeCalibrationData();
                     m_nPowerMeasureCurrentRepeatCount = 0;
@@ -984,7 +1034,8 @@ namespace FrameOfSystem3.Task
 
                 case (int)EN_POWER_MEASURE_STEP.POWERMETER_READY:
                     Powermeter.GetInstance().ClearRepeatData();
-                    Powermeter.GetInstance().nWait_Time = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_WAIT_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                    Powermeter.GetInstance().nWait_Time = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_WAIT_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+
                     ++m_nSeqNum;
                     break;
 
@@ -1413,6 +1464,12 @@ namespace FrameOfSystem3.Task
             return false;
         }
 
+        private bool Action_PowerMeasure_2()
+        {
+            
+            return false;
+        }
+
         private bool ActionShortCheck()
         {
             switch (m_nSeqNum)
@@ -1456,6 +1513,72 @@ namespace FrameOfSystem3.Task
                             m_arAlarmSubInfo[1] = "";
                             GenerateSequenceAlarm((int)EN_TASK_ALARM.SHORT_CHECK_FAIL, false, ref m_arAlarmSubInfo);
                             m_nSeqNum = (int)EN_LASER_SHORT_TEST_STEP.ACTION_FINISH;
+                            break;
+                    }
+                    break;
+
+
+
+                #endregion
+
+                #region ACTION FINISH (9900 ~ )
+                case (int)EN_LASER_SHORT_TEST_STEP.ACTION_FINISH:
+                    m_nSeqNum = (int)EN_LASER_SHORT_TEST_STEP.FINISH;
+                    break;
+                #endregion
+
+                #region FINISH
+                case (int)EN_LASER_SHORT_TEST_STEP.FINISH:
+                    return true;
+                    #endregion
+            }
+
+            return false;
+        }
+
+        private bool ActionShortCheck_2()
+        {
+            switch (m_nSeqNum)
+            {
+                #region ACTION START (0 ~ )
+                case (int)EN_LASER_SHORT_TEST_STEP_2.ACTION_START:
+                    m_nSeqNum = (int)EN_LASER_SHORT_TEST_STEP_2.SHORT_TEST;
+                    break;
+                #endregion
+
+                #region SHORT CHECK
+                case (int)EN_LASER_SHORT_TEST_STEP_2.SHORT_TEST:
+                    m_tickTimeOut.SetTickCount(60000);
+                    m_nSeqNum++;
+                    break;
+
+                case (int)EN_LASER_SHORT_TEST_STEP_2.SHORT_TEST + 1:
+                    if (m_tickTimeOut.IsTickOver(false))
+                    {
+                        m_arAlarmSubInfo[0] = "SHORT CHECK";
+                        GenerateSequenceAlarm((int)EN_TASK_ALARM.LD_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
+                        m_nSeqNum = (int)EN_LASER_SHORT_TEST_STEP_2.ACTION_FINISH;
+                        break;
+                    }
+                    bool[] arUsed = new bool[m_Laser.ChannelCount];
+
+                    for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
+                    {
+                        arUsed[nCh] = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                    }
+
+                    switch (m_Laser_2.CheckShort(arUsed))
+                    {
+                        case ProtecLaserMananger_2.EN_SET_RESULT_2.OK:
+                            m_nSeqNum = (int)EN_LASER_SHORT_TEST_STEP_2.ACTION_FINISH;
+                            break;
+                        case ProtecLaserMananger_2.EN_SET_RESULT_2.WORKING:
+                            break;
+                        default:
+                            m_arAlarmSubInfo[0] = "";
+                            m_arAlarmSubInfo[1] = "";
+                            GenerateSequenceAlarm((int)EN_TASK_ALARM.SHORT_CHECK_FAIL, false, ref m_arAlarmSubInfo);
+                            m_nSeqNum = (int)EN_LASER_SHORT_TEST_STEP_2.ACTION_FINISH;
                             break;
                     }
                     break;
@@ -1914,6 +2037,15 @@ namespace FrameOfSystem3.Task
             ACTION_FINISH = 9900,
             FINISH = 10000,
         }
+        private enum EN_LASER_WORK_STEP_2
+        {
+            ACTION_START = 0,
+
+            PARAMETER_READY,
+
+            ACTION_FINISH = 9900,
+            FINISH = 10000,
+        }
         #endregion
 
         #endregion
@@ -1938,7 +2070,23 @@ namespace FrameOfSystem3.Task
 
             FINISH = 10000,
         }
+        private enum EN_POWER_MEASURE_STEP_2
+        {
+            ACTION_START = 0,
 
+            POWERMETER_READY = 100,
+            MOVE_SHOT_POSITION = 200,
+            LASER_READY = 300,
+            LASER_WORKING = 400,
+
+            CHECK_REPEAT = 500,
+
+            SET_CALIBRATION_DATA = 600,
+
+            ACTION_FINISH = 900,
+
+            FINISH = 10000,
+        }
         private enum EN_LASER_SHORT_TEST_STEP
         {
             ACTION_START = 0,
@@ -1952,7 +2100,19 @@ namespace FrameOfSystem3.Task
             ACTION_FINISH = 9900,
             FINISH = 10000,
         }
+        private enum EN_LASER_SHORT_TEST_STEP_2
+        {
+            ACTION_START = 0,
 
+            MOVE_POS = 100,
+
+            SHORT_TEST = 200,
+
+            WORK_FINISH = 300,
+
+            ACTION_FINISH = 9900,
+            FINISH = 10000,
+        }
         #endregion /Calibration
         #endregion
 

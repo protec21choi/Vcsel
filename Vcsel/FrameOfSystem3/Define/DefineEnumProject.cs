@@ -294,6 +294,7 @@ namespace Define
                     #region AUTO
 
                     LASER_WORK,
+                    LASER_WORK_2,
 
                     #endregion
 
@@ -305,7 +306,13 @@ namespace Define
 
                     SHORT_TEST,
 
-                    MOVE_READY,
+                    CALIBRATION_CHANNEL_POWER_2,
+                    CALIBRATION_POWER_LOSS_RATE_2,
+                    MEASURE_POWER_2,
+                    MEASURE_VOLT_2,
+
+                    SHORT_TEST_2,
+
                     #endregion
                 }
 

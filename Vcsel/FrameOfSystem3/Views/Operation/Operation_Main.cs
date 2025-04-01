@@ -186,13 +186,7 @@ namespace FrameOfSystem3.Views.Operation
                     Task.TaskOperator.GetInstance().SetOperation(OPERATION_EQUIPMENT.RUN);
                     break;
                 case 2: // STOP
-                    FrameOfSystem3.Config.ConfigDigitalIO.GetInstance().WriteOutput(false, (int)EN_DIGITAL_OUT.LD_1_ON);
-                    FrameOfSystem3.Config.ConfigDigitalIO.GetInstance().WriteOutput(false, (int)EN_DIGITAL_OUT.LD_2_ON);
-                    FrameOfSystem3.Config.ConfigDigitalIO.GetInstance().WriteOutput(false, (int)EN_DIGITAL_OUT.LD_3_ON);
-
-                    FrameOfSystem3.Config.ConfigDigitalIO.GetInstance().WriteOutput(false, (int)EN_DIGITAL_OUT.LD_1_ON_2);
-                    FrameOfSystem3.Config.ConfigDigitalIO.GetInstance().WriteOutput(false, (int)EN_DIGITAL_OUT.LD_2_ON_2);
-                    FrameOfSystem3.Config.ConfigDigitalIO.GetInstance().WriteOutput(false, (int)EN_DIGITAL_OUT.LD_3_ON_2);
+                    Task.TaskOperator.GetInstance().SetOperation(OPERATION_EQUIPMENT.STOP);
                     return;
             }
         }
