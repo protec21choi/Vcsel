@@ -634,9 +634,10 @@ namespace FrameOfSystem3.Views.Operation
             switch (ctrButton.TabIndex)
             {
                 case 0:
-                    arSelectAction = new string[1][];
-                    arSelectTask = new string[] { EN_TASK_LIST.BOND_HEAD.ToString() };
-                    arSelectAction[0] = new string[] { Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.LASER_WORK.ToString() };
+                    arSelectAction = new string[2][];
+                    arSelectTask = new string[] { EN_TASK_LIST.BOND_HEAD.ToString(), EN_TASK_LIST.BOND_HEAD.ToString() };
+                    arSelectAction[0] = new string[] { null, Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.LASER_WORK.ToString() };
+                    arSelectAction[1] = new string[] { Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.LASER_WORK_2.ToString(), null };
                     Task.TaskOperator.GetInstance().SetOperation(ref arSelectTask, ref arSelectAction, nRetryTime);
                     break;
 
