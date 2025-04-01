@@ -562,6 +562,7 @@ namespace FrameOfSystem3.Views.Operation
             HeaderList.Add("");
             HeaderList.Add("WATT");
             gridViewControl_Laser_Parameter_2.ShowHeader(HeaderList);
+
             //List<GridViewControl_Parameter.ParameterItem> parameterList = new List<GridViewControl_Parameter.ParameterItem>();
 
             //List<int> AddParaIndexList = new List<int>();
