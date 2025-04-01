@@ -548,35 +548,60 @@ namespace FrameOfSystem3.Views.Operation
 
             List<string> AddParaList = new List<string>();
 
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_POWER_5.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_POWER_5.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_POWER_5.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_POWER_5.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_POWER_5.ToString());
+            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_TOTAL_POWER.ToString());
+
             GridViewControl_Parameter.ParameterItem AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList);
-            AddParaItem.DisplayName = "LASER POWER";
+            AddParaItem.DisplayName = "LASER TOTAL POWER";
             parameterList.Add(AddParaItem);
 
-            AddParaList = new List<string>();
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_TIME_5.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_TIME_5.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_TIME_5.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_TIME_5.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_TIME_5.ToString());
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList);
-            AddParaItem.DisplayName = "LASER TIME";
-            parameterList.Add(AddParaItem);
 
-            gridViewControl_Laser_Parameter_2.Initialize(parameterList, -1, 85);
+
+            gridViewControl_Laser_Parameter_2.Initialize(parameterList, -1, 105);
 
             List<string> HeaderList = new List<string>();
             HeaderList.Add("");
-            HeaderList.Add("STEP 1");
-            HeaderList.Add("STEP 2");
-            HeaderList.Add("STEP 3");
-            HeaderList.Add("STEP 4");
-            HeaderList.Add("STEP 5");
+            HeaderList.Add("WATT");
             gridViewControl_Laser_Parameter_2.ShowHeader(HeaderList);
+            //List<GridViewControl_Parameter.ParameterItem> parameterList = new List<GridViewControl_Parameter.ParameterItem>();
+
+            //List<int> AddParaIndexList = new List<int>();
+            //AddParaIndexList.Add(0);
+            //AddParaIndexList.Add(1);
+            //AddParaIndexList.Add(2);
+            //AddParaIndexList.Add(3);
+            //AddParaIndexList.Add(4);
+
+            //List<string> AddParaList = new List<string>();
+
+            //AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_POWER_5.ToString());
+            //AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_POWER_5.ToString());
+            //AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_POWER_5.ToString());
+            //AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_POWER_5.ToString());
+            //AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_POWER_5.ToString());
+            //GridViewControl_Parameter.ParameterItem AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList);
+            //AddParaItem.DisplayName = "LASER POWER";
+            //parameterList.Add(AddParaItem);
+
+            //AddParaList = new List<string>();
+            //AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_TIME_5.ToString());
+            //AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_TIME_5.ToString());
+            //AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_TIME_5.ToString());
+            //AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_TIME_5.ToString());
+            //AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_TIME_5.ToString());
+            //AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList);
+            //AddParaItem.DisplayName = "LASER TIME";
+            //parameterList.Add(AddParaItem);
+
+            //gridViewControl_Laser_Parameter_2.Initialize(parameterList, -1, 85);
+
+            //List<string> HeaderList = new List<string>();
+            //HeaderList.Add("");
+            //HeaderList.Add("STEP 1");
+            //HeaderList.Add("STEP 2");
+            //HeaderList.Add("STEP 3");
+            //HeaderList.Add("STEP 4");
+            //HeaderList.Add("STEP 5");
+            //gridViewControl_Laser_Parameter_2.ShowHeader(HeaderList);
         }
 
 

@@ -1046,14 +1046,15 @@ namespace FrameOfSystem3.Task
                             int nMeasureCh = 0;
                             for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
                             {
-                                if (m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
+                                if (m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
                                 {
                                     ChMeasureCount++;
                                     nMeasureCh = nCh;
                                 }
                             }
                             if (ChMeasureCount > 1)
-                                nMeasureCh = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_SELLECTED_CHANNEL.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0) - 1;
+                                nMeasureCh = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_SELLECTED_CHANNEL.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0) - 1;
+                            
                             break;
 
                         case EN_TASK_ACTION.CALIBRATION_CHANNEL_POWER:
@@ -1071,7 +1072,8 @@ namespace FrameOfSystem3.Task
                         m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
                     if (m_tickForPowerMeasureRest.IsTickOver(true))
                     {
-                        int nRestTime = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                        int nRestTime = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                        
                         m_tickForPowerMeasureRest.SetTickCount((uint)nRestTime);
                         m_tickTimeOut.SetTickCount(2000);
                         m_nSeqNum++;
@@ -1090,16 +1092,16 @@ namespace FrameOfSystem3.Task
                     int nTime = 0;
                     double dOutput = 0;
 
-                    nTime = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_SHOT_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-
+                    nTime = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_SHOT_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                    
                     switch (m_enAction)
                     {
                         case EN_TASK_ACTION.MEASURE_POWER:
                             for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
                             {
-                                arUsed[nCh] = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                                arUsed[nCh] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
                             }
-                            dOutput = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_WATT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+                            dOutput = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_WATT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
                             switch (m_Laser.SetParameter(arUsed, dOutput, nTime))
                             {
                                 case ProtecLaserMananger.EN_SET_RESULT.OK:
@@ -1130,9 +1132,9 @@ namespace FrameOfSystem3.Task
                         case EN_TASK_ACTION.MEASURE_VOLT:
                             for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
                             {
-                                arUsed[nCh] = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                                arUsed[nCh] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
                             }
-                            dOutput = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_VOLT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+                            dOutput = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_VOLT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
                             switch (m_Laser.SetParameterVolt(arUsed, dOutput, nTime))
                             {
                                 case ProtecLaserMananger.EN_SET_RESULT.OK:
@@ -1210,7 +1212,7 @@ namespace FrameOfSystem3.Task
                         //bLaserUsed = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.LASER_USED.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, false);
 
                         LaserWorkPara[nPortIndex] = new SubSeqLaserWorkParam();
-                        //LaserWorkPara[nPortIndex].LaserUsed = bLaserUsed && m_Laser.GetEnablePort(nPortIndex);
+                        LaserWorkPara[nPortIndex].LaserUsed = true;
                         LaserWorkPara[nPortIndex].CurrentParamIndex = 1;
                         LaserWorkPara[nPortIndex].KeepLastValuePower = false;
                         LaserWorkPara[nPortIndex].KeepLastValueSizeX = true;
@@ -1230,7 +1232,7 @@ namespace FrameOfSystem3.Task
                             LaserWorkPara[nPortIndex].LaserSizeY[nStep, 0] = 0;
                             LaserWorkPara[nPortIndex].LaserSizeMode[nStep, 0] = EN_OUTPUT_MODE.STEP.ToString();
                         }
-                        LaserWorkPara[nPortIndex].LaserTime[0, 0] = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_SHOT_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                        LaserWorkPara[nPortIndex].LaserTime[0, 0] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_SHOT_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
 
                     }
 
@@ -1341,20 +1343,20 @@ namespace FrameOfSystem3.Task
                     if (m_enAction == EN_TASK_ACTION.MEASURE_POWER
                             || m_enAction == EN_TASK_ACTION.MEASURE_VOLT)
                     {
-                        if (m_nPowerMeasureCurrentRepeatCount >= m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_REPEAT_COUNT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0))
+                        if (m_nPowerMeasureCurrentRepeatCount >= m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_REPEAT_COUNT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0))
                         {
                             m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
                         }
                         else
                         {
-                            int nRestTime = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                            int nRestTime = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
                             m_tickForPowerMeasureRest.SetTickCount((uint)nRestTime);
                             m_nSeqNum = (int)EN_POWER_MEASURE_STEP.LASER_READY;
                         }
                     }
                     else
                     {
-                        if (m_nPowerMeasureCurrentRepeatCount >= m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_REPEAT_COUNT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0))
+                        if (m_nPowerMeasureCurrentRepeatCount >= m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_REPEAT_COUNT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0))
                         {
                             m_nPowerMeasureCurrentRepeatCount = 0;
                             Powermeter.GetInstance().ClearRepeatData();
@@ -1362,7 +1364,7 @@ namespace FrameOfSystem3.Task
                         }
                         else
                         {
-                            int nRestTime = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                            int nRestTime = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
                             m_tickForPowerMeasureRest.SetTickCount((uint)nRestTime);
                             m_nSeqNum = (int)EN_POWER_MEASURE_STEP.LASER_READY;
                         }
@@ -1385,7 +1387,7 @@ namespace FrameOfSystem3.Task
                         //다음 Step 측정
                         if (m_nCalibrationStep > m_nCalibrationCurrentStep)
                         {
-                            int nRestTime = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                            int nRestTime = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
                             m_tickForPowerMeasureRest.SetTickCount((uint)nRestTime);
                             m_nSeqNum = (int)EN_POWER_MEASURE_STEP.LASER_READY;
                             break;
@@ -1395,7 +1397,7 @@ namespace FrameOfSystem3.Task
                             //다음 channel 측정
                             for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
                             {
-                                if (m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
+                                if (m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
                                 {
                                     if (m_nCalibrationChannel < nCh)
                                     {
@@ -1403,7 +1405,7 @@ namespace FrameOfSystem3.Task
                                         m_nCalibrationChannel = nCh;
                                         ProtecLaserChannelCalibration.GetInstance().NewChannelCalibrationFile(m_nCalibrationChannel);
 
-                                        int nRestTime = m_Recipe.GetValue(EN_RECIPE_TYPE.PROCESS, PARAM_PROCESS.POWER_MEASURE_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                                        int nRestTime = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
                                         m_tickForPowerMeasureRest.SetTickCount((uint)nRestTime);
                                         m_nSeqNum = (int)EN_POWER_MEASURE_STEP.MOVE_SHOT_POSITION;
                                         return false;
