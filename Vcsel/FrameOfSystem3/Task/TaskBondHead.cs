@@ -988,42 +988,14 @@ namespace FrameOfSystem3.Task
         #region Manaul
         private bool Action_PowerMeasure()
         {
-            bool bResult = false;
-
             switch (m_nSeqNum)
             {
                 case (int)EN_POWER_MEASURE_STEP.ACTION_START:
-                    bResult = true;
-                    #region POWERMETER
-                    //Powermeter
-                    ExternalDevice.Serial.Powermeter.GetInstance().Init((int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.POWERMETER);
-                    ExternalDevice.Serial.Powermeter.GetInstance().SetDeviceType(Config.SystemConfig.GetInstance().Powermeter);
-                    #endregion /POWERMETER
-
-                    #region Laser LD
-                    int nLaserCount = 18;
-                    int[] arControl = new int[]{(int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_CONTROL_1
-                                                , (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_CONTROL_2
-                                                , (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_CONTROL_3};
-                    bResult &= ExternalDevice.Serial.ProtecLaserController.GetInstance().Initialize(arControl, (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_MONITOR);
-                    bResult &= Laser.ProtecLaserMananger.GetInstance().Init(nLaserCount);
-
-                    Laser.ProtecLaserChannelCalibration.GetInstance().Init(nLaserCount);
-                    for (int nIndex = 0; nIndex < nLaserCount; nIndex++)
-                    {
-                        Laser.ProtecLaserChannelCalibration.GetInstance().LinkLaserChannel(nIndex, (int)Define.DefineEnumProject.AnalogIO.EN_ANALOG_IN.POWER_CH_1 + nIndex);
-                    }
-                    #endregion /Laser LD
-                    ++m_nSeqNum;
-                    break;
-
-                case (int)EN_POWER_MEASURE_STEP.ACTION_START + 1:
                     Powermeter.GetInstance().Open();
                     SetDelayForSequence(1000);
                     ++m_nSeqNum;
                     break;
-
-                case (int)EN_POWER_MEASURE_STEP.ACTION_START + 2:
+                case (int)EN_POWER_MEASURE_STEP.ACTION_START + 1:
                     if (m_enAction == EN_TASK_ACTION.CALIBRATION_CHANNEL_POWER)
                         InitializeCalibrationData();
                     m_nPowerMeasureCurrentRepeatCount = 0;

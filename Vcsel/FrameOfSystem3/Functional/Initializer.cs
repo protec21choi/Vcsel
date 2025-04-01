@@ -749,11 +749,11 @@ namespace FrameOfSystem3.Functional
 
                 case EN_INITIALIZATION_STEP.INIT_EXTERNAL_DEVICE_END:
                     bResult = true;
-                    //#region POWERMETER
-                    ////Powermeter
-                    //ExternalDevice.Serial.Powermeter.GetInstance().Init((int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.POWERMETER);
-                    //ExternalDevice.Serial.Powermeter.GetInstance().SetDeviceType(Config.SystemConfig.GetInstance().Powermeter);
-                    //#endregion /POWERMETER
+                    #region POWERMETER
+                    //Powermeter
+                    ExternalDevice.Serial.Powermeter.GetInstance().Init((int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.POWERMETER);
+                    ExternalDevice.Serial.Powermeter.GetInstance().SetDeviceType(Config.SystemConfig.GetInstance().Powermeter);
+                    #endregion /POWERMETER
 
                     #region Laser LD 1
                     int nLaserCount = 18;
