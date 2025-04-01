@@ -17,6 +17,7 @@ namespace FrameOfSystem3.SubSequence.SubLaserWork
         {
             TEMP = 0,
             POWER = 0,
+            POWER_2 = 0,
         }
     }
 

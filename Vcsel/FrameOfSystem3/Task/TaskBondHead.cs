@@ -857,7 +857,7 @@ namespace FrameOfSystem3.Task
             m_Subseq_Laser_Work = new SubSeqLaserWork(arCtrlLaserDevice, arSubCtrlOutputProfile);
 
             #region Monitor
-            ASubControl[] arCtrlMonitor = new ASubControl[40];
+            ASubControl[] arCtrlMonitor = new ASubControl[20];
 
 
             ASubControl SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
@@ -988,129 +988,130 @@ namespace FrameOfSystem3.Task
             arCtrlMonitor[19] = SubCtrlIRMonitor;
 
             #region Laser #2
-            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER_2
                                      , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_1);
             //             SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.TEMP
             //                                      , (int)EN_ANALOG_INPUT_LIST.TEMP_SENSOR_1);
-            arCtrlMonitor[20] = SubCtrlAnalogMonitor;
+            arCtrlMonitor[0] = SubCtrlAnalogMonitor;
 
             SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
 
-            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER_2
                                      , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_2);
             //             SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.TEMP
             //                                      , (int)EN_ANALOG_INPUT_LIST.TEMP_SENSOR_2);
-            arCtrlMonitor[21] = SubCtrlAnalogMonitor;
+            arCtrlMonitor[1] = SubCtrlAnalogMonitor;
 
             SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
 
-            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER_2
                                       , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_3);
             //             SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.TEMP
             //                                       , (int)EN_ANALOG_INPUT_LIST.TEMP_SENSOR_3);
-            arCtrlMonitor[22] = SubCtrlAnalogMonitor;
+            arCtrlMonitor[2] = SubCtrlAnalogMonitor;
 
             SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
 
-            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER_2
                                       , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_4);
             //             SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.TEMP
             //                                       , (int)EN_ANALOG_INPUT_LIST.TEMP_SENSOR_4);
-            arCtrlMonitor[23] = SubCtrlAnalogMonitor;
+            arCtrlMonitor[3] = SubCtrlAnalogMonitor;
 
             SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
 
-            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER_2
                                       , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_5);
             //             SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.TEMP
             //                                       , (int)EN_ANALOG_INPUT_LIST.TEMP_SENSOR_5);
-            arCtrlMonitor[24] = SubCtrlAnalogMonitor;
+            arCtrlMonitor[4] = SubCtrlAnalogMonitor;
 
             SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
 
-            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER_2
                                       , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_6);
-            arCtrlMonitor[25] = SubCtrlAnalogMonitor;
+            arCtrlMonitor[5] = SubCtrlAnalogMonitor;
 
             SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
 
-            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER_2
                                       , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_7);
-            arCtrlMonitor[26] = SubCtrlAnalogMonitor;
+            arCtrlMonitor[6] = SubCtrlAnalogMonitor;
 
             SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
 
-            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER_2
                                       , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_8);
-            arCtrlMonitor[27] = SubCtrlAnalogMonitor;
+            arCtrlMonitor[7] = SubCtrlAnalogMonitor;
 
             SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
 
-            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER_2
                                       , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_9);
-            arCtrlMonitor[28] = SubCtrlAnalogMonitor;
+            arCtrlMonitor[8] = SubCtrlAnalogMonitor;
 
             SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
 
-            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER_2
                                       , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_10);
-            arCtrlMonitor[29] = SubCtrlAnalogMonitor;
+            arCtrlMonitor[9] = SubCtrlAnalogMonitor;
 
             SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
 
-            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER_2
                                       , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_11);
-            arCtrlMonitor[30] = SubCtrlAnalogMonitor;
+            arCtrlMonitor[10] = SubCtrlAnalogMonitor;
 
             SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
 
-            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER_2
                                       , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_12);
-            arCtrlMonitor[31] = SubCtrlAnalogMonitor;
+            arCtrlMonitor[11] = SubCtrlAnalogMonitor;
 
             SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
 
-            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER_2
                                       , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_13);
-            arCtrlMonitor[32] = SubCtrlAnalogMonitor;
+            arCtrlMonitor[12] = SubCtrlAnalogMonitor;
 
             SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
 
-            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER_2
                                       , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_14);
-            arCtrlMonitor[33] = SubCtrlAnalogMonitor;
+            arCtrlMonitor[13] = SubCtrlAnalogMonitor;
 
             SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
 
-            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER_2
                                       , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_15);
-            arCtrlMonitor[34] = SubCtrlAnalogMonitor;
+            arCtrlMonitor[14] = SubCtrlAnalogMonitor;
 
             SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
 
-            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER_2
                                       , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_16);
-            arCtrlMonitor[35] = SubCtrlAnalogMonitor;
+            arCtrlMonitor[15] = SubCtrlAnalogMonitor;
 
             SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
 
-            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER_2
                                      , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_17);
-            arCtrlMonitor[36] = SubCtrlAnalogMonitor;
+            arCtrlMonitor[16] = SubCtrlAnalogMonitor;
 
             SubCtrlAnalogMonitor = new SubCtrlMonitoringAnalog(this as RunningTaskEx);
 
-            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER
+            SubCtrlAnalogMonitor.SetTargetAnalogInput((int)SubSequence.SubLaserWork.AnalogMonitor.EN_ANALOG_INPUT.POWER_2
                                      , (int)EN_ANALOG_INPUT_LIST.LD_2_POWER_18);
-            arCtrlMonitor[37] = SubCtrlAnalogMonitor;
+            arCtrlMonitor[17] = SubCtrlAnalogMonitor;
 
             SubCtrlMonitoringWorkLog SubCtrlWorkLogMonitor_2 = new SubCtrlMonitoringWorkLog(this as RunningTaskEx);
 
-            arCtrlMonitor[38] = SubCtrlWorkLogMonitor_2;
+            arCtrlMonitor[18] = SubCtrlWorkLogMonitor_2;
 
             SubCtrlMonitoringIR SubCtrlIRMonitor_2 = new SubCtrlMonitoringIR(this as RunningTaskEx);
 
-            arCtrlMonitor[39] = SubCtrlIRMonitor_2;
+            arCtrlMonitor[19] = SubCtrlIRMonitor_2;
 
             #endregion
             m_Subseq_Laser_Work.AddMonitorControl(arCtrlMonitor);
