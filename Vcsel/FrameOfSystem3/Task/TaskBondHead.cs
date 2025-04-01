@@ -1007,7 +1007,6 @@ namespace FrameOfSystem3.Task
                 case (int)EN_POWER_MEASURE_STEP.POWERMETER_READY:
                     Powermeter.GetInstance().ClearRepeatData();
                     Powermeter.GetInstance().nWait_Time = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_WAIT_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-
                     ++m_nSeqNum;
                     break;
 
