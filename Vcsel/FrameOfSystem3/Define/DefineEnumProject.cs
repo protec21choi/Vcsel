@@ -943,8 +943,6 @@ namespace Define
 			public enum EN_SOCKET_INDEX
 			{
 				LOG = 0,
-				IR = 1,
-                VISION = 2,
 			}
 
             public enum EN_WCF_INDEX
@@ -957,20 +955,15 @@ namespace Define
 		{
 			public enum EN_SERIAL_INDEX
 			{
-                HEATER = 0,
                 LD_CONTROL_1 = 1,
                 LD_CONTROL_2 = 2,
                 LD_CONTROL_3 = 3,
                 LD_MONITOR = 4,
-                POWERMETER = 5,
-                MODBUS_CHILLER = 6,
-                FFU = 7,
-                // 2025.3.11 by ecchoi [ADD] Laser 2
-                LD_2_CONTROL_1 = 8,
-                LD_2_CONTROL_2 = 9,
-                LD_2_CONTROL_3 = 10,
-                LD_2_MONITOR = 11,
-
+                LD_2_CONTROL_1 = 5,
+                LD_2_CONTROL_2 = 6,
+                LD_2_CONTROL_3 = 7,
+                LD_2_MONITOR = 8,
+                POWERMETER = 9,
             }
 		}
 
@@ -1115,7 +1108,7 @@ namespace Define
             }
 			public enum EN_ANALOG_OUT
 			{
-				NONE = 0,		// 0V ~ 5V				// SCALE RANGE (16bit) -10V ~ +10V
+				NONE = -1,		// 0V ~ 5V				// SCALE RANGE (16bit) -10V ~ +10V
 			}
 		}
 
@@ -1149,25 +1142,7 @@ namespace Define
 		{
 			public enum EN_WORK_TOOL
 			{
-                LD_EMITTER_CH_1 = 0,		
-                LD_EMITTER_CH_2 = 1,		
-                LD_EMITTER_CH_3 = 2,		
-                LD_EMITTER_CH_4 = 3,		
-                LD_EMITTER_CH_5 = 4,		
-                LD_EMITTER_CH_6 = 5,		
-                LD_EMITTER_CH_7 = 6,		
-                LD_EMITTER_CH_8 = 7,		
-                LD_EMITTER_CH_9 = 8,		
-                LD_EMITTER_CH_10 = 9,		
-                LD_EMITTER_CH_11 = 10,		
-                LD_EMITTER_CH_12 = 11,		
-                LD_EMITTER_CH_13 = 12,		
-                LD_EMITTER_CH_14 = 13,		
-                LD_EMITTER_CH_15 = 14,		
-                LD_EMITTER_CH_16 = 15,		
-                LD_EMITTER_CH_17 = 16,		
-                LD_EMITTER_CH_18 = 17,		
-                LD_GLASS = 18,		        
+                NONE = -1,        
 			}
 		}
 
