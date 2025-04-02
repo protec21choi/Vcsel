@@ -666,36 +666,36 @@ namespace FrameOfSystem3.Laser
                     m_nSeq++;
                     break;
 
-                case 2: //step volt
-                    for (int nIndex = 0; nIndex < m_nChannelCount; nIndex++)
-                    {
-                        if (m_dicLaserParam[nIndex].ChannelIndex == m_nSettingChannel)
-                        {
-                            if (arPortSettingDone[m_dicLaserParam[nIndex].PortIndex] == false)
-                                if (m_ProtecLaser.SetStepVoltage(m_dicLaserParam[nIndex].PortIndex, m_dicLaserParam[nIndex].ChannelIndex
-                                                                , m_dicLaserParam[nIndex].Enable, m_dicLaserParam[nIndex].StepVoltage)
-                                     == ProtecLaserController_2.EN_RESULT_2.DONE)
-                                {
-                                    arPortSettingDone[m_dicLaserParam[nIndex].PortIndex] = true;
-                                }
-                        }
-                    }
-                    SetNoneExistChannelSettingDone(m_nSettingChannel);
+                //case 2: //step volt
+                //    for (int nIndex = 0; nIndex < m_nChannelCount; nIndex++)
+                //    {
+                //        if (m_dicLaserParam[nIndex].ChannelIndex == m_nSettingChannel)
+                //        {
+                //            if (arPortSettingDone[m_dicLaserParam[nIndex].PortIndex] == false)
+                //                if (m_ProtecLaser.SetStepVoltage(m_dicLaserParam[nIndex].PortIndex, m_dicLaserParam[nIndex].ChannelIndex
+                //                                                , m_dicLaserParam[nIndex].Enable, m_dicLaserParam[nIndex].StepVoltage)
+                //                     == ProtecLaserController_2.EN_RESULT_2.DONE)
+                //                {
+                //                    arPortSettingDone[m_dicLaserParam[nIndex].PortIndex] = true;
+                //                }
+                //        }
+                //    }
+                //    SetNoneExistChannelSettingDone(m_nSettingChannel);
 
-                    SetDisablePortSettingDone();
+                //    SetDisablePortSettingDone();
 
-                    if (IsPortSettingDone())
-                    {
-                        InitPortSettingDone();
-                        m_ProtecLaser.ClearAllPortData();
-                        m_nSettingChannel++;
-                    }
+                //    if (IsPortSettingDone())
+                //    {
+                //        InitPortSettingDone();
+                //        m_ProtecLaser.ClearAllPortData();
+                //        m_nSettingChannel++;
+                //    }
 
-                    if (m_nSettingChannel >= m_nChannelCountInPort)
-                        m_nSeq++;
-                    break;
+                //    if (m_nSettingChannel >= m_nChannelCountInPort)
+                //        m_nSeq++;
+                //    break;
 
-                case 3: //step Time
+                case 2: //step Time
                     for (int nIndex = 0; nIndex < m_nPortCount; nIndex++)
                     {
                         if (GetEnablePort(nIndex))

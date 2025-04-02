@@ -359,19 +359,14 @@ namespace Define
                 #region Alarm
                 public enum EN_TASK_ALARM
                 {
-                    LASER_EMISSION_ALARM = 1,
-                    INTERLOCK_TIMEOUT = 2,
-                    LD_COMMNUNICATION_TIMEOUT = 3,
-                    MATERIAL_NOT_EXIST = 4,
-                    LASER_SETTING_FAIL = 5,
-                    IR_COMMNUNICATION_ALARM = 6,
-                    WORK_RESULT_FAIL = 7,
-                    HEAD_FLOW_LOW = 8,
-                    HEATER_TEMP_TOL_OVER = 9,
-                    SHORT_CHECK_FAIL = 10,
-                    IR_ALARM = 11,
-                    CHILLER_ALARM = 12,
-                    MOVE_FAIL = 13
+                    LD1_LASER_EMISSION_ALARM = 1,
+                    LD1_COMMNUNICATION_TIMEOUT = 2,
+                    LD1_LASER_SETTING_FAIL = 3,
+                    LD1_SHORT_CHECK_FAIL = 4,
+                    LD2_LASER_EMISSION_ALARM = 11,
+                    LD2_COMMNUNICATION_TIMEOUT = 12,
+                    LD2_LASER_SETTING_FAIL = 13,
+                    LD2_SHORT_CHECK_FAIL = 14,
                 }
                 public enum EN_TASK_ALARM_MESSAGE_EN
                 {
