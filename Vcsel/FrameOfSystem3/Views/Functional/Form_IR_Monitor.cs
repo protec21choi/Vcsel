@@ -624,10 +624,10 @@ namespace FrameOfSystem3.Views.Functional
 //                     m_dicValue[EN_GRAPH_PARAM.PYRO_TEMP_4] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.TEMP_CH_4);
 //                     m_dicValue[EN_GRAPH_PARAM.PYRO_TEMP_5] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.TEMP_CH_5);
 
-                    m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_1] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.HEAD_TEMP_IR_SENSOR_1);
-                    m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_2] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.HEAD_TEMP_IR_SENSOR_2);
-                    m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_3] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.HEAD_TEMP_IR_SENSOR_3);
-                    m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_4] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.HEAD_TEMP_IR_SENSOR_4);
+                    m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_1] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.IR_SENSOR_1);
+                    m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_2] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.IR_SENSOR_2);
+                    m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_3] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.IR_SENSOR_3);
+                    m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_4] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.IR_SENSOR_4);
 
 
                     break;
@@ -674,7 +674,7 @@ namespace FrameOfSystem3.Views.Functional
                     break;
             }
             // 2025.3.18 by ecchoi [ADD] Graph Test 용 함수
-            TestGraphFluctuation();
+            //TestGraphFluctuation();
         }
         private void TestGraphFluctuation()
         {

@@ -231,10 +231,10 @@ namespace FrameOfSystem3.Log
 
             Dictionary<EN_LOG_ITEM, double> dicMonitoringValue = new Dictionary<EN_LOG_ITEM, double>();
 
-            dicMonitoringValue.Add(EN_LOG_ITEM.IR_SENSOR_1, m_Analog.ReadInputValue((int)EN_ANALOG_IN.HEAD_TEMP_IR_SENSOR_1));
-            dicMonitoringValue.Add(EN_LOG_ITEM.IR_SENSOR_2, m_Analog.ReadInputValue((int)EN_ANALOG_IN.HEAD_TEMP_IR_SENSOR_2));
-            dicMonitoringValue.Add(EN_LOG_ITEM.IR_SENSOR_3, m_Analog.ReadInputValue((int)EN_ANALOG_IN.HEAD_TEMP_IR_SENSOR_3));
-            dicMonitoringValue.Add(EN_LOG_ITEM.IR_SENSOR_4, m_Analog.ReadInputValue((int)EN_ANALOG_IN.HEAD_TEMP_IR_SENSOR_4));
+            dicMonitoringValue.Add(EN_LOG_ITEM.IR_SENSOR_1, m_Analog.ReadInputValue((int)EN_ANALOG_IN.IR_SENSOR_1));
+            dicMonitoringValue.Add(EN_LOG_ITEM.IR_SENSOR_2, m_Analog.ReadInputValue((int)EN_ANALOG_IN.IR_SENSOR_2));
+            dicMonitoringValue.Add(EN_LOG_ITEM.IR_SENSOR_3, m_Analog.ReadInputValue((int)EN_ANALOG_IN.IR_SENSOR_3));
+            dicMonitoringValue.Add(EN_LOG_ITEM.IR_SENSOR_4, m_Analog.ReadInputValue((int)EN_ANALOG_IN.IR_SENSOR_4));
 
             bool bPowerON =m_Digital.ReadInput((int)EN_DIGITAL_IN.LD_1_ON)
                             ||m_Digital.ReadInput((int)EN_DIGITAL_IN.LD_2_ON)

@@ -62,52 +62,52 @@ namespace Define
                 /// </summary>
                 public enum EN_ANALOG_INPUT_LIST
                 {
-                    LD_POWER_1 = 1,
-                    LD_POWER_2 = 2,
-                    LD_POWER_3 = 3,
-                    LD_POWER_4 = 4,
-                    LD_POWER_5 = 5,
-                    LD_POWER_6 = 6,
+                    LD_POWER_1 = 0,
+                    LD_POWER_2 = 1,
+                    LD_POWER_3 = 2,
+                    LD_POWER_4 = 3,
+                    LD_POWER_5 = 4,
+                    LD_POWER_6 = 5,
 
-                    LD_POWER_7 = 7,
-                    LD_POWER_8 = 8,
-                    LD_POWER_9 = 9,
-                    LD_POWER_10 = 10,
-                    LD_POWER_11 = 11,
-                    LD_POWER_12 = 12,
+                    LD_POWER_7 = 6,
+                    LD_POWER_8 = 7,
+                    LD_POWER_9 = 8,
+                    LD_POWER_10 = 9,
+                    LD_POWER_11 = 10,
+                    LD_POWER_12 = 11,
 
-                    LD_POWER_13 = 13,
-                    LD_POWER_14 = 14,
-                    LD_POWER_15 = 15,
-                    LD_POWER_16 = 16,
-                    LD_POWER_17 = 17,
-                    LD_POWER_18 = 18,
+                    LD_POWER_13 = 12,
+                    LD_POWER_14 = 13,
+                    LD_POWER_15 = 14,
+                    LD_POWER_16 = 15,
+                    LD_POWER_17 = 16,
+                    LD_POWER_18 = 17,
 
-                    LD_2_POWER_1 = 19,
-                    LD_2_POWER_2 = 20,
-                    LD_2_POWER_3 = 21,
-                    LD_2_POWER_4 = 22,
-                    LD_2_POWER_5 = 23,
-                    LD_2_POWER_6 = 24,
+                    LD_2_POWER_1 = 18,
+                    LD_2_POWER_2 = 19,
+                    LD_2_POWER_3 = 20,
+                    LD_2_POWER_4 = 21,
+                    LD_2_POWER_5 = 22,
+                    LD_2_POWER_6 = 23,
 
-                    LD_2_POWER_7 = 25,
-                    LD_2_POWER_8 = 26,
-                    LD_2_POWER_9 = 27,
-                    LD_2_POWER_10 = 28,
-                    LD_2_POWER_11 = 29,
-                    LD_2_POWER_12 = 30,
+                    LD_2_POWER_7 = 24,
+                    LD_2_POWER_8 = 25,
+                    LD_2_POWER_9 = 26,
+                    LD_2_POWER_10 = 27,
+                    LD_2_POWER_11 = 28,
+                    LD_2_POWER_12 = 29,
 
-                    LD_2_POWER_13 = 31,
-                    LD_2_POWER_14 = 32,
-                    LD_2_POWER_15 = 33,
-                    LD_2_POWER_16 = 34,
-                    LD_2_POWER_17 = 35,
-                    LD_2_POWER_18 = 18,
+                    LD_2_POWER_13 = 30,
+                    LD_2_POWER_14 = 31,
+                    LD_2_POWER_15 = 32,
+                    LD_2_POWER_16 = 33,
+                    LD_2_POWER_17 = 34,
+                    LD_2_POWER_18 = 35,
 
-                    TEMP_SENSOR_1 = 40,
-                    TEMP_SENSOR_2 = 41,
-                    TEMP_SENSOR_3 = 42,
-                    TEMP_SENSOR_4 = 43,
+                    IR_SENSOR_1 = 40,
+                    IR_SENSOR_2 = 41,
+                    IR_SENSOR_3 = 42,
+                    IR_SENSOR_4 = 43,
 
                 }
                 #endregion
@@ -127,30 +127,30 @@ namespace Define
                 /// </summary>
                 public enum EN_DIGITAL_INPUT_LIST
                 {
-                    LD_READY_PORT_1 = 1,
-                    LD_ON_PORT_1 = 2,
-                    LD_ALARM_PORT_1 = 3,
+                    LD_READY_PORT_1 = 16,
+                    LD_ALARM_PORT_1 = 17,
+                    LD_ON_PORT_1 = 18,
 
-                    LD_READY_PORT_2 = 4,
-                    LD_ON_PORT_2 = 5,
-                    LD_ALARM_PORT_2 = 6,
+                    LD_READY_PORT_2 = 21,
+                    LD_ALARM_PORT_2 = 22,
+                    LD_ON_PORT_2 = 23,
 
-                    LD_READY_PORT_3 = 7,
-                    LD_ON_PORT_3 = 8,
-                    LD_ALARM_PORT_3 = 9,
+                    LD_READY_PORT_3 = 26,
+                    LD_ALARM_PORT_3 = 27,
+                    LD_ON_PORT_3 = 28,
 
                     #region Laser #2
-                    LD_2_READY_PORT_1 = 10,
-                    LD_2_ON_PORT_1 = 11,
-                    LD_2_ALARM_PORT_1 = 12,
+                    LD_2_READY_PORT_1 = 36,
+                    LD_2_ALARM_PORT_1 = 37,
+                    LD_2_ON_PORT_1 = 38,
+                    
+                    LD_2_READY_PORT_2 = 41,
+                    LD_2_ALARM_PORT_2 = 42,
+                    LD_2_ON_PORT_2 = 43,
 
-                    LD_2_READY_PORT_2 = 13,
-                    LD_2_ON_PORT_2 = 14,
-                    LD_2_ALARM_PORT_2 = 15,
-
-                    LD_2_READY_PORT_3 = 16,
-                    LD_2_ON_PORT_3 = 17,
-                    LD_2_ALARM_PORT_3 = 18,
+                    LD_2_READY_PORT_3 = 46,
+                    LD_2_ALARM_PORT_3 = 47,
+                    LD_2_ON_PORT_3 = 48,
                     #endregion
                 }
                 #endregion
@@ -161,42 +161,42 @@ namespace Define
                 /// </summary>
                 public enum EN_DIGITAL_OUTPUT_LIST
                 {
-                    LD_ON_PORT_1 = 1,
-                    LD_READY_PORT_1 = 2,
-                    LD_ALARM_CLEAR_PORT_1 = 3,
-                    LD_EMO_PORT_1 = 4,
+                    LD_ALARM_CLEAR_PORT_1 = 16,
+                    LD_EMO_PORT_1 = 17,
+                    LD_ON_PORT_1 = 18,
+                    LD_READY_PORT_1 = 19,
+                    
+                    LD_ALARM_CLEAR_PORT_2 = 21,
+                    LD_EMO_PORT_2 = 22,
+                    LD_ON_PORT_2 = 23,
+                    LD_READY_PORT_2 = 24,
+                    
+                    LD_ALARM_CLEAR_PORT_3 = 26,
+                    LD_EMO_PORT_3 = 27,
+                    LD_ON_PORT_3 = 28,
+                    LD_READY_PORT_3 = 29,
 
-                    LD_ON_PORT_2 = 5,
-                    LD_READY_PORT_2 = 6,
-                    LD_ALARM_CLEAR_PORT_2 = 7,
-                    LD_EMO_PORT_2 = 8,
-
-                    LD_ON_PORT_3 = 9,
-                    LD_READY_PORT_3 = 10,
-                    LD_ALARM_CLEAR_PORT_3 = 11,
-                    LD_EMO_PORT_3 = 12,
-
-                    LD_MONITOR_EMO = 13,
-                    LD_MONITOR_ALARM_CLEAR = 14,
+                    LD_MONITOR_ALARM_CLEAR = 31,
+                    LD_MONITOR_EMO = 32,
 
                     #region Laser #2
-                    LD_2_ON_PORT_1 = 15,
-                    LD_2_READY_PORT_1 = 16,
-                    LD_2_ALARM_CLEAR_PORT_1 = 17,
-                    LD_2_EMO_PORT_1 = 18,
+                    LD_2_ALARM_CLEAR_PORT_1 = 36,
+                    LD_2_EMO_PORT_1 = 37,
+                    LD_2_ON_PORT_1 = 38,
+                    LD_2_READY_PORT_1 = 39,
+                    
+                    LD_2_ALARM_CLEAR_PORT_2 = 41,
+                    LD_2_EMO_PORT_2 = 42,
+                    LD_2_ON_PORT_2 = 43,
+                    LD_2_READY_PORT_2 = 44,
+                    
+                    LD_2_ALARM_CLEAR_PORT_3 = 46,
+                    LD_2_EMO_PORT_3 = 47,
+                    LD_2_ON_PORT_3 = 48,
+                    LD_2_READY_PORT_3 = 49,
 
-                    LD_2_ON_PORT_2 = 19,
-                    LD_2_READY_PORT_2 = 20,
-                    LD_2_ALARM_CLEAR_PORT_2 = 21,
-                    LD_2_EMO_PORT_2 = 22,
-
-                    LD_2_ON_PORT_3 = 23,
-                    LD_2_READY_PORT_3 = 24,
-                    LD_2_ALARM_CLEAR_PORT_3 = 25,
-                    LD_2_EMO_PORT_3 = 26,
-
-                    LD_2_MONITOR_EMO = 27,
-                    LD_2_MONITOR_ALARM_CLEAR = 28,
+                    LD_2_MONITOR_ALARM_CLEAR = 51,
+                    LD_2_MONITOR_EMO = 52,
                     #endregion
                 }
                 #endregion
@@ -363,6 +363,7 @@ namespace Define
                     LD1_COMMNUNICATION_TIMEOUT = 2,
                     LD1_LASER_SETTING_FAIL = 3,
                     LD1_SHORT_CHECK_FAIL = 4,
+
                     LD2_LASER_EMISSION_ALARM = 11,
                     LD2_COMMNUNICATION_TIMEOUT = 12,
                     LD2_LASER_SETTING_FAIL = 13,
@@ -1107,10 +1108,10 @@ namespace Define
                 POWER_2_CH_17 = 34,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
                 POWER_2_CH_18 = 35,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
 
-                HEAD_TEMP_IR_SENSOR_1 = 40,     //4mA ~ 20mA
-                HEAD_TEMP_IR_SENSOR_2 = 41,     //4mA ~ 20mA
-                HEAD_TEMP_IR_SENSOR_3 = 42,     //4mA ~ 20mA
-                HEAD_TEMP_IR_SENSOR_4 = 43,     //4mA ~ 20mA
+                IR_SENSOR_1 = 40,     //4mA ~ 20mA
+                IR_SENSOR_2 = 41,     //4mA ~ 20mA
+                IR_SENSOR_3 = 42,     //4mA ~ 20mA
+                IR_SENSOR_4 = 43,     //4mA ~ 20mA
             }
 			public enum EN_ANALOG_OUT
 			{
