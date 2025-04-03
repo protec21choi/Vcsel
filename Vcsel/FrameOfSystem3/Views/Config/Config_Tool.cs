@@ -82,7 +82,7 @@ namespace FrameOfSystem3.Views.Config
 
             string[] arToolList = null;
 
-            if (m_ConfigTool.GetToolList(ref arToolList))
+            if (m_ConfigTool.GetToolList(ref arToolList) && arToolList.Length > 0)
             {
                 for (int nIndex = 0, nEnd = arToolList.Length; nIndex < nEnd; ++nIndex)
                 {

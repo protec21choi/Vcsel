@@ -710,15 +710,15 @@ namespace FrameOfSystem3.Functional
                     break;
 
                 case EN_INITIALIZATION_STEP.INIT_VISION_END:
-                    Vision_.Vision vision = Vision_.Vision.GetInstance();
-                    bResult = vision.Init(new Controller.Vision.ProtecVisionController((int)Define.DefineEnumProject.Socket.EN_SOCKET_INDEX.VISION), Define.DefineConstant.Vision.COUNT_CAM);
-                    if (bResult)
-                    {
-                        FrameOfSystem3.Task.TaskOperator.GetInstance().AddDelegateSetOperation(new RunningMain_.RunningMain.DelegateWithSetOperation(vision.ResetVision));
+                    //Vision_.Vision vision = Vision_.Vision.GetInstance();
+                    //bResult = vision.Init(new Controller.Vision.ProtecVisionController((int)Define.DefineEnumProject.Socket.EN_SOCKET_INDEX.VISION), Define.DefineConstant.Vision.COUNT_CAM);
+                    //if (bResult)
+                    //{
+                    //    FrameOfSystem3.Task.TaskOperator.GetInstance().AddDelegateSetOperation(new RunningMain_.RunningMain.DelegateWithSetOperation(vision.ResetVision));
 
-                        // check here : vision algorithm assine
-                        //vision.AddResultParsingDelegate((int)EN_CAMERA_LIST.ALIGN, (int)EN_VISION_ALGORITHM.FLUX_SUBJECT_1st, VisionResultParser_BP5000IR.ALIGN_MATCHING_DB);
-                    }
+                    //    // check here : vision algorithm assine
+                    //    //vision.AddResultParsingDelegate((int)EN_CAMERA_LIST.ALIGN, (int)EN_VISION_ALGORITHM.FLUX_SUBJECT_1st, VisionResultParser_BP5000IR.ALIGN_MATCHING_DB);
+                    //}
                     break;
                 #endregion
 

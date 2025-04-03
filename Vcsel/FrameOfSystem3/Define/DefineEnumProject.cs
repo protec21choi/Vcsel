@@ -1141,10 +1141,28 @@ namespace Define
 		namespace Tool
 		{
 			public enum EN_WORK_TOOL
-			{
-                NONE = -1,        
-			}
-		}
+            {
+                LD_EMITTER_CH_1 = 0,
+                LD_EMITTER_CH_2 = 1,
+                LD_EMITTER_CH_3 = 2,
+                LD_EMITTER_CH_4 = 3,
+                LD_EMITTER_CH_5 = 4,
+                LD_EMITTER_CH_6 = 5,
+                LD_EMITTER_CH_7 = 6,
+                LD_EMITTER_CH_8 = 7,
+                LD_EMITTER_CH_9 = 8,
+                LD_EMITTER_CH_10 = 9,
+                LD_EMITTER_CH_11 = 10,
+                LD_EMITTER_CH_12 = 11,
+                LD_EMITTER_CH_13 = 12,
+                LD_EMITTER_CH_14 = 13,
+                LD_EMITTER_CH_15 = 14,
+                LD_EMITTER_CH_16 = 15,
+                LD_EMITTER_CH_17 = 16,
+                LD_EMITTER_CH_18 = 17,
+                LD_GLASS = 18,
+            }
+        }
 
         namespace SubSequence
         {
