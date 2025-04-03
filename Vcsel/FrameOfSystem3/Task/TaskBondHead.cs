@@ -1176,20 +1176,21 @@ namespace FrameOfSystem3.Task
             switch (m_nSeqNum)
             {
                 case (int)EN_LASER_WORK_STEP.ACTION_START:
-                    //m_tickTimeOut.SetTickCount(5000);
+                    // 2025.3.31 by ecchoi [ADD] Test 후 복구
+                    m_tickTimeOut.SetTickCount(5000);
                     m_nSeqNum = (int)EN_LASER_WORK_STEP.PARAMETER_READY;
                     break;
 
                 case (int)EN_LASER_WORK_STEP.PARAMETER_READY:
                     #region Laser#1
                     // 2025.3.31 by ecchoi [ADD] Test 후 복구
-                    //if (m_tickTimeOut.IsTickOver(false))
-                    //{
-                    //    m_arAlarmSubInfo[0] = "";
-                    //    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
-                    //    m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-                    //    break;
-                    //}
+                    if (m_tickTimeOut.IsTickOver(false))
+                    {
+                        m_arAlarmSubInfo[0] = "";
+                        GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
+                        m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
+                        break;
+                    }
                     bool[] arUsed = new bool[m_Laser.ChannelCount];
                     double arTotalPower = 0.0;
 
@@ -1207,6 +1208,8 @@ namespace FrameOfSystem3.Task
                             m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
                             break;
                         case ProtecLaserMananger.EN_SET_RESULT.WORKING:
+                            if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
+                                m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
                             break;
                         case ProtecLaserMananger.EN_SET_RESULT.POWER_OVER_MAX:
                             Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 101, false); //POWER IS TOO HIGH
@@ -1242,20 +1245,21 @@ namespace FrameOfSystem3.Task
             switch (m_nSeqNum)
             {
                 case (int)EN_LASER_WORK_STEP_2.ACTION_START:
-                    //m_tickTimeOut.SetTickCount(5000);
+                    // 2025.3.31 by ecchoi [ADD] Test 후 복구
+                    m_tickTimeOut.SetTickCount(5000);
                     m_nSeqNum = (int)EN_LASER_WORK_STEP_2.PARAMETER_READY;
                     break;
 
                 case (int)EN_LASER_WORK_STEP_2.PARAMETER_READY:
                     #region Laser#2
                     // 2025.3.31 by ecchoi [ADD] Test 후 복구
-                    //if (m_tickTimeOut.IsTickOver(false))
-                    //{
-                    //    m_arAlarmSubInfo[0] = "";
-                    //    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
-                    //    m_nSeqNum = (int)EN_LASER_WORK_STEP_2.FINISH;
-                    //    break;
-                    //}
+                    if (m_tickTimeOut.IsTickOver(false))
+                    {
+                        m_arAlarmSubInfo[0] = "";
+                        GenerateSequenceAlarm((int)EN_TASK_ALARM.LD2_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
+                        m_nSeqNum = (int)EN_LASER_WORK_STEP_2.FINISH;
+                        break;
+                    }
                     bool[] arUsed = new bool[m_Laser_2.ChannelCount];
                     double arTotalPower = 0.0;
 
@@ -1273,6 +1277,8 @@ namespace FrameOfSystem3.Task
                             m_nSeqNum = (int)EN_LASER_WORK_STEP_2.FINISH;
                             break;
                         case ProtecLaserMananger_2.EN_SET_RESULT_2.WORKING:
+                            if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
+                                m_nSeqNum = (int)EN_LASER_WORK_STEP_2.FINISH;
                             break;
                         case ProtecLaserMananger_2.EN_SET_RESULT_2.POWER_OVER_MAX:
                             Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 101, false); //POWER IS TOO HIGH
@@ -1424,6 +1430,8 @@ namespace FrameOfSystem3.Task
                                     m_nSeqNum++;
                                     break;
                                 case ProtecLaserMananger.EN_SET_RESULT.WORKING:
+                                    if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
+                                        m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
                                     break;
                                 case ProtecLaserMananger.EN_SET_RESULT.POWER_OVER_MAX:
                                     m_arAlarmSubInfo[0] = "POWER IS TOO HIGH";
@@ -1457,6 +1465,8 @@ namespace FrameOfSystem3.Task
                                     m_nSeqNum++;
                                     break;
                                 case ProtecLaserMananger.EN_SET_RESULT.WORKING:
+                                    if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
+                                        m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
                                     break;
                                 case ProtecLaserMananger.EN_SET_RESULT.POWER_OVER_MAX:
                                     m_arAlarmSubInfo[0] = "POWER IS TOO HIGH";
@@ -1499,6 +1509,8 @@ namespace FrameOfSystem3.Task
                                     m_nSeqNum++;
                                     break;
                                 case ProtecLaserMananger.EN_SET_RESULT.WORKING:
+                                    if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
+                                        m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
                                     break;
                                 default:
                                     //alarm 추가
@@ -1875,6 +1887,8 @@ namespace FrameOfSystem3.Task
                                     m_nSeqNum++;
                                     break;
                                 case ProtecLaserMananger_2.EN_SET_RESULT_2.WORKING:
+                                    if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
+                                        m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.ACTION_FINISH;
                                     break;
                                 case ProtecLaserMananger_2.EN_SET_RESULT_2.POWER_OVER_MAX:
                                     m_arAlarmSubInfo[0] = "POWER IS TOO HIGH";
@@ -1908,6 +1922,8 @@ namespace FrameOfSystem3.Task
                                     m_nSeqNum++;
                                     break;
                                 case ProtecLaserMananger_2.EN_SET_RESULT_2.WORKING:
+                                    if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
+                                        m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.ACTION_FINISH;
                                     break;
                                 case ProtecLaserMananger_2.EN_SET_RESULT_2.POWER_OVER_MAX:
                                     m_arAlarmSubInfo[0] = "POWER IS TOO HIGH";
@@ -1950,6 +1966,8 @@ namespace FrameOfSystem3.Task
                                     m_nSeqNum++;
                                     break;
                                 case ProtecLaserMananger_2.EN_SET_RESULT_2.WORKING:
+                                    if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
+                                        m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.ACTION_FINISH;
                                     break;
                                 default:
                                     //alarm 추가
@@ -2242,6 +2260,8 @@ namespace FrameOfSystem3.Task
                             m_nSeqNum = (int)EN_LASER_SHORT_TEST_STEP.ACTION_FINISH;
                             break;
                         case ProtecLaserMananger.EN_SET_RESULT.WORKING:
+                            if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
+                                m_nSeqNum = (int)EN_LASER_SHORT_TEST_STEP.ACTION_FINISH;
                             break;
                         default:
                             m_arAlarmSubInfo[0] = "";
@@ -2308,6 +2328,8 @@ namespace FrameOfSystem3.Task
                             m_nSeqNum = (int)EN_LASER_SHORT_TEST_STEP_2.ACTION_FINISH;
                             break;
                         case ProtecLaserMananger_2.EN_SET_RESULT_2.WORKING:
+                            if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
+                                m_nSeqNum = (int)EN_LASER_SHORT_TEST_STEP_2.ACTION_FINISH;
                             break;
                         default:
                             m_arAlarmSubInfo[0] = "";
