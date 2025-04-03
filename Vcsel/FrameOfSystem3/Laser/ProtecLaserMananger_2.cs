@@ -466,17 +466,13 @@ namespace FrameOfSystem3.Laser
                             }
                         }
 
-                        if (!arPortSettingDone[m_dicLaserParam[nPort].PortIndex])
+                        if (!arPortSettingDone[nPort])
                         {
                             var result = m_ProtecLaser.SetInitVoltageIOMode(nPort, arEnable, arVoltage);
 
                             if (result == ProtecLaserController_2.EN_RESULT_2.DONE)
                             {
-                                arPortSettingDone[m_dicLaserParam[nPort].PortIndex] = true;
-                            }
-                            else
-                            {
-                                break;
+                                arPortSettingDone[nPort] = true;
                             }
                         }
                     }
@@ -497,7 +493,7 @@ namespace FrameOfSystem3.Laser
                         var resultMode = m_ProtecLaser.SetIOMode(nIndex);
                         if (resultMode == ProtecLaserController_2.EN_RESULT_2.DONE)
                         {
-                            arPortSettingDone[m_dicLaserParam[nIndex].PortIndex] = true;
+                            arPortSettingDone[nIndex] = true;
                         }
                     }
                     SetDisablePortSettingDone();

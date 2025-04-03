@@ -955,15 +955,15 @@ namespace Define
 		{
 			public enum EN_SERIAL_INDEX
 			{
-                LD_CONTROL_1 = 1,
-                LD_CONTROL_2 = 2,
-                LD_CONTROL_3 = 3,
-                LD_MONITOR = 4,
-                LD_2_CONTROL_1 = 5,
-                LD_2_CONTROL_2 = 6,
-                LD_2_CONTROL_3 = 7,
-                LD_2_MONITOR = 8,
-                POWERMETER = 9,
+                LD_CONTROL_1 = 0,
+                LD_CONTROL_2 = 1,
+                LD_CONTROL_3 = 2,
+                LD_MONITOR = 3,
+                LD_2_CONTROL_1 = 4,
+                LD_2_CONTROL_2 = 5,
+                LD_2_CONTROL_3 = 6,
+                LD_2_MONITOR = 7,
+                POWERMETER = 8,
             }
 		}
 

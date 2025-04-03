@@ -467,19 +467,32 @@ namespace FrameOfSystem3.Task
             {
                 case (int)ERRORSEQUENCE_BEFORE_ERROR.START:
                     WorkLog.GetInstance().SaveStop();
+                    // 2025.4.3 by ecchoi [ADD] Test 후 복구
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, false);
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, false);
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, false);
 
-                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, false);
-                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, false);
-                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, false);
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_1, false);
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_2, false);
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_3, false);
 
-                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_1, false);
-                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_2, false);
-                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_3, false);
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_EMO_PORT_1, true);
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_EMO_PORT_2, true);
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_EMO_PORT_3, true);
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_MONITOR_EMO, true);
 
-                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_EMO_PORT_1, true);
-                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_EMO_PORT_2, true);
-                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_EMO_PORT_3, true);
-                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_MONITOR_EMO, true);
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, false);
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, false);
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, false);
+
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_1, false);
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_2, false);
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_3, false);
+
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_EMO_PORT_1, true);
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_EMO_PORT_2, true);
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_EMO_PORT_3, true);
+                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_MONITOR_EMO, true);
 
                     //m_instanceIR.ManualCommand(ExternalDevice.Socket.IR_Property.Enumerable.EN_SEND_TYPE.WORK_END);
                     return true;

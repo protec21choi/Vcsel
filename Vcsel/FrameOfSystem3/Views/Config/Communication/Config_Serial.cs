@@ -720,8 +720,12 @@ namespace FrameOfSystem3.Views.Config
 						m_labelMessage.Text	= strResult;
 					}
 					break;
-				case 1:	// 메시지 보내기
-					if(m_InstanceOfSerial.Write(m_nIndexOfSelectedItem, m_labelMessage.Text))
+				case 1: // 메시지 보내기
+
+					byte[] arMessageByte = Encoding.ASCII.GetBytes(m_labelMessage.Text);
+                    arMessageByte = arMessageByte.Concat(new byte[1] { 0x13 }).ToArray();
+                    // 2025.4.3 by ecchoi [ADD] 컨트롤러 팀에서 ETX가 아니고 ASCII - (0x13) DC3 로 모듈 제작함
+                    if (m_InstanceOfSerial.Write(m_nIndexOfSelectedItem, arMessageByte))
 					{
 // 						string strData = string.Format("{0} Write Message : {1}", m_nIndexOfSelectedItem.ToString(), m_labelMessage.Text);
 // 						m_listMessage.Items.Add(strData);
