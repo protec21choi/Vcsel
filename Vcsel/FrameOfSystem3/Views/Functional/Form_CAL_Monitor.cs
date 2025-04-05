@@ -66,7 +66,7 @@ namespace FrameOfSystem3.Views.Functional
         {
             InitializeGraph();
 
-            this.Size = new Size(1203, 490);
+            this.Size = new Size(1203, 431);
 
             m_timerForUpdate.Start();
 

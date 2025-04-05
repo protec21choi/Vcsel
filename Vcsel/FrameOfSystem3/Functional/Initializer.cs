@@ -230,7 +230,7 @@ namespace FrameOfSystem3.Functional
             m_instanceSerial.Execute();
             m_instanceVision.Execute();
 
-            //ExternalDevice.Serial.Powermeter.GetInstance().Execute();
+            ExternalDevice.Serial.Powermeter.GetInstance().Execute();
             //ExternalDevice.Socket.IR.GetInstance().Execute();
             //ExternalDevice.Serial.ModbusRTU.GetInstance((int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.MODBUS_CHILLER).Execute();
             //ExternalDevice.Serial.ModbusRTU.GetInstance((int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.HEATER).Execute();

@@ -308,7 +308,7 @@ namespace FrameOfSystem3.SubSequence.SubLaserWork
 
                     double[] arTotalTime = new double[] { 0.0, 0.0, 0.0 };
 
-                    if (StartOutputProfile(ref arTotalTime))
+                    if (StartOutputProfile(ref arTotalTime)) //여기서 터짐
                     {
                         double dWaitWorkTime = arTotalTime[0] > arTotalTime[1] ? arTotalTime[0] : arTotalTime[1];
 

@@ -87,14 +87,8 @@
             this.sys3Label16 = new Sys3Controls.Sys3Label();
             this.sys3GroupBox6 = new Sys3Controls.Sys3GroupBox();
             this.m_btnReset = new Sys3Controls.Sys3button();
-            this.m_btnMeasurePower = new Sys3Controls.Sys3button();
-            this.m_btnCalCHPower = new Sys3Controls.Sys3button();
-            this.m_btnMeasureVolt = new Sys3Controls.Sys3button();
-            this.m_btnShortTest = new Sys3Controls.Sys3button();
-            this.m_btnShortTest2 = new Sys3Controls.Sys3button();
-            this.m_btnMeasureVolt2 = new Sys3Controls.Sys3button();
-            this.m_btnCalCHPower2 = new Sys3Controls.Sys3button();
-            this.m_btnMeasurePower2 = new Sys3Controls.Sys3button();
+            this.gridViewControl_Laser_Parameter_5Step_2 = new FrameOfSystem3.Component.GridViewControl_Parameter();
+            this.gridViewControl_Laser_Parameter_5Step = new FrameOfSystem3.Component.GridViewControl_Parameter();
             this.gridViewControl_Power_Measure_Parameter_2 = new FrameOfSystem3.Component.GridViewControl_Parameter();
             this.gridViewControl_Laser_Parameter_2 = new FrameOfSystem3.Component.GridViewControl_Parameter();
             this.gridVeiwControl_Laser_Device_2 = new FrameOfSystem3.Component.GridVeiwControl_Device();
@@ -118,10 +112,10 @@
             this.sys3GroupBox2.LabelGradientColorSecond = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.sys3GroupBox2.LabelHeight = 30;
             this.sys3GroupBox2.LabelTextColor = System.Drawing.Color.Black;
-            this.sys3GroupBox2.Location = new System.Drawing.Point(3, 210);
+            this.sys3GroupBox2.Location = new System.Drawing.Point(3, 214);
             this.sys3GroupBox2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.sys3GroupBox2.Name = "sys3GroupBox2";
-            this.sys3GroupBox2.Size = new System.Drawing.Size(421, 258);
+            this.sys3GroupBox2.Size = new System.Drawing.Size(421, 253);
             this.sys3GroupBox2.TabIndex = 20894;
             this.sys3GroupBox2.Tag = "";
             this.sys3GroupBox2.Text = "POWER TABLE";
@@ -166,7 +160,7 @@
             this.m_lblCalFileName.ImagePosition = new System.Drawing.Point(0, 0);
             this.m_lblCalFileName.ImageSize = new System.Drawing.Point(0, 0);
             this.m_lblCalFileName.LoadImage = null;
-            this.m_lblCalFileName.Location = new System.Drawing.Point(223, 241);
+            this.m_lblCalFileName.Location = new System.Drawing.Point(223, 247);
             this.m_lblCalFileName.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
             this.m_lblCalFileName.MainFontColor = System.Drawing.Color.Black;
             this.m_lblCalFileName.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -210,7 +204,7 @@
             this.btn_CalLoad.ImagePosition = new System.Drawing.Point(1, 1);
             this.btn_CalLoad.ImageSize = new System.Drawing.Point(35, 35);
             this.btn_CalLoad.LoadImage = global::FrameOfSystem3.Properties.Resources.file_96px;
-            this.btn_CalLoad.Location = new System.Drawing.Point(383, 241);
+            this.btn_CalLoad.Location = new System.Drawing.Point(383, 247);
             this.btn_CalLoad.MainFont = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_CalLoad.MainFontColor = System.Drawing.Color.White;
             this.btn_CalLoad.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -245,7 +239,7 @@
             this.sys3Label3.ImagePosition = new System.Drawing.Point(0, 0);
             this.sys3Label3.ImageSize = new System.Drawing.Point(0, 0);
             this.sys3Label3.LoadImage = null;
-            this.sys3Label3.Location = new System.Drawing.Point(131, 241);
+            this.sys3Label3.Location = new System.Drawing.Point(131, 247);
             this.sys3Label3.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
             this.sys3Label3.MainFontColor = System.Drawing.Color.Black;
             this.sys3Label3.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -283,7 +277,7 @@
             this.sys3Label1.ImagePosition = new System.Drawing.Point(0, 0);
             this.sys3Label1.ImageSize = new System.Drawing.Point(0, 0);
             this.sys3Label1.LoadImage = null;
-            this.sys3Label1.Location = new System.Drawing.Point(7, 241);
+            this.sys3Label1.Location = new System.Drawing.Point(7, 247);
             this.sys3Label1.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
             this.sys3Label1.MainFontColor = System.Drawing.Color.Black;
             this.sys3Label1.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -350,7 +344,7 @@
             "16",
             "17",
             "18"});
-            this.ComboBox_Channel.Location = new System.Drawing.Point(56, 241);
+            this.ComboBox_Channel.Location = new System.Drawing.Point(56, 247);
             this.ComboBox_Channel.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.ComboBox_Channel.Name = "ComboBox_Channel";
             this.ComboBox_Channel.Size = new System.Drawing.Size(74, 37);
@@ -391,7 +385,7 @@
             this.m_dgViewCalibration.DefaultCellStyle = dataGridViewCellStyle2;
             this.m_dgViewCalibration.EnableHeadersVisualStyles = false;
             this.m_dgViewCalibration.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
-            this.m_dgViewCalibration.Location = new System.Drawing.Point(7, 279);
+            this.m_dgViewCalibration.Location = new System.Drawing.Point(7, 285);
             this.m_dgViewCalibration.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.m_dgViewCalibration.MultiSelect = false;
             this.m_dgViewCalibration.Name = "m_dgViewCalibration";
@@ -410,7 +404,7 @@
             this.m_dgViewCalibration.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
             this.m_dgViewCalibration.RowTemplate.Height = 23;
             this.m_dgViewCalibration.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.m_dgViewCalibration.Size = new System.Drawing.Size(412, 184);
+            this.m_dgViewCalibration.Size = new System.Drawing.Size(412, 177);
             this.m_dgViewCalibration.TabIndex = 20895;
             this.m_dgViewCalibration.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.m_dgViewCalibration_CellContentClick);
             // 
@@ -1101,7 +1095,7 @@
             this.m_lblCalFileName_2.ImagePosition = new System.Drawing.Point(0, 0);
             this.m_lblCalFileName_2.ImageSize = new System.Drawing.Point(0, 0);
             this.m_lblCalFileName_2.LoadImage = null;
-            this.m_lblCalFileName_2.Location = new System.Drawing.Point(223, 668);
+            this.m_lblCalFileName_2.Location = new System.Drawing.Point(223, 673);
             this.m_lblCalFileName_2.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
             this.m_lblCalFileName_2.MainFontColor = System.Drawing.Color.Black;
             this.m_lblCalFileName_2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -1127,6 +1121,7 @@
             this.m_lblCalFileName_2.UseImage = false;
             this.m_lblCalFileName_2.UseSubFont = true;
             this.m_lblCalFileName_2.UseUnitFont = false;
+            this.m_lblCalFileName_2.Click += new System.EventHandler(this.m_lblCalFileName_2_Click);
             // 
             // btn_CalLoad_2
             // 
@@ -1145,7 +1140,7 @@
             this.btn_CalLoad_2.ImagePosition = new System.Drawing.Point(1, 1);
             this.btn_CalLoad_2.ImageSize = new System.Drawing.Point(35, 35);
             this.btn_CalLoad_2.LoadImage = global::FrameOfSystem3.Properties.Resources.file_96px;
-            this.btn_CalLoad_2.Location = new System.Drawing.Point(383, 668);
+            this.btn_CalLoad_2.Location = new System.Drawing.Point(383, 673);
             this.btn_CalLoad_2.MainFont = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_CalLoad_2.MainFontColor = System.Drawing.Color.White;
             this.btn_CalLoad_2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -1180,7 +1175,7 @@
             this.sys3Label5.ImagePosition = new System.Drawing.Point(0, 0);
             this.sys3Label5.ImageSize = new System.Drawing.Point(0, 0);
             this.sys3Label5.LoadImage = null;
-            this.sys3Label5.Location = new System.Drawing.Point(131, 668);
+            this.sys3Label5.Location = new System.Drawing.Point(131, 673);
             this.sys3Label5.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
             this.sys3Label5.MainFontColor = System.Drawing.Color.Black;
             this.sys3Label5.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -1206,6 +1201,7 @@
             this.sys3Label5.UseImage = false;
             this.sys3Label5.UseSubFont = true;
             this.sys3Label5.UseUnitFont = false;
+            this.sys3Label5.Click += new System.EventHandler(this.sys3Label5_Click);
             // 
             // sys3Label6
             // 
@@ -1218,7 +1214,7 @@
             this.sys3Label6.ImagePosition = new System.Drawing.Point(0, 0);
             this.sys3Label6.ImageSize = new System.Drawing.Point(0, 0);
             this.sys3Label6.LoadImage = null;
-            this.sys3Label6.Location = new System.Drawing.Point(7, 668);
+            this.sys3Label6.Location = new System.Drawing.Point(7, 673);
             this.sys3Label6.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
             this.sys3Label6.MainFontColor = System.Drawing.Color.Black;
             this.sys3Label6.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -1244,6 +1240,7 @@
             this.sys3Label6.UseImage = false;
             this.sys3Label6.UseSubFont = true;
             this.sys3Label6.UseUnitFont = false;
+            this.sys3Label6.Click += new System.EventHandler(this.sys3Label6_Click);
             // 
             // ComboBox_Channel_2
             // 
@@ -1285,7 +1282,7 @@
             "16",
             "17",
             "18"});
-            this.ComboBox_Channel_2.Location = new System.Drawing.Point(56, 668);
+            this.ComboBox_Channel_2.Location = new System.Drawing.Point(56, 673);
             this.ComboBox_Channel_2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.ComboBox_Channel_2.Name = "ComboBox_Channel_2";
             this.ComboBox_Channel_2.Size = new System.Drawing.Size(74, 37);
@@ -1326,7 +1323,7 @@
             this.m_dgViewCalibration_2.DefaultCellStyle = dataGridViewCellStyle5;
             this.m_dgViewCalibration_2.EnableHeadersVisualStyles = false;
             this.m_dgViewCalibration_2.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
-            this.m_dgViewCalibration_2.Location = new System.Drawing.Point(7, 706);
+            this.m_dgViewCalibration_2.Location = new System.Drawing.Point(7, 711);
             this.m_dgViewCalibration_2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.m_dgViewCalibration_2.MultiSelect = false;
             this.m_dgViewCalibration_2.Name = "m_dgViewCalibration_2";
@@ -1345,9 +1342,10 @@
             this.m_dgViewCalibration_2.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
             this.m_dgViewCalibration_2.RowTemplate.Height = 23;
             this.m_dgViewCalibration_2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.m_dgViewCalibration_2.Size = new System.Drawing.Size(412, 184);
+            this.m_dgViewCalibration_2.Size = new System.Drawing.Size(412, 177);
             this.m_dgViewCalibration_2.TabIndex = 20918;
             this.m_dgViewCalibration_2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.m_dgViewCalibration_CellContentClick_2);
+            this.m_dgViewCalibration_2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.m_dgViewCalibration_2_CellContentClick);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -1393,16 +1391,17 @@
             this.sys3GroupBox4.LabelGradientColorSecond = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.sys3GroupBox4.LabelHeight = 30;
             this.sys3GroupBox4.LabelTextColor = System.Drawing.Color.Black;
-            this.sys3GroupBox4.Location = new System.Drawing.Point(3, 636);
+            this.sys3GroupBox4.Location = new System.Drawing.Point(3, 641);
             this.sys3GroupBox4.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.sys3GroupBox4.Name = "sys3GroupBox4";
-            this.sys3GroupBox4.Size = new System.Drawing.Size(421, 259);
+            this.sys3GroupBox4.Size = new System.Drawing.Size(421, 253);
             this.sys3GroupBox4.TabIndex = 20917;
             this.sys3GroupBox4.Tag = "";
             this.sys3GroupBox4.Text = "POWER TABLE";
             this.sys3GroupBox4.TextAlign = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
             this.sys3GroupBox4.ThemeIndex = 0;
             this.sys3GroupBox4.UseLabelBorder = true;
+            this.sys3GroupBox4.Click += new System.EventHandler(this.sys3GroupBox4_Click);
             // 
             // btn_EMO_2
             // 
@@ -1850,359 +1849,41 @@
             this.m_btnReset.UserHoverEmpahsize = false;
             this.m_btnReset.UseSubFont = false;
             // 
-            // m_btnMeasurePower
+            // gridViewControl_Laser_Parameter_5Step_2
             // 
-            this.m_btnMeasurePower.BorderWidth = 2;
-            this.m_btnMeasurePower.ButtonClicked = false;
-            this.m_btnMeasurePower.ClickedEmphasizeTextColor = System.Drawing.Color.White;
-            this.m_btnMeasurePower.CustomClickedGradientFirstColor = System.Drawing.Color.White;
-            this.m_btnMeasurePower.CustomClickedGradientSecondColor = System.Drawing.Color.White;
-            this.m_btnMeasurePower.Description = "";
-            this.m_btnMeasurePower.DisabledColor = System.Drawing.Color.DarkGray;
-            this.m_btnMeasurePower.EdgeRadius = 1;
-            this.m_btnMeasurePower.GradientAngle = 60F;
-            this.m_btnMeasurePower.GradientFirstColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(230)))), ((int)(((byte)(115)))));
-            this.m_btnMeasurePower.GradientSecondColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(135)))), ((int)(((byte)(20)))));
-            this.m_btnMeasurePower.HoverEmphasizeCustomColor = System.Drawing.Color.White;
-            this.m_btnMeasurePower.ImagePosition = new System.Drawing.Point(37, 25);
-            this.m_btnMeasurePower.ImageSize = new System.Drawing.Point(30, 30);
-            this.m_btnMeasurePower.LoadImage = null;
-            this.m_btnMeasurePower.Location = new System.Drawing.Point(305, 133);
-            this.m_btnMeasurePower.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
-            this.m_btnMeasurePower.MainFontColor = System.Drawing.Color.White;
-            this.m_btnMeasurePower.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.m_btnMeasurePower.Name = "m_btnMeasurePower";
-            this.m_btnMeasurePower.Size = new System.Drawing.Size(170, 38);
-            this.m_btnMeasurePower.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
-            this.m_btnMeasurePower.SubFontColor = System.Drawing.Color.Black;
-            this.m_btnMeasurePower.SubText = "";
-            this.m_btnMeasurePower.TabIndex = 5;
-            this.m_btnMeasurePower.Tag = "";
-            this.m_btnMeasurePower.Text = "MEASURE POWER";
-            this.m_btnMeasurePower.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnMeasurePower.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnMeasurePower.ThemeIndex = 0;
-            this.m_btnMeasurePower.UseBorder = true;
-            this.m_btnMeasurePower.UseClickedEmphasizeTextColor = false;
-            this.m_btnMeasurePower.UseCustomizeClickedColor = false;
-            this.m_btnMeasurePower.UseEdge = true;
-            this.m_btnMeasurePower.UseHoverEmphasizeCustomColor = false;
-            this.m_btnMeasurePower.UseImage = true;
-            this.m_btnMeasurePower.UserHoverEmpahsize = false;
-            this.m_btnMeasurePower.UseSubFont = false;
-            this.m_btnMeasurePower.Click += new System.EventHandler(this.Click_Action);
+            this.gridViewControl_Laser_Parameter_5Step_2.Control_Enable = true;
+            this.gridViewControl_Laser_Parameter_5Step_2.controlCollection = null;
+            this.gridViewControl_Laser_Parameter_5Step_2.Location = new System.Drawing.Point(3, 590);
+            this.gridViewControl_Laser_Parameter_5Step_2.Name = "gridViewControl_Laser_Parameter_5Step_2";
+            this.gridViewControl_Laser_Parameter_5Step_2.Size = new System.Drawing.Size(642, 50);
+            this.gridViewControl_Laser_Parameter_5Step_2.TabIndex = 20928;
             // 
-            // m_btnCalCHPower
+            // gridViewControl_Laser_Parameter_5Step
             // 
-            this.m_btnCalCHPower.BorderWidth = 2;
-            this.m_btnCalCHPower.ButtonClicked = false;
-            this.m_btnCalCHPower.ClickedEmphasizeTextColor = System.Drawing.Color.White;
-            this.m_btnCalCHPower.CustomClickedGradientFirstColor = System.Drawing.Color.White;
-            this.m_btnCalCHPower.CustomClickedGradientSecondColor = System.Drawing.Color.White;
-            this.m_btnCalCHPower.Description = "";
-            this.m_btnCalCHPower.DisabledColor = System.Drawing.Color.DarkGray;
-            this.m_btnCalCHPower.EdgeRadius = 1;
-            this.m_btnCalCHPower.GradientAngle = 60F;
-            this.m_btnCalCHPower.GradientFirstColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(230)))), ((int)(((byte)(115)))));
-            this.m_btnCalCHPower.GradientSecondColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(135)))), ((int)(((byte)(20)))));
-            this.m_btnCalCHPower.HoverEmphasizeCustomColor = System.Drawing.Color.White;
-            this.m_btnCalCHPower.ImagePosition = new System.Drawing.Point(37, 25);
-            this.m_btnCalCHPower.ImageSize = new System.Drawing.Point(30, 30);
-            this.m_btnCalCHPower.LoadImage = null;
-            this.m_btnCalCHPower.Location = new System.Drawing.Point(305, 173);
-            this.m_btnCalCHPower.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
-            this.m_btnCalCHPower.MainFontColor = System.Drawing.Color.White;
-            this.m_btnCalCHPower.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.m_btnCalCHPower.Name = "m_btnCalCHPower";
-            this.m_btnCalCHPower.Size = new System.Drawing.Size(170, 38);
-            this.m_btnCalCHPower.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
-            this.m_btnCalCHPower.SubFontColor = System.Drawing.Color.Black;
-            this.m_btnCalCHPower.SubText = "";
-            this.m_btnCalCHPower.TabIndex = 7;
-            this.m_btnCalCHPower.Tag = "";
-            this.m_btnCalCHPower.Text = "CAL CH POWER";
-            this.m_btnCalCHPower.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnCalCHPower.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnCalCHPower.ThemeIndex = 0;
-            this.m_btnCalCHPower.UseBorder = true;
-            this.m_btnCalCHPower.UseClickedEmphasizeTextColor = false;
-            this.m_btnCalCHPower.UseCustomizeClickedColor = false;
-            this.m_btnCalCHPower.UseEdge = true;
-            this.m_btnCalCHPower.UseHoverEmphasizeCustomColor = false;
-            this.m_btnCalCHPower.UseImage = true;
-            this.m_btnCalCHPower.UserHoverEmpahsize = false;
-            this.m_btnCalCHPower.UseSubFont = false;
-            this.m_btnCalCHPower.Click += new System.EventHandler(this.Click_Action);
-            // 
-            // m_btnMeasureVolt
-            // 
-            this.m_btnMeasureVolt.BorderWidth = 2;
-            this.m_btnMeasureVolt.ButtonClicked = false;
-            this.m_btnMeasureVolt.ClickedEmphasizeTextColor = System.Drawing.Color.White;
-            this.m_btnMeasureVolt.CustomClickedGradientFirstColor = System.Drawing.Color.White;
-            this.m_btnMeasureVolt.CustomClickedGradientSecondColor = System.Drawing.Color.White;
-            this.m_btnMeasureVolt.Description = "";
-            this.m_btnMeasureVolt.DisabledColor = System.Drawing.Color.DarkGray;
-            this.m_btnMeasureVolt.EdgeRadius = 1;
-            this.m_btnMeasureVolt.GradientAngle = 60F;
-            this.m_btnMeasureVolt.GradientFirstColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(230)))), ((int)(((byte)(115)))));
-            this.m_btnMeasureVolt.GradientSecondColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(135)))), ((int)(((byte)(20)))));
-            this.m_btnMeasureVolt.HoverEmphasizeCustomColor = System.Drawing.Color.White;
-            this.m_btnMeasureVolt.ImagePosition = new System.Drawing.Point(37, 25);
-            this.m_btnMeasureVolt.ImageSize = new System.Drawing.Point(30, 30);
-            this.m_btnMeasureVolt.LoadImage = null;
-            this.m_btnMeasureVolt.Location = new System.Drawing.Point(475, 133);
-            this.m_btnMeasureVolt.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
-            this.m_btnMeasureVolt.MainFontColor = System.Drawing.Color.White;
-            this.m_btnMeasureVolt.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.m_btnMeasureVolt.Name = "m_btnMeasureVolt";
-            this.m_btnMeasureVolt.Size = new System.Drawing.Size(170, 38);
-            this.m_btnMeasureVolt.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
-            this.m_btnMeasureVolt.SubFontColor = System.Drawing.Color.Black;
-            this.m_btnMeasureVolt.SubText = "";
-            this.m_btnMeasureVolt.TabIndex = 6;
-            this.m_btnMeasureVolt.Tag = "";
-            this.m_btnMeasureVolt.Text = "MEASURE VOLT";
-            this.m_btnMeasureVolt.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnMeasureVolt.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnMeasureVolt.ThemeIndex = 0;
-            this.m_btnMeasureVolt.UseBorder = true;
-            this.m_btnMeasureVolt.UseClickedEmphasizeTextColor = false;
-            this.m_btnMeasureVolt.UseCustomizeClickedColor = false;
-            this.m_btnMeasureVolt.UseEdge = true;
-            this.m_btnMeasureVolt.UseHoverEmphasizeCustomColor = false;
-            this.m_btnMeasureVolt.UseImage = true;
-            this.m_btnMeasureVolt.UserHoverEmpahsize = false;
-            this.m_btnMeasureVolt.UseSubFont = false;
-            this.m_btnMeasureVolt.Click += new System.EventHandler(this.Click_Action);
-            // 
-            // m_btnShortTest
-            // 
-            this.m_btnShortTest.BorderWidth = 2;
-            this.m_btnShortTest.ButtonClicked = false;
-            this.m_btnShortTest.ClickedEmphasizeTextColor = System.Drawing.Color.White;
-            this.m_btnShortTest.CustomClickedGradientFirstColor = System.Drawing.Color.White;
-            this.m_btnShortTest.CustomClickedGradientSecondColor = System.Drawing.Color.White;
-            this.m_btnShortTest.Description = "";
-            this.m_btnShortTest.DisabledColor = System.Drawing.Color.DarkGray;
-            this.m_btnShortTest.EdgeRadius = 1;
-            this.m_btnShortTest.GradientAngle = 60F;
-            this.m_btnShortTest.GradientFirstColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(230)))), ((int)(((byte)(115)))));
-            this.m_btnShortTest.GradientSecondColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(135)))), ((int)(((byte)(20)))));
-            this.m_btnShortTest.HoverEmphasizeCustomColor = System.Drawing.Color.White;
-            this.m_btnShortTest.ImagePosition = new System.Drawing.Point(37, 25);
-            this.m_btnShortTest.ImageSize = new System.Drawing.Point(30, 30);
-            this.m_btnShortTest.LoadImage = null;
-            this.m_btnShortTest.Location = new System.Drawing.Point(475, 173);
-            this.m_btnShortTest.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
-            this.m_btnShortTest.MainFontColor = System.Drawing.Color.White;
-            this.m_btnShortTest.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.m_btnShortTest.Name = "m_btnShortTest";
-            this.m_btnShortTest.Size = new System.Drawing.Size(170, 38);
-            this.m_btnShortTest.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
-            this.m_btnShortTest.SubFontColor = System.Drawing.Color.Black;
-            this.m_btnShortTest.SubText = "";
-            this.m_btnShortTest.TabIndex = 8;
-            this.m_btnShortTest.Tag = "";
-            this.m_btnShortTest.Text = "SHORT TEST";
-            this.m_btnShortTest.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnShortTest.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnShortTest.ThemeIndex = 0;
-            this.m_btnShortTest.UseBorder = true;
-            this.m_btnShortTest.UseClickedEmphasizeTextColor = false;
-            this.m_btnShortTest.UseCustomizeClickedColor = false;
-            this.m_btnShortTest.UseEdge = true;
-            this.m_btnShortTest.UseHoverEmphasizeCustomColor = false;
-            this.m_btnShortTest.UseImage = true;
-            this.m_btnShortTest.UserHoverEmpahsize = false;
-            this.m_btnShortTest.UseSubFont = false;
-            this.m_btnShortTest.Click += new System.EventHandler(this.Click_Action);
-            // 
-            // m_btnShortTest2
-            // 
-            this.m_btnShortTest2.BorderWidth = 2;
-            this.m_btnShortTest2.ButtonClicked = false;
-            this.m_btnShortTest2.ClickedEmphasizeTextColor = System.Drawing.Color.White;
-            this.m_btnShortTest2.CustomClickedGradientFirstColor = System.Drawing.Color.White;
-            this.m_btnShortTest2.CustomClickedGradientSecondColor = System.Drawing.Color.White;
-            this.m_btnShortTest2.Description = "";
-            this.m_btnShortTest2.DisabledColor = System.Drawing.Color.DarkGray;
-            this.m_btnShortTest2.EdgeRadius = 1;
-            this.m_btnShortTest2.GradientAngle = 60F;
-            this.m_btnShortTest2.GradientFirstColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(230)))), ((int)(((byte)(115)))));
-            this.m_btnShortTest2.GradientSecondColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(135)))), ((int)(((byte)(20)))));
-            this.m_btnShortTest2.HoverEmphasizeCustomColor = System.Drawing.Color.White;
-            this.m_btnShortTest2.ImagePosition = new System.Drawing.Point(37, 25);
-            this.m_btnShortTest2.ImageSize = new System.Drawing.Point(30, 30);
-            this.m_btnShortTest2.LoadImage = null;
-            this.m_btnShortTest2.Location = new System.Drawing.Point(475, 600);
-            this.m_btnShortTest2.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
-            this.m_btnShortTest2.MainFontColor = System.Drawing.Color.White;
-            this.m_btnShortTest2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.m_btnShortTest2.Name = "m_btnShortTest2";
-            this.m_btnShortTest2.Size = new System.Drawing.Size(170, 38);
-            this.m_btnShortTest2.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
-            this.m_btnShortTest2.SubFontColor = System.Drawing.Color.Black;
-            this.m_btnShortTest2.SubText = "";
-            this.m_btnShortTest2.TabIndex = 18;
-            this.m_btnShortTest2.Tag = "";
-            this.m_btnShortTest2.Text = "SHORT TEST";
-            this.m_btnShortTest2.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnShortTest2.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnShortTest2.ThemeIndex = 0;
-            this.m_btnShortTest2.UseBorder = true;
-            this.m_btnShortTest2.UseClickedEmphasizeTextColor = false;
-            this.m_btnShortTest2.UseCustomizeClickedColor = false;
-            this.m_btnShortTest2.UseEdge = true;
-            this.m_btnShortTest2.UseHoverEmphasizeCustomColor = false;
-            this.m_btnShortTest2.UseImage = true;
-            this.m_btnShortTest2.UserHoverEmpahsize = false;
-            this.m_btnShortTest2.UseSubFont = false;
-            this.m_btnShortTest2.Click += new System.EventHandler(this.Click_Action);
-            // 
-            // m_btnMeasureVolt2
-            // 
-            this.m_btnMeasureVolt2.BorderWidth = 2;
-            this.m_btnMeasureVolt2.ButtonClicked = false;
-            this.m_btnMeasureVolt2.ClickedEmphasizeTextColor = System.Drawing.Color.White;
-            this.m_btnMeasureVolt2.CustomClickedGradientFirstColor = System.Drawing.Color.White;
-            this.m_btnMeasureVolt2.CustomClickedGradientSecondColor = System.Drawing.Color.White;
-            this.m_btnMeasureVolt2.Description = "";
-            this.m_btnMeasureVolt2.DisabledColor = System.Drawing.Color.DarkGray;
-            this.m_btnMeasureVolt2.EdgeRadius = 1;
-            this.m_btnMeasureVolt2.GradientAngle = 60F;
-            this.m_btnMeasureVolt2.GradientFirstColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(230)))), ((int)(((byte)(115)))));
-            this.m_btnMeasureVolt2.GradientSecondColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(135)))), ((int)(((byte)(20)))));
-            this.m_btnMeasureVolt2.HoverEmphasizeCustomColor = System.Drawing.Color.White;
-            this.m_btnMeasureVolt2.ImagePosition = new System.Drawing.Point(37, 25);
-            this.m_btnMeasureVolt2.ImageSize = new System.Drawing.Point(30, 30);
-            this.m_btnMeasureVolt2.LoadImage = null;
-            this.m_btnMeasureVolt2.Location = new System.Drawing.Point(475, 560);
-            this.m_btnMeasureVolt2.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
-            this.m_btnMeasureVolt2.MainFontColor = System.Drawing.Color.White;
-            this.m_btnMeasureVolt2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.m_btnMeasureVolt2.Name = "m_btnMeasureVolt2";
-            this.m_btnMeasureVolt2.Size = new System.Drawing.Size(170, 38);
-            this.m_btnMeasureVolt2.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
-            this.m_btnMeasureVolt2.SubFontColor = System.Drawing.Color.Black;
-            this.m_btnMeasureVolt2.SubText = "";
-            this.m_btnMeasureVolt2.TabIndex = 16;
-            this.m_btnMeasureVolt2.Tag = "";
-            this.m_btnMeasureVolt2.Text = "MEASURE VOLT";
-            this.m_btnMeasureVolt2.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnMeasureVolt2.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnMeasureVolt2.ThemeIndex = 0;
-            this.m_btnMeasureVolt2.UseBorder = true;
-            this.m_btnMeasureVolt2.UseClickedEmphasizeTextColor = false;
-            this.m_btnMeasureVolt2.UseCustomizeClickedColor = false;
-            this.m_btnMeasureVolt2.UseEdge = true;
-            this.m_btnMeasureVolt2.UseHoverEmphasizeCustomColor = false;
-            this.m_btnMeasureVolt2.UseImage = true;
-            this.m_btnMeasureVolt2.UserHoverEmpahsize = false;
-            this.m_btnMeasureVolt2.UseSubFont = false;
-            this.m_btnMeasureVolt2.Click += new System.EventHandler(this.Click_Action);
-            // 
-            // m_btnCalCHPower2
-            // 
-            this.m_btnCalCHPower2.BorderWidth = 2;
-            this.m_btnCalCHPower2.ButtonClicked = false;
-            this.m_btnCalCHPower2.ClickedEmphasizeTextColor = System.Drawing.Color.White;
-            this.m_btnCalCHPower2.CustomClickedGradientFirstColor = System.Drawing.Color.White;
-            this.m_btnCalCHPower2.CustomClickedGradientSecondColor = System.Drawing.Color.White;
-            this.m_btnCalCHPower2.Description = "";
-            this.m_btnCalCHPower2.DisabledColor = System.Drawing.Color.DarkGray;
-            this.m_btnCalCHPower2.EdgeRadius = 1;
-            this.m_btnCalCHPower2.GradientAngle = 60F;
-            this.m_btnCalCHPower2.GradientFirstColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(230)))), ((int)(((byte)(115)))));
-            this.m_btnCalCHPower2.GradientSecondColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(135)))), ((int)(((byte)(20)))));
-            this.m_btnCalCHPower2.HoverEmphasizeCustomColor = System.Drawing.Color.White;
-            this.m_btnCalCHPower2.ImagePosition = new System.Drawing.Point(37, 25);
-            this.m_btnCalCHPower2.ImageSize = new System.Drawing.Point(30, 30);
-            this.m_btnCalCHPower2.LoadImage = null;
-            this.m_btnCalCHPower2.Location = new System.Drawing.Point(305, 600);
-            this.m_btnCalCHPower2.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
-            this.m_btnCalCHPower2.MainFontColor = System.Drawing.Color.White;
-            this.m_btnCalCHPower2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.m_btnCalCHPower2.Name = "m_btnCalCHPower2";
-            this.m_btnCalCHPower2.Size = new System.Drawing.Size(170, 38);
-            this.m_btnCalCHPower2.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
-            this.m_btnCalCHPower2.SubFontColor = System.Drawing.Color.Black;
-            this.m_btnCalCHPower2.SubText = "";
-            this.m_btnCalCHPower2.TabIndex = 17;
-            this.m_btnCalCHPower2.Tag = "";
-            this.m_btnCalCHPower2.Text = "CAL CH POWER";
-            this.m_btnCalCHPower2.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnCalCHPower2.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnCalCHPower2.ThemeIndex = 0;
-            this.m_btnCalCHPower2.UseBorder = true;
-            this.m_btnCalCHPower2.UseClickedEmphasizeTextColor = false;
-            this.m_btnCalCHPower2.UseCustomizeClickedColor = false;
-            this.m_btnCalCHPower2.UseEdge = true;
-            this.m_btnCalCHPower2.UseHoverEmphasizeCustomColor = false;
-            this.m_btnCalCHPower2.UseImage = true;
-            this.m_btnCalCHPower2.UserHoverEmpahsize = false;
-            this.m_btnCalCHPower2.UseSubFont = false;
-            this.m_btnCalCHPower2.Click += new System.EventHandler(this.Click_Action);
-            // 
-            // m_btnMeasurePower2
-            // 
-            this.m_btnMeasurePower2.BorderWidth = 2;
-            this.m_btnMeasurePower2.ButtonClicked = false;
-            this.m_btnMeasurePower2.ClickedEmphasizeTextColor = System.Drawing.Color.White;
-            this.m_btnMeasurePower2.CustomClickedGradientFirstColor = System.Drawing.Color.White;
-            this.m_btnMeasurePower2.CustomClickedGradientSecondColor = System.Drawing.Color.White;
-            this.m_btnMeasurePower2.Description = "";
-            this.m_btnMeasurePower2.DisabledColor = System.Drawing.Color.DarkGray;
-            this.m_btnMeasurePower2.EdgeRadius = 1;
-            this.m_btnMeasurePower2.GradientAngle = 60F;
-            this.m_btnMeasurePower2.GradientFirstColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(230)))), ((int)(((byte)(115)))));
-            this.m_btnMeasurePower2.GradientSecondColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(135)))), ((int)(((byte)(20)))));
-            this.m_btnMeasurePower2.HoverEmphasizeCustomColor = System.Drawing.Color.White;
-            this.m_btnMeasurePower2.ImagePosition = new System.Drawing.Point(37, 25);
-            this.m_btnMeasurePower2.ImageSize = new System.Drawing.Point(30, 30);
-            this.m_btnMeasurePower2.LoadImage = null;
-            this.m_btnMeasurePower2.Location = new System.Drawing.Point(305, 560);
-            this.m_btnMeasurePower2.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
-            this.m_btnMeasurePower2.MainFontColor = System.Drawing.Color.White;
-            this.m_btnMeasurePower2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.m_btnMeasurePower2.Name = "m_btnMeasurePower2";
-            this.m_btnMeasurePower2.Size = new System.Drawing.Size(170, 38);
-            this.m_btnMeasurePower2.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
-            this.m_btnMeasurePower2.SubFontColor = System.Drawing.Color.Black;
-            this.m_btnMeasurePower2.SubText = "";
-            this.m_btnMeasurePower2.TabIndex = 15;
-            this.m_btnMeasurePower2.Tag = "";
-            this.m_btnMeasurePower2.Text = "MEASURE POWER";
-            this.m_btnMeasurePower2.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnMeasurePower2.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnMeasurePower2.ThemeIndex = 0;
-            this.m_btnMeasurePower2.UseBorder = true;
-            this.m_btnMeasurePower2.UseClickedEmphasizeTextColor = false;
-            this.m_btnMeasurePower2.UseCustomizeClickedColor = false;
-            this.m_btnMeasurePower2.UseEdge = true;
-            this.m_btnMeasurePower2.UseHoverEmphasizeCustomColor = false;
-            this.m_btnMeasurePower2.UseImage = true;
-            this.m_btnMeasurePower2.UserHoverEmpahsize = false;
-            this.m_btnMeasurePower2.UseSubFont = false;
-            this.m_btnMeasurePower2.Click += new System.EventHandler(this.Click_Action);
+            this.gridViewControl_Laser_Parameter_5Step.Control_Enable = true;
+            this.gridViewControl_Laser_Parameter_5Step.controlCollection = null;
+            this.gridViewControl_Laser_Parameter_5Step.Location = new System.Drawing.Point(3, 162);
+            this.gridViewControl_Laser_Parameter_5Step.Name = "gridViewControl_Laser_Parameter_5Step";
+            this.gridViewControl_Laser_Parameter_5Step.Size = new System.Drawing.Size(642, 50);
+            this.gridViewControl_Laser_Parameter_5Step.TabIndex = 20927;
             // 
             // gridViewControl_Power_Measure_Parameter_2
             // 
             this.gridViewControl_Power_Measure_Parameter_2.Control_Enable = true;
             this.gridViewControl_Power_Measure_Parameter_2.controlCollection = null;
-            this.gridViewControl_Power_Measure_Parameter_2.Location = new System.Drawing.Point(424, 639);
+            this.gridViewControl_Power_Measure_Parameter_2.Location = new System.Drawing.Point(424, 642);
             this.gridViewControl_Power_Measure_Parameter_2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.gridViewControl_Power_Measure_Parameter_2.Name = "gridViewControl_Power_Measure_Parameter_2";
-            this.gridViewControl_Power_Measure_Parameter_2.Size = new System.Drawing.Size(221, 255);
+            this.gridViewControl_Power_Measure_Parameter_2.Size = new System.Drawing.Size(221, 253);
             this.gridViewControl_Power_Measure_Parameter_2.TabIndex = 20924;
             // 
             // gridViewControl_Laser_Parameter_2
             // 
             this.gridViewControl_Laser_Parameter_2.Control_Enable = true;
             this.gridViewControl_Laser_Parameter_2.controlCollection = null;
-            this.gridViewControl_Laser_Parameter_2.Location = new System.Drawing.Point(3, 560);
+            this.gridViewControl_Laser_Parameter_2.Location = new System.Drawing.Point(3, 561);
             this.gridViewControl_Laser_Parameter_2.Name = "gridViewControl_Laser_Parameter_2";
-            this.gridViewControl_Laser_Parameter_2.Size = new System.Drawing.Size(301, 51);
+            this.gridViewControl_Laser_Parameter_2.Size = new System.Drawing.Size(642, 28);
             this.gridViewControl_Laser_Parameter_2.TabIndex = 20907;
             // 
             // gridVeiwControl_Laser_Device_2
@@ -2229,10 +1910,10 @@
             // 
             this.gridViewControl_Power_Measure_Parameter.Control_Enable = true;
             this.gridViewControl_Power_Measure_Parameter.controlCollection = null;
-            this.gridViewControl_Power_Measure_Parameter.Location = new System.Drawing.Point(424, 212);
+            this.gridViewControl_Power_Measure_Parameter.Location = new System.Drawing.Point(424, 214);
             this.gridViewControl_Power_Measure_Parameter.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.gridViewControl_Power_Measure_Parameter.Name = "gridViewControl_Power_Measure_Parameter";
-            this.gridViewControl_Power_Measure_Parameter.Size = new System.Drawing.Size(221, 255);
+            this.gridViewControl_Power_Measure_Parameter.Size = new System.Drawing.Size(221, 253);
             this.gridViewControl_Power_Measure_Parameter.TabIndex = 20901;
             // 
             // gridViewControl_Laser_Parameter
@@ -2241,7 +1922,7 @@
             this.gridViewControl_Laser_Parameter.controlCollection = null;
             this.gridViewControl_Laser_Parameter.Location = new System.Drawing.Point(3, 133);
             this.gridViewControl_Laser_Parameter.Name = "gridViewControl_Laser_Parameter";
-            this.gridViewControl_Laser_Parameter.Size = new System.Drawing.Size(301, 51);
+            this.gridViewControl_Laser_Parameter.Size = new System.Drawing.Size(642, 28);
             this.gridViewControl_Laser_Parameter.TabIndex = 20880;
             // 
             // gridVeiwControl_Laser_Device
@@ -2267,14 +1948,8 @@
             // Operation_Main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.Controls.Add(this.m_btnShortTest2);
-            this.Controls.Add(this.m_btnMeasureVolt2);
-            this.Controls.Add(this.m_btnCalCHPower2);
-            this.Controls.Add(this.m_btnMeasurePower2);
-            this.Controls.Add(this.m_btnShortTest);
-            this.Controls.Add(this.m_btnMeasureVolt);
-            this.Controls.Add(this.m_btnCalCHPower);
-            this.Controls.Add(this.m_btnMeasurePower);
+            this.Controls.Add(this.gridViewControl_Laser_Parameter_5Step_2);
+            this.Controls.Add(this.gridViewControl_Laser_Parameter_5Step);
             this.Controls.Add(this.m_btnReset);
             this.Controls.Add(this.m_lblCalFileName_2);
             this.Controls.Add(this.btn_CalLoad_2);
@@ -2399,13 +2074,7 @@
         private Component.GridVeiwControl_Device gridVeiwControl_Laser_Device_2;
         private Component.GridViewControl_Parameter gridViewControl_Enable_Parameter_2;
         private Sys3Controls.Sys3button m_btnReset;
-        private Sys3Controls.Sys3button m_btnMeasurePower;
-        private Sys3Controls.Sys3button m_btnCalCHPower;
-        private Sys3Controls.Sys3button m_btnMeasureVolt;
-        private Sys3Controls.Sys3button m_btnShortTest;
-        private Sys3Controls.Sys3button m_btnShortTest2;
-        private Sys3Controls.Sys3button m_btnMeasureVolt2;
-        private Sys3Controls.Sys3button m_btnCalCHPower2;
-        private Sys3Controls.Sys3button m_btnMeasurePower2;
+        private Component.GridViewControl_Parameter gridViewControl_Laser_Parameter_5Step;
+        private Component.GridViewControl_Parameter gridViewControl_Laser_Parameter_5Step_2;
     }
 }

@@ -292,7 +292,7 @@ namespace FrameOfSystem3.Task
                     break;
 
                 case EN_TASK_ACTION.LASER_WORK_2:
-                    if (ActionLaserWork_2())
+                    //if (ActionLaserWork_2())
                         return true;
                     break;
 
@@ -1403,13 +1403,13 @@ namespace FrameOfSystem3.Task
                     break;
                 case (int)EN_POWER_MEASURE_STEP.LASER_READY + 1:
                     
-                    if (m_tickTimeOut.IsTickOver(false))
-                    {
-                        m_arAlarmSubInfo[0] = "";
-                        GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
-                        m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
-                        break;
-                    }
+                    //if (m_tickTimeOut.IsTickOver(false))
+                    //{
+                    //    m_arAlarmSubInfo[0] = "";
+                    //    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
+                    //    m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
+                    //    break;
+                    //}
                     bool[] arUsed = new bool[m_Laser.ChannelCount];
                     int nTime = 0;
                     double dOutput = 0;
@@ -1636,7 +1636,7 @@ namespace FrameOfSystem3.Task
 
                                 if (ExternalDevice.Serial.Powermeter.GetInstance().RecieveDone)
                                 {
-                                    Powermeter.GetInstance().SetCommand(EN_POWERMETER_COMMAND.READ);
+                                    Powermeter.GetInstance().SetCommand(EN_POWERMETER_COMMAND.READ); //여기로 강제로 이동시켜서 test
                                 }
                                 m_TickForDelay.SetTickCount(90);
                             }
