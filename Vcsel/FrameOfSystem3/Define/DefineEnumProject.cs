@@ -817,7 +817,7 @@ namespace Define
 			{
 				OPERATION_MAIN,
                 OPERATION_IR_MONITOR,
-                OPERATION_CAL_MONITOR,
+                OPERATION_CALIBRATION,
                 //OPERATION_MANUAL,
                 OPERATION_STATE_MONITOR,
                 //OPERATION_RAM_METRICS,

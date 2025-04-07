@@ -612,7 +612,7 @@ namespace FrameOfSystem3.Views
                                         , m_enClickedMainMenu.ToString()
                                         , strEnum.Replace(' ', '_'));
 
-            if (EN_BUTTONEVENT_SUBMENU.OPERATION_CAL_MONITOR.ToString() == strSubMenu)
+            if (EN_BUTTONEVENT_SUBMENU.OPERATION_CALIBRATION.ToString() == strSubMenu)
             {
                 Functional.Form_CAL_Monitor.GetInstance().CreateForm();
 

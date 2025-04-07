@@ -1082,7 +1082,7 @@
             this.m_btnMeasureVolt2.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
             this.m_btnMeasureVolt2.SubFontColor = System.Drawing.Color.Black;
             this.m_btnMeasureVolt2.SubText = "";
-            this.m_btnMeasureVolt2.TabIndex = 20970;
+            this.m_btnMeasureVolt2.TabIndex = 6;
             this.m_btnMeasureVolt2.Tag = "";
             this.m_btnMeasureVolt2.Text = "MEASURE VOLT";
             this.m_btnMeasureVolt2.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
@@ -1096,6 +1096,7 @@
             this.m_btnMeasureVolt2.UseImage = true;
             this.m_btnMeasureVolt2.UserHoverEmpahsize = false;
             this.m_btnMeasureVolt2.UseSubFont = false;
+            this.m_btnMeasureVolt2.Click += new System.EventHandler(this.Click_Action);
             // 
             // m_btnCalCHPower2
             // 
@@ -1123,7 +1124,7 @@
             this.m_btnCalCHPower2.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
             this.m_btnCalCHPower2.SubFontColor = System.Drawing.Color.Black;
             this.m_btnCalCHPower2.SubText = "";
-            this.m_btnCalCHPower2.TabIndex = 20971;
+            this.m_btnCalCHPower2.TabIndex = 7;
             this.m_btnCalCHPower2.Tag = "";
             this.m_btnCalCHPower2.Text = "CAL CH POWER";
             this.m_btnCalCHPower2.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
@@ -1137,6 +1138,7 @@
             this.m_btnCalCHPower2.UseImage = true;
             this.m_btnCalCHPower2.UserHoverEmpahsize = false;
             this.m_btnCalCHPower2.UseSubFont = false;
+            this.m_btnCalCHPower2.Click += new System.EventHandler(this.Click_Action);
             // 
             // m_btnMeasurePower2
             // 
@@ -1164,7 +1166,7 @@
             this.m_btnMeasurePower2.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
             this.m_btnMeasurePower2.SubFontColor = System.Drawing.Color.Black;
             this.m_btnMeasurePower2.SubText = "";
-            this.m_btnMeasurePower2.TabIndex = 20969;
+            this.m_btnMeasurePower2.TabIndex = 5;
             this.m_btnMeasurePower2.Tag = "";
             this.m_btnMeasurePower2.Text = "MEASURE POWER";
             this.m_btnMeasurePower2.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
@@ -1178,6 +1180,7 @@
             this.m_btnMeasurePower2.UseImage = true;
             this.m_btnMeasurePower2.UserHoverEmpahsize = false;
             this.m_btnMeasurePower2.UseSubFont = false;
+            this.m_btnMeasurePower2.Click += new System.EventHandler(this.Click_Action);
             // 
             // m_btnMeasureVolt
             // 
@@ -1205,7 +1208,7 @@
             this.m_btnMeasureVolt.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
             this.m_btnMeasureVolt.SubFontColor = System.Drawing.Color.Black;
             this.m_btnMeasureVolt.SubText = "";
-            this.m_btnMeasureVolt.TabIndex = 20967;
+            this.m_btnMeasureVolt.TabIndex = 6;
             this.m_btnMeasureVolt.Tag = "";
             this.m_btnMeasureVolt.Text = "MEASURE VOLT";
             this.m_btnMeasureVolt.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
@@ -1219,6 +1222,7 @@
             this.m_btnMeasureVolt.UseImage = true;
             this.m_btnMeasureVolt.UserHoverEmpahsize = false;
             this.m_btnMeasureVolt.UseSubFont = false;
+            this.m_btnMeasureVolt.Click += new System.EventHandler(this.Click_Action);
             // 
             // m_btnCalCHPower
             // 
@@ -1246,7 +1250,7 @@
             this.m_btnCalCHPower.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
             this.m_btnCalCHPower.SubFontColor = System.Drawing.Color.Black;
             this.m_btnCalCHPower.SubText = "";
-            this.m_btnCalCHPower.TabIndex = 20968;
+            this.m_btnCalCHPower.TabIndex = 7;
             this.m_btnCalCHPower.Tag = "";
             this.m_btnCalCHPower.Text = "CAL CH POWER";
             this.m_btnCalCHPower.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
@@ -1260,6 +1264,7 @@
             this.m_btnCalCHPower.UseImage = true;
             this.m_btnCalCHPower.UserHoverEmpahsize = false;
             this.m_btnCalCHPower.UseSubFont = false;
+            this.m_btnCalCHPower.Click += new System.EventHandler(this.Click_Action);
             // 
             // m_btnMeasurePower
             // 
@@ -1287,7 +1292,7 @@
             this.m_btnMeasurePower.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
             this.m_btnMeasurePower.SubFontColor = System.Drawing.Color.Black;
             this.m_btnMeasurePower.SubText = "";
-            this.m_btnMeasurePower.TabIndex = 20966;
+            this.m_btnMeasurePower.TabIndex = 5;
             this.m_btnMeasurePower.Tag = "";
             this.m_btnMeasurePower.Text = "MEASURE POWER";
             this.m_btnMeasurePower.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
@@ -1301,6 +1306,7 @@
             this.m_btnMeasurePower.UseImage = true;
             this.m_btnMeasurePower.UserHoverEmpahsize = false;
             this.m_btnMeasurePower.UseSubFont = false;
+            this.m_btnMeasurePower.Click += new System.EventHandler(this.Click_Action);
             // 
             // sys3button1
             // 

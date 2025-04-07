@@ -1402,7 +1402,7 @@ namespace FrameOfSystem3.Task
                     }
                     break;
                 case (int)EN_POWER_MEASURE_STEP.LASER_READY + 1:
-                    
+                    // 2025.4.5 by ecchoi [ADD] Test 후 복구
                     //if (m_tickTimeOut.IsTickOver(false))
                     //{
                     //    m_arAlarmSubInfo[0] = "";
@@ -1616,14 +1616,14 @@ namespace FrameOfSystem3.Task
                 case (int)EN_POWER_MEASURE_STEP.LASER_WORKING:
                     //m_nSeqNum++;
                     //             break;
-                    switch (m_Subseq_Laser_Work.SubSequenceProcedure())
+                    switch (m_Subseq_Laser_Work.SubSequenceProcedure()) // 2025.4.7 by ecchoi [ADD] 출력 시간을 계산해서 합산한다
                     {
                         case EN_SUBSEQUENCE_RESULT.OK:
                             m_nSeqNum++;
                             break;
 
                         case EN_SUBSEQUENCE_RESULT.WORKING:
-                            //CheckLaserWorkTool();
+                            //CheckLaserWorkTool(); // 2025.4.5 by ecchoi [ADD] Test 후 복구?
 
                             if (m_TickForDelay.IsTickOver(true)
                                && (ReadOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, false) //LASER ON 중에만 측정
@@ -1633,10 +1633,10 @@ namespace FrameOfSystem3.Task
                                 m_Laser.ReadMessage();// 출력 모니터링 통신 받기 위해. 실제 모니터링은 AnalogInput을 사용. Parsing 안함
 
                                 m_lstCurrentVolt.Add(ReadAnalogInputVolt(m_nCalChannelAnalogInput));
-
+                                // 2025.4.7 by ecchoi [ADD] 여기로 강제로 이동시켜서 test
                                 if (ExternalDevice.Serial.Powermeter.GetInstance().RecieveDone)
                                 {
-                                    Powermeter.GetInstance().SetCommand(EN_POWERMETER_COMMAND.READ); //여기로 강제로 이동시켜서 test
+                                    Powermeter.GetInstance().SetCommand(EN_POWERMETER_COMMAND.READ); 
                                 }
                                 m_TickForDelay.SetTickCount(90);
                             }
