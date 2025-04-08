@@ -117,7 +117,7 @@ namespace FrameOfSystem3.Component
         #endregion /Property
 
         #region Method
-        public void Initialize(List<ControlItem> lstItem = null, int nViewCount = -1, int nValueWidth = 100)
+        public void Initialize(List<ControlItem> lstItem = null, int nViewCount = -1, int nValueWidth = 120)
         {
             if(nViewCount == -1)
                 nViewCount = lstItem.Count;

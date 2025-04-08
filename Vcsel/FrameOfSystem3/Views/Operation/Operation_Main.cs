@@ -8,15 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TickCounter_;
+using ZedGraph;
+using System.IO;
 
 using RunningMain_;
 using TaskAction_;
 
 using EQUIPMENT_PARAM = FrameOfSystem3.Recipe.PARAM_EQUIPMENT;
 using BONDER_TASK_PARAM = Define.DefineEnumProject.Task.BondHead.PARAM_PROCESS;
-//using WORKZONE_TASK_PARAM = Define.DefineEnumProject.Task.WorkZone.PARAM_PROCESS;
 
-using Define.DefineEnumProject.Motion;
 using Define.DefineEnumProject.DigitalIO;
 using Define.DefineEnumProject.AnalogIO;
 using Define.DefineEnumProject.Task;
@@ -42,24 +42,23 @@ namespace FrameOfSystem3.Views.Operation
             m_InstanceOfSelectionList = Functional.Form_SelectionList.GetInstance();
             InitGridEnableParameter();
             InitGridLaserDevice();
-            InitGridLaserParameter();
-            InitGridLaserParameter5Step();
-            InitGridPowerMesureParameter();
             
             InitGridEnableParameter_2();
             InitGridLaserDevice_2();
-            InitGridLaserParameter_2();
-            InitGridLaserParameter5Step_2();
-            InitGridPowerMesureParameter_2();
+
+            InitializeDictionary();
+            InitailizeParametrGrid();
+
+            m_timerForUpdate.Interval = 10;
+            m_timerForUpdate.Tick += new EventHandler(UpdateTimer);
+            InitializeGraph();
+            m_timerForUpdate.Start();
 
             #region Instance
             _Calculator_Instance_m_p = Functional.Form_Calculator.GetInstance();
             m_LaserCalManager = Laser.ProtecLaserChannelCalibration.GetInstance();
             m_LaserCalManager_2 = Laser.ProtecLaserChannelCalibration_2.GetInstance();
             #endregion
-
-            ComboBox_Channel.SelectedIndex = 0;
-            ComboBox_Channel_2.SelectedIndex = 0;
         }
 
         #region Enum
@@ -77,7 +76,51 @@ namespace FrameOfSystem3.Views.Operation
             INPUT_VOLT = 2,
             OUTPUT_POWER = 3,
         }
+        enum EN_GRAPH_MODE
+        {
+            LIVE,
+            LOAD,
+        }
+        enum EN_PLAY_MODE
+        {
+            STOP,
+            PLAY,
+            REWIND,
+        }
+        enum EN_GRAPH_PARAM
+        {
+            IR_SENSOR_1,
+            IR_SENSOR_2,
+            IR_SENSOR_3,
+            IR_SENSOR_4,
+        }
         #endregion
+        #region Graph 상수
+
+        private const int m_unMaxLiveCount = 5000;
+
+        private const int m_unMinLiveTemp = 0;
+        private const int m_unMaxLiveTemp = 500;
+
+        private const uint m_unMinLiveTotalPower = 0;
+        private const uint m_unMaxLiveTotalPower = 12000;
+
+        private const uint m_unMinLiveChPower = 0;
+        private const uint m_unMaxLiveChPower = 700;
+
+        private const int m_unMinLiveIR_Scale = 0;
+        private const int m_unMaxLiveIR_Scale = 200;
+
+        private const uint m_unMinLiveHeadFlow = 0;
+        private const uint m_unMaxLiveHeadFlow = 50;
+
+        private const string m_strGuideLine = "GuideLine";
+
+        private const string m_strSectionTime = "Section Time";
+        private const string m_strSectionHighTemp = "Section High Temp";
+        private const string m_strSectionLowTemp = "Section Low Temp";
+
+        #endregion</Graph 상수>
 
         #region <FIELD>
         private FrameOfSystem3.Recipe.Recipe m_instanceRecipe = FrameOfSystem3.Recipe.Recipe.GetInstance();
@@ -96,6 +139,27 @@ namespace FrameOfSystem3.Views.Operation
         Functional.Form_SelectionList m_InstanceOfSelectionList = null;
         Functional.Form_MessageBox m_InstanceMessageBox = null;
         private readonly string STR_INITALIZE_TASK = "INITIALIZE TASK";
+
+        private static Timer m_timerForUpdate = new Timer();
+        private EN_GRAPH_MODE m_enGraphMode = EN_GRAPH_MODE.LIVE;
+        private int m_nCurrentGraphTime = 0;
+        private int m_nStepTime = 1;
+        private EN_PLAY_MODE m_enPlayMode = EN_PLAY_MODE.STOP;
+        private Dictionary<string, PointPairList> m_dicOfGraphList = new Dictionary<string, PointPairList>(); // FOR GUIDE
+        private Dictionary<EN_GRAPH_PARAM, RollingPointPairList> m_dicGraph = new Dictionary<EN_GRAPH_PARAM, RollingPointPairList>(); // Channel, Values
+        private Dictionary<EN_GRAPH_PARAM, bool> m_dicVisibleItem = new Dictionary<EN_GRAPH_PARAM, bool>();
+        private Dictionary<EN_GRAPH_PARAM, Color> m_dicVisibleColor = new Dictionary<EN_GRAPH_PARAM, Color>();
+        private Dictionary<EN_GRAPH_PARAM, int[]> m_dicScaleIdnex = new Dictionary<EN_GRAPH_PARAM, int[]>(); // int arry 0 : 그래프 y number, 1: scale index
+        private Dictionary<EN_GRAPH_PARAM, double> m_dicValue = new Dictionary<EN_GRAPH_PARAM, double>();
+        private Dictionary<EN_GRAPH_PARAM, string> m_dicValueUnit = new Dictionary<EN_GRAPH_PARAM, string>();
+        private string m_strWorkLogPath = "";
+        private int[] m_arSectionTime = new int[5];
+        private double[] m_arSectionHighTemp = new double[5];
+        private double[] m_arSectionLowTemp = new double[5];
+        private Log.WorkLog m_InstanceOfLaserMonitor = Log.WorkLog.GetInstance();
+        private FrameOfSystem3.Config.ConfigAnalogIO m_InstanceOfAnalogIO = FrameOfSystem3.Config.ConfigAnalogIO.GetInstance();
+        private Functional.Form_Calculator m_InstanceOfCalculator = Functional.Form_Calculator.GetInstance();
+
         #region Task
         Task.TaskOperator m_instanceOperator = null;
         private int m_nCountOfTask = 0;
@@ -106,6 +170,31 @@ namespace FrameOfSystem3.Views.Operation
         TaskActionFlow m_instanceActionFlow = null;
         #endregion
         #endregion </FIELD>
+
+        #region 외부인터페이스
+        /// <summary>
+        /// 2020.08.12 by twkang [ADD] Jog 폼을 생성한다.
+        /// </summary>
+        public void CreateForm()
+        {
+            SetSectionArea();
+            InitializeGraph();
+            m_timerForUpdate.Start();
+
+            this.Size = new Size(1203, 490);
+
+            
+
+            this.Show();
+        }
+        public void SetLiveMode()
+        {
+            m_enGraphMode = EN_GRAPH_MODE.LIVE;
+            InitializeGraph();
+            SetEnableStroll(false);
+            SetSectionArea();
+        }
+        #endregion
 
         #region 내부인터페이스
         /// <summary>
@@ -234,12 +323,9 @@ namespace FrameOfSystem3.Views.Operation
             base.ProcessWhenActivation();
             UpdateParamter();
             UpdatePowerLabel();
-            gridViewControl_Power_Measure_Parameter.UpdateValue();
-            UpdatePowerTable();
 
             UpdatePowerLabel_2();
-            gridViewControl_Power_Measure_Parameter_2.UpdateValue();
-            UpdatePowerTable_2();
+
         }
         protected override void ProcessWhenDeactivation()
         {
@@ -254,6 +340,745 @@ namespace FrameOfSystem3.Views.Operation
             base.ProcessWhenDeactivation();
         }
         #endregion </OVERRIDE>
+        #region <INITIALIZE>
+        private void InitailizeParametrGrid()
+        {
+            dataGridView.Rows.Clear();
+            int nRow = 0;
+            foreach (EN_GRAPH_PARAM en in Enum.GetValues(typeof(EN_GRAPH_PARAM)))
+            {
+                dataGridView.Rows.Add();
+                dataGridView[0, nRow].Value = en.ToString().Replace("_", " ");
+                dataGridView[0, nRow].Style.BackColor = Color.LightGray;
+                dataGridView[0, nRow].Style.SelectionBackColor = Color.LightGray;
+                nRow++;
+            }
+            UpdateGrid();
+        }
+        private void InitializeDictionary()
+        {
+            m_dicVisibleItem.Clear();
+
+            //             m_dicVisibleItem.Add(EN_GRAPH_PARAM.PYRO_TEMP_1, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_TEMP_1_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            //             m_dicVisibleItem.Add(EN_GRAPH_PARAM.PYRO_TEMP_2, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_TEMP_2_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            //             m_dicVisibleItem.Add(EN_GRAPH_PARAM.PYRO_TEMP_3, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_TEMP_3_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            //             m_dicVisibleItem.Add(EN_GRAPH_PARAM.PYRO_TEMP_4, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_TEMP_4_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            //             m_dicVisibleItem.Add(EN_GRAPH_PARAM.PYRO_TEMP_5, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_TEMP_5_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+
+            m_dicVisibleItem.Add(EN_GRAPH_PARAM.IR_SENSOR_1, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONITORING_IR_SENSOR_1_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem.Add(EN_GRAPH_PARAM.IR_SENSOR_2, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONITORING_IR_SENSOR_2_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem.Add(EN_GRAPH_PARAM.IR_SENSOR_3, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONITORING_IR_SENSOR_3_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem.Add(EN_GRAPH_PARAM.IR_SENSOR_4, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONITORING_IR_SENSOR_4_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+
+            m_dicVisibleColor.Clear();
+
+            //             m_dicVisibleColor.Add(EN_GRAPH_PARAM.PYRO_TEMP_1, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_TEMP_1_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            //             m_dicVisibleColor.Add(EN_GRAPH_PARAM.PYRO_TEMP_2, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_TEMP_2_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            //             m_dicVisibleColor.Add(EN_GRAPH_PARAM.PYRO_TEMP_3, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_TEMP_3_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            //             m_dicVisibleColor.Add(EN_GRAPH_PARAM.PYRO_TEMP_4, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_TEMP_4_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            //             m_dicVisibleColor.Add(EN_GRAPH_PARAM.PYRO_TEMP_5, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_TEMP_5_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+
+            m_dicVisibleColor.Add(EN_GRAPH_PARAM.IR_SENSOR_1, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONITORING_IR_SENSOR_1_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor.Add(EN_GRAPH_PARAM.IR_SENSOR_2, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONITORING_IR_SENSOR_2_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor.Add(EN_GRAPH_PARAM.IR_SENSOR_3, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONITORING_IR_SENSOR_3_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor.Add(EN_GRAPH_PARAM.IR_SENSOR_4, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONITORING_IR_SENSOR_4_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+
+
+
+            m_dicValueUnit.Clear();
+
+            //             m_dicValueUnit.Add(EN_GRAPH_PARAM.PYRO_TEMP_1, " ℃");
+            //             m_dicValueUnit.Add(EN_GRAPH_PARAM.PYRO_TEMP_2, " ℃");
+            //             m_dicValueUnit.Add(EN_GRAPH_PARAM.PYRO_TEMP_3, " ℃");
+            //             m_dicValueUnit.Add(EN_GRAPH_PARAM.PYRO_TEMP_4, " ℃");
+            //             m_dicValueUnit.Add(EN_GRAPH_PARAM.PYRO_TEMP_5, " ℃");
+
+            m_dicValueUnit.Add(EN_GRAPH_PARAM.IR_SENSOR_1, " ℃");
+            m_dicValueUnit.Add(EN_GRAPH_PARAM.IR_SENSOR_2, " ℃");
+            m_dicValueUnit.Add(EN_GRAPH_PARAM.IR_SENSOR_3, " ℃");
+            m_dicValueUnit.Add(EN_GRAPH_PARAM.IR_SENSOR_4, " ℃");
+
+            m_dicValue.Clear();
+
+            //             m_dicValue.Add(EN_GRAPH_PARAM.PYRO_TEMP_1, 0);
+            //             m_dicValue.Add(EN_GRAPH_PARAM.PYRO_TEMP_2, 0);
+            //             m_dicValue.Add(EN_GRAPH_PARAM.PYRO_TEMP_3, 0);
+            //             m_dicValue.Add(EN_GRAPH_PARAM.PYRO_TEMP_4, 0);
+            //             m_dicValue.Add(EN_GRAPH_PARAM.PYRO_TEMP_5, 0);
+
+            m_dicValue.Add(EN_GRAPH_PARAM.IR_SENSOR_1, 0);
+            m_dicValue.Add(EN_GRAPH_PARAM.IR_SENSOR_2, 0);
+            m_dicValue.Add(EN_GRAPH_PARAM.IR_SENSOR_3, 0);
+            m_dicValue.Add(EN_GRAPH_PARAM.IR_SENSOR_4, 0);
+        }
+
+        private void InitializeGraph()
+        {
+            m_tickCount.SetTickCount(1);
+
+            m_dicScaleIdnex.Clear();
+            _Graph.GraphPane.CurveList.Clear();
+
+
+            m_dicGraph.Clear();
+
+            _Graph.IsShowPointValues = true;
+
+
+            _Graph.GraphPane.Title.IsVisible = false;
+            _Graph.GraphPane.Legend.FontSpec.Size = 6;
+            _Graph.GraphPane.Legend.IsVisible = false;
+
+            int nTimeMax = m_unMaxLiveCount;
+
+            Dictionary<int, Dictionary<Log.WorkLog.EN_LOG_ITEM, double>> dicLoadedData = m_InstanceOfLaserMonitor.dicLoadedLog;
+            if (dicLoadedData.Keys.Count > 0 && m_enGraphMode == EN_GRAPH_MODE.LOAD)
+                nTimeMax = dicLoadedData.Keys.Max();
+
+            _Graph.GraphPane.XAxis.Scale.Min = 0;
+            _Graph.GraphPane.XAxis.Scale.Max = nTimeMax;
+
+            _Graph.GraphPane.XAxis.Title.IsVisible = false;
+
+            _Graph.GraphPane.YAxisList.Clear();
+            _Graph.GraphPane.Y2AxisList.Clear();
+
+            int Ynumber = 1;
+            int Y1Index = 0;
+            int Y2Index = 0;
+
+            #region IR_SENSOR
+            if (m_dicVisibleItem[EN_GRAPH_PARAM.IR_SENSOR_1])
+            {
+                if (Ynumber == 1)
+                {
+
+                    YAxis yAxis = new YAxis("IR_1 (℃)");
+                    yAxis.Scale.Min = m_unMinLiveIR_Scale;
+                    yAxis.Scale.Max = m_unMaxLiveIR_Scale;
+                    yAxis.Title.FontSpec.Size = 13;
+                    yAxis.Scale.FontSpec.Size = 10;
+                    yAxis.MinorTic.IsAllTics = false;
+                    _Graph.GraphPane.YAxisList.Add(yAxis);
+
+                    m_dicScaleIdnex.Add(EN_GRAPH_PARAM.IR_SENSOR_1, new int[] { Ynumber, Y1Index });
+
+                    Ynumber = 2;
+                    Y1Index++;
+                }
+                else
+                {
+                    Y2Axis yAxis = new Y2Axis("IR_1 (℃)");
+                    yAxis.Scale.Min = m_unMinLiveIR_Scale;
+                    yAxis.Scale.Max = m_unMaxLiveIR_Scale;
+                    yAxis.Title.FontSpec.Size = 13;
+                    yAxis.Scale.FontSpec.Size = 10;
+                    yAxis.IsVisible = true;
+                    yAxis.MinorTic.IsAllTics = false;
+                    _Graph.GraphPane.Y2AxisList.Add(yAxis);
+
+                    m_dicScaleIdnex.Add(EN_GRAPH_PARAM.IR_SENSOR_1, new int[] { Ynumber, Y2Index });
+
+                    Ynumber = 1;
+                    Y2Index++;
+                }
+            }
+            if (m_dicVisibleItem[EN_GRAPH_PARAM.IR_SENSOR_2])
+            {
+                if (Ynumber == 1)
+                {
+
+                    YAxis yAxis = new YAxis("IR_2 (℃)");
+                    yAxis.Scale.Min = m_unMinLiveIR_Scale;
+                    yAxis.Scale.Max = m_unMaxLiveIR_Scale;
+                    yAxis.Title.FontSpec.Size = 13;
+                    yAxis.Scale.FontSpec.Size = 10;
+                    yAxis.MinorTic.IsAllTics = false;
+                    _Graph.GraphPane.YAxisList.Add(yAxis);
+
+                    m_dicScaleIdnex.Add(EN_GRAPH_PARAM.IR_SENSOR_2, new int[] { Ynumber, Y1Index });
+
+                    Ynumber = 2;
+                    Y1Index++;
+                }
+                else
+                {
+                    Y2Axis yAxis = new Y2Axis("IR_2 (℃)");
+                    yAxis.Scale.Min = m_unMinLiveIR_Scale;
+                    yAxis.Scale.Max = m_unMaxLiveIR_Scale;
+                    yAxis.Title.FontSpec.Size = 13;
+                    yAxis.Scale.FontSpec.Size = 10;
+                    yAxis.IsVisible = true;
+                    yAxis.MinorTic.IsAllTics = false;
+                    _Graph.GraphPane.Y2AxisList.Add(yAxis);
+
+                    m_dicScaleIdnex.Add(EN_GRAPH_PARAM.IR_SENSOR_2, new int[] { Ynumber, Y2Index });
+
+                    Ynumber = 1;
+                    Y2Index++;
+                }
+            }
+            if (m_dicVisibleItem[EN_GRAPH_PARAM.IR_SENSOR_3])
+            {
+                if (Ynumber == 1)
+                {
+
+                    YAxis yAxis = new YAxis("IR_3 (℃)");
+                    yAxis.Scale.Min = m_unMinLiveIR_Scale;
+                    yAxis.Scale.Max = m_unMaxLiveIR_Scale;
+                    yAxis.Title.FontSpec.Size = 13;
+                    yAxis.Scale.FontSpec.Size = 10;
+                    yAxis.MinorTic.IsAllTics = false;
+                    _Graph.GraphPane.YAxisList.Add(yAxis);
+
+                    m_dicScaleIdnex.Add(EN_GRAPH_PARAM.IR_SENSOR_3, new int[] { Ynumber, Y1Index });
+
+                    Ynumber = 2;
+                    Y1Index++;
+                }
+                else
+                {
+                    Y2Axis yAxis = new Y2Axis("IR_3 (℃)");
+                    yAxis.Scale.Min = m_unMinLiveIR_Scale;
+                    yAxis.Scale.Max = m_unMaxLiveIR_Scale;
+                    yAxis.Title.FontSpec.Size = 13;
+                    yAxis.Scale.FontSpec.Size = 10;
+                    yAxis.IsVisible = true;
+                    yAxis.MinorTic.IsAllTics = false;
+                    _Graph.GraphPane.Y2AxisList.Add(yAxis);
+
+                    m_dicScaleIdnex.Add(EN_GRAPH_PARAM.IR_SENSOR_3, new int[] { Ynumber, Y2Index });
+
+                    Ynumber = 1;
+                    Y2Index++;
+                }
+            }
+            if (m_dicVisibleItem[EN_GRAPH_PARAM.IR_SENSOR_4])
+            {
+                if (Ynumber == 1)
+                {
+
+                    YAxis yAxis = new YAxis("IR_4 (℃)");
+                    yAxis.Scale.Min = m_unMinLiveIR_Scale;
+                    yAxis.Scale.Max = m_unMaxLiveIR_Scale;
+                    yAxis.Title.FontSpec.Size = 13;
+                    yAxis.Scale.FontSpec.Size = 10;
+                    yAxis.MinorTic.IsAllTics = false;
+                    _Graph.GraphPane.YAxisList.Add(yAxis);
+
+                    m_dicScaleIdnex.Add(EN_GRAPH_PARAM.IR_SENSOR_4, new int[] { Ynumber, Y1Index });
+
+                    Ynumber = 2;
+                    Y1Index++;
+                }
+                else
+                {
+                    Y2Axis yAxis = new Y2Axis("IR_4 (℃)");
+                    yAxis.Scale.Min = m_unMinLiveIR_Scale;
+                    yAxis.Scale.Max = m_unMaxLiveIR_Scale;
+                    yAxis.Title.FontSpec.Size = 13;
+                    yAxis.Scale.FontSpec.Size = 10;
+                    yAxis.IsVisible = true;
+                    yAxis.MinorTic.IsAllTics = false;
+                    _Graph.GraphPane.Y2AxisList.Add(yAxis);
+
+                    m_dicScaleIdnex.Add(EN_GRAPH_PARAM.IR_SENSOR_4, new int[] { Ynumber, Y2Index });
+
+                    Ynumber = 1;
+                    Y2Index++;
+                }
+            }
+            #endregion /IR_SENSOR
+
+
+
+
+            #region Add DicGraph
+            foreach (EN_GRAPH_PARAM en in Enum.GetValues(typeof(EN_GRAPH_PARAM)))
+            {
+                if (m_dicVisibleItem[en])
+                {
+                    m_dicGraph.Add(en, new RollingPointPairList(nTimeMax));
+                    var LineItem = _Graph.GraphPane.AddCurve(en.ToString(), m_dicGraph[en], m_dicVisibleColor[en], SymbolType.None);
+                    LineItem.Line.Width = 3;
+                    LineItem.Line.Width = 3;
+                    LineItem.Label.FontSpec = new FontSpec();
+                    LineItem.Label.FontSpec.Size = 9;
+                    LineItem.Label.FontSpec.Border.IsVisible = false;
+
+                    if (m_dicScaleIdnex[en][0] == 2)
+                        LineItem.IsY2Axis = true;
+                    LineItem.YAxisIndex = m_dicScaleIdnex[en][1];
+                }
+            }
+            #endregion /Add DicGraph
+
+            if (m_enGraphMode == EN_GRAPH_MODE.LOAD)
+            {
+                foreach (var kpv in dicLoadedData)
+                {
+
+                    //                     if (m_dicVisibleItem[EN_GRAPH_PARAM.PYRO_TEMP_1])
+                    //                         m_dicGraph[EN_GRAPH_PARAM.PYRO_TEMP_1].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.PYRO_TEMP_1]);
+                    //                     if (m_dicVisibleItem[EN_GRAPH_PARAM.PYRO_TEMP_2])
+                    //                         m_dicGraph[EN_GRAPH_PARAM.PYRO_TEMP_2].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.PYRO_TEMP_2]);
+                    //                     if (m_dicVisibleItem[EN_GRAPH_PARAM.PYRO_TEMP_3])
+                    //                         m_dicGraph[EN_GRAPH_PARAM.PYRO_TEMP_3].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.PYRO_TEMP_3]);
+                    //                     if (m_dicVisibleItem[EN_GRAPH_PARAM.PYRO_TEMP_4])
+                    //                         m_dicGraph[EN_GRAPH_PARAM.PYRO_TEMP_4].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.PYRO_TEMP_4]);
+                    //                     if (m_dicVisibleItem[EN_GRAPH_PARAM.PYRO_TEMP_5])
+                    //                         m_dicGraph[EN_GRAPH_PARAM.PYRO_TEMP_5].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.PYRO_TEMP_5]);
+
+                    if (m_dicVisibleItem[EN_GRAPH_PARAM.IR_SENSOR_1])
+                    {
+                        //Log에 추후에 추가되어서 없는 경우 Load하기 위해
+                        if (kpv.Value.ContainsKey(Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_1))
+                            m_dicGraph[EN_GRAPH_PARAM.IR_SENSOR_1].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_1]);
+                        else
+                            m_dicGraph[EN_GRAPH_PARAM.IR_SENSOR_1].Add(kpv.Key, 0);
+                    }
+                    if (m_dicVisibleItem[EN_GRAPH_PARAM.IR_SENSOR_2])
+                    {
+                        //Log에 추후에 추가되어서 없는 경우 Load하기 위해
+                        if (kpv.Value.ContainsKey(Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_2))
+                            m_dicGraph[EN_GRAPH_PARAM.IR_SENSOR_2].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_2]);
+                        else
+                            m_dicGraph[EN_GRAPH_PARAM.IR_SENSOR_2].Add(kpv.Key, 0);
+                    }
+                    if (m_dicVisibleItem[EN_GRAPH_PARAM.IR_SENSOR_3])
+                    {
+                        //Log에 추후에 추가되어서 없는 경우 Load하기 위해
+                        if (kpv.Value.ContainsKey(Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_3))
+                            m_dicGraph[EN_GRAPH_PARAM.IR_SENSOR_3].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_3]);
+                        else
+                            m_dicGraph[EN_GRAPH_PARAM.IR_SENSOR_3].Add(kpv.Key, 0);
+                    }
+                    if (m_dicVisibleItem[EN_GRAPH_PARAM.IR_SENSOR_4])
+                    {
+                        //Log에 추후에 추가되어서 없는 경우 Load하기 위해
+                        if (kpv.Value.ContainsKey(Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_4))
+                            m_dicGraph[EN_GRAPH_PARAM.IR_SENSOR_4].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_4]);
+                        else
+                            m_dicGraph[EN_GRAPH_PARAM.IR_SENSOR_4].Add(kpv.Key, 0);
+                    }
+                }
+            }
+            if (Y1Index == 0)
+            {
+                YAxis yAxis = new YAxis("");
+                yAxis.IsVisible = false;
+                _Graph.GraphPane.YAxisList.Add(yAxis);
+            }
+            if (Y2Index == 0)
+            {
+                Y2Axis yAxis = new Y2Axis("");
+                yAxis.IsVisible = false;
+                _Graph.GraphPane.Y2AxisList.Add(yAxis);
+            }
+
+            _Graph.AxisChange();
+            _Graph.Invalidate();
+        }
+        #endregion </INITIALIZE>
+
+        #region UpdateUI
+        private void UpdateTimer(object sender, EventArgs e)
+        {
+            PlayGraph();
+            UpdateValue();
+            UpdateLabel();
+            Update_Graph();
+            UpdateGrid();
+            SetCurrentLine();
+        }
+        public void UpdateLabel()
+        {
+            //LB_SAVE_STATE.Text = m_InstanceOfLaserMonitor.enStatus.ToString();
+            //if (m_InstanceOfLaserMonitor.enStatus == Log.WorkLog.EN_SAVE_STATUS.WAIT)
+            //    btn_Save.Text = "SAVE";
+            //else
+            //    btn_Save.Text = "STOP";
+
+            switch (m_enGraphMode)
+            {
+                case EN_GRAPH_MODE.LIVE:
+                    LB_Time.Text = "";
+
+                    break;
+                case EN_GRAPH_MODE.LOAD:
+                    LB_Time.Text = m_nCurrentGraphTime.ToString();
+
+                    break;
+            }
+
+            LB_STEP.Text = m_nStepTime.ToString();
+        }
+
+        private void UpdateGrid()
+        {
+            int nRow = 0;
+            foreach (EN_GRAPH_PARAM en in Enum.GetValues(typeof(EN_GRAPH_PARAM)))
+            {
+                dataGridView[1, nRow].Value = m_dicValue[en].ToString("f3") + m_dicValueUnit[en];
+
+                if (m_dicVisibleItem[en])
+                {
+                    dataGridView[2, nRow].Style.BackColor = m_dicVisibleColor[en];
+                    dataGridView[2, nRow].Style.SelectionBackColor = m_dicVisibleColor[en];
+                }
+                else
+                {
+                    dataGridView[2, nRow].Style.BackColor = Color.White;
+                    dataGridView[2, nRow].Style.SelectionBackColor = Color.White;
+                }
+                nRow++;
+            }
+        }
+        private void UpdateValue()
+        {
+
+            switch (m_enGraphMode)
+            {
+                case EN_GRAPH_MODE.LIVE:
+
+                    //                     m_dicValue[EN_GRAPH_PARAM.PYRO_TEMP_1] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.TEMP_CH_1);
+                    //                     m_dicValue[EN_GRAPH_PARAM.PYRO_TEMP_2] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.TEMP_CH_2);
+                    //                     m_dicValue[EN_GRAPH_PARAM.PYRO_TEMP_3] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.TEMP_CH_3);
+                    //                     m_dicValue[EN_GRAPH_PARAM.PYRO_TEMP_4] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.TEMP_CH_4);
+                    //                     m_dicValue[EN_GRAPH_PARAM.PYRO_TEMP_5] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.TEMP_CH_5);
+
+                    m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_1] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.IR_SENSOR_1);
+                    m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_2] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.IR_SENSOR_2);
+                    m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_3] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.IR_SENSOR_3);
+                    m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_4] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.IR_SENSOR_4);
+
+
+                    break;
+                case EN_GRAPH_MODE.LOAD:
+                    Dictionary<int, Dictionary<Log.WorkLog.EN_LOG_ITEM, double>> dicLoadedData = m_InstanceOfLaserMonitor.dicLoadedLog;
+                    int nValueTime = m_nCurrentGraphTime;
+                    while (!dicLoadedData.ContainsKey(nValueTime))
+                    {
+                        nValueTime--;
+                        if (nValueTime <= 0)
+                            break;
+                    }
+
+                    //                     m_dicValue[EN_GRAPH_PARAM.PYRO_TEMP_1] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.PYRO_TEMP_1];
+                    //                     m_dicValue[EN_GRAPH_PARAM.PYRO_TEMP_2] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.PYRO_TEMP_2];
+                    //                     m_dicValue[EN_GRAPH_PARAM.PYRO_TEMP_3] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.PYRO_TEMP_3];
+                    //                     m_dicValue[EN_GRAPH_PARAM.PYRO_TEMP_4] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.PYRO_TEMP_4];
+                    //                     m_dicValue[EN_GRAPH_PARAM.PYRO_TEMP_5] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.PYRO_TEMP_5];
+                    //m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_1] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_1];
+                    //m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_2] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_2];
+                    //m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_3] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_3];
+                    //m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_4] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_4];
+
+                    if (dicLoadedData[nValueTime].ContainsKey(Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_1))
+                        m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_1] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_1];
+                    else
+                        m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_1] = 0;
+
+                    if (dicLoadedData[nValueTime].ContainsKey(Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_2))
+                        m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_2] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_2];
+                    else
+                        m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_2] = 0;
+
+                    if (dicLoadedData[nValueTime].ContainsKey(Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_3))
+                        m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_3] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_3];
+                    else
+                        m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_3] = 0;
+
+                    if (dicLoadedData[nValueTime].ContainsKey(Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_4))
+                        m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_4] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_4];
+                    else
+                        m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_4] = 0;
+
+                    break;
+            }
+            // 2025.3.18 by ecchoi [ADD] Graph Test 용 함수
+            TestGraphFluctuation();
+        }
+        private void TestGraphFluctuation()
+        {
+            // 2025.3.18 by ecchoi [ADD] Graph Test Value
+            double baseValue = 50; // 기본 값
+            double fluctuation = 30 * Math.Sin(DateTime.Now.Second / 5.0 * Math.PI); // 5초 간격으로 변동
+
+            m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_1] = baseValue + fluctuation;
+            m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_2] = baseValue - fluctuation;
+            m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_3] = baseValue + fluctuation / 2;
+            m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_4] = baseValue - fluctuation / 2;
+        }
+        #region Graph
+        public void Update_Graph()
+        {
+            switch (m_enGraphMode)
+            {
+                case EN_GRAPH_MODE.LIVE:
+                    if (m_tickCount.GetTickCount() > m_unMaxLiveCount)
+                    {
+                        _Graph.GraphPane.XAxis.Scale.Min = m_tickCount.GetTickCount() - m_unMaxLiveCount;
+                        _Graph.GraphPane.XAxis.Scale.Max = m_tickCount.GetTickCount();
+                    }
+
+                    foreach (EN_GRAPH_PARAM en in Enum.GetValues(typeof(EN_GRAPH_PARAM)))
+                    {
+                        if (m_dicVisibleItem[en])
+                        {
+                            m_dicGraph[en].Add(m_tickCount.GetTickCount(), m_dicValue[en]);
+                        }
+                    }
+                    break;
+            }
+            _Graph.AxisChange();
+            _Graph.Invalidate();
+        }
+        private void SetCurrentLine()
+        {
+            if (m_enGraphMode == EN_GRAPH_MODE.LIVE)
+                return;
+
+            if (m_dicOfGraphList.ContainsKey(m_strGuideLine) == false)
+                m_dicOfGraphList.Add(m_strGuideLine, new PointPairList());
+
+            m_dicOfGraphList[m_strGuideLine].Clear();
+
+            m_dicOfGraphList[m_strGuideLine].Add(new PointPair(m_nCurrentGraphTime, 0));
+            m_dicOfGraphList[m_strGuideLine].Add(new PointPair(m_nCurrentGraphTime, _Graph.GraphPane.YAxis.Scale.Max));
+
+            LineItem Item = null;
+            Item = _Graph.GraphPane.AddCurve(m_strGuideLine, m_dicOfGraphList[m_strGuideLine], Color.Red, SymbolType.None);
+            Item.Label.IsVisible = false;
+
+        }
+        private void PlayGraph()
+        {
+            if (m_enGraphMode == EN_GRAPH_MODE.LIVE)
+                return;
+
+            switch (m_enPlayMode)
+            {
+                case EN_PLAY_MODE.PLAY:
+                    if (SB_GraphTime.Maximum < SB_GraphTime.Value + m_nStepTime)
+                    {
+                        m_enPlayMode = EN_PLAY_MODE.STOP;
+                        return;
+                    }
+                    SB_GraphTime.Value += m_nStepTime;
+                    break;
+                case EN_PLAY_MODE.REWIND:
+                    if (SB_GraphTime.Minimum > SB_GraphTime.Value - m_nStepTime)
+                    {
+                        m_enPlayMode = EN_PLAY_MODE.STOP;
+                        return;
+                    }
+                    SB_GraphTime.Value -= m_nStepTime;
+                    break;
+            }
+            m_nCurrentGraphTime = m_InstanceOfLaserMonitor.dicLoadedLog.Keys.ToArray()[SB_GraphTime.Value];
+
+        }
+        private void SetSectionArea()
+        {
+            return;
+        }
+        #endregion
+        #endregion
+
+        #region Event
+        private void Click_Save(object sender, EventArgs e)
+        {
+            if (EquipmentState_.EquipmentState.GetInstance().GetState() != EquipmentState_.EQUIPMENT_STATE.IDLE
+                && EquipmentState_.EquipmentState.GetInstance().GetState() != EquipmentState_.EQUIPMENT_STATE.PAUSE)
+                return;
+
+            Control ctrl = sender as Control;
+
+            switch (m_InstanceOfLaserMonitor.enStatus)
+            {
+                case Log.WorkLog.EN_SAVE_STATUS.WAIT:
+                    m_enGraphMode = EN_GRAPH_MODE.LIVE;
+                    InitializeGraph();
+                    SetSectionArea();
+                    m_InstanceOfLaserMonitor.SaveStart();
+                    break;
+
+                case Log.WorkLog.EN_SAVE_STATUS.GET_DATA:
+                    m_InstanceOfLaserMonitor.SaveStop();
+
+                    break;
+            }
+
+            _Graph.Refresh();
+        }
+
+        private void Click_Live(object sender, EventArgs e)
+        {
+            SetLiveMode();
+        }
+
+        private void Click_Load(object sender, EventArgs e)
+        {
+            OpenFileDialog ofDialog = new OpenFileDialog();
+
+            if (m_strWorkLogPath == "")
+            {
+                string strFolderName = string.Format("{0}-{1}-{2}", System.DateTime.Now.Year, System.DateTime.Now.Month, System.DateTime.Now.Day);
+                m_strWorkLogPath = string.Format("{0}\\{1}", Define.DefineConstant.FilePath.FILEPATH_LASER_WORK_LOG, strFolderName);
+                DirectoryInfo di = new DirectoryInfo(m_strWorkLogPath);
+                if (!di.Exists)
+                    m_strWorkLogPath = Define.DefineConstant.FilePath.FILEPATH_LASER_WORK_LOG;
+            }
+            ofDialog.InitialDirectory = m_strWorkLogPath;
+
+            if (DialogResult.OK != ofDialog.ShowDialog())
+            {
+                return;
+            }
+
+            string fullPathName = ofDialog.FileName;
+            string fileName = ofDialog.SafeFileName;
+            string pathName = fullPathName.Substring(0, (fullPathName.Length - fileName.Length));
+
+            m_strWorkLogPath = pathName;
+
+            m_enGraphMode = EN_GRAPH_MODE.LOAD;
+            string strFileName = ofDialog.FileName;
+
+            if (!m_InstanceOfLaserMonitor.ReadLog(strFileName))
+                return;
+
+            InitializeGraph();
+
+            SetSectionArea();
+
+            SB_GraphTime.SmallChange = m_nStepTime;
+
+            SB_GraphTime.Minimum = 0;
+            SB_GraphTime.Maximum = m_InstanceOfLaserMonitor.dicLoadedLog.Count - 1;
+            m_nCurrentGraphTime = 0;
+
+            SetEnableStroll(true);
+        }
+        private void SetEnableStroll(bool bEnable)
+        {
+            SB_GraphTime.Enabled = bEnable;
+            LB_STEP.Enabled = bEnable;
+            BT_Pause.Enabled = bEnable;
+            BT_Play.Enabled = bEnable;
+            BT_Rewind.Enabled = bEnable;
+            SB_GraphTime.LargeChange = m_nStepTime;
+            SB_GraphTime.SmallChange = m_nStepTime;
+        }
+        private void ScrollTime(object sender, ScrollEventArgs e)
+        {
+            if (m_enGraphMode == EN_GRAPH_MODE.LOAD)
+                m_nCurrentGraphTime = m_InstanceOfLaserMonitor.dicLoadedLog.Keys.ToArray()[e.NewValue];
+            SetCurrentLine();
+        }
+        private void Click_Graph_Control(object sender, EventArgs e)
+        {
+            Control ctr = sender as Control;
+
+            switch (ctr.TabIndex)
+            {
+                case 0:
+                    m_enPlayMode = EN_PLAY_MODE.REWIND;
+                    break;
+                case 1:
+                    m_enPlayMode = EN_PLAY_MODE.STOP;
+                    break;
+                case 2:
+                    m_enPlayMode = EN_PLAY_MODE.PLAY;
+                    break;
+
+                case 10:
+                    if (m_InstanceOfCalculator.CreateForm(m_nStepTime.ToString(), "1", "1000"))
+                    {
+                        m_InstanceOfCalculator.GetResult(ref m_nStepTime);
+                        SB_GraphTime.LargeChange = m_nStepTime;
+                        SB_GraphTime.SmallChange = m_nStepTime;
+                    }
+                    break;
+            }
+        }
+        #endregion
+
+        private void ClearGraph()
+        {
+            if (m_enGraphMode == EN_GRAPH_MODE.LOAD)
+                return;
+            foreach (EN_GRAPH_PARAM en in Enum.GetValues(typeof(EN_GRAPH_PARAM)))
+            {
+                m_dicGraph[en].Clear();
+            }
+        }
+
+        private void Click_Close(object sender, EventArgs e)
+        {
+            m_timerForUpdate.Stop();
+            this.Hide();
+        }
+
+        private void ClickGrid(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            int nRow = e.RowIndex;
+            EN_GRAPH_PARAM enParam = (EN_GRAPH_PARAM)nRow;
+
+            if (e.Button == MouseButtons.Right)
+            {
+                ColorDialog cd = new ColorDialog();
+
+                if (cd.ShowDialog() == DialogResult.OK)
+                {
+                    m_dicVisibleColor[enParam] = cd.Color;
+
+                    string strPara = "";
+                    switch (enParam)
+                    {
+                        case EN_GRAPH_PARAM.IR_SENSOR_1:
+                            strPara = EQUIPMENT_PARAM.MONITORING_IR_SENSOR_1_COLOR.ToString();
+                            break;
+                        case EN_GRAPH_PARAM.IR_SENSOR_2:
+                            strPara = EQUIPMENT_PARAM.MONITORING_IR_SENSOR_2_COLOR.ToString();
+                            break;
+                        case EN_GRAPH_PARAM.IR_SENSOR_3:
+                            strPara = EQUIPMENT_PARAM.MONITORING_IR_SENSOR_3_COLOR.ToString();
+                            break;
+                        case EN_GRAPH_PARAM.IR_SENSOR_4:
+                            strPara = EQUIPMENT_PARAM.MONITORING_IR_SENSOR_4_COLOR.ToString();
+                            break;
+                    }
+
+                    m_instanceRecipe.SetValue(EN_RECIPE_TYPE.EQUIPMENT, strPara, 0, EN_RECIPE_PARAM_TYPE.VALUE, m_dicVisibleColor[enParam].ToArgb().ToString());
+                }
+            }
+            else
+            {
+                m_dicVisibleItem[enParam] = !m_dicVisibleItem[enParam];
+
+                string strPara = "";
+                switch (enParam)
+                {
+                    case EN_GRAPH_PARAM.IR_SENSOR_1:
+                        strPara = EQUIPMENT_PARAM.MONITORING_IR_SENSOR_1_VISIBLE.ToString();
+                        break;
+                    case EN_GRAPH_PARAM.IR_SENSOR_2:
+                        strPara = EQUIPMENT_PARAM.MONITORING_IR_SENSOR_2_VISIBLE.ToString();
+                        break;
+                    case EN_GRAPH_PARAM.IR_SENSOR_3:
+                        strPara = EQUIPMENT_PARAM.MONITORING_IR_SENSOR_3_VISIBLE.ToString();
+                        break;
+                    case EN_GRAPH_PARAM.IR_SENSOR_4:
+                        strPara = EQUIPMENT_PARAM.MONITORING_IR_SENSOR_4_VISIBLE.ToString();
+                        break;
+                }
+                m_instanceRecipe.SetValue(EN_RECIPE_TYPE.EQUIPMENT, strPara, 0, EN_RECIPE_PARAM_TYPE.VALUE, m_dicVisibleItem[enParam].ToString());
+            }
+            InitializeGraph();
+            UpdateGrid();
+        }
 
         #region <INTERNAL>
         private void InitGridEnableParameter()
@@ -481,118 +1306,6 @@ namespace FrameOfSystem3.Views.Operation
             lstHeader.Add("MONITOR");
 
             gridVeiwControl_Laser_Device_2.ShowHeader(lstHeader);
-        }
-        private void InitGridLaserParameter()
-        {
-            List<GridViewControl_Parameter.ParameterItem> parameterList = new List<GridViewControl_Parameter.ParameterItem>();
-
-            List<int> AddParaIndexList = new List<int>();
-            AddParaIndexList.Add(0);
-            AddParaIndexList.Add(1);
-            AddParaIndexList.Add(2);
-            AddParaIndexList.Add(3);
-            AddParaIndexList.Add(4);
-
-            List<string> AddParaList = new List<string>();
-
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_TOTAL_POWER.ToString());
-
-            GridViewControl_Parameter.ParameterItem AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList);
-            AddParaItem.DisplayName = "LASER TOTAL POWER";
-            parameterList.Add(AddParaItem);
-
-            gridViewControl_Laser_Parameter.Initialize(parameterList, -1, 425);
-        }
-        private void InitGridLaserParameter_2()
-        {
-            List<GridViewControl_Parameter.ParameterItem> parameterList = new List<GridViewControl_Parameter.ParameterItem>();
-
-            List<int> AddParaIndexList = new List<int>();
-            AddParaIndexList.Add(0);
-            AddParaIndexList.Add(1);
-            AddParaIndexList.Add(2);
-            AddParaIndexList.Add(3);
-            AddParaIndexList.Add(4);
-
-            List<string> AddParaList = new List<string>();
-
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_TOTAL_POWER.ToString());
-
-            GridViewControl_Parameter.ParameterItem AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList);
-            AddParaItem.DisplayName = "LASER TOTAL POWER";
-            parameterList.Add(AddParaItem);
-
-            gridViewControl_Laser_Parameter_2.Initialize(parameterList, -1, 425);
-        }
-        private void InitGridLaserParameter5Step()
-        {
-            List<GridViewControl_Parameter.ParameterItem> parameterList = new List<GridViewControl_Parameter.ParameterItem>();
-
-
-            List<int> AddParaIndexList = new List<int>();
-            AddParaIndexList.Add(0);
-            AddParaIndexList.Add(1);
-            AddParaIndexList.Add(2);
-            AddParaIndexList.Add(3);
-            AddParaIndexList.Add(4);
-
-            List<string> AddParaList = new List<string>();
-
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5.ToString());
-            GridViewControl_Parameter.ParameterItem AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList);
-            AddParaItem.DisplayName = "LASER POWER";
-            parameterList.Add(AddParaItem);
-
-            AddParaList = new List<string>();
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_TIME_5.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_TIME_5.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_TIME_5.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_TIME_5.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_TIME_5.ToString());
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList);
-            AddParaItem.DisplayName = "LASER TIME";
-            parameterList.Add(AddParaItem);
-
-            gridViewControl_Laser_Parameter_5Step.Initialize(parameterList, -1, 85);
-        }
-        private void InitGridLaserParameter5Step_2()
-        {
-            List<GridViewControl_Parameter.ParameterItem> parameterList = new List<GridViewControl_Parameter.ParameterItem>();
-
-
-            List<int> AddParaIndexList = new List<int>();
-            AddParaIndexList.Add(0);
-            AddParaIndexList.Add(1);
-            AddParaIndexList.Add(2);
-            AddParaIndexList.Add(3);
-            AddParaIndexList.Add(4);
-
-            List<string> AddParaList = new List<string>();
-
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_POWER_5.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_POWER_5.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_POWER_5.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_POWER_5.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_POWER_5.ToString());
-            GridViewControl_Parameter.ParameterItem AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList);
-            AddParaItem.DisplayName = "LASER POWER";
-            parameterList.Add(AddParaItem);
-
-            AddParaList = new List<string>();
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_TIME_5.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_TIME_5.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_TIME_5.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_TIME_5.ToString());
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_TIME_5.ToString());
-            AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList);
-            AddParaItem.DisplayName = "LASER TIME";
-            parameterList.Add(AddParaItem);
-
-            gridViewControl_Laser_Parameter_5Step_2.Initialize(parameterList, -1, 85);
         }
 
         private void Click_Stop(object sender, EventArgs e)
@@ -893,9 +1606,7 @@ namespace FrameOfSystem3.Views.Operation
         private void UpdateParamter()
         {
             gridViewControl_Enable_Parameter.UpdateValue();
-            gridViewControl_Laser_Parameter.UpdateValue();
             gridViewControl_Enable_Parameter_2.UpdateValue();
-            gridViewControl_Laser_Parameter_2.UpdateValue();
         }
 
         private void UpdatePowerLabel()
@@ -956,296 +1667,7 @@ namespace FrameOfSystem3.Views.Operation
                 }
             }
         }
-        #region Cal Table Grid & Power Measure Grid
-        private void Click_CalFileLoad(object sender, EventArgs e)
-        {
-            m_instanceFile.DefaultExt = Define.DefineConstant.FileFormat.FILEFORMAT_CALIBRATION;
-            m_instanceFile.InitialDirectory = Define.DefineConstant.FilePath.FILEPATH_CALIBRATION_LASER;
 
-            if (m_instanceFile.ShowDialog() == DialogResult.Cancel)
-                return;
-
-           string strFullFileName = m_instanceFile.FileName;
-           string[] arFileName = strFullFileName.Split('\\');
-           string strFileName = arFileName[arFileName.Length - 1].Split('.')[0];
-            string strFileRoot = string.Join("\\", arFileName.Take(arFileName.Length - 1));
-            m_LaserCalManager.ModifyChannelCalibrationFile(ComboBox_Channel.SelectedIndex, strFileRoot, strFileName);
-
-            UpdatePowerTable();
-        }
-        private void Click_CalFileLoad_2(object sender, EventArgs e)
-        {
-            m_instanceFile.DefaultExt = Define.DefineConstant.FileFormat.FILEFORMAT_CALIBRATION;
-            m_instanceFile.InitialDirectory = Define.DefineConstant.FilePath.FILEPATH_CALIBRATION_LASER;
-
-            if (m_instanceFile.ShowDialog() == DialogResult.Cancel)
-                return;
-
-            string strFullFileName = m_instanceFile.FileName;
-            string[] arFileName = strFullFileName.Split('\\');
-            string strFileName = arFileName[arFileName.Length - 1].Split('.')[0];
-            string strFileRoot = string.Join("\\", arFileName.Take(arFileName.Length - 1));
-            m_LaserCalManager_2.ModifyChannelCalibrationFile(ComboBox_Channel_2.SelectedIndex, strFileRoot, strFileName);
-
-            UpdatePowerTable_2();
-        }
-        private void UpdatePowerTable()
-        {
-            m_lblCalFileName.Text = m_LaserCalManager.CalibrationChannelFileName(ComboBox_Channel.SelectedIndex);
-            m_dgViewCalibration.Rows.Clear();
-            foreach (var kvp in m_LaserCalManager.CalibrationDatas(ComboBox_Channel.SelectedIndex))
-            {
-                m_dgViewCalibration.Rows.Add();
-                m_dgViewCalibration[(int)EN_GRID_INDEX.INDEX, kvp.Key].Value = kvp.Key;
-                m_dgViewCalibration[(int)EN_GRID_INDEX.VOLT, kvp.Key].Value = kvp.Value.TargetVolt;
-                m_dgViewCalibration[(int)EN_GRID_INDEX.OUTPUT_POWER, kvp.Key].Value = kvp.Value.PowerOutputWatt;
-                m_dgViewCalibration[(int)EN_GRID_INDEX.INPUT_VOLT, kvp.Key].Value = kvp.Value.PowerInputVolt;
-            }
-        }
-        private void UpdatePowerTable_2()
-        {
-            m_lblCalFileName_2.Text = m_LaserCalManager_2.CalibrationChannelFileName(ComboBox_Channel_2.SelectedIndex);
-            m_dgViewCalibration_2.Rows.Clear();
-            foreach (var kvp in m_LaserCalManager_2.CalibrationDatas(ComboBox_Channel_2.SelectedIndex))
-            {
-                m_dgViewCalibration_2.Rows.Add();
-                m_dgViewCalibration_2[(int)EN_GRID_INDEX_2.INDEX, kvp.Key].Value = kvp.Key;
-                m_dgViewCalibration_2[(int)EN_GRID_INDEX_2.VOLT, kvp.Key].Value = kvp.Value.TargetVolt_2;
-                m_dgViewCalibration_2[(int)EN_GRID_INDEX_2.OUTPUT_POWER, kvp.Key].Value = kvp.Value.PowerOutputWatt_2;
-                m_dgViewCalibration_2[(int)EN_GRID_INDEX_2.INPUT_VOLT, kvp.Key].Value = kvp.Value.PowerInputVolt_2;
-            }
-        }
-        private void ComboBox_Channel_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdatePowerTable();
-        }
-        private void ComboBox_Channel_SelectedIndexChanged_2(object sender, EventArgs e)
-        {
-            UpdatePowerTable_2();
-        }
-        private void m_dgViewCalibration_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            int nRowindex = e.RowIndex;
-            int nColumnIndex = e.ColumnIndex;
-
-            if (nRowindex < 0
-                || nRowindex >= m_dgViewCalibration.RowCount) { return; }
-
-            double dWriteValue = 0;
-
-            switch (nColumnIndex)
-            {
-                case 1: //output volt
-                    if (_Calculator_Instance_m_p.CreateForm(m_dgViewCalibration[nColumnIndex, nRowindex].ToString(), "0", "5000"))
-                    {
-                        _Calculator_Instance_m_p.GetResult(ref dWriteValue);
-                        ProtecLaserChannelCalibration.GetInstance().UpdateCalibrationInformation(ComboBox_Channel.SelectedIndex, nRowindex, (int)EN_CALIBRATION_INDEX.TARGET_VOLT, dWriteValue);
-                    }
-                    break;
-
-                case 2: //Input Volt
-                    if (_Calculator_Instance_m_p.CreateForm(m_dgViewCalibration[nColumnIndex, nRowindex].ToString(), "0", "5000"))
-                    {
-                        _Calculator_Instance_m_p.GetResult(ref dWriteValue);
-                        ProtecLaserChannelCalibration.GetInstance().UpdateCalibrationInformation(ComboBox_Channel.SelectedIndex, nRowindex, (int)EN_CALIBRATION_INDEX.POWER_INPUT_VOLT, dWriteValue);
-                    }
-                    break;
-
-                case 3: //output watt
-                    if (_Calculator_Instance_m_p.CreateForm(m_dgViewCalibration[nColumnIndex, nRowindex].ToString(), "0", "5000"))
-                    {
-                        _Calculator_Instance_m_p.GetResult(ref dWriteValue);
-                        ProtecLaserChannelCalibration.GetInstance().UpdateCalibrationInformation(ComboBox_Channel.SelectedIndex, nRowindex, (int)EN_CALIBRATION_INDEX.POWER_OUTPUT_WATT, dWriteValue);
-                    }
-
-                    break;
-            }
-
-            UpdatePowerTable();
-            SetPowerMinMax();
-        }
-        private void m_dgViewCalibration_CellContentClick_2(object sender, DataGridViewCellEventArgs e)
-        {
-            int nRowindex = e.RowIndex;
-            int nColumnIndex = e.ColumnIndex;
-
-            if (nRowindex < 0
-                || nRowindex >= m_dgViewCalibration_2.RowCount) { return; }
-
-            double dWriteValue = 0;
-
-            switch (nColumnIndex)
-            {
-                case 1: //output volt
-                    if (_Calculator_Instance_m_p.CreateForm(m_dgViewCalibration_2[nColumnIndex, nRowindex].ToString(), "0", "5000"))
-                    {
-                        _Calculator_Instance_m_p.GetResult(ref dWriteValue);
-                        ProtecLaserChannelCalibration_2.GetInstance().UpdateCalibrationInformation(ComboBox_Channel_2.SelectedIndex, nRowindex, (int)EN_CALIBRATION_INDEX_2.TARGET_VOLT, dWriteValue);
-                    }
-                    break;
-
-                case 2: //Input Volt
-                    if (_Calculator_Instance_m_p.CreateForm(m_dgViewCalibration_2[nColumnIndex, nRowindex].ToString(), "0", "5000"))
-                    {
-                        _Calculator_Instance_m_p.GetResult(ref dWriteValue);
-                        ProtecLaserChannelCalibration_2.GetInstance().UpdateCalibrationInformation(ComboBox_Channel_2.SelectedIndex, nRowindex, (int)EN_CALIBRATION_INDEX_2.POWER_INPUT_VOLT, dWriteValue);
-                    }
-                    break;
-
-                case 3: //output watt
-                    if (_Calculator_Instance_m_p.CreateForm(m_dgViewCalibration_2[nColumnIndex, nRowindex].ToString(), "0", "5000"))
-                    {
-                        _Calculator_Instance_m_p.GetResult(ref dWriteValue);
-                        ProtecLaserChannelCalibration_2.GetInstance().UpdateCalibrationInformation(ComboBox_Channel_2.SelectedIndex, nRowindex, (int)EN_CALIBRATION_INDEX_2.POWER_OUTPUT_WATT, dWriteValue);
-                    }
-
-                    break;
-            }
-
-            UpdatePowerTable_2();
-            SetPowerMinMax_2();
-        }
-        private void InitGridPowerMesureParameter()
-        {
-            List<GridViewControl_Parameter.ParameterItem> parameterList = new List<GridViewControl_Parameter.ParameterItem>();
-
-            GridViewControl_Parameter.ParameterItem AddParaItem;
-
-            AddParaItem = new GridViewControl_Parameter.ParameterItem
-                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_SELLECTED_CHANNEL.ToString());
-            AddParaItem.DisplayName = "SELLECT CH";
-            parameterList.Add(AddParaItem);
-
-            AddParaItem = new GridViewControl_Parameter.ParameterItem
-                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_WATT.ToString());
-            AddParaItem.DisplayName = "TARGET WATT";
-            parameterList.Add(AddParaItem);
-
-            AddParaItem = new GridViewControl_Parameter.ParameterItem
-                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_VOLT.ToString());
-            AddParaItem.DisplayName = "TARGET VOLT";
-            parameterList.Add(AddParaItem);
-
-            AddParaItem = new GridViewControl_Parameter.ParameterItem
-                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_SHOT_TIME.ToString());
-            AddParaItem.DisplayName = "LASER TIME";
-            parameterList.Add(AddParaItem);
-
-            AddParaItem = new GridViewControl_Parameter.ParameterItem
-                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_WAIT_TIME.ToString());
-            AddParaItem.DisplayName = "WAIT TIME";
-            parameterList.Add(AddParaItem);
-
-            AddParaItem = new GridViewControl_Parameter.ParameterItem
-                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_REPEAT_COUNT.ToString());
-            AddParaItem.DisplayName = "REPEAT COUNT";
-            parameterList.Add(AddParaItem);
-
-            AddParaItem = new GridViewControl_Parameter.ParameterItem
-                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_REST_TIME.ToString());
-            AddParaItem.DisplayName = "REST TIME";
-            parameterList.Add(AddParaItem);
-
-            AddParaItem = new GridViewControl_Parameter.ParameterItem
-                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_CALIBRATION_MIN_VOLT.ToString());
-            AddParaItem.DisplayName = "CAL START VOLT";
-            parameterList.Add(AddParaItem);
-
-            AddParaItem = new GridViewControl_Parameter.ParameterItem
-                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_CALIBRATION_MAX_VOLT.ToString());
-            AddParaItem.DisplayName = "CAL END VOLT";
-            parameterList.Add(AddParaItem);
-
-            AddParaItem = new GridViewControl_Parameter.ParameterItem
-                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_CALIBRATION_STEP_COUNT.ToString());
-            AddParaItem.DisplayName = "CAL STEP";
-            parameterList.Add(AddParaItem);
-
-            gridViewControl_Power_Measure_Parameter.Initialize(parameterList, -1, 80);
-        }
-        private void InitGridPowerMesureParameter_2()
-        {
-            List<GridViewControl_Parameter.ParameterItem> parameterList = new List<GridViewControl_Parameter.ParameterItem>();
-
-            GridViewControl_Parameter.ParameterItem AddParaItem;
-
-            AddParaItem = new GridViewControl_Parameter.ParameterItem
-                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_2_SELLECTED_CHANNEL.ToString());
-            AddParaItem.DisplayName = "SELLECT CH";
-            parameterList.Add(AddParaItem);
-
-            AddParaItem = new GridViewControl_Parameter.ParameterItem
-                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_2_WATT.ToString());
-            AddParaItem.DisplayName = "TARGET WATT";
-            parameterList.Add(AddParaItem);
-
-            AddParaItem = new GridViewControl_Parameter.ParameterItem
-                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_2_VOLT.ToString());
-            AddParaItem.DisplayName = "TARGET VOLT";
-            parameterList.Add(AddParaItem);
-
-            AddParaItem = new GridViewControl_Parameter.ParameterItem
-                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_2_SHOT_TIME.ToString());
-            AddParaItem.DisplayName = "LASER TIME";
-            parameterList.Add(AddParaItem);
-
-            AddParaItem = new GridViewControl_Parameter.ParameterItem
-                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_2_WAIT_TIME.ToString());
-            AddParaItem.DisplayName = "WAIT TIME";
-            parameterList.Add(AddParaItem);
-
-            AddParaItem = new GridViewControl_Parameter.ParameterItem
-                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_2_REPEAT_COUNT.ToString()); 
-            AddParaItem.DisplayName = "REPEAT COUNT";
-            parameterList.Add(AddParaItem);
-
-            AddParaItem = new GridViewControl_Parameter.ParameterItem
-                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_2_REST_TIME.ToString());
-            AddParaItem.DisplayName = "REST TIME";
-            parameterList.Add(AddParaItem);
-
-            AddParaItem = new GridViewControl_Parameter.ParameterItem
-                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_CALIBRATION_2_MIN_VOLT.ToString());
-            AddParaItem.DisplayName = "CAL START VOLT";
-            parameterList.Add(AddParaItem);
-
-            AddParaItem = new GridViewControl_Parameter.ParameterItem
-                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_CALIBRATION_2_MAX_VOLT.ToString());
-            AddParaItem.DisplayName = "CAL END VOLT";
-            parameterList.Add(AddParaItem);
-
-            AddParaItem = new GridViewControl_Parameter.ParameterItem
-                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_CALIBRATION_2_STEP_COUNT.ToString());
-            AddParaItem.DisplayName = "CAL STEP";
-            parameterList.Add(AddParaItem);
-
-            gridViewControl_Power_Measure_Parameter_2.Initialize(parameterList, -1, 80);
-        }
-        #endregion
-
-        private void sys3GroupBox4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void sys3Label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void m_dgViewCalibration_2_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void sys3Label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void m_lblCalFileName_2_Click(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }
