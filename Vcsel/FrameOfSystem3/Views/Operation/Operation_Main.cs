@@ -192,21 +192,21 @@ namespace FrameOfSystem3.Views.Operation
                     return;
             }
         }
-        private void Click_RunMode(object sender, EventArgs e)
-        {
-            string strValue = string.Empty;
+        //private void Click_RunMode(object sender, EventArgs e)
+        //{
+        //    string strValue = string.Empty;
 
-            if (m_InstanceOfSelectionList.CreateForm(m_groupRunMode.Text, Define.DefineEnumProject.SelectionList.EN_SELECTIONLIST.OPERATION_EQUIPMENT, m_labelRunMode.Text))
-            {
-                m_InstanceOfSelectionList.GetResult(ref strValue);
+        //    if (m_InstanceOfSelectionList.CreateForm(m_groupRunMode.Text, Define.DefineEnumProject.SelectionList.EN_SELECTIONLIST.OPERATION_EQUIPMENT, m_labelRunMode.Text))
+        //    {
+        //        m_InstanceOfSelectionList.GetResult(ref strValue);
 
-                if (m_DicForRunMode.ContainsKey(strValue))
-                {
-                    Task.TaskOperator.GetInstance().SetRunMode(m_DicForRunMode[strValue]);
-                    m_labelRunMode.Text = Task.TaskOperator.GetInstance().GetRunMode().ToString();
-                }
-            }
-        }
+        //        if (m_DicForRunMode.ContainsKey(strValue))
+        //        {
+        //            Task.TaskOperator.GetInstance().SetRunMode(m_DicForRunMode[strValue]);
+        //            m_labelRunMode.Text = Task.TaskOperator.GetInstance().GetRunMode().ToString();
+        //        }
+        //    }
+        //}
         
         #endregion
         #region <OVERRIDE>
@@ -627,56 +627,6 @@ namespace FrameOfSystem3.Views.Operation
                     arSelectTask = new string[] { EN_TASK_LIST.BOND_HEAD.ToString(), EN_TASK_LIST.BOND_HEAD.ToString() };
                     arSelectAction[0] = new string[] { null, Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.LASER_WORK.ToString() };
                     arSelectAction[1] = new string[] { Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.LASER_WORK_2.ToString(), null };
-                    Task.TaskOperator.GetInstance().SetOperation(ref arSelectTask, ref arSelectAction, nRetryTime);
-                    break;
-
-                case 5:
-                    arSelectAction = new string[1][];
-                    arSelectTask = new string[] { EN_TASK_LIST.BOND_HEAD.ToString() };
-                    arSelectAction[0] = new string[] { Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.MEASURE_POWER.ToString() };
-                    Task.TaskOperator.GetInstance().SetOperation(ref arSelectTask, ref arSelectAction, nRetryTime);
-                    break;
-                case 6:
-                    arSelectAction = new string[1][];
-                    arSelectTask = new string[] { EN_TASK_LIST.BOND_HEAD.ToString() };
-                    arSelectAction[0] = new string[] { Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.MEASURE_VOLT.ToString() };
-                    Task.TaskOperator.GetInstance().SetOperation(ref arSelectTask, ref arSelectAction, nRetryTime);
-                    break;
-                case 7:
-                    arSelectAction = new string[1][];
-                    arSelectTask = new string[] { EN_TASK_LIST.BOND_HEAD.ToString() };
-                    arSelectAction[0] = new string[] { Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.CALIBRATION_CHANNEL_POWER.ToString() };
-                    Task.TaskOperator.GetInstance().SetOperation(ref arSelectTask, ref arSelectAction, nRetryTime);
-                    break;
-                case 8:
-                    arSelectAction = new string[1][];
-                    arSelectTask = new string[] { EN_TASK_LIST.BOND_HEAD.ToString() };
-                    arSelectAction[0] = new string[] { Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.SHORT_TEST.ToString() };
-                    Task.TaskOperator.GetInstance().SetOperation(ref arSelectTask, ref arSelectAction, nRetryTime);
-                    break;
-
-                case 15:
-                    arSelectAction = new string[1][];
-                    arSelectTask = new string[] { EN_TASK_LIST.BOND_HEAD.ToString() };
-                    arSelectAction[0] = new string[] { Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.MEASURE_POWER_2.ToString() };
-                    Task.TaskOperator.GetInstance().SetOperation(ref arSelectTask, ref arSelectAction, nRetryTime);
-                    break;
-                case 16:
-                    arSelectAction = new string[1][];
-                    arSelectTask = new string[] { EN_TASK_LIST.BOND_HEAD.ToString() };
-                    arSelectAction[0] = new string[] { Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.MEASURE_VOLT_2.ToString() };
-                    Task.TaskOperator.GetInstance().SetOperation(ref arSelectTask, ref arSelectAction, nRetryTime);
-                    break;
-                case 17:
-                    arSelectAction = new string[1][];
-                    arSelectTask = new string[] { EN_TASK_LIST.BOND_HEAD.ToString() };
-                    arSelectAction[0] = new string[] { Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.CALIBRATION_CHANNEL_POWER_2.ToString() };
-                    Task.TaskOperator.GetInstance().SetOperation(ref arSelectTask, ref arSelectAction, nRetryTime);
-                    break;
-                case 18:
-                    arSelectAction = new string[1][];
-                    arSelectTask = new string[] { EN_TASK_LIST.BOND_HEAD.ToString() };
-                    arSelectAction[0] = new string[] { Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.SHORT_TEST_2.ToString() };
                     Task.TaskOperator.GetInstance().SetOperation(ref arSelectTask, ref arSelectAction, nRetryTime);
                     break;
             }
