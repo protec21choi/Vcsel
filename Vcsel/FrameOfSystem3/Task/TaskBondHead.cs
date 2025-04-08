@@ -1436,13 +1436,13 @@ namespace FrameOfSystem3.Task
                                 case ProtecLaserMananger.EN_SET_RESULT.POWER_OVER_MAX:
                                     m_arAlarmSubInfo[0] = "POWER IS TOO HIGH";
                                     m_arAlarmSubInfo[1] = "";
-                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
+                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_POWER_OVER_MAX, false, ref m_arAlarmSubInfo);
                                     m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
                                     break;
                                 case ProtecLaserMananger.EN_SET_RESULT.POWER_UNDER_MIN:
                                     m_arAlarmSubInfo[0] = "POWER IS TOO LOW";
                                     m_arAlarmSubInfo[1] = "";
-                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
+                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_POWER_UNDER_MIN, false, ref m_arAlarmSubInfo);
                                     m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
                                     break;
                                 default:
@@ -1471,13 +1471,13 @@ namespace FrameOfSystem3.Task
                                 case ProtecLaserMananger.EN_SET_RESULT.POWER_OVER_MAX:
                                     m_arAlarmSubInfo[0] = "POWER IS TOO HIGH";
                                     m_arAlarmSubInfo[1] = "";
-                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
+                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_POWER_OVER_MAX, false, ref m_arAlarmSubInfo);
                                     m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
                                     break;
                                 case ProtecLaserMananger.EN_SET_RESULT.POWER_UNDER_MIN:
                                     m_arAlarmSubInfo[0] = "POWER IS TOO LOW";
                                     m_arAlarmSubInfo[1] = "";
-                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
+                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_POWER_UNDER_MIN, false, ref m_arAlarmSubInfo);
                                     m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
                                     break;
                                 default:
@@ -1893,19 +1893,19 @@ namespace FrameOfSystem3.Task
                                 case ProtecLaserMananger_2.EN_SET_RESULT_2.POWER_OVER_MAX:
                                     m_arAlarmSubInfo[0] = "POWER IS TOO HIGH";
                                     m_arAlarmSubInfo[1] = "";
-                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
+                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD2_POWER_OVER_MAX, false, ref m_arAlarmSubInfo);
                                     m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.ACTION_FINISH;
                                     break;
                                 case ProtecLaserMananger_2.EN_SET_RESULT_2.POWER_UNDER_MIN:
                                     m_arAlarmSubInfo[0] = "POWER IS TOO LOW";
                                     m_arAlarmSubInfo[1] = "";
-                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
+                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD2_POWER_UNDER_MIN, false, ref m_arAlarmSubInfo);
                                     m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.ACTION_FINISH;
                                     break;
                                 default:
                                     m_arAlarmSubInfo[0] = "";
                                     m_arAlarmSubInfo[1] = "";
-                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
+                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD2_LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
                                     m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.ACTION_FINISH;
                                     break;
                             }
@@ -1928,19 +1928,19 @@ namespace FrameOfSystem3.Task
                                 case ProtecLaserMananger_2.EN_SET_RESULT_2.POWER_OVER_MAX:
                                     m_arAlarmSubInfo[0] = "POWER IS TOO HIGH";
                                     m_arAlarmSubInfo[1] = "";
-                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
+                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD2_POWER_OVER_MAX, false, ref m_arAlarmSubInfo);
                                     m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.ACTION_FINISH;
                                     break;
                                 case ProtecLaserMananger_2.EN_SET_RESULT_2.POWER_UNDER_MIN:
                                     m_arAlarmSubInfo[0] = "POWER IS TOO LOW";
                                     m_arAlarmSubInfo[1] = "";
-                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
+                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD2_POWER_UNDER_MIN, false, ref m_arAlarmSubInfo);
                                     m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.ACTION_FINISH;
                                     break;
                                 default:
                                     m_arAlarmSubInfo[0] = "";
                                     m_arAlarmSubInfo[1] = "";
-                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
+                                    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD2_LASER_SETTING_FAIL, false, ref m_arAlarmSubInfo);
                                     m_nSeqNum = (int)EN_POWER_MEASURE_STEP_2.ACTION_FINISH;
                                     break;
                             }

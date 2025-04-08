@@ -365,11 +365,15 @@ namespace Define
                     LD1_COMMNUNICATION_TIMEOUT = 2,
                     LD1_LASER_SETTING_FAIL = 3,
                     LD1_SHORT_CHECK_FAIL = 4,
+                    LD1_POWER_OVER_MAX = 5,
+                    LD1_POWER_UNDER_MIN = 6,
 
                     LD2_LASER_EMISSION_ALARM = 11,
                     LD2_COMMNUNICATION_TIMEOUT = 12,
                     LD2_LASER_SETTING_FAIL = 13,
                     LD2_SHORT_CHECK_FAIL = 14,
+                    LD2_POWER_OVER_MAX = 15,
+                    LD2_POWER_UNDER_MIN = 16,
                 }
                 public enum EN_TASK_ALARM_MESSAGE_EN
                 {
