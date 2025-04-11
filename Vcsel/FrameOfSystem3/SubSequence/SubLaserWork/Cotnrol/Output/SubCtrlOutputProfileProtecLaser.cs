@@ -18,6 +18,10 @@ namespace FrameOfSystem3.SubSequence.SubLaserWork
             READY = 0,
             ON = 1,
             ALARM = 2,
+
+            READY_2 = 3,
+            ON_2 = 4,
+            ALARM_2 = 5,
         }
         public enum EN_DIGITAL_OUTPUT
         {
@@ -25,6 +29,11 @@ namespace FrameOfSystem3.SubSequence.SubLaserWork
             ON = 1,
             RESET = 2,
             EMO = 3,
+
+            READY_2 = 4,
+            ON_2 = 5,
+            RESET_2 = 6,
+            EMO_2 = 7,
         }
         public enum EN_SERIAL
         {

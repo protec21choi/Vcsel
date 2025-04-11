@@ -633,20 +633,20 @@ namespace FrameOfSystem3.Task
             SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.READY
                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_READY_PORT_1);
             #region Laser #2
-            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.RESET
+            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.RESET_2
                                                     , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_1);
-            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.READY
+            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.READY_2
                                                     , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_1);
-            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.ON
+            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.ON_2
                                                     , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1);
-            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.EMO
+            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.EMO_2
                                                     , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_MONITOR_EMO);
 
-            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.ALARM
+            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.ALARM_2
                                                    , (int)EN_DIGITAL_INPUT_LIST.LD_2_ALARM_PORT_1);
-            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.ON
+            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.ON_2
                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_2_ON_PORT_1);
-            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.READY
+            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.READY_2
                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_2_READY_PORT_1);
             #endregion
             arCtrlLaserDevice[0] = SubCtrlLaserDevice;
@@ -671,20 +671,20 @@ namespace FrameOfSystem3.Task
                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_READY_PORT_2);
 
             #region Laser #2
-            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.RESET
+            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.RESET_2
                                                     , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_2);
-            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.READY
+            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.READY_2
                                                     , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_2);
-            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.ON
+            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.ON_2
                                                     , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2);
-            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.EMO
+            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.EMO_2
                                                     , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_MONITOR_EMO);
 
-            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.ALARM
+            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.ALARM_2
                                                    , (int)EN_DIGITAL_INPUT_LIST.LD_2_ALARM_PORT_2);
-            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.ON
+            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.ON_2
                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_2_ON_PORT_2);
-            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.READY
+            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.READY_2
                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_2_READY_PORT_2);
             #endregion
 
@@ -710,20 +710,20 @@ namespace FrameOfSystem3.Task
                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_READY_PORT_3);
 
             #region Laser #2
-            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.RESET
+            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.RESET_2
                                                     , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_3);
-            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.READY
+            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.READY_2
                                                     , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_3);
-            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.ON
+            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.ON_2
                                                     , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3);
-            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.EMO
+            SubCtrlLaserDevice.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_OUTPUT.EMO_2
                                                     , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_MONITOR_EMO);
 
-            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.ALARM
+            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.ALARM_2
                                                    , (int)EN_DIGITAL_INPUT_LIST.LD_2_ALARM_PORT_3);
-            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.ON
+            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.ON_2
                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_2_ON_PORT_3);
-            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.READY
+            SubCtrlLaserDevice.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecDeviceControl.EN_DIGITAL_INPUT.READY_2
                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_2_READY_PORT_3);
             #endregion
 
@@ -755,20 +755,20 @@ namespace FrameOfSystem3.Task
                                                   , (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_CONTROL_1);
 
             #region Laser #2
-            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.RESET
+            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.RESET_2
                                                   , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_1);
-            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.READY
+            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.READY_2
                                                     , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_1);
-            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.ON
+            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.ON_2
                                                     , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1);
-            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.EMO
+            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.EMO_2
                                                     , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_MONITOR_EMO);
 
-            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.ALARM
+            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.ALARM_2
                                                    , (int)EN_DIGITAL_INPUT_LIST.LD_2_ALARM_PORT_1);
-            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.ON
+            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.ON_2
                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_2_ON_PORT_1);
-            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.READY
+            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.READY_2
                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_2_READY_PORT_1);
 
             SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_SERIAL.COTNROL
@@ -799,20 +799,20 @@ namespace FrameOfSystem3.Task
                                                   , (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_CONTROL_2);
 
             #region Laser #2
-            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.RESET
+            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.RESET_2
                                                   , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_2);
-            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.READY
+            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.READY_2
                                                     , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_2);
-            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.ON
+            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.ON_2
                                                     , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2);
-            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.EMO
+            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.EMO_2
                                                     , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_MONITOR_EMO);
 
-            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.ALARM
+            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.ALARM_2
                                                    , (int)EN_DIGITAL_INPUT_LIST.LD_2_ALARM_PORT_2);
-            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.ON
+            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.ON_2
                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_2_ON_PORT_2);
-            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.READY
+            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.READY_2
                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_2_READY_PORT_2);
 
             SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_SERIAL.COTNROL
@@ -843,20 +843,20 @@ namespace FrameOfSystem3.Task
                                                   , (int)Define.DefineEnumProject.Serial.EN_SERIAL_INDEX.LD_CONTROL_3);
 
             #region Laser #2
-            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.RESET
+            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.RESET_2
                                                   , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_3);
-            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.READY
+            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.READY_2
                                                     , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_3);
-            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.ON
+            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.ON_2
                                                     , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3);
-            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.EMO
+            SubCtrlOutputProfile.SetTargetDigitalOutput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_OUTPUT.EMO_2
                                                     , (int)EN_DIGITAL_OUTPUT_LIST.LD_2_MONITOR_EMO);
 
-            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.ALARM
+            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.ALARM_2
                                                    , (int)EN_DIGITAL_INPUT_LIST.LD_2_ALARM_PORT_3);
-            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.ON
+            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.ON_2
                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_2_ON_PORT_3);
-            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.READY
+            SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_DIGITAL_INPUT.READY_2
                                                   , (int)EN_DIGITAL_INPUT_LIST.LD_2_READY_PORT_3);
 
             SubCtrlOutputProfile.SetTargetDigitalInput((int)SubSequence.SubLaserWork.ProtecLaserOutputProfile.EN_SERIAL.COTNROL
