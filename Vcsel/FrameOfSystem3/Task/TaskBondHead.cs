@@ -1178,10 +1178,10 @@ namespace FrameOfSystem3.Task
                 case (int)EN_LASER_WORK_STEP.ACTION_START:
                     // 2025.3.31 by ecchoi [ADD] Test 후 복구
                     m_tickTimeOut.SetTickCount(5000);
-                    m_nSeqNum = (int)EN_LASER_WORK_STEP.PARAMETER_READY;
+                    m_nSeqNum = (int)EN_LASER_WORK_STEP.PARAMETER_READY_LASER_1;
                     break;
 
-                case (int)EN_LASER_WORK_STEP.PARAMETER_READY:
+                case (int)EN_LASER_WORK_STEP.PARAMETER_READY_LASER_1:
                     #region Laser#1
                     // 2025.3.31 by ecchoi [ADD] Test 후 복구
                     if (m_tickTimeOut.IsTickOver(false))
@@ -1205,7 +1205,7 @@ namespace FrameOfSystem3.Task
                         case ProtecLaserMananger.EN_SET_RESULT.OK:
                             int nDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_SETTING_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
                             m_tickForSerialCommunication.SetTickCount((uint)Math.Max(0, nDelay));
-                            m_nSeqNum ++;
+                            m_nSeqNum = (int)EN_LASER_WORK_STEP.PARAMETER_READY_LASER_2;
                             break;
                         case ProtecLaserMananger.EN_SET_RESULT.WORKING:
                             if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
@@ -1229,7 +1229,7 @@ namespace FrameOfSystem3.Task
                     #endregion /Laser#1
                     break;
 
-                case (int)EN_LASER_WORK_STEP.PARAMETER_READY +1:
+                case (int)EN_LASER_WORK_STEP.PARAMETER_READY_LASER_2:
                     #region Laser#2
                     // 2025.3.31 by ecchoi [ADD] Test 후 복구
                     if (m_tickTimeOut.IsTickOver(false))
@@ -1253,7 +1253,7 @@ namespace FrameOfSystem3.Task
                         case ProtecLaserMananger_2.EN_SET_RESULT_2.OK:
                             int nDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_SETTING_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
                             m_tickForSerialCommunication.SetTickCount((uint)Math.Max(0, nDelay));
-                            m_nSeqNum ++;
+                            m_nSeqNum = (int)EN_LASER_WORK_STEP.PARAMETER_COMPLETE;
                             break;
                         case ProtecLaserMananger_2.EN_SET_RESULT_2.WORKING:
                             if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
@@ -1276,14 +1276,22 @@ namespace FrameOfSystem3.Task
                     #endregion /Laser#2
                     break;
 
-                case (int)EN_LASER_WORK_STEP.FINISH:
-                    // 2025.4.1 by ecchoi [ADD] 트리거로 구현
+                case (int)EN_LASER_WORK_STEP.PARAMETER_COMPLETE:
                     WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_1, true);
                     WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_2, true);
                     WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_3, true);
                     WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_1, true);
                     WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_2, true);
                     WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_3, true);
+                    m_nSeqNum = (int)EN_LASER_WORK_STEP.RUN_AND_WAIT;
+                    break;
+
+                case (int)EN_LASER_WORK_STEP.RUN_AND_WAIT:
+                    // 2025.4.11 by ecchoi [ADD] PARAMETER 설정이 끝나면 여기서 무한대기 한다.
+                    break;
+
+                case (int)EN_LASER_WORK_STEP.FINISH:
+                    // 2025.4.11 by ecchoi [ADD] 알람이나 사용자 정지는 여기로 빠져나온다.
                     return true;
             }
 
@@ -2884,7 +2892,10 @@ namespace FrameOfSystem3.Task
         {
             ACTION_START = 0,
 
-            PARAMETER_READY,
+            PARAMETER_READY_LASER_1,
+            PARAMETER_READY_LASER_2,
+            PARAMETER_COMPLETE,
+            RUN_AND_WAIT,
 
             ACTION_FINISH = 9900,
             FINISH = 10000,
