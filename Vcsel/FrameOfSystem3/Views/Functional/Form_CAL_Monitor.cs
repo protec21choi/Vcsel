@@ -273,7 +273,7 @@ namespace FrameOfSystem3.Views.Functional
             AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5.ToString());
             AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_POWER_5.ToString());
             GridViewControl_Parameter.ParameterItem AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList);
-            AddParaItem.DisplayName = "LASER POWER";
+            AddParaItem.DisplayName = "LASER POWER 5STEP";
             parameterList.Add(AddParaItem);
 
             AddParaList = new List<string>();
@@ -283,7 +283,7 @@ namespace FrameOfSystem3.Views.Functional
             AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_TIME_5.ToString());
             AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_STEP_TIME_5.ToString());
             AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList);
-            AddParaItem.DisplayName = "LASER TIME";
+            AddParaItem.DisplayName = "LASER TIME 5STEP";
             parameterList.Add(AddParaItem);
 
             gridViewControl_Laser_Parameter_5Step.Initialize(parameterList, -1, 85);
@@ -308,7 +308,7 @@ namespace FrameOfSystem3.Views.Functional
             AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_POWER_5.ToString());
             AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_POWER_5.ToString());
             GridViewControl_Parameter.ParameterItem AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList);
-            AddParaItem.DisplayName = "LASER POWER";
+            AddParaItem.DisplayName = "LASER POWER 5STEP";
             parameterList.Add(AddParaItem);
 
             AddParaList = new List<string>();
@@ -318,7 +318,7 @@ namespace FrameOfSystem3.Views.Functional
             AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_TIME_5.ToString());
             AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_STEP_TIME_5.ToString());
             AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList);
-            AddParaItem.DisplayName = "LASER TIME";
+            AddParaItem.DisplayName = "LASER TIME 5STEP";
             parameterList.Add(AddParaItem);
 
             gridViewControl_Laser_Parameter_5Step_2.Initialize(parameterList, -1, 85);

@@ -686,33 +686,33 @@ namespace FrameOfSystem3.Views.Operation
         {
             PlayGraph();
             UpdateValue();
-            UpdateLabel();
+            //UpdateLabel();
             Update_Graph();
             UpdateGrid();
             SetCurrentLine();
         }
-        public void UpdateLabel()
-        {
-            //LB_SAVE_STATE.Text = m_InstanceOfLaserMonitor.enStatus.ToString();
-            //if (m_InstanceOfLaserMonitor.enStatus == Log.WorkLog.EN_SAVE_STATUS.WAIT)
-            //    btn_Save.Text = "SAVE";
-            //else
-            //    btn_Save.Text = "STOP";
+        //public void UpdateLabel()
+        //{
+        //    LB_SAVE_STATE.Text = m_InstanceOfLaserMonitor.enStatus.ToString();
+        //    if (m_InstanceOfLaserMonitor.enStatus == Log.WorkLog.EN_SAVE_STATUS.WAIT)
+        //        btn_Save.Text = "SAVE";
+        //    else
+        //        btn_Save.Text = "STOP";
 
-            switch (m_enGraphMode)
-            {
-                case EN_GRAPH_MODE.LIVE:
-                    LB_Time.Text = "";
+        //    switch (m_enGraphMode)
+        //    {
+        //        case EN_GRAPH_MODE.LIVE:
+        //            LB_Time.Text = "";
 
-                    break;
-                case EN_GRAPH_MODE.LOAD:
-                    LB_Time.Text = m_nCurrentGraphTime.ToString();
+        //            break;
+        //        case EN_GRAPH_MODE.LOAD:
+        //            LB_Time.Text = m_nCurrentGraphTime.ToString();
 
-                    break;
-            }
+        //            break;
+        //    }
 
-            LB_STEP.Text = m_nStepTime.ToString();
-        }
+        //    LB_STEP.Text = m_nStepTime.ToString();
+        //}
 
         private void UpdateGrid()
         {
@@ -797,7 +797,7 @@ namespace FrameOfSystem3.Views.Operation
                     break;
             }
             // 2025.3.18 by ecchoi [ADD] Graph Test 용 함수
-            TestGraphFluctuation();
+            //TestGraphFluctuation();
         }
         private void TestGraphFluctuation()
         {
@@ -964,10 +964,10 @@ namespace FrameOfSystem3.Views.Operation
         private void SetEnableStroll(bool bEnable)
         {
             SB_GraphTime.Enabled = bEnable;
-            LB_STEP.Enabled = bEnable;
-            BT_Pause.Enabled = bEnable;
-            BT_Play.Enabled = bEnable;
-            BT_Rewind.Enabled = bEnable;
+            //LB_STEP.Enabled = bEnable;
+            //BT_Pause.Enabled = bEnable;
+            //BT_Play.Enabled = bEnable;
+            //BT_Rewind.Enabled = bEnable;
             SB_GraphTime.LargeChange = m_nStepTime;
             SB_GraphTime.SmallChange = m_nStepTime;
         }

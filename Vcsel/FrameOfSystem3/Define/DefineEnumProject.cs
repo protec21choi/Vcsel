@@ -820,7 +820,7 @@ namespace Define
 			public enum EN_BUTTONEVENT_SUBMENU
 			{
 				OPERATION_MAIN,
-                OPERATION_IR_MONITOR,
+                //OPERATION_IR_MONITOR,
                 OPERATION_CALIBRATION,
                 //OPERATION_MANUAL,
                 OPERATION_STATE_MONITOR,

@@ -619,12 +619,12 @@ namespace FrameOfSystem3.Views
                 return false;
             }
 
-            if (EN_BUTTONEVENT_SUBMENU.OPERATION_IR_MONITOR.ToString() == strSubMenu)
-            {
-                Functional.Form_IR_Monitor.GetInstance().CreateForm();
+            //if (EN_BUTTONEVENT_SUBMENU.OPERATION_IR_MONITOR.ToString() == strSubMenu)
+            //{
+            //    Functional.Form_IR_Monitor.GetInstance().CreateForm();
 
-                return false;
-            }
+            //    return false;
+            //}
 
             if (Enum.TryParse(strSubMenu, out enButtonEvent))
             {
