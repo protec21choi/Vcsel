@@ -67,7 +67,9 @@ namespace FrameOfSystem3.Views
 		/// </summary>
 		private void SetMachineState(string strState)
 		{
-			m_labelMachineState.Text		= strState;
+            if (strState == "SETUP")
+                strState = "RUN";
+            m_labelMachineState.Text		= strState;
 		}
 		/// <summary>
 		/// 2020.08.25 by twkang [ADD] 계정 권한이 변하면 호출되는 함수이다.

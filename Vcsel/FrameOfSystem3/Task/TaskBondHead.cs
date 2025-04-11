@@ -342,8 +342,8 @@ namespace FrameOfSystem3.Task
             switch (m_enAction)
             {
                 case EN_TASK_ACTION.LASER_WORK:
-                    //if (ActionLaserWork())
-                    //    return true;
+                    if (ActionLaserWork())
+                        return true;
                     break;
             }
 
@@ -1205,7 +1205,7 @@ namespace FrameOfSystem3.Task
                         case ProtecLaserMananger.EN_SET_RESULT.OK:
                             int nDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_SETTING_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
                             m_tickForSerialCommunication.SetTickCount((uint)Math.Max(0, nDelay));
-                            m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
+                            m_nSeqNum ++;
                             break;
                         case ProtecLaserMananger.EN_SET_RESULT.WORKING:
                             if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
@@ -1229,56 +1229,35 @@ namespace FrameOfSystem3.Task
                     #endregion /Laser#1
                     break;
 
-                case (int)EN_LASER_WORK_STEP.FINISH:
-                    // 2025.4.1 by ecchoi [ADD] 트리거로 구현
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, true);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, true);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, true);
-                    return true;
-            }
-
-            return false;
-        }
-        #endregion
-        private bool ActionLaserWork_2()
-        {
-            switch (m_nSeqNum)
-            {
-                case (int)EN_LASER_WORK_STEP_2.ACTION_START:
-                    // 2025.3.31 by ecchoi [ADD] Test 후 복구
-                    m_tickTimeOut.SetTickCount(5000);
-                    m_nSeqNum = (int)EN_LASER_WORK_STEP_2.PARAMETER_READY;
-                    break;
-
-                case (int)EN_LASER_WORK_STEP_2.PARAMETER_READY:
+                case (int)EN_LASER_WORK_STEP.PARAMETER_READY +1:
                     #region Laser#2
                     // 2025.3.31 by ecchoi [ADD] Test 후 복구
                     if (m_tickTimeOut.IsTickOver(false))
                     {
                         m_arAlarmSubInfo[0] = "";
                         GenerateSequenceAlarm((int)EN_TASK_ALARM.LD2_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
-                        m_nSeqNum = (int)EN_LASER_WORK_STEP_2.FINISH;
+                        m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
                         break;
                     }
-                    bool[] arUsed = new bool[m_Laser_2.ChannelCount];
-                    double arTotalPower = 0.0;
+                    bool[] arUsed_2 = new bool[m_Laser_2.ChannelCount];
+                    double arTotalPower_2 = 0.0;
 
                     for (int nCh = 0; nCh < m_Laser_2.ChannelCount; ++nCh)
                     {
-                        arUsed[nCh] = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.SHOT_PARAMETER_2_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                        arUsed_2[nCh] = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.SHOT_PARAMETER_2_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
                     }
 
-                    arTotalPower = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.SHOT_PARAMETER_2_TOTAL_POWER.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-                    switch (m_Laser_2.SetParameterIOMode(arUsed, arTotalPower))
+                    arTotalPower_2 = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.SHOT_PARAMETER_2_TOTAL_POWER.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+                    switch (m_Laser_2.SetParameterIOMode(arUsed_2, arTotalPower_2))
                     {
                         case ProtecLaserMananger_2.EN_SET_RESULT_2.OK:
                             int nDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_SETTING_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
                             m_tickForSerialCommunication.SetTickCount((uint)Math.Max(0, nDelay));
-                            m_nSeqNum = (int)EN_LASER_WORK_STEP_2.FINISH;
+                            m_nSeqNum ++;
                             break;
                         case ProtecLaserMananger_2.EN_SET_RESULT_2.WORKING:
                             if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
-                                m_nSeqNum = (int)EN_LASER_WORK_STEP_2.FINISH;
+                                m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
                             break;
                         case ProtecLaserMananger_2.EN_SET_RESULT_2.POWER_OVER_MAX:
                             Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 101, false); //POWER IS TOO HIGH
@@ -1294,20 +1273,91 @@ namespace FrameOfSystem3.Task
                             break;
 
                     }
-
-                    #endregion /Laser#1
+                    #endregion /Laser#2
                     break;
 
-                case (int)EN_LASER_WORK_STEP_2.FINISH:
+                case (int)EN_LASER_WORK_STEP.FINISH:
                     // 2025.4.1 by ecchoi [ADD] 트리거로 구현
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, true);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, true);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, true);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_1, true);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_2, true);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_3, true);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_1, true);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_2, true);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_3, true);
                     return true;
             }
 
             return false;
         }
+        #endregion
+        //private bool ActionLaserWork_2()
+        //{
+        //    switch (m_nSeqNum)
+        //    {
+        //        case (int)EN_LASER_WORK_STEP_2.ACTION_START:
+        //            // 2025.3.31 by ecchoi [ADD] Test 후 복구
+        //            m_tickTimeOut.SetTickCount(5000);
+        //            m_nSeqNum = (int)EN_LASER_WORK_STEP_2.PARAMETER_READY;
+        //            break;
+
+        //        case (int)EN_LASER_WORK_STEP_2.PARAMETER_READY:
+        //            #region Laser#2
+        //            // 2025.3.31 by ecchoi [ADD] Test 후 복구
+        //            if (m_tickTimeOut.IsTickOver(false))
+        //            {
+        //                m_arAlarmSubInfo[0] = "";
+        //                GenerateSequenceAlarm((int)EN_TASK_ALARM.LD2_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
+        //                m_nSeqNum = (int)EN_LASER_WORK_STEP_2.FINISH;
+        //                break;
+        //            }
+        //            bool[] arUsed = new bool[m_Laser_2.ChannelCount];
+        //            double arTotalPower = 0.0;
+
+        //            for (int nCh = 0; nCh < m_Laser_2.ChannelCount; ++nCh)
+        //            {
+        //                arUsed[nCh] = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.SHOT_PARAMETER_2_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+        //            }
+
+        //            arTotalPower = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.SHOT_PARAMETER_2_TOTAL_POWER.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+        //            switch (m_Laser_2.SetParameterIOMode(arUsed, arTotalPower))
+        //            {
+        //                case ProtecLaserMananger_2.EN_SET_RESULT_2.OK:
+        //                    int nDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_SETTING_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+        //                    m_tickForSerialCommunication.SetTickCount((uint)Math.Max(0, nDelay));
+        //                    m_nSeqNum = (int)EN_LASER_WORK_STEP_2.FINISH;
+        //                    break;
+        //                case ProtecLaserMananger_2.EN_SET_RESULT_2.WORKING:
+        //                    if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
+        //                        m_nSeqNum = (int)EN_LASER_WORK_STEP_2.FINISH;
+        //                    break;
+        //                case ProtecLaserMananger_2.EN_SET_RESULT_2.POWER_OVER_MAX:
+        //                    Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 101, false); //POWER IS TOO HIGH
+        //                    break;
+        //                case ProtecLaserMananger_2.EN_SET_RESULT_2.CH_POWER_OVER:
+        //                    Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 102, false); //CHANNEL POWER IS TOO HIGH
+        //                    break;
+        //                case ProtecLaserMananger_2.EN_SET_RESULT_2.POWER_UNDER_MIN:
+        //                    Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 103, false); //POWER IS TOO LOW
+        //                    break;
+        //                default:
+        //                    Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 104, false); //LASER COMMUNICATION FAIL
+        //                    break;
+
+        //            }
+
+        //            #endregion /Laser#1
+        //            break;
+
+        //        case (int)EN_LASER_WORK_STEP_2.FINISH:
+        //            // 2025.4.1 by ecchoi [ADD] 트리거로 구현
+        //            //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, true);
+        //            //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, true);
+        //            //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, true);
+        //            return true;
+        //    }
+
+        //    return false;
+        //}
         #region Manaul
         private bool Action_PowerMeasure()
         {
