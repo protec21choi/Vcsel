@@ -161,43 +161,43 @@ namespace Define
                 /// </summary>
                 public enum EN_DIGITAL_OUTPUT_LIST
                 {
-                    LD_ON_PORT_1 = 1,
-                    LD_READY_PORT_1 = 2,
-                    LD_ALARM_CLEAR_PORT_1 = 3,
-                    LD_EMO_PORT_1 = 4,
+                    LD_ON_PORT_1 = 18,
+                    LD_READY_PORT_1 = 19,
+                    LD_ALARM_CLEAR_PORT_1 = 16,
+                    LD_EMO_PORT_1 = 17,
 
-                    LD_ON_PORT_2 = 5,
-                    LD_READY_PORT_2 = 6,
-                    LD_ALARM_CLEAR_PORT_2 = 7,
-                    LD_EMO_PORT_2 = 8,
+                    LD_ON_PORT_2 = 23,
+                    LD_READY_PORT_2 = 24,
+                    LD_ALARM_CLEAR_PORT_2 = 21,
+                    LD_EMO_PORT_2 = 22,
 
-                    LD_ON_PORT_3 = 9,
-                    LD_READY_PORT_3 = 10,
-                    LD_ALARM_CLEAR_PORT_3 = 11,
-                    LD_EMO_PORT_3 = 12,
+                    LD_ON_PORT_3 = 28,
+                    LD_READY_PORT_3 = 29,
+                    LD_ALARM_CLEAR_PORT_3 = 26,
+                    LD_EMO_PORT_3 = 27,
 
-                    LD_MONITOR_EMO = 13,
-                    LD_MONITOR_ALARM_CLEAR = 14,
+                    LD_MONITOR_EMO = 32,
+                    LD_MONITOR_ALARM_CLEAR = 31,
 
 
                     #region Laser #2
-                    LD_2_ON_PORT_1 = 15,
-                    LD_2_READY_PORT_1 = 16,
-                    LD_2_ALARM_CLEAR_PORT_1 = 17,
-                    LD_2_EMO_PORT_1 = 18,
+                    LD_2_ON_PORT_1 = 38,
+                    LD_2_READY_PORT_1 = 39,
+                    LD_2_ALARM_CLEAR_PORT_1 = 36,
+                    LD_2_EMO_PORT_1 = 37,
 
-                    LD_2_ON_PORT_2 = 19,
-                    LD_2_READY_PORT_2 = 20,
-                    LD_2_ALARM_CLEAR_PORT_2 = 21,
-                    LD_2_EMO_PORT_2 = 22,
+                    LD_2_ON_PORT_2 = 43,
+                    LD_2_READY_PORT_2 = 44,
+                    LD_2_ALARM_CLEAR_PORT_2 = 41,
+                    LD_2_EMO_PORT_2 = 42,
 
-                    LD_2_ON_PORT_3 = 23,
-                    LD_2_READY_PORT_3 = 24,
-                    LD_2_ALARM_CLEAR_PORT_3 = 25,
-                    LD_2_EMO_PORT_3 = 26,
+                    LD_2_ON_PORT_3 = 48,
+                    LD_2_READY_PORT_3 = 49,
+                    LD_2_ALARM_CLEAR_PORT_3 = 46,
+                    LD_2_EMO_PORT_3 = 47,
 
-                    LD_2_MONITOR_EMO = 27,
-                    LD_2_MONITOR_ALARM_CLEAR = 28,
+                    LD_2_MONITOR_EMO = 52,
+                    LD_2_MONITOR_ALARM_CLEAR = 51,
                     
                     #endregion
                 }
