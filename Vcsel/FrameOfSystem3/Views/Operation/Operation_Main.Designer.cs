@@ -68,12 +68,12 @@
             this.SB_GraphTime = new System.Windows.Forms.HScrollBar();
             this._Graph = new ZedGraph.ZedGraphControl();
             this.sys3GroupBox8 = new Sys3Controls.Sys3GroupBox();
+            this.btn_ParameterUndo = new Sys3Controls.Sys3button();
+            this.btn_DecideParameterAll = new Sys3Controls.Sys3button();
             this.gridVeiwControl_Laser_Device_2 = new FrameOfSystem3.Component.GridVeiwControl_Device();
             this.gridViewControl_Enable_Parameter_2 = new FrameOfSystem3.Component.GridViewControl_Parameter();
             this.gridVeiwControl_Laser_Device = new FrameOfSystem3.Component.GridVeiwControl_Device();
             this.gridViewControl_Enable_Parameter = new FrameOfSystem3.Component.GridViewControl_Parameter();
-            this.btn_ParameterUndo = new Sys3Controls.Sys3button();
-            this.btn_DecideParameterAll = new Sys3Controls.Sys3button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -1168,46 +1168,6 @@
             this.sys3GroupBox8.ThemeIndex = 0;
             this.sys3GroupBox8.UseLabelBorder = true;
             // 
-            // gridVeiwControl_Laser_Device_2
-            // 
-            this.gridVeiwControl_Laser_Device_2.Control_Enable = true;
-            this.gridVeiwControl_Laser_Device_2.controlCollection = null;
-            this.gridVeiwControl_Laser_Device_2.Location = new System.Drawing.Point(3, 717);
-            this.gridVeiwControl_Laser_Device_2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.gridVeiwControl_Laser_Device_2.Name = "gridVeiwControl_Laser_Device_2";
-            this.gridVeiwControl_Laser_Device_2.Size = new System.Drawing.Size(642, 178);
-            this.gridVeiwControl_Laser_Device_2.TabIndex = 20906;
-            // 
-            // gridViewControl_Enable_Parameter_2
-            // 
-            this.gridViewControl_Enable_Parameter_2.Control_Enable = true;
-            this.gridViewControl_Enable_Parameter_2.controlCollection = null;
-            this.gridViewControl_Enable_Parameter_2.Location = new System.Drawing.Point(3, 663);
-            this.gridViewControl_Enable_Parameter_2.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
-            this.gridViewControl_Enable_Parameter_2.Name = "gridViewControl_Enable_Parameter_2";
-            this.gridViewControl_Enable_Parameter_2.Size = new System.Drawing.Size(1133, 53);
-            this.gridViewControl_Enable_Parameter_2.TabIndex = 20905;
-            // 
-            // gridVeiwControl_Laser_Device
-            // 
-            this.gridVeiwControl_Laser_Device.Control_Enable = true;
-            this.gridVeiwControl_Laser_Device.controlCollection = null;
-            this.gridVeiwControl_Laser_Device.Location = new System.Drawing.Point(3, 443);
-            this.gridVeiwControl_Laser_Device.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.gridVeiwControl_Laser_Device.Name = "gridVeiwControl_Laser_Device";
-            this.gridVeiwControl_Laser_Device.Size = new System.Drawing.Size(642, 178);
-            this.gridVeiwControl_Laser_Device.TabIndex = 20879;
-            // 
-            // gridViewControl_Enable_Parameter
-            // 
-            this.gridViewControl_Enable_Parameter.Control_Enable = true;
-            this.gridViewControl_Enable_Parameter.controlCollection = null;
-            this.gridViewControl_Enable_Parameter.Location = new System.Drawing.Point(3, 389);
-            this.gridViewControl_Enable_Parameter.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
-            this.gridViewControl_Enable_Parameter.Name = "gridViewControl_Enable_Parameter";
-            this.gridViewControl_Enable_Parameter.Size = new System.Drawing.Size(1133, 53);
-            this.gridViewControl_Enable_Parameter.TabIndex = 20878;
-            // 
             // btn_ParameterUndo
             // 
             this.btn_ParameterUndo.BorderWidth = 2;
@@ -1225,7 +1185,7 @@
             this.btn_ParameterUndo.ImagePosition = new System.Drawing.Point(8, 7);
             this.btn_ParameterUndo.ImageSize = new System.Drawing.Point(35, 30);
             this.btn_ParameterUndo.LoadImage = global::FrameOfSystem3.Properties.Resources.undo_52px;
-            this.btn_ParameterUndo.Location = new System.Drawing.Point(1007, 2);
+            this.btn_ParameterUndo.Location = new System.Drawing.Point(1010, 4);
             this.btn_ParameterUndo.MainFont = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_ParameterUndo.MainFontColor = System.Drawing.Color.White;
             this.btn_ParameterUndo.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -1266,7 +1226,7 @@
             this.btn_DecideParameterAll.ImagePosition = new System.Drawing.Point(8, 7);
             this.btn_DecideParameterAll.ImageSize = new System.Drawing.Point(35, 30);
             this.btn_DecideParameterAll.LoadImage = global::FrameOfSystem3.Properties.Resources.save_52px;
-            this.btn_DecideParameterAll.Location = new System.Drawing.Point(1079, 2);
+            this.btn_DecideParameterAll.Location = new System.Drawing.Point(1082, 4);
             this.btn_DecideParameterAll.MainFont = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_DecideParameterAll.MainFontColor = System.Drawing.Color.White;
             this.btn_DecideParameterAll.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -1289,6 +1249,46 @@
             this.btn_DecideParameterAll.UserHoverEmpahsize = true;
             this.btn_DecideParameterAll.UseSubFont = false;
             this.btn_DecideParameterAll.Click += new System.EventHandler(this.ClickParameterSave);
+            // 
+            // gridVeiwControl_Laser_Device_2
+            // 
+            this.gridVeiwControl_Laser_Device_2.Control_Enable = true;
+            this.gridVeiwControl_Laser_Device_2.controlCollection = null;
+            this.gridVeiwControl_Laser_Device_2.Location = new System.Drawing.Point(3, 717);
+            this.gridVeiwControl_Laser_Device_2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.gridVeiwControl_Laser_Device_2.Name = "gridVeiwControl_Laser_Device_2";
+            this.gridVeiwControl_Laser_Device_2.Size = new System.Drawing.Size(642, 178);
+            this.gridVeiwControl_Laser_Device_2.TabIndex = 20906;
+            // 
+            // gridViewControl_Enable_Parameter_2
+            // 
+            this.gridViewControl_Enable_Parameter_2.Control_Enable = true;
+            this.gridViewControl_Enable_Parameter_2.controlCollection = null;
+            this.gridViewControl_Enable_Parameter_2.Location = new System.Drawing.Point(3, 663);
+            this.gridViewControl_Enable_Parameter_2.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
+            this.gridViewControl_Enable_Parameter_2.Name = "gridViewControl_Enable_Parameter_2";
+            this.gridViewControl_Enable_Parameter_2.Size = new System.Drawing.Size(1133, 53);
+            this.gridViewControl_Enable_Parameter_2.TabIndex = 20905;
+            // 
+            // gridVeiwControl_Laser_Device
+            // 
+            this.gridVeiwControl_Laser_Device.Control_Enable = true;
+            this.gridVeiwControl_Laser_Device.controlCollection = null;
+            this.gridVeiwControl_Laser_Device.Location = new System.Drawing.Point(3, 443);
+            this.gridVeiwControl_Laser_Device.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.gridVeiwControl_Laser_Device.Name = "gridVeiwControl_Laser_Device";
+            this.gridVeiwControl_Laser_Device.Size = new System.Drawing.Size(642, 178);
+            this.gridVeiwControl_Laser_Device.TabIndex = 20879;
+            // 
+            // gridViewControl_Enable_Parameter
+            // 
+            this.gridViewControl_Enable_Parameter.Control_Enable = true;
+            this.gridViewControl_Enable_Parameter.controlCollection = null;
+            this.gridViewControl_Enable_Parameter.Location = new System.Drawing.Point(3, 389);
+            this.gridViewControl_Enable_Parameter.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
+            this.gridViewControl_Enable_Parameter.Name = "gridViewControl_Enable_Parameter";
+            this.gridViewControl_Enable_Parameter.Size = new System.Drawing.Size(1133, 53);
+            this.gridViewControl_Enable_Parameter.TabIndex = 20878;
             // 
             // Operation_Main
             // 
