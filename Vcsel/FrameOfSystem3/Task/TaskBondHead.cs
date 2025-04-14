@@ -434,6 +434,14 @@ namespace FrameOfSystem3.Task
                     WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_2, false);
                     WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_3, false);
 
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, false);
+
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_1, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_2, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_3, false);
+
                     //m_instanceIR.ManualCommand(ExternalDevice.Socket.IR_Property.Enumerable.EN_SEND_TYPE.WORK_END);
                     return true;
             }
