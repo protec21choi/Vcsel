@@ -1586,7 +1586,7 @@ namespace FrameOfSystem3.Views.Operation
 
         private void ClickParameterUndo(object sender, EventArgs e)
         {
-            if(m_MessageBox.ShowMessage("Do You Want To Undo Recipe?"))
+            if (m_MessageBox.ShowMessage("Do You Want To Undo Recipe?"))
                 m_instanceRecipe.ClearDeferredStorage();
 
             UpdateParamter();

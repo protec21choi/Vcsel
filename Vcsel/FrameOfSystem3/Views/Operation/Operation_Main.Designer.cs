@@ -29,11 +29,11 @@
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.sys3GroupBox1 = new Sys3Controls.Sys3GroupBox();
             this.btn_EMO = new Sys3Controls.Sys3button();
             this.btn_Reset = new Sys3Controls.Sys3button();
@@ -72,6 +72,8 @@
             this.gridViewControl_Enable_Parameter_2 = new FrameOfSystem3.Component.GridViewControl_Parameter();
             this.gridVeiwControl_Laser_Device = new FrameOfSystem3.Component.GridVeiwControl_Device();
             this.gridViewControl_Enable_Parameter = new FrameOfSystem3.Component.GridViewControl_Parameter();
+            this.btn_ParameterUndo = new Sys3Controls.Sys3button();
+            this.btn_DecideParameterAll = new Sys3Controls.Sys3button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -1049,9 +1051,9 @@
             // 
             // dataGridViewTextBoxColumn6
             // 
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewTextBoxColumn6.HeaderText = "COLOR";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
@@ -1059,9 +1061,9 @@
             // 
             // Value
             // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("굴림", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Value.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("굴림", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Value.DefaultCellStyle = dataGridViewCellStyle2;
             this.Value.HeaderText = "VALUE";
             this.Value.Name = "Value";
             this.Value.ReadOnly = true;
@@ -1070,9 +1072,9 @@
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewTextBoxColumn1.HeaderText = "NAME";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
@@ -1091,26 +1093,26 @@
             this.dataGridViewTextBoxColumn1,
             this.Value,
             this.dataGridViewTextBoxColumn6});
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView.Location = new System.Drawing.Point(821, 80);
             this.dataGridView.MultiSelect = false;
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridView.RowHeadersVisible = false;
             this.dataGridView.RowTemplate.Height = 25;
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
@@ -1206,9 +1208,93 @@
             this.gridViewControl_Enable_Parameter.Size = new System.Drawing.Size(1133, 53);
             this.gridViewControl_Enable_Parameter.TabIndex = 20878;
             // 
+            // btn_ParameterUndo
+            // 
+            this.btn_ParameterUndo.BorderWidth = 2;
+            this.btn_ParameterUndo.ButtonClicked = false;
+            this.btn_ParameterUndo.ClickedEmphasizeTextColor = System.Drawing.Color.White;
+            this.btn_ParameterUndo.CustomClickedGradientFirstColor = System.Drawing.Color.BlanchedAlmond;
+            this.btn_ParameterUndo.CustomClickedGradientSecondColor = System.Drawing.Color.Gold;
+            this.btn_ParameterUndo.Description = "";
+            this.btn_ParameterUndo.DisabledColor = System.Drawing.Color.DarkGray;
+            this.btn_ParameterUndo.EdgeRadius = 5;
+            this.btn_ParameterUndo.GradientAngle = 60F;
+            this.btn_ParameterUndo.GradientFirstColor = System.Drawing.Color.DeepSkyBlue;
+            this.btn_ParameterUndo.GradientSecondColor = System.Drawing.Color.SteelBlue;
+            this.btn_ParameterUndo.HoverEmphasizeCustomColor = System.Drawing.Color.Firebrick;
+            this.btn_ParameterUndo.ImagePosition = new System.Drawing.Point(8, 7);
+            this.btn_ParameterUndo.ImageSize = new System.Drawing.Point(35, 30);
+            this.btn_ParameterUndo.LoadImage = global::FrameOfSystem3.Properties.Resources.undo_52px;
+            this.btn_ParameterUndo.Location = new System.Drawing.Point(1007, 2);
+            this.btn_ParameterUndo.MainFont = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_ParameterUndo.MainFontColor = System.Drawing.Color.White;
+            this.btn_ParameterUndo.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.btn_ParameterUndo.Name = "btn_ParameterUndo";
+            this.btn_ParameterUndo.Size = new System.Drawing.Size(49, 43);
+            this.btn_ParameterUndo.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
+            this.btn_ParameterUndo.SubFontColor = System.Drawing.Color.Black;
+            this.btn_ParameterUndo.SubText = "";
+            this.btn_ParameterUndo.TabIndex = 20996;
+            this.btn_ParameterUndo.Tag = "";
+            this.btn_ParameterUndo.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
+            this.btn_ParameterUndo.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
+            this.btn_ParameterUndo.ThemeIndex = 0;
+            this.btn_ParameterUndo.UseBorder = true;
+            this.btn_ParameterUndo.UseClickedEmphasizeTextColor = false;
+            this.btn_ParameterUndo.UseCustomizeClickedColor = true;
+            this.btn_ParameterUndo.UseEdge = true;
+            this.btn_ParameterUndo.UseHoverEmphasizeCustomColor = true;
+            this.btn_ParameterUndo.UseImage = true;
+            this.btn_ParameterUndo.UserHoverEmpahsize = true;
+            this.btn_ParameterUndo.UseSubFont = false;
+            this.btn_ParameterUndo.Click += new System.EventHandler(this.ClickParameterUndo);
+            // 
+            // btn_DecideParameterAll
+            // 
+            this.btn_DecideParameterAll.BorderWidth = 2;
+            this.btn_DecideParameterAll.ButtonClicked = false;
+            this.btn_DecideParameterAll.ClickedEmphasizeTextColor = System.Drawing.Color.White;
+            this.btn_DecideParameterAll.CustomClickedGradientFirstColor = System.Drawing.Color.BlanchedAlmond;
+            this.btn_DecideParameterAll.CustomClickedGradientSecondColor = System.Drawing.Color.Gold;
+            this.btn_DecideParameterAll.Description = "";
+            this.btn_DecideParameterAll.DisabledColor = System.Drawing.Color.DarkGray;
+            this.btn_DecideParameterAll.EdgeRadius = 5;
+            this.btn_DecideParameterAll.GradientAngle = 60F;
+            this.btn_DecideParameterAll.GradientFirstColor = System.Drawing.Color.DeepSkyBlue;
+            this.btn_DecideParameterAll.GradientSecondColor = System.Drawing.Color.SteelBlue;
+            this.btn_DecideParameterAll.HoverEmphasizeCustomColor = System.Drawing.Color.Firebrick;
+            this.btn_DecideParameterAll.ImagePosition = new System.Drawing.Point(8, 7);
+            this.btn_DecideParameterAll.ImageSize = new System.Drawing.Point(35, 30);
+            this.btn_DecideParameterAll.LoadImage = global::FrameOfSystem3.Properties.Resources.save_52px;
+            this.btn_DecideParameterAll.Location = new System.Drawing.Point(1079, 2);
+            this.btn_DecideParameterAll.MainFont = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_DecideParameterAll.MainFontColor = System.Drawing.Color.White;
+            this.btn_DecideParameterAll.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.btn_DecideParameterAll.Name = "btn_DecideParameterAll";
+            this.btn_DecideParameterAll.Size = new System.Drawing.Size(49, 43);
+            this.btn_DecideParameterAll.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
+            this.btn_DecideParameterAll.SubFontColor = System.Drawing.Color.Black;
+            this.btn_DecideParameterAll.SubText = "";
+            this.btn_DecideParameterAll.TabIndex = 20997;
+            this.btn_DecideParameterAll.Tag = "";
+            this.btn_DecideParameterAll.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
+            this.btn_DecideParameterAll.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
+            this.btn_DecideParameterAll.ThemeIndex = 0;
+            this.btn_DecideParameterAll.UseBorder = true;
+            this.btn_DecideParameterAll.UseClickedEmphasizeTextColor = false;
+            this.btn_DecideParameterAll.UseCustomizeClickedColor = true;
+            this.btn_DecideParameterAll.UseEdge = true;
+            this.btn_DecideParameterAll.UseHoverEmphasizeCustomColor = true;
+            this.btn_DecideParameterAll.UseImage = true;
+            this.btn_DecideParameterAll.UserHoverEmpahsize = true;
+            this.btn_DecideParameterAll.UseSubFont = false;
+            this.btn_DecideParameterAll.Click += new System.EventHandler(this.ClickParameterSave);
+            // 
             // Operation_Main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.Controls.Add(this.btn_ParameterUndo);
+            this.Controls.Add(this.btn_DecideParameterAll);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.SB_GraphTime);
             this.Controls.Add(this._Graph);
@@ -1290,5 +1376,7 @@
         private System.Windows.Forms.HScrollBar SB_GraphTime;
         private ZedGraph.ZedGraphControl _Graph;
         private Sys3Controls.Sys3GroupBox sys3GroupBox8;
+        private Sys3Controls.Sys3button btn_ParameterUndo;
+        private Sys3Controls.Sys3button btn_DecideParameterAll;
     }
 }
