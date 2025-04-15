@@ -518,7 +518,7 @@ namespace FrameOfSystem3.Functional
                     // AnalogIO.AnalogIOController
                     m_arAnalogIOController = new AnalogIOController[1];
 
-                    m_arAnalogIOController[0] = new Controller.AnalogIO.RSAAnalogIOController();
+                    //m_arAnalogIOController[0] = new Controller.AnalogIO.RSAAnalogIOController();
                     bResult = AnalogIO.GetInstance().Init(ref m_arAnalogIOController);
                     break;
                 #endregion
@@ -532,7 +532,7 @@ namespace FrameOfSystem3.Functional
                     // DigitalIO.DigitalIOController
                     m_arDigitalIOController = new DigitalIOController[1];
 
-                    m_arDigitalIOController[0] = new Controller.DigitalIO.RSADigitalIOController();
+                    //m_arDigitalIOController[0] = new Controller.DigitalIO.RSADigitalIOController();
                     bResult = DigitalIO.GetInstance().Init(ref m_arDigitalIOController);
                     break;
                 #endregion

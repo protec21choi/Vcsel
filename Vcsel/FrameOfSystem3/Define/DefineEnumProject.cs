@@ -231,6 +231,11 @@ namespace Define
                 {
                     #region LASER PARAMETER
 
+                    LASER_ON_DELAY,
+                    LASER_OFF_DELAY,
+                    LASER_COUNT,
+
+                    LASER_1_USED,
                     SHOT_PARAMETER_ENABLE_18,
 
                     SHOT_PARAMETER_STEP_TIME_5,
@@ -239,6 +244,7 @@ namespace Define
                     SHOT_PARAMETER_TOTAL_POWER,
 
                     // 2025.3.11 by ecchoi [ADD] Laser 2
+                    LASER_2_USED,
                     SHOT_PARAMETER_2_ENABLE_18,
 
                     SHOT_PARAMETER_2_STEP_TIME_5,
