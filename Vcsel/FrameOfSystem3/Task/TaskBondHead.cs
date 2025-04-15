@@ -1184,6 +1184,12 @@ namespace FrameOfSystem3.Task
         {
             bool bLaserUsed_1 = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_1_USED.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true);
             bool bLaserUsed_2 = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_2_USED.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true);
+            bool m_bLaserOutputStarted = false;
+            bool m_bLaserOutputOn = false;
+            int m_nLaserOutputCount = 0;
+            int m_nLaserOnDelay = 0;
+            int m_nLaserOffDelay = 0;
+            int m_nLaserRepeatCount = 0;
 
             switch (m_nSeqNum)
             {
@@ -1324,12 +1330,7 @@ namespace FrameOfSystem3.Task
                 case (int)EN_LASER_WORK_STEP.WAIT_AND_OUTPUT:
                     {
                         // 2025.4.11 by ecchoi [ADD] PARAMETER 설정이 끝나면 PLC에서 ON 신호를 받을때까지 여기서 대기 한다.
-                        bool m_bLaserOutputStarted = false;
-                        bool m_bLaserOutputOn = false;
-                        int m_nLaserOutputCount = 0;
-                        int m_nLaserOnDelay = 0;
-                        int m_nLaserOffDelay = 0;
-                        int m_nLaserRepeatCount = 0;
+                        
 
                         if (!m_bLaserOutputStarted)
                         {
@@ -1353,7 +1354,11 @@ namespace FrameOfSystem3.Task
                                 {
                                     // ON -> OFF
                                     WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, false);
+                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, false);
+                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, false);
                                     WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, false);
+                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, false);
+                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, false);
 
                                     m_bLaserOutputOn = false;
                                     m_tickLaserOutput.SetTickCount((uint)m_nLaserOffDelay);
@@ -1375,7 +1380,11 @@ namespace FrameOfSystem3.Task
 
                                     // OFF -> ON
                                     WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, bLaserUsed_1);
+                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, bLaserUsed_1);
+                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, bLaserUsed_1);
                                     WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, bLaserUsed_2);
+                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, bLaserUsed_2);
+                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, bLaserUsed_2);
 
                                     m_bLaserOutputOn = true;
                                     m_tickLaserOutput.SetTickCount((uint)m_nLaserOnDelay);
