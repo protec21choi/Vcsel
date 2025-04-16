@@ -796,10 +796,10 @@ namespace Define
                 POWER_2_CH_17 = 34,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
                 POWER_2_CH_18 = 35,		// 0V ~ +5V				// SCALE RANGE (16bit) -10V ~ +10v
 
-                IR_SENSOR_1 = 40,     //4mA ~ 20mA
-                IR_SENSOR_2 = 41,     //4mA ~ 20mA
-                IR_SENSOR_3 = 42,     //4mA ~ 20mA
-                IR_SENSOR_4 = 43,     //4mA ~ 20mA
+                IR_SENSOR_1 = 36,     //4mA ~ 20mA
+                IR_SENSOR_2,     //4mA ~ 20mA
+                IR_SENSOR_3,     //4mA ~ 20mA
+                IR_SENSOR_4,     //4mA ~ 20mA
             }
 			public enum EN_ANALOG_OUT
 			{
