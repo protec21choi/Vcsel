@@ -615,7 +615,7 @@ namespace FrameOfSystem3.Views.Functional
 
             AddParaItem = new GridViewControl_Parameter.ParameterItem
                 (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_MEASURE_REPEAT_COUNT.ToString());
-            AddParaItem.DisplayName = "REPEAT COUNT";
+            AddParaItem.DisplayName = "CAL REPEAT COUNT";
             parameterList.Add(AddParaItem);
 
             AddParaItem = new GridViewControl_Parameter.ParameterItem
@@ -636,6 +636,21 @@ namespace FrameOfSystem3.Views.Functional
             AddParaItem = new GridViewControl_Parameter.ParameterItem
                 (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.POWER_CALIBRATION_STEP_COUNT.ToString());
             AddParaItem.DisplayName = "CAL STEP";
+            parameterList.Add(AddParaItem);
+
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.LASER_ON_DELAY.ToString());
+            AddParaItem.DisplayName = "ON DELAY";
+            parameterList.Add(AddParaItem);
+
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.LASER_OFF_DELAY.ToString());
+            AddParaItem.DisplayName = "OFF DELAY";
+            parameterList.Add(AddParaItem);
+
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.LASER_COUNT.ToString());
+            AddParaItem.DisplayName = "REPEAT COUNT";
             parameterList.Add(AddParaItem);
 
             gridViewControl_Power_Measure_Parameter.Initialize(parameterList, -1, 80);

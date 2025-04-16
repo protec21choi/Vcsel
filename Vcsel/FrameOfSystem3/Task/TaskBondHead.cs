@@ -1330,64 +1330,69 @@ namespace FrameOfSystem3.Task
                 case (int)EN_LASER_WORK_STEP.WAIT_AND_OUTPUT:
                     {
                         // 2025.4.11 by ecchoi [ADD] PARAMETER 설정이 끝나면 PLC에서 ON 신호를 받을때까지 여기서 대기 한다.
-                        
-
-                        if (!m_bLaserOutputStarted)
+                        if (ReadDigitalInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_2, true, 0))
                         {
-                            m_bLaserOutputStarted = true;
-                            m_nLaserOutputCount = 0;
-                            m_bLaserOutputOn = true;
-
-                            m_nLaserOnDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_ON_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-                            m_nLaserOffDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_OFF_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-                            m_nLaserRepeatCount = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_COUNT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 1);
-
-                            m_tickLaserOutput.SetTickCount((uint)m_nLaserOnDelay);
-                            WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, bLaserUsed_1); // 첫 ON
-                            WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, bLaserUsed_2);
-                        }
-                        else
-                        {
-                            if (m_bLaserOutputOn)
+                            if (!m_bLaserOutputStarted) //최초 1회만 진입 후 완료되면 false 전환
                             {
-                                if (m_tickLaserOutput.IsTickOver(false))
-                                {
-                                    // ON -> OFF
-                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, false);
-                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, false);
-                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, false);
-                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, false);
-                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, false);
-                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, false);
+                                m_bLaserOutputStarted = true;
+                                m_nLaserOutputCount = 0;
+                                m_bLaserOutputOn = true;
 
-                                    m_bLaserOutputOn = false;
-                                    m_tickLaserOutput.SetTickCount((uint)m_nLaserOffDelay);
-                                }
+                                m_nLaserOnDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_ON_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                                m_nLaserOffDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_OFF_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                                m_nLaserRepeatCount = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_COUNT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 1);
+
+                                m_tickLaserOutput.SetTickCount((uint)m_nLaserOnDelay);
+                                WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, bLaserUsed_1); // 첫 ON
+                                WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, bLaserUsed_1);
+                                WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, bLaserUsed_1);
+                                WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, bLaserUsed_2);
+                                WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, bLaserUsed_2);
+                                WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, bLaserUsed_2);
                             }
                             else
                             {
-                                if (m_tickLaserOutput.IsTickOver(false))
+                                if (m_bLaserOutputOn) 
                                 {
-                                    m_nLaserOutputCount++;
-
-                                    if (m_nLaserOutputCount >= m_nLaserRepeatCount)
+                                    if (m_tickLaserOutput.IsTickOver(false)) // 현재 ON인 경우 여기로 진입
                                     {
-                                        // 반복 종료
-                                        m_bLaserOutputStarted = false;
-                                        m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-                                        break;
+                                        // ON -> OFF
+                                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, false);
+                                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, false);
+                                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, false);
+                                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, false);
+                                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, false);
+                                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, false);
+
+                                        m_bLaserOutputOn = false;
+                                        m_tickLaserOutput.SetTickCount((uint)m_nLaserOffDelay);
                                     }
+                                }
+                                else
+                                {
+                                    if (m_tickLaserOutput.IsTickOver(false)) // 현재 OFF인 경우 여기로 진입
+                                    {
+                                        m_nLaserOutputCount++;
 
-                                    // OFF -> ON
-                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, bLaserUsed_1);
-                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, bLaserUsed_1);
-                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, bLaserUsed_1);
-                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, bLaserUsed_2);
-                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, bLaserUsed_2);
-                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, bLaserUsed_2);
+                                        if (m_nLaserOutputCount >= m_nLaserRepeatCount)
+                                        {
+                                            // 반복 종료
+                                            m_bLaserOutputStarted = false;
+                                            m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
+                                            break;
+                                        }
 
-                                    m_bLaserOutputOn = true;
-                                    m_tickLaserOutput.SetTickCount((uint)m_nLaserOnDelay);
+                                        // OFF -> ON
+                                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, bLaserUsed_1);
+                                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, bLaserUsed_1);
+                                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, bLaserUsed_1);
+                                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, bLaserUsed_2);
+                                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, bLaserUsed_2);
+                                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, bLaserUsed_2);
+
+                                        m_bLaserOutputOn = true;
+                                        m_tickLaserOutput.SetTickCount((uint)m_nLaserOnDelay);
+                                    }
                                 }
                             }
                         }
