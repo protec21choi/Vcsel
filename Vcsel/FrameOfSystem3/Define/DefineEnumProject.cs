@@ -511,9 +511,9 @@ namespace Define
                 //OPERATION_IR_MONITOR,
                 OPERATION_CALIBRATION,
                 //OPERATION_MANUAL,
-                OPERATION_STATE_MONITOR,
+                OPERATION_OUTPUT_TRACKING,
                 //OPERATION_RAM_METRICS,
-                OPERATION_TRACKING,
+                OPERATION_SYSTEM_MONITOR,
 
                 RECIPE_MAIN,
 				//RECIPE_OPTIONS,

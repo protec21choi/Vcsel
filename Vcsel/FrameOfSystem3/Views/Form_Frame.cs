@@ -266,9 +266,9 @@ namespace FrameOfSystem3.Views
 
 			#region Operation
 			m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_MAIN, m_viewOperationMain);
-            m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_STATE_MONITOR, m_viewOperationMonitor);
+            m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_SYSTEM_MONITOR, m_viewOperationMonitor);
             //m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_RAM_METRICS, m_viewOperationRAMMetrics);
-            m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_TRACKING, m_viewOperationTracking);
+            m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_OUTPUT_TRACKING, m_viewOperationTracking);
             #endregion
 
             #region Recipe
