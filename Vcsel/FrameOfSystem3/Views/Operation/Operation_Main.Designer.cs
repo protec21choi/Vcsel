@@ -70,6 +70,7 @@
             this.sys3GroupBox8 = new Sys3Controls.Sys3GroupBox();
             this.btn_ParameterUndo = new Sys3Controls.Sys3button();
             this.btn_DecideParameterAll = new Sys3Controls.Sys3button();
+            this.gridViewControl_AutoRun_Parameter = new FrameOfSystem3.Component.GridViewControl_Parameter();
             this.gridVeiwControl_Laser_Device_2 = new FrameOfSystem3.Component.GridVeiwControl_Device();
             this.gridViewControl_Enable_Parameter_2 = new FrameOfSystem3.Component.GridViewControl_Parameter();
             this.gridVeiwControl_Laser_Device = new FrameOfSystem3.Component.GridVeiwControl_Device();
@@ -1101,7 +1102,7 @@
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridView.Location = new System.Drawing.Point(821, 80);
+            this.dataGridView.Location = new System.Drawing.Point(7, 245);
             this.dataGridView.MultiSelect = false;
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
@@ -1116,7 +1117,7 @@
             this.dataGridView.RowHeadersVisible = false;
             this.dataGridView.RowTemplate.Height = 25;
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dataGridView.Size = new System.Drawing.Size(312, 273);
+            this.dataGridView.Size = new System.Drawing.Size(269, 108);
             this.dataGridView.TabIndex = 20954;
             // 
             // SB_GraphTime
@@ -1124,9 +1125,9 @@
             this.SB_GraphTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.SB_GraphTime.Enabled = false;
-            this.SB_GraphTime.Location = new System.Drawing.Point(5, 321);
+            this.SB_GraphTime.Location = new System.Drawing.Point(277, 321);
             this.SB_GraphTime.Name = "SB_GraphTime";
-            this.SB_GraphTime.Size = new System.Drawing.Size(814, 32);
+            this.SB_GraphTime.Size = new System.Drawing.Size(858, 32);
             this.SB_GraphTime.TabIndex = 20950;
             // 
             // _Graph
@@ -1134,7 +1135,7 @@
             this._Graph.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this._Graph.Location = new System.Drawing.Point(5, 80);
+            this._Graph.Location = new System.Drawing.Point(277, 80);
             this._Graph.Name = "_Graph";
             this._Graph.ScrollGrace = 0D;
             this._Graph.ScrollMaxX = 0D;
@@ -1143,7 +1144,7 @@
             this._Graph.ScrollMinX = 0D;
             this._Graph.ScrollMinY = 0D;
             this._Graph.ScrollMinY2 = 0D;
-            this._Graph.Size = new System.Drawing.Size(814, 238);
+            this._Graph.Size = new System.Drawing.Size(858, 238);
             this._Graph.TabIndex = 20946;
             // 
             // sys3GroupBox8
@@ -1159,11 +1160,11 @@
             this.sys3GroupBox8.LabelGradientColorSecond = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.sys3GroupBox8.LabelHeight = 30;
             this.sys3GroupBox8.LabelTextColor = System.Drawing.Color.Black;
-            this.sys3GroupBox8.Location = new System.Drawing.Point(1, 48);
+            this.sys3GroupBox8.Location = new System.Drawing.Point(3, 48);
             this.sys3GroupBox8.Name = "sys3GroupBox8";
-            this.sys3GroupBox8.Size = new System.Drawing.Size(1137, 310);
+            this.sys3GroupBox8.Size = new System.Drawing.Size(1135, 310);
             this.sys3GroupBox8.TabIndex = 20947;
-            this.sys3GroupBox8.Text = "IR MONITOR";
+            this.sys3GroupBox8.Text = "PARAMETER & IR MONITOR";
             this.sys3GroupBox8.TextAlign = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
             this.sys3GroupBox8.ThemeIndex = 0;
             this.sys3GroupBox8.UseLabelBorder = true;
@@ -1250,6 +1251,16 @@
             this.btn_DecideParameterAll.UseSubFont = false;
             this.btn_DecideParameterAll.Click += new System.EventHandler(this.ClickParameterSave);
             // 
+            // gridViewControl_AutoRun_Parameter
+            // 
+            this.gridViewControl_AutoRun_Parameter.Control_Enable = true;
+            this.gridViewControl_AutoRun_Parameter.controlCollection = null;
+            this.gridViewControl_AutoRun_Parameter.Location = new System.Drawing.Point(7, 80);
+            this.gridViewControl_AutoRun_Parameter.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.gridViewControl_AutoRun_Parameter.Name = "gridViewControl_AutoRun_Parameter";
+            this.gridViewControl_AutoRun_Parameter.Size = new System.Drawing.Size(269, 100);
+            this.gridViewControl_AutoRun_Parameter.TabIndex = 21000;
+            // 
             // gridVeiwControl_Laser_Device_2
             // 
             this.gridVeiwControl_Laser_Device_2.Control_Enable = true;
@@ -1293,6 +1304,7 @@
             // Operation_Main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.Controls.Add(this.gridViewControl_AutoRun_Parameter);
             this.Controls.Add(this.btn_ParameterUndo);
             this.Controls.Add(this.btn_DecideParameterAll);
             this.Controls.Add(this.dataGridView);
@@ -1378,5 +1390,6 @@
         private Sys3Controls.Sys3GroupBox sys3GroupBox8;
         private Sys3Controls.Sys3button btn_ParameterUndo;
         private Sys3Controls.Sys3button btn_DecideParameterAll;
+        private Component.GridViewControl_Parameter gridViewControl_AutoRun_Parameter;
     }
 }

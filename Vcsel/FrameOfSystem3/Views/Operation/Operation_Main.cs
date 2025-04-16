@@ -42,7 +42,9 @@ namespace FrameOfSystem3.Views.Operation
             m_InstanceOfSelectionList = Functional.Form_SelectionList.GetInstance();
             InitGridEnableParameter();
             InitGridLaserDevice();
-            
+
+            InitGridAutoRunParameter();
+
             InitGridEnableParameter_2();
             InitGridLaserDevice_2();
 
@@ -1313,7 +1315,29 @@ namespace FrameOfSystem3.Views.Operation
 
             gridVeiwControl_Laser_Device_2.ShowHeader(lstHeader);
         }
+        private void InitGridAutoRunParameter()
+        {
+            List<GridViewControl_Parameter.ParameterItem> parameterList = new List<GridViewControl_Parameter.ParameterItem>();
 
+            GridViewControl_Parameter.ParameterItem AddParaItem;
+
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.LASER_ON_DELAY.ToString());
+            AddParaItem.DisplayName = "ON DELAY";
+            parameterList.Add(AddParaItem);
+
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.LASER_OFF_DELAY.ToString());
+            AddParaItem.DisplayName = "OFF DELAY";
+            parameterList.Add(AddParaItem);
+
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.LASER_COUNT.ToString());
+            AddParaItem.DisplayName = "REPEAT COUNT";
+            parameterList.Add(AddParaItem);
+
+            gridViewControl_AutoRun_Parameter.Initialize(parameterList, -1, 80);
+        }
         private void Click_Stop(object sender, EventArgs e)
         {
             FrameOfSystem3.Config.ConfigDigitalIO.GetInstance().WriteOutput(false, (int)EN_DIGITAL_OUT.LD_1_ON);
@@ -1613,6 +1637,7 @@ namespace FrameOfSystem3.Views.Operation
         {
             gridViewControl_Enable_Parameter.UpdateValue();
             gridViewControl_Enable_Parameter_2.UpdateValue();
+            gridViewControl_AutoRun_Parameter.UpdateValue();
         }
 
         private void UpdatePowerLabel()
