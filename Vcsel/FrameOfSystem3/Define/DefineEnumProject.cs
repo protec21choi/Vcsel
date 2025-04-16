@@ -513,6 +513,7 @@ namespace Define
                 //OPERATION_MANUAL,
                 OPERATION_STATE_MONITOR,
                 //OPERATION_RAM_METRICS,
+                OPERATION_TRACKING,
 
                 RECIPE_MAIN,
 				//RECIPE_OPTIONS,
