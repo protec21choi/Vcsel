@@ -112,7 +112,7 @@ namespace FrameOfSystem3.Views.Functional
         /// </summary>
         private void FunctionForTimerTick(object sender, EventArgs e)
         {
-            InitializeGraph();
+            //InitializeGraph();
             UpdatePowerMeasureResult();
         }
         #endregion
