@@ -83,7 +83,7 @@ namespace FrameOfSystem3.Views
 		#region Operation
 		Views.Operation.Operation_Main			m_viewOperationMain				= new Operation.Operation_Main();
         Views.Operation.Operation_StateMonitor m_viewOperationMonitor = new Operation.Operation_StateMonitor();
-        Views.Operation.Operation_Tracking m_viewOperationTracking = new Operation.Operation_Tracking();
+        //Views.Operation.Operation_Tracking m_viewOperationTracking = new Operation.Operation_Tracking();
         //      Views.Operation.Operation_RAMMetrics    m_viewOperationRAMMetrics       = new Operation.Operation_RAMMetrics();
         #endregion
 
@@ -268,7 +268,7 @@ namespace FrameOfSystem3.Views
 			m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_MAIN, m_viewOperationMain);
             m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_SYSTEM_MONITOR, m_viewOperationMonitor);
             //m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_RAM_METRICS, m_viewOperationRAMMetrics);
-            m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_OUTPUT_TRACKING, m_viewOperationTracking);
+            //m_dicOfMainView.Add(EN_BUTTONEVENT_SUBMENU.OPERATION_OUTPUT_TRACKING, m_viewOperationTracking);
             #endregion
 
             #region Recipe
