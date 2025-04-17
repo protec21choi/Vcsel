@@ -62,7 +62,7 @@ namespace FrameOfSystem3.Views.Functional
             gridViewControl_Power_Measure_Parameter_2.UpdateValue();
             UpdatePowerTable_2();
         }
-
+        
         #region 싱글톤
         private static Form_CAL_Monitor _Instance;
         public static Form_CAL_Monitor GetInstance()
@@ -93,6 +93,7 @@ namespace FrameOfSystem3.Views.Functional
         #region 변수
         private Task.TaskBondHead m_TaskBonder_Instance = null;
         private static Timer m_timerForUpdate = new Timer();
+        private static Timer m_pTimerForUpdateGUI = new Timer();
         private TickCounter_.TickCounter m_TickCount = new TickCounter_.TickCounter();
         Functional.Form_MessageBox m_MessageBox = Functional.Form_MessageBox.GetInstance();
 
@@ -105,6 +106,18 @@ namespace FrameOfSystem3.Views.Functional
         Laser.ProtecLaserMananger_2 m_Laser_2 = Laser.ProtecLaserMananger_2.GetInstance();
         #endregion
 
+        #region Timer
+        /// <summary>
+        /// 2020.05.15 by yjlee [ADD] This function will be called by the system timer to update the GUI.
+        /// </summary>
+        private void FunctionForTimerTick(object sender, EventArgs e)
+        {
+            InitializeGraph();
+            UpdatePowerMeasureResult();
+        }
+        #endregion
+
+
         #region 외부인터페이스
         /// <summary>
         /// 2020.08.12 by twkang [ADD] Jog 폼을 생성한다.
@@ -115,7 +128,9 @@ namespace FrameOfSystem3.Views.Functional
 
             this.Size = new Size(1280, 770);
 
+            m_pTimerForUpdateGUI.Tick += new EventHandler(FunctionForTimerTick);
             m_timerForUpdate.Start();
+            m_pTimerForUpdateGUI.Start();
 
             this.Show();
         }
@@ -702,6 +717,7 @@ namespace FrameOfSystem3.Views.Functional
         private void Click_Close(object sender, EventArgs e)
         {
             m_timerForUpdate.Stop();
+            m_pTimerForUpdateGUI.Stop();
             this.Hide();
         }
         private void Form_Monitor_Resize(object sender, EventArgs e)
