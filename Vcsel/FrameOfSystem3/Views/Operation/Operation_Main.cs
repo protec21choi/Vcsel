@@ -453,7 +453,6 @@ namespace FrameOfSystem3.Views.Operation
             m_dicValue.Add(EN_GRAPH_PARAM.IR_SENSOR_3, 0);
             m_dicValue.Add(EN_GRAPH_PARAM.IR_SENSOR_4, 0);
         }
-
         private void InitializeGraph()
         {
             m_tickCount.SetTickCount(1);
@@ -461,15 +460,13 @@ namespace FrameOfSystem3.Views.Operation
             m_dicScaleIdnex.Clear();
             _Graph.GraphPane.CurveList.Clear();
 
-
             m_dicGraph.Clear();
 
             _Graph.IsShowPointValues = true;
 
-
             _Graph.GraphPane.Title.IsVisible = false;
             _Graph.GraphPane.Legend.FontSpec.Size = 6;
-            _Graph.GraphPane.Legend.IsVisible = false;
+            _Graph.GraphPane.Legend.IsVisible = true;
 
             int nTimeMax = m_unMaxLiveCount;
 
@@ -482,175 +479,43 @@ namespace FrameOfSystem3.Views.Operation
 
             _Graph.GraphPane.XAxis.Title.IsVisible = false;
 
-            _Graph.GraphPane.YAxisList.Clear();
-            _Graph.GraphPane.Y2AxisList.Clear();
+            _Graph.GraphPane.YAxisList.Clear(); // Clear existing Y axes
 
             int Ynumber = 1;
-            int Y1Index = 0;
-            int Y2Index = 0;
+            int YIndex = 0;
 
             #region IR_SENSOR
-            if (m_dicVisibleItem[EN_GRAPH_PARAM.IR_SENSOR_1])
+            // 하나의 Y축을 사용하여 4개의 IR 센서를 표시합니다.
+            if (m_dicVisibleItem[EN_GRAPH_PARAM.IR_SENSOR_1] || m_dicVisibleItem[EN_GRAPH_PARAM.IR_SENSOR_2] || m_dicVisibleItem[EN_GRAPH_PARAM.IR_SENSOR_3] || m_dicVisibleItem[EN_GRAPH_PARAM.IR_SENSOR_4])
             {
-                if (Ynumber == 1)
-                {
+                // 기존의 여러 Y축을 하나로 통합
+                YAxis yAxis = new YAxis("IR SENSOR (℃)");
+                yAxis.Scale.Min = m_unMinLiveIR_Scale;
+                yAxis.Scale.Max = m_unMaxLiveIR_Scale;
+                yAxis.Title.FontSpec.Size = 18;
+                yAxis.Scale.FontSpec.Size = 15;
+                yAxis.MinorTic.IsAllTics = false;
+                _Graph.GraphPane.YAxisList.Add(yAxis);
 
-                    YAxis yAxis = new YAxis("IR_1 (℃)");
-                    yAxis.Scale.Min = m_unMinLiveIR_Scale;
-                    yAxis.Scale.Max = m_unMaxLiveIR_Scale;
-                    yAxis.Title.FontSpec.Size = 13;
-                    yAxis.Scale.FontSpec.Size = 10;
-                    yAxis.MinorTic.IsAllTics = false;
-                    _Graph.GraphPane.YAxisList.Add(yAxis);
-
-                    m_dicScaleIdnex.Add(EN_GRAPH_PARAM.IR_SENSOR_1, new int[] { Ynumber, Y1Index });
-
-                    Ynumber = 2;
-                    Y1Index++;
-                }
-                else
-                {
-                    Y2Axis yAxis = new Y2Axis("IR_1 (℃)");
-                    yAxis.Scale.Min = m_unMinLiveIR_Scale;
-                    yAxis.Scale.Max = m_unMaxLiveIR_Scale;
-                    yAxis.Title.FontSpec.Size = 13;
-                    yAxis.Scale.FontSpec.Size = 10;
-                    yAxis.IsVisible = true;
-                    yAxis.MinorTic.IsAllTics = false;
-                    _Graph.GraphPane.Y2AxisList.Add(yAxis);
-
-                    m_dicScaleIdnex.Add(EN_GRAPH_PARAM.IR_SENSOR_1, new int[] { Ynumber, Y2Index });
-
-                    Ynumber = 1;
-                    Y2Index++;
-                }
-            }
-            if (m_dicVisibleItem[EN_GRAPH_PARAM.IR_SENSOR_2])
-            {
-                if (Ynumber == 1)
-                {
-
-                    YAxis yAxis = new YAxis("IR_2 (℃)");
-                    yAxis.Scale.Min = m_unMinLiveIR_Scale;
-                    yAxis.Scale.Max = m_unMaxLiveIR_Scale;
-                    yAxis.Title.FontSpec.Size = 13;
-                    yAxis.Scale.FontSpec.Size = 10;
-                    yAxis.MinorTic.IsAllTics = false;
-                    _Graph.GraphPane.YAxisList.Add(yAxis);
-
-                    m_dicScaleIdnex.Add(EN_GRAPH_PARAM.IR_SENSOR_2, new int[] { Ynumber, Y1Index });
-
-                    Ynumber = 2;
-                    Y1Index++;
-                }
-                else
-                {
-                    Y2Axis yAxis = new Y2Axis("IR_2 (℃)");
-                    yAxis.Scale.Min = m_unMinLiveIR_Scale;
-                    yAxis.Scale.Max = m_unMaxLiveIR_Scale;
-                    yAxis.Title.FontSpec.Size = 13;
-                    yAxis.Scale.FontSpec.Size = 10;
-                    yAxis.IsVisible = true;
-                    yAxis.MinorTic.IsAllTics = false;
-                    _Graph.GraphPane.Y2AxisList.Add(yAxis);
-
-                    m_dicScaleIdnex.Add(EN_GRAPH_PARAM.IR_SENSOR_2, new int[] { Ynumber, Y2Index });
-
-                    Ynumber = 1;
-                    Y2Index++;
-                }
-            }
-            if (m_dicVisibleItem[EN_GRAPH_PARAM.IR_SENSOR_3])
-            {
-                if (Ynumber == 1)
-                {
-
-                    YAxis yAxis = new YAxis("IR_3 (℃)");
-                    yAxis.Scale.Min = m_unMinLiveIR_Scale;
-                    yAxis.Scale.Max = m_unMaxLiveIR_Scale;
-                    yAxis.Title.FontSpec.Size = 13;
-                    yAxis.Scale.FontSpec.Size = 10;
-                    yAxis.MinorTic.IsAllTics = false;
-                    _Graph.GraphPane.YAxisList.Add(yAxis);
-
-                    m_dicScaleIdnex.Add(EN_GRAPH_PARAM.IR_SENSOR_3, new int[] { Ynumber, Y1Index });
-
-                    Ynumber = 2;
-                    Y1Index++;
-                }
-                else
-                {
-                    Y2Axis yAxis = new Y2Axis("IR_3 (℃)");
-                    yAxis.Scale.Min = m_unMinLiveIR_Scale;
-                    yAxis.Scale.Max = m_unMaxLiveIR_Scale;
-                    yAxis.Title.FontSpec.Size = 13;
-                    yAxis.Scale.FontSpec.Size = 10;
-                    yAxis.IsVisible = true;
-                    yAxis.MinorTic.IsAllTics = false;
-                    _Graph.GraphPane.Y2AxisList.Add(yAxis);
-
-                    m_dicScaleIdnex.Add(EN_GRAPH_PARAM.IR_SENSOR_3, new int[] { Ynumber, Y2Index });
-
-                    Ynumber = 1;
-                    Y2Index++;
-                }
-            }
-            if (m_dicVisibleItem[EN_GRAPH_PARAM.IR_SENSOR_4])
-            {
-                if (Ynumber == 1)
-                {
-
-                    YAxis yAxis = new YAxis("IR_4 (℃)");
-                    yAxis.Scale.Min = m_unMinLiveIR_Scale;
-                    yAxis.Scale.Max = m_unMaxLiveIR_Scale;
-                    yAxis.Title.FontSpec.Size = 13;
-                    yAxis.Scale.FontSpec.Size = 10;
-                    yAxis.MinorTic.IsAllTics = false;
-                    _Graph.GraphPane.YAxisList.Add(yAxis);
-
-                    m_dicScaleIdnex.Add(EN_GRAPH_PARAM.IR_SENSOR_4, new int[] { Ynumber, Y1Index });
-
-                    Ynumber = 2;
-                    Y1Index++;
-                }
-                else
-                {
-                    Y2Axis yAxis = new Y2Axis("IR_4 (℃)");
-                    yAxis.Scale.Min = m_unMinLiveIR_Scale;
-                    yAxis.Scale.Max = m_unMaxLiveIR_Scale;
-                    yAxis.Title.FontSpec.Size = 13;
-                    yAxis.Scale.FontSpec.Size = 10;
-                    yAxis.IsVisible = true;
-                    yAxis.MinorTic.IsAllTics = false;
-                    _Graph.GraphPane.Y2AxisList.Add(yAxis);
-
-                    m_dicScaleIdnex.Add(EN_GRAPH_PARAM.IR_SENSOR_4, new int[] { Ynumber, Y2Index });
-
-                    Ynumber = 1;
-                    Y2Index++;
-                }
+                m_dicScaleIdnex.Add(EN_GRAPH_PARAM.IR_SENSOR_1, new int[] { Ynumber, YIndex });
             }
             #endregion /IR_SENSOR
 
-
-
-
             #region Add DicGraph
+            // 하나의 Y축에 4개의 센서를 추가하여 그리기
             foreach (EN_GRAPH_PARAM en in Enum.GetValues(typeof(EN_GRAPH_PARAM)))
             {
-                if (m_dicVisibleItem[en])
+                if (m_dicVisibleItem[en] && (en == EN_GRAPH_PARAM.IR_SENSOR_1 || en == EN_GRAPH_PARAM.IR_SENSOR_2 || en == EN_GRAPH_PARAM.IR_SENSOR_3 || en == EN_GRAPH_PARAM.IR_SENSOR_4))
                 {
                     m_dicGraph.Add(en, new RollingPointPairList(nTimeMax));
+
                     var LineItem = _Graph.GraphPane.AddCurve(en.ToString(), m_dicGraph[en], m_dicVisibleColor[en], SymbolType.None);
-                    LineItem.Line.Width = 3;
                     LineItem.Line.Width = 3;
                     LineItem.Label.FontSpec = new FontSpec();
                     LineItem.Label.FontSpec.Size = 9;
                     LineItem.Label.FontSpec.Border.IsVisible = false;
 
-                    if (m_dicScaleIdnex[en][0] == 2)
-                        LineItem.IsY2Axis = true;
-                    LineItem.YAxisIndex = m_dicScaleIdnex[en][1];
+                    LineItem.YAxisIndex = YIndex; // 모두 동일한 Y축을 사용합니다.
                 }
             }
             #endregion /Add DicGraph
@@ -659,21 +524,9 @@ namespace FrameOfSystem3.Views.Operation
             {
                 foreach (var kpv in dicLoadedData)
                 {
-
-                    //                     if (m_dicVisibleItem[EN_GRAPH_PARAM.PYRO_TEMP_1])
-                    //                         m_dicGraph[EN_GRAPH_PARAM.PYRO_TEMP_1].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.PYRO_TEMP_1]);
-                    //                     if (m_dicVisibleItem[EN_GRAPH_PARAM.PYRO_TEMP_2])
-                    //                         m_dicGraph[EN_GRAPH_PARAM.PYRO_TEMP_2].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.PYRO_TEMP_2]);
-                    //                     if (m_dicVisibleItem[EN_GRAPH_PARAM.PYRO_TEMP_3])
-                    //                         m_dicGraph[EN_GRAPH_PARAM.PYRO_TEMP_3].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.PYRO_TEMP_3]);
-                    //                     if (m_dicVisibleItem[EN_GRAPH_PARAM.PYRO_TEMP_4])
-                    //                         m_dicGraph[EN_GRAPH_PARAM.PYRO_TEMP_4].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.PYRO_TEMP_4]);
-                    //                     if (m_dicVisibleItem[EN_GRAPH_PARAM.PYRO_TEMP_5])
-                    //                         m_dicGraph[EN_GRAPH_PARAM.PYRO_TEMP_5].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.PYRO_TEMP_5]);
-
+                    // 각 센서 데이터를 하나의 리스트에 추가
                     if (m_dicVisibleItem[EN_GRAPH_PARAM.IR_SENSOR_1])
                     {
-                        //Log에 추후에 추가되어서 없는 경우 Load하기 위해
                         if (kpv.Value.ContainsKey(Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_1))
                             m_dicGraph[EN_GRAPH_PARAM.IR_SENSOR_1].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_1]);
                         else
@@ -681,7 +534,6 @@ namespace FrameOfSystem3.Views.Operation
                     }
                     if (m_dicVisibleItem[EN_GRAPH_PARAM.IR_SENSOR_2])
                     {
-                        //Log에 추후에 추가되어서 없는 경우 Load하기 위해
                         if (kpv.Value.ContainsKey(Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_2))
                             m_dicGraph[EN_GRAPH_PARAM.IR_SENSOR_2].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_2]);
                         else
@@ -689,7 +541,6 @@ namespace FrameOfSystem3.Views.Operation
                     }
                     if (m_dicVisibleItem[EN_GRAPH_PARAM.IR_SENSOR_3])
                     {
-                        //Log에 추후에 추가되어서 없는 경우 Load하기 위해
                         if (kpv.Value.ContainsKey(Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_3))
                             m_dicGraph[EN_GRAPH_PARAM.IR_SENSOR_3].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_3]);
                         else
@@ -697,7 +548,6 @@ namespace FrameOfSystem3.Views.Operation
                     }
                     if (m_dicVisibleItem[EN_GRAPH_PARAM.IR_SENSOR_4])
                     {
-                        //Log에 추후에 추가되어서 없는 경우 Load하기 위해
                         if (kpv.Value.ContainsKey(Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_4))
                             m_dicGraph[EN_GRAPH_PARAM.IR_SENSOR_4].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.IR_SENSOR_4]);
                         else
@@ -705,22 +555,11 @@ namespace FrameOfSystem3.Views.Operation
                     }
                 }
             }
-            if (Y1Index == 0)
-            {
-                YAxis yAxis = new YAxis("");
-                yAxis.IsVisible = false;
-                _Graph.GraphPane.YAxisList.Add(yAxis);
-            }
-            if (Y2Index == 0)
-            {
-                Y2Axis yAxis = new Y2Axis("");
-                yAxis.IsVisible = false;
-                _Graph.GraphPane.Y2AxisList.Add(yAxis);
-            }
 
             _Graph.AxisChange();
             _Graph.Invalidate();
         }
+        
         #endregion </INITIALIZE>
 
         #region UpdateUI
