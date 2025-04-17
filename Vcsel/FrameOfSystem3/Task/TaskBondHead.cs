@@ -1199,6 +1199,11 @@ namespace FrameOfSystem3.Task
             switch (m_nSeqNum)
             {
                 case (int)EN_LASER_WORK_STEP.ACTION_START:
+                    int nLaserCount = 18;
+                    //Action이 시작되면 Calibration Table File을 Load 한다.
+                    Laser.ProtecLaserChannelCalibration.GetInstance().Init(nLaserCount);
+                    Laser.ProtecLaserChannelCalibration_2.GetInstance().Init(nLaserCount);
+
                     m_tickTimeOut.SetTickCount(5000);
                     if (!bLaserUsed_1)
                     {
@@ -1430,6 +1435,12 @@ namespace FrameOfSystem3.Task
                     break;
 
                 case (int)EN_LASER_WORK_STEP.FINISH:
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_1, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_2, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_3, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_1, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_2, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_3, false);
                     // 2025.4.11 by ecchoi [ADD] 알람이나 사용자 정지는 여기로 빠져나온다.
                     return true;
             }
