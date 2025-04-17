@@ -1498,7 +1498,7 @@ namespace FrameOfSystem3.Task
                             int nMeasureCh = 0;
                             for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
                             {
-                                if (m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
+                                if (m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
                                 {
                                     ChMeasureCount++;
                                     nMeasureCh = nCh;
@@ -1551,7 +1551,7 @@ namespace FrameOfSystem3.Task
                         case EN_TASK_ACTION.MEASURE_POWER:
                             for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
                             {
-                                arUsed[nCh] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                                arUsed[nCh] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
                             }
                             dOutput = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_WATT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
                             switch (m_Laser.SetParameter(arUsed, dOutput, nTime))
@@ -1586,7 +1586,7 @@ namespace FrameOfSystem3.Task
                         case EN_TASK_ACTION.MEASURE_VOLT:
                             for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
                             {
-                                arUsed[nCh] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                                arUsed[nCh] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
                             }
                             dOutput = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_VOLT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
                             switch (m_Laser.SetParameterVolt(arUsed, dOutput, nTime))
@@ -1855,7 +1855,7 @@ namespace FrameOfSystem3.Task
                             //다음 channel 측정
                             for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
                             {
-                                if (m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
+                                if (m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
                                 {
                                     if (m_nCalibrationChannel < nCh)
                                     {
@@ -1955,7 +1955,7 @@ namespace FrameOfSystem3.Task
                             int nMeasureCh = 0;
                             for (int nCh = 0; nCh < m_Laser_2.ChannelCount; ++nCh)
                             {
-                                if (m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_2_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
+                                if (m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_2_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
                                 {
                                     ChMeasureCount++;
                                     nMeasureCh = nCh;
@@ -2008,7 +2008,7 @@ namespace FrameOfSystem3.Task
                         case EN_TASK_ACTION.MEASURE_POWER_2:
                             for (int nCh = 0; nCh < m_Laser_2.ChannelCount; ++nCh)
                             {
-                                arUsed[nCh] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_2_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                                arUsed[nCh] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_2_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
                             }
                             dOutput = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_WATT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
                             switch (m_Laser_2.SetParameter(arUsed, dOutput, nTime))
@@ -2043,7 +2043,7 @@ namespace FrameOfSystem3.Task
                         case EN_TASK_ACTION.MEASURE_VOLT_2:
                             for (int nCh = 0; nCh < m_Laser_2.ChannelCount; ++nCh)
                             {
-                                arUsed[nCh] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_2_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                                arUsed[nCh] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_2_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
                             }
                             dOutput = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_VOLT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
                             switch (m_Laser_2.SetParameterVolt(arUsed, dOutput, nTime))
@@ -2312,7 +2312,7 @@ namespace FrameOfSystem3.Task
                             //다음 channel 측정
                             for (int nCh = 0; nCh < m_Laser_2.ChannelCount; ++nCh)
                             {
-                                if (m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
+                                if (m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
                                 {
                                     if (m_nCalibrationChannel < nCh)
                                     {
@@ -2381,7 +2381,7 @@ namespace FrameOfSystem3.Task
 
                     for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
                     {
-                        arUsed[nCh] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                        arUsed[nCh] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
                     }
 
                     switch (m_Laser.CheckShort(arUsed))
@@ -2449,7 +2449,7 @@ namespace FrameOfSystem3.Task
 
                     for (int nCh = 0; nCh < m_Laser_2.ChannelCount; ++nCh)
                     {
-                        arUsed[nCh] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_2_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                        arUsed[nCh] = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_2_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
                     }
 
                     switch (m_Laser_2.CheckShort(arUsed))
@@ -2527,7 +2527,7 @@ namespace FrameOfSystem3.Task
             m_nCalibrationCurrentStep = 0;
             for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
             {
-                if (m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
+                if (m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
                 {
                     m_nCalibrationChannel = nCh;
                     break;
@@ -2572,7 +2572,7 @@ namespace FrameOfSystem3.Task
             m_nCalibrationCurrentStep = 0;
             for (int nCh = 0; nCh < m_Laser_2.ChannelCount; ++nCh)
             {
-                if (m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_2_CHANNEL_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
+                if (m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_2_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
                 {
                     m_nCalibrationChannel = nCh;
                     break;

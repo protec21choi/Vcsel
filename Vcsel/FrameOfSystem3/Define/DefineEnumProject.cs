@@ -302,7 +302,7 @@ namespace Define
                     //POWER_MEASURE_POSITION_X_18,
                     //POWER_MEASURE_POSITION_Y_18,
 
-                    POWER_MEASURE_CHANNEL_ENABLE_18,
+                    //POWER_MEASURE_CHANNEL_ENABLE_18,
 
                     POWER_MEASURE_WATT,
                     POWER_MEASURE_VOLT,
@@ -316,7 +316,7 @@ namespace Define
                     // 2025.3.11 by ecchoi [ADD] Laser 2
                     POWER_MEASURE_2_SELLECTED_CHANNEL, //측정할 때 측정 위치 결정 
 
-                    POWER_MEASURE_2_CHANNEL_ENABLE_18,
+                    //POWER_MEASURE_2_CHANNEL_ENABLE_18,
 
                     POWER_MEASURE_2_WATT,
                     POWER_MEASURE_2_VOLT,
