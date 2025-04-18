@@ -1225,6 +1225,7 @@ namespace FrameOfSystem3.Task
                     }
                     bool[] arUsed = new bool[m_Laser.ChannelCount];
                     double arTotalPower = 0.0;
+                    int nLimitSec = 30;
 
                     for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
                     {
@@ -1232,7 +1233,8 @@ namespace FrameOfSystem3.Task
                     }
 
                     arTotalPower = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.SHOT_PARAMETER_TOTAL_POWER.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-                    switch (m_Laser.SetParameterIOMode(arUsed, arTotalPower))
+                    nLimitSec = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.AUTO_SAFETY_LIMIT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 30);
+                    switch (m_Laser.SetParameterIOMode(arUsed, arTotalPower, nLimitSec))
                     {
                         case ProtecLaserMananger.EN_SET_RESULT.OK:
                             int nDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_SETTING_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
@@ -1279,6 +1281,7 @@ namespace FrameOfSystem3.Task
                     }
                     bool[] arUsed_2 = new bool[m_Laser_2.ChannelCount];
                     double arTotalPower_2 = 0.0;
+                    int nLimitSec_2 = 30;
 
                     for (int nCh = 0; nCh < m_Laser_2.ChannelCount; ++nCh)
                     {
@@ -1286,7 +1289,8 @@ namespace FrameOfSystem3.Task
                     }
 
                     arTotalPower_2 = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.SHOT_PARAMETER_2_TOTAL_POWER.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
-                    switch (m_Laser_2.SetParameterIOMode(arUsed_2, arTotalPower_2))
+                    nLimitSec_2 = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.AUTO_SAFETY_LIMIT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 30);
+                    switch (m_Laser_2.SetParameterIOMode(arUsed_2, arTotalPower_2, nLimitSec_2))
                     {
                         case ProtecLaserMananger_2.EN_SET_RESULT_2.OK:
                             int nDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_SETTING_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);

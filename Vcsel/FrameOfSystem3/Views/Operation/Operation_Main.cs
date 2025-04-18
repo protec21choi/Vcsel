@@ -1209,6 +1209,21 @@ namespace FrameOfSystem3.Views.Operation
             AddParaItem.DisplayName = "REPEAT COUNT";
             parameterList.Add(AddParaItem);
 
+            //AddParaItem = new GridViewControl_Parameter.ParameterItem
+            //    (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.BYPASS_ON_DELAY.ToString());
+            //AddParaItem.DisplayName = "BYPASS ON TIME";
+            //parameterList.Add(AddParaItem);
+
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.AUTO_SAFETY_LIMIT.ToString());
+            AddParaItem.DisplayName = "AUTO SAFETY LIMIT";
+            parameterList.Add(AddParaItem);
+
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.BYPASS_SAFETY_LIMIT.ToString());
+            AddParaItem.DisplayName = "BYPASS SAFETY LIMIT";
+            parameterList.Add(AddParaItem);
+
             gridViewControl_AutoRun_Parameter.Initialize(parameterList, -1, 80);
         }
         private void Click_Stop(object sender, EventArgs e)

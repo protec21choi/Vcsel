@@ -238,6 +238,11 @@ namespace Define
                     LASER_OFF_DELAY,
                     LASER_COUNT,
 
+                    //BYPASS_ON_DELAY,
+
+                    AUTO_SAFETY_LIMIT,
+                    BYPASS_SAFETY_LIMIT,
+
                     LASER_1_USED,
                     SHOT_PARAMETER_ENABLE_18,
 

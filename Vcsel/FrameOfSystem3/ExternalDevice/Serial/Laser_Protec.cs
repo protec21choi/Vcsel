@@ -529,7 +529,52 @@ namespace FrameOfSystem3.ExternalDevice.Serial
             }
             return EN_RESULT.WORKING;
         }
+        public EN_RESULT SetIOModeTimeLimit(int nLimitSec)
+        {
+            int nPortIndex = 0; // 포트는 사용하지 않기 때문에 0으로 고정한다
 
+            if (nLimitSec < 0 || nLimitSec > 300)
+                return EN_RESULT.FAIL;
+
+            if (m_dicTickTimeoverForLaserPort[nPortIndex].IsTickOver(false))
+            {
+                m_dicLaserPort[nPortIndex].Seq = 0;
+                m_dicTickTimeoverForLaserPort[nPortIndex].SetTickCount(TimeOut);
+            }
+
+            switch (m_dicLaserPort[nPortIndex].Seq)
+            {
+                case 0:
+                    m_dicLaserPort[nPortIndex].SerialPortReceive = "";
+
+                    string strMessage = System.Text.Encoding.ASCII.GetString(STX);
+                    strMessage += "H00";
+
+                    strMessage += string.Format(",{0:000000}", nLimitSec);
+                    for (int i = 0; i < 5; ++i)
+                        strMessage += ",000000";
+
+                    strMessage += CheckSum(strMessage);
+                    strMessage += System.Text.Encoding.ASCII.GetString(ETX);
+
+                    if (m_InstanceSerial.Write(m_dicLaserPort[nPortIndex].SerialPortIndex, strMessage) == false)
+                        return EN_RESULT.FAIL;
+
+                    AddCommLog(nPortIndex, strMessage);
+                    m_dicLaserPort[nPortIndex].Seq++;
+                    break;
+
+                case 1:
+                    if (CheckControlReciveDone(nPortIndex))
+                    {
+                        m_dicLaserPort[nPortIndex].Seq = 0;
+                        return EN_RESULT.DONE;
+                    }
+                    break;
+            }
+
+            return EN_RESULT.WORKING;
+        }
         public EN_RESULT ShortCheckStart(int nPortIndex)
         {
 //             if (m_dicTickTimeoverForLaserPort[nPortIndex].IsTickOver(false))

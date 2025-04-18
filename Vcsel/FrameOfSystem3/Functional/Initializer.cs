@@ -515,11 +515,23 @@ namespace FrameOfSystem3.Functional
                     break;
 
                 case EN_INITIALIZATION_STEP.INIT_ANALOG_IO_END:
-                    // AnalogIO.AnalogIOController
-                    m_arAnalogIOController = new AnalogIOController[1];
+                    //// AnalogIO.AnalogIOController
+                    //m_arAnalogIOController = new AnalogIOController[1];
 
-                    m_arAnalogIOController[0] = new Controller.AnalogIO.RSAAnalogIOController();
-                    bResult = AnalogIO.GetInstance().Init(ref m_arAnalogIOController);
+                    ////m_arAnalogIOController[0] = new Controller.AnalogIO.RSAAnalogIOController();
+                    //bResult = AnalogIO.GetInstance().Init(ref m_arAnalogIOController);
+                    try
+                    {
+                        m_arAnalogIOController = new AnalogIOController[]
+                        {
+                            new Controller.AnalogIO.RSAAnalogIOController()
+                        };
+                    }
+                    catch
+                    {
+                        m_arAnalogIOController = null;
+                    }
+                    //bResult = AnalogIO.GetInstance().Init(ref m_arAnalogIOController);
                     break;
                 #endregion
 
@@ -529,11 +541,24 @@ namespace FrameOfSystem3.Functional
                     break;
 
                 case EN_INITIALIZATION_STEP.INIT_DIGITAL_IO_END:
-                    // DigitalIO.DigitalIOController
-                    m_arDigitalIOController = new DigitalIOController[1];
+                    //// DigitalIO.DigitalIOController
+                    //m_arDigitalIOController = new DigitalIOController[1];
 
-                    m_arDigitalIOController[0] = new Controller.DigitalIO.RSADigitalIOController();
-                    bResult = DigitalIO.GetInstance().Init(ref m_arDigitalIOController);
+                    ////m_arDigitalIOController[0] = new Controller.DigitalIO.RSADigitalIOController();
+                    //bResult = DigitalIO.GetInstance().Init(ref m_arDigitalIOController);
+                    try
+                    {
+                        m_arDigitalIOController = new DigitalIOController[]
+                        {
+                            new Controller.DigitalIO.RSADigitalIOController()
+                        };
+                    }
+                    catch
+                    {
+                        m_arDigitalIOController = null;
+                    }
+
+                    //bResult = DigitalIO.GetInstance().Init(ref m_arDigitalIOController);
                     break;
                 #endregion
 
