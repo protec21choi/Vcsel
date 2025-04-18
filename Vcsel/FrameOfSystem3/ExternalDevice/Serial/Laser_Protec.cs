@@ -529,7 +529,7 @@ namespace FrameOfSystem3.ExternalDevice.Serial
             }
             return EN_RESULT.WORKING;
         }
-        public EN_RESULT SetIOModeTimeLimit(int nLimitSec)
+        public EN_RESULT SetTimeLimit(int nLimitSec)
         {
             int nPortIndex = 0; // 포트는 사용하지 않기 때문에 0으로 고정한다
 

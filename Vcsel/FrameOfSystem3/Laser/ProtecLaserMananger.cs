@@ -398,7 +398,7 @@ namespace FrameOfSystem3.Laser
             return EN_SET_RESULT.WORKING;
         }
 
-        public EN_SET_RESULT SetParameterIOMode(bool[] bEnable, double dTotalPower, int nLimitSec)
+        public EN_SET_RESULT SetParameterIOMode(bool[] bEnable, double dTotalPower)
         {
             switch (m_nSeq)
             {
@@ -507,8 +507,19 @@ namespace FrameOfSystem3.Laser
                     break;
 
                 case 5:
+                    m_nSeq = 0;
+                    return EN_SET_RESULT.OK;
+            }
+
+            return EN_SET_RESULT.WORKING;
+        }
+        public EN_SET_RESULT SetParameterTimeLimit(int nLimitSec)
+        {
+            switch (m_nSeq)
+            {
+                case 0:
                     {
-                        var resultTimeLimit = m_ProtecLaser.SetIOModeTimeLimit(nLimitSec);
+                        var resultTimeLimit = m_ProtecLaser.SetTimeLimit(nLimitSec);
                         if (resultTimeLimit == ProtecLaserController.EN_RESULT.DONE)
                         {
                             m_nSeq++;
@@ -522,7 +533,7 @@ namespace FrameOfSystem3.Laser
                         return EN_SET_RESULT.WORKING;
                     }
 
-                case 6:
+                case 1:
                     m_nSeq = 0;
                     return EN_SET_RESULT.OK;
             }

@@ -1218,14 +1218,13 @@ namespace FrameOfSystem3.Task
                     // 2025.3.31 by ecchoi [ADD] Test 후 복구
                     if (m_tickTimeOut.IsTickOver(false))
                     {
-                        //m_arAlarmSubInfo[0] = "";
-                        //GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
-                        //m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-                        //break;
+                        m_arAlarmSubInfo[0] = "";
+                        GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
+                        m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
+                        break;
                     }
                     bool[] arUsed = new bool[m_Laser.ChannelCount];
                     double arTotalPower = 0.0;
-                    int nLimitSec = 30;
 
                     for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
                     {
@@ -1233,8 +1232,47 @@ namespace FrameOfSystem3.Task
                     }
 
                     arTotalPower = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.SHOT_PARAMETER_TOTAL_POWER.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+                    switch (m_Laser.SetParameterIOMode(arUsed, arTotalPower))
+                    {
+                        case ProtecLaserMananger.EN_SET_RESULT.OK:
+                            int nDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_SETTING_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                            m_tickForSerialCommunication.SetTickCount((uint)Math.Max(0, nDelay));
+                            m_nSeqNum ++;
+                            break;
+                        case ProtecLaserMananger.EN_SET_RESULT.WORKING:
+                            if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
+                                m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
+                            break;
+                        case ProtecLaserMananger.EN_SET_RESULT.POWER_OVER_MAX:
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 101, false); //POWER IS TOO HIGH
+                            break;
+                        case ProtecLaserMananger.EN_SET_RESULT.CH_POWER_OVER:
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 102, false); //CHANNEL POWER IS TOO HIGH
+                            break;
+                        case ProtecLaserMananger.EN_SET_RESULT.POWER_UNDER_MIN:
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 103, false); //POWER IS TOO LOW
+                            break;
+                        default:
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 104, false); //LASER COMMUNICATION FAIL
+                            break;
+
+                    }
+                    break;
+
+                case (int)EN_LASER_WORK_STEP.PARAMETER_READY_LASER_1 +1:
+                    #region Laser#1
+                    // 2025.3.31 by ecchoi [ADD] Test 후 복구
+                    if (m_tickTimeOut.IsTickOver(false))
+                    {
+                        m_arAlarmSubInfo[0] = "";
+                        GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
+                        m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
+                        break;
+                    }
+                    int nLimitSec = 30;
+
                     nLimitSec = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.AUTO_SAFETY_LIMIT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 30);
-                    switch (m_Laser.SetParameterIOMode(arUsed, arTotalPower, nLimitSec))
+                    switch (m_Laser.SetParameterTimeLimit(nLimitSec))
                     {
                         case ProtecLaserMananger.EN_SET_RESULT.OK:
                             int nDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_SETTING_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
@@ -1259,7 +1297,7 @@ namespace FrameOfSystem3.Task
                             break;
 
                     }
-                    
+
                     #endregion /Laser#1 end
                     break;
 
