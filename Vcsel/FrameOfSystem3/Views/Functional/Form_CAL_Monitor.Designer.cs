@@ -1118,7 +1118,7 @@
             this.m_btnMeasureVolt2.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
             this.m_btnMeasureVolt2.SubFontColor = System.Drawing.Color.Black;
             this.m_btnMeasureVolt2.SubText = "";
-            this.m_btnMeasureVolt2.TabIndex = 6;
+            this.m_btnMeasureVolt2.TabIndex = 16;
             this.m_btnMeasureVolt2.Tag = "";
             this.m_btnMeasureVolt2.Text = "MEASURE VOLT";
             this.m_btnMeasureVolt2.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
@@ -1160,7 +1160,7 @@
             this.m_btnCalCHPower2.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
             this.m_btnCalCHPower2.SubFontColor = System.Drawing.Color.Black;
             this.m_btnCalCHPower2.SubText = "";
-            this.m_btnCalCHPower2.TabIndex = 7;
+            this.m_btnCalCHPower2.TabIndex = 17;
             this.m_btnCalCHPower2.Tag = "";
             this.m_btnCalCHPower2.Text = "CAL CH POWER";
             this.m_btnCalCHPower2.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
@@ -1202,7 +1202,7 @@
             this.m_btnMeasurePower2.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
             this.m_btnMeasurePower2.SubFontColor = System.Drawing.Color.Black;
             this.m_btnMeasurePower2.SubText = "";
-            this.m_btnMeasurePower2.TabIndex = 5;
+            this.m_btnMeasurePower2.TabIndex = 15;
             this.m_btnMeasurePower2.Tag = "";
             this.m_btnMeasurePower2.Text = "MEASURE POWER";
             this.m_btnMeasurePower2.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
