@@ -2176,24 +2176,47 @@ namespace FrameOfSystem3.Task
                         }
                         else
                         {
-                            //다음 channel 측정
+                            // 2025.4.21 by ecchoi [ADD] Enable 채널만 파일 접근 하도록 수정
+                            List<int> enabledChannels = new List<int>();
                             for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
                             {
-                                if (m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
-                                {
-                                    if (m_nCalibrationChannel < nCh)
-                                    {
-                                        m_nCalibrationCurrentStep = 0;
-                                        m_nCalibrationChannel = nCh;
-                                        ProtecLaserChannelCalibration.GetInstance().NewChannelCalibrationFile(m_nCalibrationChannel);
-
-                                        int nRestTime = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-                                        m_tickForPowerMeasureRest.SetTickCount((uint)nRestTime);
-                                        m_nSeqNum = (int)EN_POWER_MEASURE_STEP.MOVE_SHOT_POSITION;
-                                        return false;
-                                    }
-                                }
+                                bool bEnable = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                                if (bEnable)
+                                    enabledChannels.Add(nCh);
                             }
+
+                            // Enable 채널이 1개면 그 채널을 바로 설정
+                            if (enabledChannels.Count == 1)
+                            {
+                                int onlyCh = enabledChannels[0];
+                                m_nCalibrationCurrentStep = 0;
+                                m_nCalibrationChannel = onlyCh;
+                                ProtecLaserChannelCalibration.GetInstance().NewChannelCalibrationFile(onlyCh);
+
+                                int nRestTime = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                                m_tickForPowerMeasureRest.SetTickCount((uint)nRestTime);
+                                m_nSeqNum = (int)EN_POWER_MEASURE_STEP.MOVE_SHOT_POSITION;
+                                return false;
+                            }
+
+                            ////다음 channel 측정 (원본)
+                            //for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
+                            //{
+                            //    if (m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
+                            //    {
+                            //        if (m_nCalibrationChannel < nCh)
+                            //        {
+                            //            m_nCalibrationCurrentStep = 0;
+                            //            m_nCalibrationChannel = nCh;
+                            //            ProtecLaserChannelCalibration.GetInstance().NewChannelCalibrationFile(m_nCalibrationChannel);
+
+                            //            int nRestTime = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                            //            m_tickForPowerMeasureRest.SetTickCount((uint)nRestTime);
+                            //            m_nSeqNum = (int)EN_POWER_MEASURE_STEP.MOVE_SHOT_POSITION;
+                            //            return false;
+                            //        }
+                            //    }
+                            //}
                         }
                     }
                     if (m_enAction == EN_TASK_ACTION.CALIBRATION_POWER_LOSS_RATE)
@@ -2845,96 +2868,208 @@ namespace FrameOfSystem3.Task
         #endregion Action Sequence List
 
         #region Calibration Data
+        //private void InitializeCalibrationData()
+        //{
+        //    m_nCalibrationChannel = 0;
+        //    m_nCalibrationCurrentStep = 0;
+        //    for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
+        //    {
+        //        if (m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
+        //        {
+        //            m_nCalibrationChannel = nCh;
+        //            break;
+        //        }
+        //    }
+
+        //    ProtecLaserChannelCalibration.GetInstance().NewChannelCalibrationFile(m_nCalibrationChannel);
+
+
+        //    m_nCalibrationStep = m_Recipe.GetValue(GetTaskName()
+        //        , PARAM_PROCESS.POWER_CALIBRATION_STEP_COUNT.ToString()
+        //        , 0
+        //        , EN_RECIPE_PARAM_TYPE.VALUE
+        //        , 1);
+
+        //    m_arCalibrationStepVolt = new double[m_nCalibrationStep];
+        //    double dblCalMaxVolt = m_Recipe.GetValue(GetTaskName()
+        //        , PARAM_PROCESS.POWER_CALIBRATION_MAX_VOLT.ToString()
+        //        , 0
+        //        , EN_RECIPE_PARAM_TYPE.VALUE
+        //        , -1.0);
+        //    double dblCalMinVolt = m_Recipe.GetValue(GetTaskName()
+        //        , PARAM_PROCESS.POWER_CALIBRATION_MIN_VOLT.ToString()
+        //        , 0
+        //        , EN_RECIPE_PARAM_TYPE.VALUE
+        //        , -1.0);
+
+        //    double dblCalStepVolt;
+        //    if (m_nCalibrationStep == 1)
+        //        dblCalStepVolt = 0;
+        //    else
+        //        dblCalStepVolt = (dblCalMaxVolt - dblCalMinVolt) / (m_nCalibrationStep - 1);
+
+        //    for (int i = 0; i < m_nCalibrationStep; i++)
+        //    {
+        //        m_arCalibrationStepVolt[i] = dblCalMinVolt + (i * dblCalStepVolt);
+        //    }
+        //}
         private void InitializeCalibrationData()
         {
             m_nCalibrationChannel = 0;
             m_nCalibrationCurrentStep = 0;
+
+            // Enable된 채널 목록 수집
+            List<int> enabledChannels = new List<int>();
             for (int nCh = 0; nCh < m_Laser.ChannelCount; ++nCh)
             {
-                if (m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
-                {
-                    m_nCalibrationChannel = nCh;
-                    break;
-                }
+                bool bEnable = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                if (bEnable)
+                    enabledChannels.Add(nCh);
             }
 
-            ProtecLaserChannelCalibration.GetInstance().NewChannelCalibrationFile(m_nCalibrationChannel);
+            // Enable된 채널이 없으면 초기화 안 함
+            if (enabledChannels.Count == 0)
+                return;
 
+            // 초기 채널 설정: 첫 번째 Enable 채널
+            m_nCalibrationChannel = enabledChannels[0];
 
-            m_nCalibrationStep = m_Recipe.GetValue(GetTaskName()
-                , PARAM_PROCESS.POWER_CALIBRATION_STEP_COUNT.ToString()
-                , 0
-                , EN_RECIPE_PARAM_TYPE.VALUE
-                , 1);
+            // Enable된 채널만 Calibration 파일 초기화
+            foreach (int nCh in enabledChannels)
+            {
+                ProtecLaserChannelCalibration.GetInstance().NewChannelCalibrationFile(nCh);
+            }
+
+            // Calibration Step 수, 전압 범위 설정
+            m_nCalibrationStep = m_Recipe.GetValue(GetTaskName(),
+                PARAM_PROCESS.POWER_CALIBRATION_STEP_COUNT.ToString(),
+                0,
+                EN_RECIPE_PARAM_TYPE.VALUE,
+                1);
 
             m_arCalibrationStepVolt = new double[m_nCalibrationStep];
-            double dblCalMaxVolt = m_Recipe.GetValue(GetTaskName()
-                , PARAM_PROCESS.POWER_CALIBRATION_MAX_VOLT.ToString()
-                , 0
-                , EN_RECIPE_PARAM_TYPE.VALUE
-                , -1.0);
-            double dblCalMinVolt = m_Recipe.GetValue(GetTaskName()
-                , PARAM_PROCESS.POWER_CALIBRATION_MIN_VOLT.ToString()
-                , 0
-                , EN_RECIPE_PARAM_TYPE.VALUE
-                , -1.0);
 
-            double dblCalStepVolt;
-            if (m_nCalibrationStep == 1)
-                dblCalStepVolt = 0;
-            else
-                dblCalStepVolt = (dblCalMaxVolt - dblCalMinVolt) / (m_nCalibrationStep - 1);
+            double dblCalMaxVolt = m_Recipe.GetValue(GetTaskName(),
+                PARAM_PROCESS.POWER_CALIBRATION_MAX_VOLT.ToString(),
+                0,
+                EN_RECIPE_PARAM_TYPE.VALUE,
+                -1.0);
+
+            double dblCalMinVolt = m_Recipe.GetValue(GetTaskName(),
+                PARAM_PROCESS.POWER_CALIBRATION_MIN_VOLT.ToString(),
+                0,
+                EN_RECIPE_PARAM_TYPE.VALUE,
+                -1.0);
+
+            double dblCalStepVolt = (m_nCalibrationStep == 1) ? 0 : (dblCalMaxVolt - dblCalMinVolt) / (m_nCalibrationStep - 1);
 
             for (int i = 0; i < m_nCalibrationStep; i++)
             {
                 m_arCalibrationStepVolt[i] = dblCalMinVolt + (i * dblCalStepVolt);
             }
         }
+
+        //private void InitializeCalibrationData_2()
+        //{
+        //    m_nCalibrationChannel = 0;
+        //    m_nCalibrationCurrentStep = 0;
+        //    for (int nCh = 0; nCh < m_Laser_2.ChannelCount; ++nCh)
+        //    {
+        //        if (m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_2_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
+        //        {
+        //            m_nCalibrationChannel = nCh;
+        //            break;
+        //        }
+        //    }
+
+        //    ProtecLaserChannelCalibration_2.GetInstance().NewChannelCalibrationFile(m_nCalibrationChannel);
+
+
+        //    m_nCalibrationStep = m_Recipe.GetValue(GetTaskName()
+        //        , PARAM_PROCESS.POWER_CALIBRATION_2_STEP_COUNT.ToString()
+        //        , 0
+        //        , EN_RECIPE_PARAM_TYPE.VALUE
+        //        , 1);
+
+        //    m_arCalibrationStepVolt = new double[m_nCalibrationStep];
+        //    double dblCalMaxVolt = m_Recipe.GetValue(GetTaskName()
+        //        , PARAM_PROCESS.POWER_CALIBRATION_2_MAX_VOLT.ToString()
+        //        , 0
+        //        , EN_RECIPE_PARAM_TYPE.VALUE
+        //        , -1.0);
+        //    double dblCalMinVolt = m_Recipe.GetValue(GetTaskName()
+        //        , PARAM_PROCESS.POWER_CALIBRATION_2_MIN_VOLT.ToString()
+        //        , 0
+        //        , EN_RECIPE_PARAM_TYPE.VALUE
+        //        , -1.0);
+
+        //    double dblCalStepVolt;
+        //    if (m_nCalibrationStep == 1)
+        //        dblCalStepVolt = 0;
+        //    else
+        //        dblCalStepVolt = (dblCalMaxVolt - dblCalMinVolt) / (m_nCalibrationStep - 1);
+
+        //    for (int i = 0; i < m_nCalibrationStep; i++)
+        //    {
+        //        m_arCalibrationStepVolt[i] = dblCalMinVolt + (i * dblCalStepVolt);
+        //    }
+        //}
         private void InitializeCalibrationData_2()
         {
             m_nCalibrationChannel = 0;
             m_nCalibrationCurrentStep = 0;
+
+            // Enable된 채널 수집
+            List<int> enabledChannels = new List<int>();
             for (int nCh = 0; nCh < m_Laser_2.ChannelCount; ++nCh)
             {
-                if (m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_2_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false))
-                {
-                    m_nCalibrationChannel = nCh;
-                    break;
-                }
+                bool bEnable = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_2_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                if (bEnable)
+                    enabledChannels.Add(nCh);
             }
 
-            ProtecLaserChannelCalibration_2.GetInstance().NewChannelCalibrationFile(m_nCalibrationChannel);
+            // Enable된 채널 없으면 리턴
+            if (enabledChannels.Count == 0)
+                return;
 
+            // 첫 번째 Enable 채널을 기준 채널로 설정
+            m_nCalibrationChannel = enabledChannels[0];
 
-            m_nCalibrationStep = m_Recipe.GetValue(GetTaskName()
-                , PARAM_PROCESS.POWER_CALIBRATION_2_STEP_COUNT.ToString()
-                , 0
-                , EN_RECIPE_PARAM_TYPE.VALUE
-                , 1);
+            // Enable된 채널에 대해서만 Calibration 파일 초기화
+            foreach (int nCh in enabledChannels)
+            {
+                ProtecLaserChannelCalibration_2.GetInstance().NewChannelCalibrationFile(nCh);
+            }
+
+            // Step 개수와 전압 범위 설정
+            m_nCalibrationStep = m_Recipe.GetValue(GetTaskName(),
+                PARAM_PROCESS.POWER_CALIBRATION_2_STEP_COUNT.ToString(),
+                0,
+                EN_RECIPE_PARAM_TYPE.VALUE,
+                1);
 
             m_arCalibrationStepVolt = new double[m_nCalibrationStep];
-            double dblCalMaxVolt = m_Recipe.GetValue(GetTaskName()
-                , PARAM_PROCESS.POWER_CALIBRATION_2_MAX_VOLT.ToString()
-                , 0
-                , EN_RECIPE_PARAM_TYPE.VALUE
-                , -1.0);
-            double dblCalMinVolt = m_Recipe.GetValue(GetTaskName()
-                , PARAM_PROCESS.POWER_CALIBRATION_2_MIN_VOLT.ToString()
-                , 0
-                , EN_RECIPE_PARAM_TYPE.VALUE
-                , -1.0);
 
-            double dblCalStepVolt;
-            if (m_nCalibrationStep == 1)
-                dblCalStepVolt = 0;
-            else
-                dblCalStepVolt = (dblCalMaxVolt - dblCalMinVolt) / (m_nCalibrationStep - 1);
+            double dblCalMaxVolt = m_Recipe.GetValue(GetTaskName(),
+                PARAM_PROCESS.POWER_CALIBRATION_2_MAX_VOLT.ToString(),
+                0,
+                EN_RECIPE_PARAM_TYPE.VALUE,
+                -1.0);
+
+            double dblCalMinVolt = m_Recipe.GetValue(GetTaskName(),
+                PARAM_PROCESS.POWER_CALIBRATION_2_MIN_VOLT.ToString(),
+                0,
+                EN_RECIPE_PARAM_TYPE.VALUE,
+                -1.0);
+
+            double dblCalStepVolt = (m_nCalibrationStep == 1) ? 0 : (dblCalMaxVolt - dblCalMinVolt) / (m_nCalibrationStep - 1);
 
             for (int i = 0; i < m_nCalibrationStep; i++)
             {
                 m_arCalibrationStepVolt[i] = dblCalMinVolt + (i * dblCalStepVolt);
             }
         }
+
         #endregion
 
         //#region Block

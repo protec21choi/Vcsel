@@ -485,6 +485,12 @@ namespace FrameOfSystem3.Laser
             {
                 for (int nChannelIndex = 0; nChannelIndex < m_nChannelCount; ++nChannelIndex)
                 {
+                    // Enable된 채널만 저장
+                    //bool bEnable = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.SHOT_PARAMETER_ENABLE_18.ToString(), nChannelIndex, EN_RECIPE_PARAM_TYPE.VALUE, false);
+                    //if (!bEnable)
+                    //    continue;
+                    // Enable된 채널만 저장
+
                     strDescription = string.Empty;
 
                     string strChannelFileLocation = string.Empty;
