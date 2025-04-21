@@ -1362,7 +1362,7 @@ namespace FrameOfSystem3.Views.Operation
             }
             else
             {
-                m_lblAlarmCodePort1.Text = ExternalDevice.Serial.ProtecLaserController_2.EN_CONTROL_ALARM_2.NONE.ToString();
+                m_lblAlarmCodePort1_2.Text = ExternalDevice.Serial.ProtecLaserController_2.EN_CONTROL_ALARM_2.NONE.ToString();
             }
 
             if (DigitalIO_.DigitalIO.GetInstance().ReadInput((int)EN_DIGITAL_IN.LD_2_ALARM_2))
@@ -1376,7 +1376,7 @@ namespace FrameOfSystem3.Views.Operation
             }
             else
             {
-                m_lblAlarmCodePort2.Text = ExternalDevice.Serial.ProtecLaserController_2.EN_CONTROL_ALARM_2.NONE.ToString();
+                m_lblAlarmCodePort2_2.Text = ExternalDevice.Serial.ProtecLaserController_2.EN_CONTROL_ALARM_2.NONE.ToString();
             }
 
             if (DigitalIO_.DigitalIO.GetInstance().ReadInput((int)EN_DIGITAL_IN.LD_3_ALARM_2))
@@ -1390,7 +1390,7 @@ namespace FrameOfSystem3.Views.Operation
             }
             else
             {
-                m_lblAlarmCodePort3.Text = ExternalDevice.Serial.ProtecLaserController_2.EN_CONTROL_ALARM_2.NONE.ToString();
+                m_lblAlarmCodePort3_2.Text = ExternalDevice.Serial.ProtecLaserController_2.EN_CONTROL_ALARM_2.NONE.ToString();
             }
 
             if (DigitalIO_.DigitalIO.GetInstance().ReadInput((int)EN_DIGITAL_IN.MONITOR_ALARM_2))

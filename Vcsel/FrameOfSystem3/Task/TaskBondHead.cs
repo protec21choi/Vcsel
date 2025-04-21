@@ -432,21 +432,21 @@ namespace FrameOfSystem3.Task
                 case (int)ERRORSEQUENCE_BEFORE_WARNING.START:
                     WorkLog.GetInstance().SaveStop();
 
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, false);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, false);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, false);
 
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_1, false);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_2, false);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_3, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_1, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_2, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_3, false);
 
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, false);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, false);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, false);
 
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_1, false);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_2, false);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_3, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_1, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_2, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_3, false);
 
                     //m_instanceIR.ManualCommand(ExternalDevice.Socket.IR_Property.Enumerable.EN_SEND_TYPE.WORK_END);
                     return true;
@@ -482,31 +482,31 @@ namespace FrameOfSystem3.Task
                 case (int)ERRORSEQUENCE_BEFORE_ERROR.START:
                     WorkLog.GetInstance().SaveStop();
                     // 2025.4.3 by ecchoi [ADD] Test 후 복구
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, false);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, false);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, false);
 
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_1, false);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_2, false);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_3, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_1, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_2, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_3, false);
 
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_EMO_PORT_1, true);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_EMO_PORT_2, true);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_EMO_PORT_3, true);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_MONITOR_EMO, true);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_EMO_PORT_1, true);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_EMO_PORT_2, true);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_EMO_PORT_3, true);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_MONITOR_EMO, true);
 
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, false);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, false);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, false);
 
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_1, false);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_2, false);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_3, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_1, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_2, false);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_3, false);
 
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_EMO_PORT_1, true);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_EMO_PORT_2, true);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_EMO_PORT_3, true);
-                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_MONITOR_EMO, true);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_EMO_PORT_1, true);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_EMO_PORT_2, true);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_EMO_PORT_3, true);
+                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_MONITOR_EMO, true);
 
                     //m_instanceIR.ManualCommand(ExternalDevice.Socket.IR_Property.Enumerable.EN_SEND_TYPE.WORK_END);
                     return true;
@@ -2386,10 +2386,10 @@ namespace FrameOfSystem3.Task
                 case (int)EN_POWER_MEASURE_STEP_2.SET_CALIBRATION_DATA:
                     if (m_enAction == EN_TASK_ACTION.CALIBRATION_CHANNEL_POWER_2)
                     {
-                        ProtecLaserChannelCalibration.GetInstance().UpdateCalibrationInformation(m_nCalibrationChannel, m_nCalibrationCurrentStep, (int)EN_CALIBRATION_INDEX.TARGET_VOLT, m_arCalibrationStepVolt[m_nCalibrationCurrentStep]);
-                        ProtecLaserChannelCalibration.GetInstance().UpdateCalibrationInformation(m_nCalibrationChannel, m_nCalibrationCurrentStep, (int)EN_CALIBRATION_INDEX.POWER_OUTPUT_WATT, Powermeter.GetInstance().Measure_Repeat_Avg);
+                        ProtecLaserChannelCalibration_2.GetInstance().UpdateCalibrationInformation(m_nCalibrationChannel, m_nCalibrationCurrentStep, (int)EN_CALIBRATION_INDEX.TARGET_VOLT, m_arCalibrationStepVolt[m_nCalibrationCurrentStep]);
+                        ProtecLaserChannelCalibration_2.GetInstance().UpdateCalibrationInformation(m_nCalibrationChannel, m_nCalibrationCurrentStep, (int)EN_CALIBRATION_INDEX.POWER_OUTPUT_WATT, Powermeter.GetInstance().Measure_Repeat_Avg);
                         if (m_lstCurrentVolt.Count > 0)
-                            ProtecLaserChannelCalibration.GetInstance().UpdateCalibrationInformation(m_nCalibrationChannel, m_nCalibrationCurrentStep, (int)EN_CALIBRATION_INDEX.POWER_INPUT_VOLT, m_lstCurrentVolt.Average());
+                            ProtecLaserChannelCalibration_2.GetInstance().UpdateCalibrationInformation(m_nCalibrationChannel, m_nCalibrationCurrentStep, (int)EN_CALIBRATION_INDEX.POWER_INPUT_VOLT, m_lstCurrentVolt.Average());
                         m_lstCurrentVolt.Clear();
 
                         PostOffice.GetInstance().SendMail(EN_SUBSCRIBER.Unknown, EN_SUBSCRIBER.SETUP_EQUP_LASER, EN_MAIL.UPDATE_UI); //Caldata UI 통지
@@ -2414,7 +2414,7 @@ namespace FrameOfSystem3.Task
                                     {
                                         m_nCalibrationCurrentStep = 0;
                                         m_nCalibrationChannel = nCh;
-                                        ProtecLaserChannelCalibration.GetInstance().NewChannelCalibrationFile(m_nCalibrationChannel);
+                                        ProtecLaserChannelCalibration_2.GetInstance().NewChannelCalibrationFile(m_nCalibrationChannel);
 
                                         int nRestTime = m_Recipe.GetValue(GetTaskName(), PARAM_PROCESS.POWER_MEASURE_2_REST_TIME.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
                                         m_tickForPowerMeasureRest.SetTickCount((uint)nRestTime);
