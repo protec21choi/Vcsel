@@ -1248,7 +1248,7 @@ namespace FrameOfSystem3.Views.Operation
             string strAction = ctrButton.Text.Replace("\\n", "");
 
             // 레이저 사용 상태 팝업 메시지
-            string strLaserStatus = $"Laser 사용 설정 상태:\n - LD1: {(bLaserUsed_1 ? "사용" : "미사용")}\n - LD2: {(bLaserUsed_2 ? "사용" : "미사용")}";
+            string strLaserStatus = $"Laser 사용 설정 상태:\n - LASER 1: {(bLaserUsed_1 ? "사용" : "미사용")}\n - LASER 2: {(bLaserUsed_2 ? "사용" : "미사용")}";
             strLaserStatus += $"\n\nDo You Want {strAction}?";
 
             if (!m_MessageBox.ShowMessage(strLaserStatus))
