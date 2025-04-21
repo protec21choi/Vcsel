@@ -155,6 +155,8 @@ namespace Define
 
                     FROM_PLC_IN_1,
                     FROM_PLC_IN_2,
+                    FROM_PLC_IN_3,
+                    FROM_PLC_IN_4,
                 }
                 #endregion
 
@@ -201,8 +203,13 @@ namespace Define
 
                     LD_2_MONITOR_EMO,
                     LD_2_MONITOR_ALARM_CLEAR,
-                    
+
                     #endregion
+
+                    TO_PLC_OUT_1,
+                    TO_PLC_OUT_2,
+                    TO_PLC_OUT_3,
+                    TO_PLC_OUT_4,
                 }
                 #endregion
 
@@ -682,6 +689,8 @@ namespace Define
 
                 FROM_PLC_IN_1 = 8,
                 FROM_PLC_IN_2 = 9,
+                FROM_PLC_IN_3 = 10,
+                FROM_PLC_IN_4 = 11,
 
                 LD_1_READY = 16,
                 LD_1_ALARM = 17,
@@ -719,6 +728,8 @@ namespace Define
 
                 TO_PLC_OUT_1 = 8,
                 TO_PLC_OUT_2 = 9,
+                TO_PLC_OUT_3 = 10,
+                TO_PLC_OUT_4 = 11,
 
                 LD_1_ALARM_CLEAR = 16,
                 LD_1_EMO = 17,

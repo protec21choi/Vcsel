@@ -1246,10 +1246,16 @@ namespace FrameOfSystem3.Task
             //int m_nLaserOnDelay = 0;
             //int m_nLaserOffDelay = 0;
             //int m_nLaserRepeatCount = 0;
+            int nLimitSec = 30;
+            int nLimitSec_2 = 30;
 
             switch (m_nSeqNum)
             {
                 case (int)EN_LASER_WORK_STEP.ACTION_START:
+
+                    m_nSeqNum = (int)EN_LASER_WORK_STEP.READY_AND_WAIT_1;
+                    break; // 2025.4.21 by ecchoi [ADD] Test
+
                     int nLaserCount = 18;
                     //Action이 시작되면 Calibration Table File을 Load 한다.
                     Laser.ProtecLaserChannelCalibration.GetInstance().Init(nLaserCount);
@@ -1319,7 +1325,7 @@ namespace FrameOfSystem3.Task
                         m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
                         break;
                     }
-                    int nLimitSec = 30;
+                    
 
                     nLimitSec = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.AUTO_SAFETY_LIMIT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 30);
                     switch (m_Laser.SetParameterTimeLimit(nLimitSec))
@@ -1345,7 +1351,6 @@ namespace FrameOfSystem3.Task
                         default:
                             Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 104, false); //LASER COMMUNICATION FAIL
                             break;
-
                     }
 
                     #endregion /Laser#1 end
@@ -1362,10 +1367,10 @@ namespace FrameOfSystem3.Task
                     // 2025.3.31 by ecchoi [ADD] Test 후 복구
                     if (m_tickTimeOut.IsTickOver(false))
                     {
-                        //m_arAlarmSubInfo[0] = "";
-                        //GenerateSequenceAlarm((int)EN_TASK_ALARM.LD2_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
-                        //m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-                        //break;
+                        m_arAlarmSubInfo[0] = "";
+                        GenerateSequenceAlarm((int)EN_TASK_ALARM.LD2_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
+                        m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
+                        break;
                     }
                     bool[] arUsed_2 = new bool[m_Laser_2.ChannelCount];
                     double arTotalPower_2 = 0.0;
@@ -1404,21 +1409,14 @@ namespace FrameOfSystem3.Task
                     break;
 
                 case (int)EN_LASER_WORK_STEP.PARAMETER_READY_LASER_2 +1:
-                    if (bLaserUsed_1 && !bLaserUsed_2)
-                    {
-                        m_nSeqNum = (int)EN_LASER_WORK_STEP.PARAMETER_COMPLETE_1;
-                        break;
-                        // 2025.4.15 by ecchoi [ADD] 둘다 False(Unused) 일경우 LD2 Comm TimeOut 알람을 띄운다
-                    }
                     // 2025.3.31 by ecchoi [ADD] Test 후 복구
                     if (m_tickTimeOut.IsTickOver(false))
                     {
-                        //m_arAlarmSubInfo[0] = "";
-                        //GenerateSequenceAlarm((int)EN_TASK_ALARM.LD2_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
-                        //m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-                        //break;
+                        m_arAlarmSubInfo[0] = "";
+                        GenerateSequenceAlarm((int)EN_TASK_ALARM.LD2_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
+                        m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
+                        break;
                     }
-                    int nLimitSec_2 = 30;
 
                     nLimitSec_2 = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.AUTO_SAFETY_LIMIT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 30);
                     switch (m_Laser_2.SetParameterTimeLimit(nLimitSec_2))
@@ -1461,7 +1459,7 @@ namespace FrameOfSystem3.Task
                     }
                     else
                     {
-                        m_nSeqNum = (int)EN_LASER_WORK_STEP.WAIT_AND_OUTPUT;
+                        m_nSeqNum = (int)EN_LASER_WORK_STEP.AUTO_RUN_WORK_START;
                         break;
                     }
 
@@ -1469,105 +1467,285 @@ namespace FrameOfSystem3.Task
                     WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_1, true);
                     WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_2, true);
                     WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_3, true);
-                    m_nSeqNum = (int)EN_LASER_WORK_STEP.WAIT_AND_OUTPUT;
+                    m_nSeqNum = (int)EN_LASER_WORK_STEP.READY_AND_WAIT_1;
                     break;
 
-                case (int)EN_LASER_WORK_STEP.WAIT_AND_OUTPUT:
+                case (int)EN_LASER_WORK_STEP.READY_AND_WAIT_1:
+                    if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
+                        m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
+
+                    if (ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_2, true))
+                    {
+                        m_nSeqNum = (int)EN_LASER_WORK_STEP.AUTO_RUN_WORK_START;
+                    }
+                    if (ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_3, true))
+                    {
+                        if (!bLaserUsed_1) // 2025.4.21 by ecchoi [ADD] Bypass 일 경우 TimeLimit를 바꿔서 넣어야 한다.
+                        {
+                            m_tickTimeOut.SetTickCount(5000);
+                            m_nSeqNum = (int)EN_LASER_WORK_STEP.BYPASS_MODE_READY_2;
+                            break;
+                        }
+                        m_tickTimeOut.SetTickCount(5000);
+                        m_nSeqNum = (int)EN_LASER_WORK_STEP.BYPASS_MODE_READY_1;
+                        break;
+                    }
+                    // 2025.4.21 by ecchoi [ADD] PLC IO가 들어올때까지 대기, Sequence Error가 뜨지않게 하기 위해서 1<->2 순환
+                    m_nSeqNum = (int)EN_LASER_WORK_STEP.READY_AND_WAIT_2;
+                    break;
+
+                case (int)EN_LASER_WORK_STEP.READY_AND_WAIT_2:
+                    if (bLaserUsed_1 && !bLaserUsed_2)
+                    {
+                        m_nSeqNum = (int)EN_LASER_WORK_STEP.PARAMETER_COMPLETE_1;
+                        break;
+                        // 2025.4.15 by ecchoi [ADD] 둘다 False(Unused) 일경우 LD2 Comm TimeOut 알람을 띄운다
+                    }
+
+                    if (ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_2, true))
+                    {
+                        m_nSeqNum = (int)EN_LASER_WORK_STEP.AUTO_RUN_WORK_START;
+                    }
+                    if (ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_3, true))
+                    {
+                        if (!bLaserUsed_1) // 2025.4.21 by ecchoi [ADD] Bypass 일 경우 TimeLimit를 바꿔서 넣어야 한다.
+                        {
+                            m_tickTimeOut.SetTickCount(5000);
+                            m_nSeqNum = (int)EN_LASER_WORK_STEP.BYPASS_MODE_READY_2;
+                            break;
+                        }
+                        m_tickTimeOut.SetTickCount(5000);
+                        m_nSeqNum = (int)EN_LASER_WORK_STEP.BYPASS_MODE_READY_1;
+                        break;
+                    }
+                    // 2025.4.21 by ecchoi [ADD] PLC IO가 들어올때까지 대기, Sequence Error가 뜨지않게 하기 위해서 1<->2 순환
+                    m_nSeqNum = (int)EN_LASER_WORK_STEP.READY_AND_WAIT_1;
+                    break;
+
+                case (int)EN_LASER_WORK_STEP.AUTO_RUN_WORK_START:
                     {
                         if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
                             m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-                        // 2025.4.11 by ecchoi [ADD] PARAMETER 설정이 끝나면 PLC에서 ON 신호를 받을때까지 여기서 대기 한다.
-                        if (!ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_2, true))
+
+                        if (!m_bLaserOutputStarted) //최초 1회만 진입 후 완료되면 false 전환
                         {
-                            if (!m_bLaserOutputStarted) //최초 1회만 진입 후 완료되면 false 전환
+                            m_bLaserOutputStarted = true;
+                            m_nLaserOutputCount = 0;
+                            m_bLaserOutputOn = true;
+
+                            m_nLaserOnDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_ON_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                            m_nLaserOffDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_OFF_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                            m_nLaserRepeatCount = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_COUNT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 1);
+
+                            m_tickLaserOutput.SetTickCount((uint)m_nLaserOnDelay);
+                            // 2025.4.16 by ecchoi [ADD] Test 후 복구
+                            //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, bLaserUsed_1); // 첫 ON
+                            //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, bLaserUsed_1);
+                            //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, bLaserUsed_1);
+                            //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, bLaserUsed_2);
+                            //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, bLaserUsed_2);
+                            //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, bLaserUsed_2);
+
+                            WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_1, bLaserUsed_1);
+                            WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_2, bLaserUsed_1);
+                            WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_3, bLaserUsed_1);
+                            WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_1, bLaserUsed_2);
+                            WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_2, bLaserUsed_2);
+                            WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_3, bLaserUsed_2);
+                        }
+                        else
+                        {
+                            if (m_bLaserOutputOn)
                             {
-                                m_bLaserOutputStarted = true;
-                                m_nLaserOutputCount = 0;
-                                m_bLaserOutputOn = true;
+                                if (m_tickLaserOutput.IsTickOver(false)) // 현재 ON인 경우 여기로 진입
+                                {
+                                    // ON -> OFF
+                                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, false);
+                                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, false);
+                                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, false);
+                                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, false);
+                                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, false);
+                                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, false);
 
-                                m_nLaserOnDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_ON_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-                                m_nLaserOffDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_OFF_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-                                m_nLaserRepeatCount = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_COUNT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 1);
+                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_1, false);
+                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_2, false);
+                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_3, false);
+                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_1, false);
+                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_2, false);
+                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_3, false);
 
-                                m_tickLaserOutput.SetTickCount((uint)m_nLaserOnDelay);
-                                // 2025.4.16 by ecchoi [ADD] Test 후 복구
-                                //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, bLaserUsed_1); // 첫 ON
-                                //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, bLaserUsed_1);
-                                //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, bLaserUsed_1);
-                                //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, bLaserUsed_2);
-                                //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, bLaserUsed_2);
-                                //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, bLaserUsed_2);
-
-                                WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_1, bLaserUsed_1); 
-                                WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_2, bLaserUsed_1);
-                                WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_3, bLaserUsed_1);
-                                WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_1, bLaserUsed_2);
-                                WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_2, bLaserUsed_2);
-                                WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_3, bLaserUsed_2);
+                                    m_bLaserOutputOn = false;
+                                    m_tickLaserOutput.SetTickCount((uint)m_nLaserOffDelay);
+                                }
                             }
                             else
                             {
-                                if (m_bLaserOutputOn) 
+                                if (m_tickLaserOutput.IsTickOver(false)) // 현재 OFF인 경우 여기로 진입
                                 {
-                                    if (m_tickLaserOutput.IsTickOver(false)) // 현재 ON인 경우 여기로 진입
+                                    m_nLaserOutputCount++;
+
+                                    if (m_nLaserOutputCount >= m_nLaserRepeatCount)
                                     {
-                                        // ON -> OFF
-                                        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, false);
-                                        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, false);
-                                        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, false);
-                                        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, false);
-                                        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, false);
-                                        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, false);
-
-                                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_1, false);
-                                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_2, false);
-                                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_3, false);
-                                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_1, false);
-                                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_2, false);
-                                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_3, false);
-
-                                        m_bLaserOutputOn = false;
-                                        m_tickLaserOutput.SetTickCount((uint)m_nLaserOffDelay);
+                                        // 반복 종료
+                                        m_bLaserOutputStarted = false;
+                                        m_nSeqNum = (int)EN_LASER_WORK_STEP.READY_AND_WAIT_1;
+                                        break;
                                     }
-                                }
-                                else
-                                {
-                                    if (m_tickLaserOutput.IsTickOver(false)) // 현재 OFF인 경우 여기로 진입
-                                    {
-                                        m_nLaserOutputCount++;
 
-                                        if (m_nLaserOutputCount >= m_nLaserRepeatCount)
-                                        {
-                                            // 반복 종료
-                                            m_bLaserOutputStarted = false;
-                                            m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-                                            break;
-                                        }
+                                    // OFF -> ON
+                                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, bLaserUsed_1);
+                                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, bLaserUsed_1);
+                                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, bLaserUsed_1);
+                                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, bLaserUsed_2);
+                                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, bLaserUsed_2);
+                                    //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, bLaserUsed_2);
 
-                                        // OFF -> ON
-                                        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, bLaserUsed_1);
-                                        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, bLaserUsed_1);
-                                        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, bLaserUsed_1);
-                                        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, bLaserUsed_2);
-                                        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, bLaserUsed_2);
-                                        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, bLaserUsed_2);
+                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_1, bLaserUsed_1);
+                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_2, bLaserUsed_1);
+                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_3, bLaserUsed_1);
+                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_1, bLaserUsed_2);
+                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_2, bLaserUsed_2);
+                                    WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_3, bLaserUsed_2);
 
-                                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_1, bLaserUsed_1);
-                                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_2, bLaserUsed_1);
-                                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_3, bLaserUsed_1);
-                                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_1, bLaserUsed_2);
-                                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_2, bLaserUsed_2);
-                                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_3, bLaserUsed_2);
-
-                                        m_bLaserOutputOn = true;
-                                        m_tickLaserOutput.SetTickCount((uint)m_nLaserOnDelay);
-                                    }
+                                    m_bLaserOutputOn = true;
+                                    m_tickLaserOutput.SetTickCount((uint)m_nLaserOnDelay);
                                 }
                             }
                         }
                     }
+                    break;
 
-                    
+                case (int)EN_LASER_WORK_STEP.BYPASS_MODE_READY_1:
+                    if (m_tickTimeOut.IsTickOver(false))
+                    {
+                        m_arAlarmSubInfo[0] = "";
+                        GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
+                        m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
+                        break;
+                    }
+
+                    nLimitSec = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.BYPASS_SAFETY_LIMIT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 30);
+                    switch (m_Laser.SetParameterTimeLimit(nLimitSec))
+                    {
+                        case ProtecLaserMananger.EN_SET_RESULT.OK:
+                            int nDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_SETTING_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                            SetDelayForSequence(nDelay);
+                            m_nSeqNum ++;
+                            break;
+                        case ProtecLaserMananger.EN_SET_RESULT.WORKING:
+                            if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
+                                m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
+                            break;
+                        case ProtecLaserMananger.EN_SET_RESULT.POWER_OVER_MAX:
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 101, false); //POWER IS TOO HIGH
+                            break;
+                        case ProtecLaserMananger.EN_SET_RESULT.CH_POWER_OVER:
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 102, false); //CHANNEL POWER IS TOO HIGH
+                            break;
+                        case ProtecLaserMananger.EN_SET_RESULT.POWER_UNDER_MIN:
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 103, false); //POWER IS TOO LOW
+                            break;
+                        default:
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 104, false); //LASER COMMUNICATION FAIL
+                            break;
+                    }
+                    break;
+
+                case (int)EN_LASER_WORK_STEP.BYPASS_MODE_READY_1 +1:
+                    {
+                        if (bLaserUsed_2)
+                        {
+                            m_nSeqNum = (int)EN_LASER_WORK_STEP.BYPASS_MODE_READY_2;
+                            break;
+                        }
+                        else
+                        {
+                            m_nSeqNum = (int)EN_LASER_WORK_STEP.BYPASS_RUN_WORK_START;
+                            break;
+                        }
+                    }
+
+                case (int)EN_LASER_WORK_STEP.BYPASS_MODE_READY_2:
+                    if (bLaserUsed_1 && !bLaserUsed_2)
+                    {
+                        m_nSeqNum = (int)EN_LASER_WORK_STEP.BYPASS_RUN_WORK_START;
+                        break;
+                        // 2025.4.15 by ecchoi [ADD] 둘다 False(Unused) 일경우 LD2 Comm TimeOut 알람을 띄운다
+                    }
+                    if (m_tickTimeOut.IsTickOver(false))
+                    {
+                        m_arAlarmSubInfo[0] = "";
+                        GenerateSequenceAlarm((int)EN_TASK_ALARM.LD2_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
+                        m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
+                        break;
+                    }
+
+                    nLimitSec_2 = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.BYPASS_SAFETY_LIMIT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 30);
+                    switch (m_Laser_2.SetParameterTimeLimit(nLimitSec_2))
+                    {
+                        case ProtecLaserMananger_2.EN_SET_RESULT_2.OK:
+                            int nDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_SETTING_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                            SetDelayForSequence(nDelay);
+                            m_nSeqNum = (int)EN_LASER_WORK_STEP.BYPASS_RUN_WORK_START;
+                            break;
+                        case ProtecLaserMananger_2.EN_SET_RESULT_2.WORKING:
+                            if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
+                                m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
+                            break;
+                        case ProtecLaserMananger_2.EN_SET_RESULT_2.POWER_OVER_MAX:
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 101, false); //POWER IS TOO HIGH
+                            break;
+                        case ProtecLaserMananger_2.EN_SET_RESULT_2.CH_POWER_OVER:
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 102, false); //CHANNEL POWER IS TOO HIGH
+                            break;
+                        case ProtecLaserMananger_2.EN_SET_RESULT_2.POWER_UNDER_MIN:
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 103, false); //POWER IS TOO LOW
+                            break;
+                        default:
+                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 104, false); //LASER COMMUNICATION FAIL
+                            break;
+
+                    }
+                    break;
+
+                case (int)EN_LASER_WORK_STEP.BYPASS_RUN_WORK_START:
+                    if (ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_2, true))
+                    {
+                        // 2025.4.21 by ecchoi [ADD] PLC에서 BYPASS 신호가 끊어질때 까지 ON 시킨다.
+
+                        m_tickLaserOutput.SetTickCount((uint)m_nLaserOnDelay);
+                        // 2025.4.16 by ecchoi [ADD] Test 후 복구
+                        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, bLaserUsed_1); // 첫 ON
+                        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, bLaserUsed_1);
+                        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, bLaserUsed_1);
+                        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, bLaserUsed_2);
+                        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, bLaserUsed_2);
+                        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, bLaserUsed_2);
+
+                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_1, bLaserUsed_1);
+                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_2, bLaserUsed_1);
+                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_3, bLaserUsed_1);
+                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_1, bLaserUsed_2);
+                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_2, bLaserUsed_2);
+                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_3, bLaserUsed_2);
+                    }
+                    else 
+                    {
+                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_1, false);
+                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_2, false);
+                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_3, false);
+                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_1, false);
+                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_2, false);
+                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_3, false);
+
+                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, false);
+                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, false);
+                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, false);
+                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, false);
+                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, false);
+                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, false);
+                        m_nSeqNum = (int)EN_LASER_WORK_STEP.ACTION_START;
+                    }
                     break;
 
                 case (int)EN_LASER_WORK_STEP.FINISH:
@@ -3115,7 +3293,13 @@ namespace FrameOfSystem3.Task
             PARAMETER_READY_LASER_2 = 200,
             PARAMETER_COMPLETE_1 = 300,
             PARAMETER_COMPLETE_2 = 400,
-            WAIT_AND_OUTPUT = 500,
+            READY_AND_WAIT_1 = 500,
+            READY_AND_WAIT_2 = 600,
+            AUTO_RUN_WORK_START = 700,
+
+            BYPASS_MODE_READY_1 = 800,
+            BYPASS_MODE_READY_2 = 900,
+            BYPASS_RUN_WORK_START = 1000,
 
             ACTION_FINISH = 9900,
             FINISH = 10000,
