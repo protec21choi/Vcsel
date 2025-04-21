@@ -146,7 +146,7 @@ namespace FrameOfSystem3.Task
         private TickCounter_.TickCounter m_tickTimeCheck = new TickCounter_.TickCounter();
         private TickCounter_.TickCounter m_TickForDelay = new TickCounter_.TickCounter();
         private TickCounter_.TickCounter m_tickTimeOut = new TickCounter_.TickCounter();
-        private TickCounter_.TickCounter m_tickForFFU = new TickCounter_.TickCounter();
+        private TickCounter_.TickCounter m_tickForPLCIO = new TickCounter_.TickCounter();
         private TickCounter_.TickCounter m_tickLaserOutput = new TickCounter_.TickCounter();
         #endregion
 
@@ -230,7 +230,7 @@ namespace FrameOfSystem3.Task
         /// </summary>
         protected override void DoAlwaysSequence()
         {
-            //FFU_Monitoring();
+            Monitoring_PLC_IO_Trouble();
 
         }
         #endregion
@@ -1857,13 +1857,13 @@ namespace FrameOfSystem3.Task
                     break;
                 case (int)EN_POWER_MEASURE_STEP.LASER_READY + 1:
                     // 2025.4.5 by ecchoi [ADD] Test 후 복구
-                    //if (m_tickTimeOut.IsTickOver(false))
-                    //{
-                    //    m_arAlarmSubInfo[0] = "";
-                    //    GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
-                    //    m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
-                    //    break;
-                    //}
+                    if (m_tickTimeOut.IsTickOver(false))
+                    {
+                        m_arAlarmSubInfo[0] = "";
+                        GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
+                        m_nSeqNum = (int)EN_POWER_MEASURE_STEP.ACTION_FINISH;
+                        break;
+                    }
                     bool[] arUsed = new bool[m_Laser.ChannelCount];
                     int nTime = 0;
                     double dOutput = 0;
@@ -3118,33 +3118,22 @@ namespace FrameOfSystem3.Task
             }
         }
 
-        //private void FFU_Monitoring()
-        //{
-        //    if (false == m_tickForFFU.IsTickOver(true))
-        //        return;
+        private void Monitoring_PLC_IO_Trouble()
+        {
+            if (false == m_tickForPLCIO.IsTickOver(true))
+                return;
 
-        //    m_tickForFFU.SetTickCount(5000);
-
-        //    if (ExternalDevice.FFUManager.GetInstance().IsSkipped)
-        //        return;
-
-        //    bool doorOpened = false;
-        //    doorOpened |= DigitalIO_.DigitalIO.GetInstance().ReadInput((int)Define.DefineEnumProject.DigitalIO.EN_DIGITAL_IN.DOOR_LOCK_1);
-        //    doorOpened |= DigitalIO_.DigitalIO.GetInstance().ReadInput((int)Define.DefineEnumProject.DigitalIO.EN_DIGITAL_IN.DOOR_LOCK_2);
-
-        //    bool coverOpened = false;
-        //    coverOpened |= DigitalIO_.DigitalIO.GetInstance().ReadInput((int)Define.DefineEnumProject.DigitalIO.EN_DIGITAL_IN.COVER_1);
-        //    coverOpened |= DigitalIO_.DigitalIO.GetInstance().ReadInput((int)Define.DefineEnumProject.DigitalIO.EN_DIGITAL_IN.COVER_2);
-
-        //    if (doorOpened || coverOpened)
-        //    {
-        //        ExternalDevice.FFUManager.GetInstance().RequestFullSpeedAll();
-        //    }
-        //    else
-        //    {
-        //        ExternalDevice.FFUManager.GetInstance().RequestNormalSpeedAll();
-        //    }
-        //}
+            m_tickForPLCIO.SetTickCount(100);
+            // 2025.4.21 by ecchoi [ADD] 100ms 이상 PLC IO가 겹치면 에러를 발생시킨다. (Auto Run + Bypass Run)
+            // 2025.4.21 by ecchoi [ADD] Test 후 True 로 복구
+            if (ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_2, false) && 
+                ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_3, false))
+            {
+                m_arAlarmSubInfo[0] = "";
+                GenerateSequenceAlarm((int)EN_TASK_ALARM.PLC_IO_DOUBLE_ERROR, false, ref m_arAlarmSubInfo);
+                return;
+            }
+        }
 
 
         #endregion

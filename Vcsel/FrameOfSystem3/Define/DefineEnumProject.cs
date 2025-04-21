@@ -395,6 +395,8 @@ namespace Define
                     LD2_SHORT_CHECK_FAIL = 14,
                     LD2_POWER_OVER_MAX = 15,
                     LD2_POWER_UNDER_MIN = 16,
+
+                    PLC_IO_DOUBLE_ERROR = 17,
                 }
                 public enum EN_TASK_ALARM_MESSAGE_EN
                 {

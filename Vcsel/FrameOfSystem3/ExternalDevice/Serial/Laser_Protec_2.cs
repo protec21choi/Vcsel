@@ -330,7 +330,7 @@ namespace FrameOfSystem3.ExternalDevice.Serial
                     strMessage += System.Text.Encoding.ASCII.GetString(ETX);
 
                     if (m_InstanceSerial.Write(m_dicLaserPort[nPortIndex].SerialPortIndex, strMessage) == false)
-                        return EN_RESULT_2.FAIL; // 2025.3.29 by ecchoi [ADD] Test후 복구
+                        return EN_RESULT_2.FAIL;
                     AddCommLog(nPortIndex, strMessage);
                     m_dicLaserPort[nPortIndex].Seq++;
                     break;
