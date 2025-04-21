@@ -724,7 +724,7 @@ namespace FrameOfSystem3.Views.Functional
         {
             this.Refresh();
         }
-        private void Click_Action(object sender, EventArgs e)
+        private void Click_Action_Measure_Manual(object sender, EventArgs e)
         {
             if (!EquipmentState_.EquipmentState.GetInstance().GetState().Equals(EquipmentState_.EQUIPMENT_STATE.IDLE))
                 return;
@@ -741,13 +741,6 @@ namespace FrameOfSystem3.Views.Functional
             int nRetryTime = 1;
             switch (ctrButton.TabIndex)
             {
-                case 0:
-                    //arSelectAction = new string[1][];
-                    //arSelectTask = new string[] { EN_TASK_LIST.BOND_HEAD.ToString() };
-                    //arSelectAction[0] = new string[] { null, Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.LASER_WORK.ToString() };
-                    //Task.TaskOperator.GetInstance().SetOperation(ref arSelectTask, ref arSelectAction, nRetryTime);
-                    break;
-
                 case 5:
                     arSelectAction = new string[1][];
                     arSelectTask = new string[] { EN_TASK_LIST.BOND_HEAD.ToString() };
@@ -760,19 +753,6 @@ namespace FrameOfSystem3.Views.Functional
                     arSelectAction[0] = new string[] { Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.MEASURE_VOLT.ToString() };
                     Task.TaskOperator.GetInstance().SetOperation(ref arSelectTask, ref arSelectAction, nRetryTime);
                     break;
-                case 7:
-                    arSelectAction = new string[1][];
-                    arSelectTask = new string[] { EN_TASK_LIST.BOND_HEAD.ToString() };
-                    arSelectAction[0] = new string[] { Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.CALIBRATION_CHANNEL_POWER.ToString() };
-                    Task.TaskOperator.GetInstance().SetOperation(ref arSelectTask, ref arSelectAction, nRetryTime);
-                    break;
-                case 8:
-                    arSelectAction = new string[1][];
-                    arSelectTask = new string[] { EN_TASK_LIST.BOND_HEAD.ToString() };
-                    arSelectAction[0] = new string[] { Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.SHORT_TEST.ToString() };
-                    Task.TaskOperator.GetInstance().SetOperation(ref arSelectTask, ref arSelectAction, nRetryTime);
-                    break;
-
                 case 15:
                     arSelectAction = new string[1][];
                     arSelectTask = new string[] { EN_TASK_LIST.BOND_HEAD.ToString() };
@@ -785,16 +765,114 @@ namespace FrameOfSystem3.Views.Functional
                     arSelectAction[0] = new string[] { Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.MEASURE_VOLT_2.ToString() };
                     Task.TaskOperator.GetInstance().SetOperation(ref arSelectTask, ref arSelectAction, nRetryTime);
                     break;
+            }
+        }
+        private void Click_Action_Cal_Laser_1(object sender, EventArgs e)
+        {
+            bool[] arUsed = new bool[ProtecLaserMananger.GetInstance().ChannelCount];
+            List<int> listUsedChannel = new List<int>();
+
+            for (int nCh = 0; nCh < ProtecLaserMananger.GetInstance().ChannelCount; ++nCh)
+            {
+                arUsed[nCh] = m_instanceRecipe.GetValue(
+                    EN_TASK_LIST.BOND_HEAD.ToString(),
+                    BONDER_TASK_PARAM.SHOT_PARAMETER_ENABLE_18.ToString(),
+                    nCh,
+                    EN_RECIPE_PARAM_TYPE.VALUE,
+                    false
+                );
+
+                if (arUsed[nCh])
+                    listUsedChannel.Add(nCh);
+            }
+
+            if (!EquipmentState_.EquipmentState.GetInstance().GetState().Equals(EquipmentState_.EQUIPMENT_STATE.IDLE))
+                return;
+
+            Control ctrButton = sender as Control;
+            string strAction = ctrButton.Text.Replace("\\n", "");
+
+            // 사용 중인 채널 정보 표시
+            string strUsedInfo = listUsedChannel.Count > 0
+                ? $"사용 설정된 채널: {string.Join(", ", listUsedChannel.Select(ch => $"CH{ch + 1}"))}"
+                : "사용 설정된 채널이 없습니다.";
+
+            // 메시지 출력
+            if (!m_MessageBox.ShowMessage($"{strUsedInfo}\n\nDo You Want {strAction}?"))
+                return;
+
+            // 채널이 2개 이상 선택되어 있으면 진입 불가
+            if (listUsedChannel.Count > 1)
+            {
+                m_MessageBox.ShowMessage("2개 이상의 채널이 선택되어 있어 작업을 수행할 수 없습니다.\n1개 채널만 선택해주세요.");
+                return;
+            }
+
+            string[] arSelectTask = new string[] { };
+            string[][] arSelectAction = new string[][] { };
+            int nRetryTime = 1;
+
+            switch (ctrButton.TabIndex)
+            {
+                case 7:
+                    arSelectAction = new string[1][];
+                    arSelectTask = new string[] { EN_TASK_LIST.BOND_HEAD.ToString() };
+                    arSelectAction[0] = new string[] { Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.CALIBRATION_CHANNEL_POWER.ToString() };
+                    Task.TaskOperator.GetInstance().SetOperation(ref arSelectTask, ref arSelectAction, nRetryTime);
+                    break;
+            }
+        }
+        private void Click_Action_Cal_Laser_2(object sender, EventArgs e)
+        {
+            bool[] arUsed = new bool[ProtecLaserMananger.GetInstance().ChannelCount];
+            List<int> listUsedChannel = new List<int>();
+
+            for (int nCh = 0; nCh < ProtecLaserMananger.GetInstance().ChannelCount; ++nCh)
+            {
+                arUsed[nCh] = m_instanceRecipe.GetValue(
+                    EN_TASK_LIST.BOND_HEAD.ToString(),
+                    BONDER_TASK_PARAM.SHOT_PARAMETER_2_ENABLE_18.ToString(),
+                    nCh,
+                    EN_RECIPE_PARAM_TYPE.VALUE,
+                    false
+                );
+
+                if (arUsed[nCh])
+                    listUsedChannel.Add(nCh);
+            }
+
+            if (!EquipmentState_.EquipmentState.GetInstance().GetState().Equals(EquipmentState_.EQUIPMENT_STATE.IDLE))
+                return;
+
+            Control ctrButton = sender as Control;
+            string strAction = ctrButton.Text.Replace("\\n", "");
+
+            // 사용 중인 채널 정보 표시
+            string strUsedInfo = listUsedChannel.Count > 0
+                ? $"사용 설정된 채널: {string.Join(", ", listUsedChannel.Select(ch => $"CH{ch + 1}"))}"
+                : "사용 설정된 채널이 없습니다.";
+
+            // 메시지 출력
+            if (!m_MessageBox.ShowMessage($"{strUsedInfo}\n\nDo You Want {strAction}?"))
+                return;
+
+            // 채널이 2개 이상 선택되어 있으면 진입 불가
+            if (listUsedChannel.Count > 1)
+            {
+                m_MessageBox.ShowMessage("2개 이상의 채널이 선택되어 있어 작업을 수행할 수 없습니다.\n1개 채널만 선택해주세요.");
+                return;
+            }
+
+            string[] arSelectTask = new string[] { };
+            string[][] arSelectAction = new string[][] { };
+            int nRetryTime = 1;
+
+            switch (ctrButton.TabIndex)
+            {
                 case 17:
                     arSelectAction = new string[1][];
                     arSelectTask = new string[] { EN_TASK_LIST.BOND_HEAD.ToString() };
                     arSelectAction[0] = new string[] { Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.CALIBRATION_CHANNEL_POWER_2.ToString() };
-                    Task.TaskOperator.GetInstance().SetOperation(ref arSelectTask, ref arSelectAction, nRetryTime);
-                    break;
-                case 18:
-                    arSelectAction = new string[1][];
-                    arSelectTask = new string[] { EN_TASK_LIST.BOND_HEAD.ToString() };
-                    arSelectAction[0] = new string[] { Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.SHORT_TEST_2.ToString() };
                     Task.TaskOperator.GetInstance().SetOperation(ref arSelectTask, ref arSelectAction, nRetryTime);
                     break;
             }

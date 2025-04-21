@@ -1132,7 +1132,7 @@
             this.m_btnMeasureVolt2.UseImage = true;
             this.m_btnMeasureVolt2.UserHoverEmpahsize = false;
             this.m_btnMeasureVolt2.UseSubFont = false;
-            this.m_btnMeasureVolt2.Click += new System.EventHandler(this.Click_Action);
+            this.m_btnMeasureVolt2.Click += new System.EventHandler(this.Click_Action_Measure_Manual);
             // 
             // m_btnCalCHPower2
             // 
@@ -1174,7 +1174,7 @@
             this.m_btnCalCHPower2.UseImage = true;
             this.m_btnCalCHPower2.UserHoverEmpahsize = false;
             this.m_btnCalCHPower2.UseSubFont = false;
-            this.m_btnCalCHPower2.Click += new System.EventHandler(this.Click_Action);
+            this.m_btnCalCHPower2.Click += new System.EventHandler(this.Click_Action_Cal_Laser_2);
             // 
             // m_btnMeasurePower2
             // 
@@ -1216,7 +1216,7 @@
             this.m_btnMeasurePower2.UseImage = true;
             this.m_btnMeasurePower2.UserHoverEmpahsize = false;
             this.m_btnMeasurePower2.UseSubFont = false;
-            this.m_btnMeasurePower2.Click += new System.EventHandler(this.Click_Action);
+            this.m_btnMeasurePower2.Click += new System.EventHandler(this.Click_Action_Measure_Manual);
             // 
             // m_btnMeasureVolt
             // 
@@ -1258,7 +1258,7 @@
             this.m_btnMeasureVolt.UseImage = true;
             this.m_btnMeasureVolt.UserHoverEmpahsize = false;
             this.m_btnMeasureVolt.UseSubFont = false;
-            this.m_btnMeasureVolt.Click += new System.EventHandler(this.Click_Action);
+            this.m_btnMeasureVolt.Click += new System.EventHandler(this.Click_Action_Measure_Manual);
             // 
             // m_btnCalCHPower
             // 
@@ -1300,7 +1300,7 @@
             this.m_btnCalCHPower.UseImage = true;
             this.m_btnCalCHPower.UserHoverEmpahsize = false;
             this.m_btnCalCHPower.UseSubFont = false;
-            this.m_btnCalCHPower.Click += new System.EventHandler(this.Click_Action);
+            this.m_btnCalCHPower.Click += new System.EventHandler(this.Click_Action_Cal_Laser_1);
             // 
             // m_btnMeasurePower
             // 
@@ -1342,7 +1342,7 @@
             this.m_btnMeasurePower.UseImage = true;
             this.m_btnMeasurePower.UserHoverEmpahsize = false;
             this.m_btnMeasurePower.UseSubFont = false;
-            this.m_btnMeasurePower.Click += new System.EventHandler(this.Click_Action);
+            this.m_btnMeasurePower.Click += new System.EventHandler(this.Click_Action_Measure_Manual);
             // 
             // sys3button1
             // 

@@ -403,15 +403,14 @@ namespace FrameOfSystem3.Laser
             switch (m_nSeq)
             {
                 case 0:
-                    // 2025.3.31 by ecchoi [ADD] IO Mode 에서는 필요없는 것 같다 
-                    //if (m_LaserCal.GetMinPower(bEnable) > dTotalPower)
-                    //{
-                    //    return EN_SET_RESULT.POWER_UNDER_MIN;
-                    //}
-                    //if (m_LaserCal.GetMaxPower(bEnable) < dTotalPower)
-                    //{
-                    //    return EN_SET_RESULT.POWER_OVER_MAX;
-                    //}
+                    if (m_LaserCal.GetMinPower(bEnable) > dTotalPower)
+                    {
+                        return EN_SET_RESULT.POWER_UNDER_MIN;
+                    }
+                    if (m_LaserCal.GetMaxPower(bEnable) < dTotalPower)
+                    {
+                        return EN_SET_RESULT.POWER_OVER_MAX;
+                    }
                     m_nSeq++;
                     break;
 

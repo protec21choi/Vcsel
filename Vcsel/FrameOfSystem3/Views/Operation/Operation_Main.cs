@@ -1238,30 +1238,44 @@ namespace FrameOfSystem3.Views.Operation
 
         private void Click_Action(object sender, EventArgs e)
         {
+            bool bLaserUsed_1 = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.LASER_1_USED.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true);
+            bool bLaserUsed_2 = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.LASER_2_USED.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true);
+
             if (!EquipmentState_.EquipmentState.GetInstance().GetState().Equals(EquipmentState_.EQUIPMENT_STATE.IDLE))
                 return;
 
             Control ctrButton = sender as Control;
-
             string strAction = ctrButton.Text.Replace("\\n", "");
-            if (!m_MessageBox.ShowMessage(string.Format("Do You Want {0}?", strAction)))
+
+            // 레이저 사용 상태 팝업 메시지
+            string strLaserStatus = $"Laser 사용 설정 상태:\n - LD1: {(bLaserUsed_1 ? "사용" : "미사용")}\n - LD2: {(bLaserUsed_2 ? "사용" : "미사용")}";
+            strLaserStatus += $"\n\nDo You Want {strAction}?";
+
+            if (!m_MessageBox.ShowMessage(strLaserStatus))
                 return;
 
+            // 둘 다 미사용일 경우
+            if (!bLaserUsed_1 && !bLaserUsed_2)
+            {
+                m_MessageBox.ShowMessage("LD1과 LD2 모두 사용 안 함으로 설정되어 있어 레이저 작업을 실행할 수 없습니다.");
+                return;
+            }
 
             string[] arSelectTask = new string[] { };
             string[][] arSelectAction = new string[][] { };
             int nRetryTime = 1;
+
             switch (ctrButton.TabIndex)
             {
                 case 0:
-                    arSelectAction = new string[2][];
-                    arSelectTask = new string[] { EN_TASK_LIST.BOND_HEAD.ToString(), EN_TASK_LIST.BOND_HEAD.ToString() };
-                    arSelectAction[0] = new string[] { null, Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.LASER_WORK.ToString() };
-                    arSelectAction[1] = new string[] { Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.LASER_WORK_2.ToString(), null };
+                    arSelectAction = new string[1][];
+                    arSelectTask = new string[] { EN_TASK_LIST.BOND_HEAD.ToString() };
+                    arSelectAction[0] = new string[] { Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.LASER_WORK.ToString() };
                     Task.TaskOperator.GetInstance().SetOperation(ref arSelectTask, ref arSelectAction, nRetryTime);
                     break;
             }
         }
+
         private void SetPowerMinMax()
         {
             bool[] arUsed = new bool[ProtecLaserMananger.GetInstance().ChannelCount];

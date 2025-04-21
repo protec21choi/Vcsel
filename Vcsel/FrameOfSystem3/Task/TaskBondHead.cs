@@ -1253,8 +1253,7 @@ namespace FrameOfSystem3.Task
             {
                 case (int)EN_LASER_WORK_STEP.ACTION_START:
 
-                    m_nSeqNum = (int)EN_LASER_WORK_STEP.READY_AND_WAIT_1;
-                    break; // 2025.4.21 by ecchoi [ADD] Test
+                    
 
                     int nLaserCount = 18;
                     //Action이 시작되면 Calibration Table File을 Load 한다.
