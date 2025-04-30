@@ -143,6 +143,7 @@ namespace FrameOfSystem3.Component
             private bool m_bNeedRemakeMap = false;
             private EN_REFERANCE_MAP_LIST m_enReferanceMap = EN_REFERANCE_MAP_LIST.MATERIAL_BOND;
             private DelAfterSetParameter delAfterSetParameter = null;
+            private DelAfterSetParameter delBeforeSetParameter = null;
             private EN_PARAMETER_SETTING_TYPE m_enParameterSettingType = EN_PARAMETER_SETTING_TYPE.CALCULATE;
             private Define.DefineEnumProject.SelectionList.EN_SELECTIONLIST m_enSelectionList = Define.DefineEnumProject.SelectionList.EN_SELECTIONLIST.TRUE_FALSE;
             public bool Enable { get { return m_bEnable; } set { m_bEnable = value; } }
@@ -155,6 +156,7 @@ namespace FrameOfSystem3.Component
             public bool NeedRemakeMap { get { return m_bNeedRemakeMap; } set { m_bNeedRemakeMap = value; } }
             public EN_REFERANCE_MAP_LIST ReferanceMap { get { return m_enReferanceMap; } set { m_enReferanceMap = value; } }
             public DelAfterSetParameter AfterSetParameter { get { return delAfterSetParameter; } set { delAfterSetParameter = value; } }
+            public DelAfterSetParameter BeforeSetParameter { get { return delBeforeSetParameter; } set { delBeforeSetParameter = value; } }
             public EN_PARAMETER_SETTING_TYPE ParameterSettingType
             {
                 set { m_enParameterSettingType = value; }
@@ -478,6 +480,8 @@ namespace FrameOfSystem3.Component
         {
             if (EquipmentState_.EquipmentState.GetInstance().GetState() != EquipmentState_.EQUIPMENT_STATE.IDLE)
                 return;
+
+
             int nRowindex = e.RowIndex;
             int nColumnIndex = e.ColumnIndex;
             int nParaIndex = nColumnIndex - 1;
@@ -485,6 +489,9 @@ namespace FrameOfSystem3.Component
 
             if (!m_ControlCollection[nRowindex].Enable)
                 return;
+
+            if (m_ControlCollection[nRowindex].BeforeSetParameter != null)
+                m_ControlCollection[nRowindex].BeforeSetParameter();
 
             switch (nColumnIndex)
             {

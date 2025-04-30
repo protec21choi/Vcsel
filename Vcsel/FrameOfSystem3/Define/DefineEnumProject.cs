@@ -257,6 +257,7 @@ namespace Define
                     SHOT_PARAMETER_STEP_POWER_5,
 
                     SHOT_PARAMETER_TOTAL_POWER,
+                    TOTAL_POWER_MIN_MAX_RELEASE,
 
                     // 2025.3.11 by ecchoi [ADD] Laser 2
                     LASER_2_USED,
@@ -266,6 +267,7 @@ namespace Define
                     SHOT_PARAMETER_2_STEP_POWER_5,
 
                     SHOT_PARAMETER_2_TOTAL_POWER,
+                    TOTAL_POWER_2_MIN_MAX_RELEASE,
                     #endregion
 
 
@@ -397,6 +399,7 @@ namespace Define
                     LD2_POWER_UNDER_MIN = 16,
 
                     PLC_IO_DOUBLE_ERROR = 17,
+                    PLC_IO_ALARM_ERROR = 18,
                 }
                 public enum EN_TASK_ALARM_MESSAGE_EN
                 {

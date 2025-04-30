@@ -3277,28 +3277,32 @@ namespace FrameOfSystem3.Task
 
         private void Monitoring_PLC_IO_Trouble()
         {
-            if (false == m_tickForPLCIO.IsTickOver(true))
-                return;
-
-            m_tickForPLCIO.SetTickCount(100);
-            // 2025.4.21 by ecchoi [ADD] 100ms 이상 PLC IO가 겹치면 에러를 발생시킨다. (Auto Run + Bypass Run)
-            // 2025.4.21 by ecchoi [ADD] Test 후 True 로 복구
-            if (ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_2, false) && 
-                ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_3, false))
+            // 2025.4.29 by ecchoi [ADD] DoAlwaysSequence 에서 IDLE 상태일때 알람을 띄우면 Log Exeption이 뜬다.
+            if (EquipmentState.GetInstance().GetState() == EQUIPMENT_STATE.READY
+                || EquipmentState.GetInstance().GetState() == EQUIPMENT_STATE.SETUP)
             {
-                //m_arAlarmSubInfo[0] = "";
-                //GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
-                //return;
+                if (false == m_tickForPLCIO.IsTickOver(true))
+                    return;
+
+                m_tickForPLCIO.SetTickCount(100);
+                // 2025.4.21 by ecchoi [ADD] 100ms 이상 PLC IO가 겹치면 에러를 발생시킨다. (Auto Run + Bypass Run)
+                // 2025.4.21 by ecchoi [ADD] Test 후 True 로 복구
+                if (ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_2, false) &&
+                    ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_3, false))
+                {
+                    m_arAlarmSubInfo[0] = "";
+                    GenerateSequenceAlarm((int)EN_TASK_ALARM.PLC_IO_DOUBLE_ERROR, false, ref m_arAlarmSubInfo);
+                    return;
+                }
+                if (ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_1, false))
+
+                {
+                    m_arAlarmSubInfo[0] = "";
+                    GenerateSequenceAlarm((int)EN_TASK_ALARM.PLC_IO_ALARM_ERROR, false, ref m_arAlarmSubInfo);
+                    return;
+                }
             }
-            if (ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_1, false))
-
-            {
-                m_arAlarmSubInfo[0] = "";
-                GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
-                return;
-            }
-
-
+            return;
         }
 
 

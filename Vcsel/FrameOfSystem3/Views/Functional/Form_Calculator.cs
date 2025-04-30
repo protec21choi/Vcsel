@@ -583,7 +583,13 @@ namespace FrameOfSystem3.Views.Functional
 		{
 			double dblResult = 0.0;
 
-			return double.TryParse(m_labelDisplay.Text, out dblResult);
+			if (false == double.TryParse(m_labelDisplay.Text, out dblResult))
+				return false;
+
+			if (m_dblMinValue <= dblResult && dblResult <= m_dblMaxValue)
+				return true;
+
+			return false;
 		}
 		#endregion
 

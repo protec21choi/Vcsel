@@ -104,6 +104,7 @@ namespace FrameOfSystem3.Views.Functional
         private Functional.Form_Calculator _Calculator_Instance_m_p = null;
         Laser.ProtecLaserMananger m_Laser = Laser.ProtecLaserMananger.GetInstance();
         Laser.ProtecLaserMananger_2 m_Laser_2 = Laser.ProtecLaserMananger_2.GetInstance();
+
         #endregion
 
         #region Timer
@@ -125,6 +126,7 @@ namespace FrameOfSystem3.Views.Functional
         public void CreateForm()
         {
             InitializeGraph();
+            // Min Max Recipe Data Set
 
             this.Size = new Size(1280, 770);
 
@@ -243,10 +245,37 @@ namespace FrameOfSystem3.Views.Functional
 
             GridViewControl_Parameter.ParameterItem AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList);
             AddParaItem.DisplayName = "LASER TOTAL POWER";
+
+            AddParaItem.BeforeSetParameter = UpdatePowerMinMax;
             parameterList.Add(AddParaItem);
 
             gridViewControl_Laser_Parameter.Initialize(parameterList, -1, 425);
         }
+        private void UpdatePowerMinMax()
+        {
+            if (m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.TOTAL_POWER_MIN_MAX_RELEASE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, false))
+                return;
+
+            // 1. 사용 채널 정보
+            int channelCount = ProtecLaserMananger.GetInstance().ChannelCount;
+            bool[] arUsed = new bool[channelCount];
+            for (int nCh = 0; nCh < channelCount; ++nCh)
+            {
+                arUsed[nCh] = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(),
+                    BONDER_TASK_PARAM.SHOT_PARAMETER_ENABLE_18.ToString(),nCh,EN_RECIPE_PARAM_TYPE.VALUE,false);}
+
+            // 2. 최소/최대 값 계산
+            double minPower = m_LaserCalManager.GetMinPower(arUsed);
+            double maxPower = m_LaserCalManager.GetMaxPower(arUsed);
+
+            // 3. 레시피에 저장
+            m_instanceRecipe.SetValue(EN_TASK_LIST.BOND_HEAD.ToString(),
+                BONDER_TASK_PARAM.SHOT_PARAMETER_TOTAL_POWER.ToString(),0,EN_RECIPE_PARAM_TYPE.MIN,minPower.ToString());
+
+            m_instanceRecipe.SetValue(EN_TASK_LIST.BOND_HEAD.ToString(),
+                BONDER_TASK_PARAM.SHOT_PARAMETER_TOTAL_POWER.ToString(),0,EN_RECIPE_PARAM_TYPE.MAX,maxPower.ToString());
+        }
+
         private void InitGridLaserParameter_2()
         {
             List<GridViewControl_Parameter.ParameterItem> parameterList = new List<GridViewControl_Parameter.ParameterItem>();
@@ -264,9 +293,36 @@ namespace FrameOfSystem3.Views.Functional
 
             GridViewControl_Parameter.ParameterItem AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList);
             AddParaItem.DisplayName = "LASER TOTAL POWER";
+
+            AddParaItem.BeforeSetParameter = UpdatePowerMinMax_2;
             parameterList.Add(AddParaItem);
 
             gridViewControl_Laser_Parameter_2.Initialize(parameterList, -1, 425);
+        }
+        private void UpdatePowerMinMax_2()
+        {
+            if (m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.TOTAL_POWER_2_MIN_MAX_RELEASE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, false))
+                return;
+
+            // 1. 사용 채널 정보
+            int channelCount = ProtecLaserMananger_2.GetInstance().ChannelCount;
+            bool[] arUsed = new bool[channelCount];
+            for (int nCh = 0; nCh < channelCount; ++nCh)
+            {
+                arUsed[nCh] = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(),
+                    BONDER_TASK_PARAM.SHOT_PARAMETER_2_ENABLE_18.ToString(), nCh, EN_RECIPE_PARAM_TYPE.VALUE, false);
+            }
+
+            // 2. 최소/최대 값 계산
+            double minPower = m_LaserCalManager_2.GetMinPower(arUsed);
+            double maxPower = m_LaserCalManager_2.GetMaxPower(arUsed);
+
+            // 3. 레시피에 저장
+            m_instanceRecipe.SetValue(EN_TASK_LIST.BOND_HEAD.ToString(),
+                BONDER_TASK_PARAM.SHOT_PARAMETER_2_TOTAL_POWER.ToString(), 0, EN_RECIPE_PARAM_TYPE.MIN, minPower.ToString());
+
+            m_instanceRecipe.SetValue(EN_TASK_LIST.BOND_HEAD.ToString(),
+                BONDER_TASK_PARAM.SHOT_PARAMETER_2_TOTAL_POWER.ToString(), 0, EN_RECIPE_PARAM_TYPE.MAX, maxPower.ToString());
         }
         private void InitGridLaserParameter5Step()
         {
