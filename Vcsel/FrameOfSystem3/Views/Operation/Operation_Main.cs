@@ -1273,6 +1273,12 @@ namespace FrameOfSystem3.Views.Operation
                     arSelectAction[0] = new string[] { Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.LASER_WORK.ToString() };
                     Task.TaskOperator.GetInstance().SetOperation(ref arSelectTask, ref arSelectAction, nRetryTime);
                     break;
+                case 10:
+                    arSelectAction = new string[1][];
+                    arSelectTask = new string[] { EN_TASK_LIST.BOND_HEAD.ToString() };
+                    arSelectAction[0] = new string[] { Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.LASER_WORK_1CYCLE.ToString() };
+                    Task.TaskOperator.GetInstance().SetOperation(ref arSelectTask, ref arSelectAction, nRetryTime);
+                    break;
             }
         }
 

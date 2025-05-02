@@ -294,12 +294,8 @@ namespace FrameOfSystem3.Task
             switch (m_enAction)
             {
                 case EN_TASK_ACTION.LASER_WORK:
+                case EN_TASK_ACTION.LASER_WORK_1CYCLE:
                     if (ActionLaserWork())
-                        return true;
-                    break;
-
-                case EN_TASK_ACTION.LASER_WORK_2:
-                    //if (ActionLaserWork_2())
                         return true;
                     break;
 
@@ -1252,8 +1248,10 @@ namespace FrameOfSystem3.Task
             switch (m_nSeqNum)
             {
                 case (int)EN_LASER_WORK_STEP.ACTION_START:
+                    // 2025.5.2 by ecchoi [ADD] Test 후 복구
+                    m_nSeqNum = (int)EN_LASER_WORK_STEP.PARAMETER_COMPLETE_1;
+                    break;
 
-                    
 
                     int nLaserCount = 18;
                     //Action이 시작되면 Calibration Table File을 Load 한다.
@@ -1509,6 +1507,12 @@ namespace FrameOfSystem3.Task
                         m_nSeqNum = (int)EN_LASER_WORK_STEP.AUTO_RUN_WORK_START;
                         break;
                     }
+
+                    else if (m_enAction == EN_TASK_ACTION.LASER_WORK_1CYCLE)
+                    {
+                        m_nSeqNum = (int)EN_LASER_WORK_STEP.AUTO_RUN_WORK_START;
+                        break;
+                    }
                     //if (ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_3, false))
                     //{
                     //    if (!bLaserUsed_1) // 2025.4.21 by ecchoi [ADD] Bypass 일 경우 TimeLimit를 바꿔서 넣어야 한다.
@@ -1603,7 +1607,12 @@ namespace FrameOfSystem3.Task
                                         // 반복 종료
                                         m_bLaserOutputStarted = false;
                                         m_nSeqNum = (int)EN_LASER_WORK_STEP.READY_AND_WAIT_1;
+
+                                        if (m_enAction == EN_TASK_ACTION.LASER_WORK_1CYCLE)
+                                            m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
                                         break;
+
+
                                     }
 
                                     // OFF -> ON
@@ -1629,138 +1638,139 @@ namespace FrameOfSystem3.Task
                     }
                     break;
 
-                case (int)EN_LASER_WORK_STEP.BYPASS_MODE_READY_1:
-                    if (m_tickTimeOut.IsTickOver(false))
-                    {
-                        m_arAlarmSubInfo[0] = "";
-                        GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
-                        m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-                        break;
-                    }
+                    // 2025.5.2 by ecchoi [ADD] Bypass 시 On 유지 기능 미사용 
+                //case (int)EN_LASER_WORK_STEP.BYPASS_MODE_READY_1:
+                //    if (m_tickTimeOut.IsTickOver(false))
+                //    {
+                //        m_arAlarmSubInfo[0] = "";
+                //        GenerateSequenceAlarm((int)EN_TASK_ALARM.LD1_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
+                //        m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
+                //        break;
+                //    }
 
-                    nLimitSec = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.BYPASS_SAFETY_LIMIT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 10);
-                    switch (m_Laser.SetParameterTimeLimit(nLimitSec))
-                    {
-                        case ProtecLaserMananger.EN_SET_RESULT.OK:
-                            int nDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_SETTING_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-                            SetDelayForSequence(nDelay);
-                            m_nSeqNum ++;
-                            break;
-                        case ProtecLaserMananger.EN_SET_RESULT.WORKING:
-                            if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
-                                m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-                            break;
-                        case ProtecLaserMananger.EN_SET_RESULT.POWER_OVER_MAX:
-                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 101, false); //POWER IS TOO HIGH
-                            break;
-                        case ProtecLaserMananger.EN_SET_RESULT.CH_POWER_OVER:
-                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 102, false); //CHANNEL POWER IS TOO HIGH
-                            break;
-                        case ProtecLaserMananger.EN_SET_RESULT.POWER_UNDER_MIN:
-                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 103, false); //POWER IS TOO LOW
-                            break;
-                        default:
-                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 104, false); //LASER COMMUNICATION FAIL
-                            break;
-                    }
-                    break;
+                //    nLimitSec = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.BYPASS_SAFETY_LIMIT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 10);
+                //    switch (m_Laser.SetParameterTimeLimit(nLimitSec))
+                //    {
+                //        case ProtecLaserMananger.EN_SET_RESULT.OK:
+                //            int nDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_SETTING_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                //            SetDelayForSequence(nDelay);
+                //            m_nSeqNum ++;
+                //            break;
+                //        case ProtecLaserMananger.EN_SET_RESULT.WORKING:
+                //            if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
+                //                m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
+                //            break;
+                //        case ProtecLaserMananger.EN_SET_RESULT.POWER_OVER_MAX:
+                //            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 101, false); //POWER IS TOO HIGH
+                //            break;
+                //        case ProtecLaserMananger.EN_SET_RESULT.CH_POWER_OVER:
+                //            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 102, false); //CHANNEL POWER IS TOO HIGH
+                //            break;
+                //        case ProtecLaserMananger.EN_SET_RESULT.POWER_UNDER_MIN:
+                //            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 103, false); //POWER IS TOO LOW
+                //            break;
+                //        default:
+                //            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 104, false); //LASER COMMUNICATION FAIL
+                //            break;
+                //    }
+                //    break;
 
-                case (int)EN_LASER_WORK_STEP.BYPASS_MODE_READY_1 +1:
-                    {
-                        if (bLaserUsed_2)
-                        {
-                            m_nSeqNum = (int)EN_LASER_WORK_STEP.BYPASS_MODE_READY_2;
-                            break;
-                        }
-                        else
-                        {
-                            m_nSeqNum = (int)EN_LASER_WORK_STEP.BYPASS_RUN_WORK_START;
-                            break;
-                        }
-                    }
+                //case (int)EN_LASER_WORK_STEP.BYPASS_MODE_READY_1 +1:
+                //    {
+                //        if (bLaserUsed_2)
+                //        {
+                //            m_nSeqNum = (int)EN_LASER_WORK_STEP.BYPASS_MODE_READY_2;
+                //            break;
+                //        }
+                //        else
+                //        {
+                //            m_nSeqNum = (int)EN_LASER_WORK_STEP.BYPASS_RUN_WORK_START;
+                //            break;
+                //        }
+                //    }
 
-                case (int)EN_LASER_WORK_STEP.BYPASS_MODE_READY_2:
-                    if (bLaserUsed_1 && !bLaserUsed_2)
-                    {
-                        m_nSeqNum = (int)EN_LASER_WORK_STEP.BYPASS_RUN_WORK_START;
-                        break;
-                        // 2025.4.15 by ecchoi [ADD] 둘다 False(Unused) 일경우 LD2 Comm TimeOut 알람을 띄운다
-                    }
-                    if (m_tickTimeOut.IsTickOver(false))
-                    {
-                        m_arAlarmSubInfo[0] = "";
-                        GenerateSequenceAlarm((int)EN_TASK_ALARM.LD2_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
-                        m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-                        break;
-                    }
+                //case (int)EN_LASER_WORK_STEP.BYPASS_MODE_READY_2:
+                //    if (bLaserUsed_1 && !bLaserUsed_2)
+                //    {
+                //        m_nSeqNum = (int)EN_LASER_WORK_STEP.BYPASS_RUN_WORK_START;
+                //        break;
+                //        // 2025.4.15 by ecchoi [ADD] 둘다 False(Unused) 일경우 LD2 Comm TimeOut 알람을 띄운다
+                //    }
+                //    if (m_tickTimeOut.IsTickOver(false))
+                //    {
+                //        m_arAlarmSubInfo[0] = "";
+                //        GenerateSequenceAlarm((int)EN_TASK_ALARM.LD2_COMMNUNICATION_TIMEOUT, false, ref m_arAlarmSubInfo);
+                //        m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
+                //        break;
+                //    }
 
-                    nLimitSec_2 = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.BYPASS_SAFETY_LIMIT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 30);
-                    switch (m_Laser_2.SetParameterTimeLimit(nLimitSec_2))
-                    {
-                        case ProtecLaserMananger_2.EN_SET_RESULT_2.OK:
-                            int nDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_SETTING_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-                            SetDelayForSequence(nDelay);
-                            m_nSeqNum = (int)EN_LASER_WORK_STEP.BYPASS_RUN_WORK_START;
-                            break;
-                        case ProtecLaserMananger_2.EN_SET_RESULT_2.WORKING:
-                            if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
-                                m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
-                            break;
-                        case ProtecLaserMananger_2.EN_SET_RESULT_2.POWER_OVER_MAX:
-                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 101, false); //POWER IS TOO HIGH
-                            break;
-                        case ProtecLaserMananger_2.EN_SET_RESULT_2.CH_POWER_OVER:
-                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 102, false); //CHANNEL POWER IS TOO HIGH
-                            break;
-                        case ProtecLaserMananger_2.EN_SET_RESULT_2.POWER_UNDER_MIN:
-                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 103, false); //POWER IS TOO LOW
-                            break;
-                        default:
-                            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 104, false); //LASER COMMUNICATION FAIL
-                            break;
+                //    nLimitSec_2 = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.BYPASS_SAFETY_LIMIT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 30);
+                //    switch (m_Laser_2.SetParameterTimeLimit(nLimitSec_2))
+                //    {
+                //        case ProtecLaserMananger_2.EN_SET_RESULT_2.OK:
+                //            int nDelay = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_SETTING_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+                //            SetDelayForSequence(nDelay);
+                //            m_nSeqNum = (int)EN_LASER_WORK_STEP.BYPASS_RUN_WORK_START;
+                //            break;
+                //        case ProtecLaserMananger_2.EN_SET_RESULT_2.WORKING:
+                //            if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
+                //                m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
+                //            break;
+                //        case ProtecLaserMananger_2.EN_SET_RESULT_2.POWER_OVER_MAX:
+                //            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 101, false); //POWER IS TOO HIGH
+                //            break;
+                //        case ProtecLaserMananger_2.EN_SET_RESULT_2.CH_POWER_OVER:
+                //            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 102, false); //CHANNEL POWER IS TOO HIGH
+                //            break;
+                //        case ProtecLaserMananger_2.EN_SET_RESULT_2.POWER_UNDER_MIN:
+                //            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 103, false); //POWER IS TOO LOW
+                //            break;
+                //        default:
+                //            Alarm_.Alarm.GetInstance().GenerateAlarm(0, 0, 104, false); //LASER COMMUNICATION FAIL
+                //            break;
 
-                    }
-                    break;
+                //    }
+                //    break;
 
-                case (int)EN_LASER_WORK_STEP.BYPASS_RUN_WORK_START:
-                    if (ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_3, false))
-                    {
-                        // 2025.4.21 by ecchoi [ADD] PLC에서 BYPASS 신호가 끊어질때 까지 ON 시킨다.
+                //case (int)EN_LASER_WORK_STEP.BYPASS_RUN_WORK_START:
+                //    if (ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_3, false))
+                //    {
+                //        // 2025.4.21 by ecchoi [ADD] PLC에서 BYPASS 신호가 끊어질때 까지 ON 시킨다.
 
-                        m_tickLaserOutput.SetTickCount((uint)m_nLaserOnDelay);
-                        // 2025.4.16 by ecchoi [ADD] Test 후 복구
-                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, bLaserUsed_1); // 첫 ON
-                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, bLaserUsed_1);
-                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, bLaserUsed_1);
-                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, bLaserUsed_2);
-                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, bLaserUsed_2);
-                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, bLaserUsed_2);
+                //        m_tickLaserOutput.SetTickCount((uint)m_nLaserOnDelay);
+                //        // 2025.4.16 by ecchoi [ADD] Test 후 복구
+                //        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, bLaserUsed_1); // 첫 ON
+                //        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, bLaserUsed_1);
+                //        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, bLaserUsed_1);
+                //        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, bLaserUsed_2);
+                //        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, bLaserUsed_2);
+                //        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, bLaserUsed_2);
 
-                        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_1, bLaserUsed_1);
-                        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_2, bLaserUsed_1);
-                        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_3, bLaserUsed_1);
-                        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_1, bLaserUsed_2);
-                        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_2, bLaserUsed_2);
-                        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_3, bLaserUsed_2);
-                    }
-                    else 
-                    {
-                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_1, false);
-                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_2, false);
-                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_3, false);
-                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_1, false);
-                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_2, false);
-                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_3, false);
+                //        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_1, bLaserUsed_1);
+                //        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_2, bLaserUsed_1);
+                //        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ALARM_CLEAR_PORT_3, bLaserUsed_1);
+                //        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_1, bLaserUsed_2);
+                //        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_2, bLaserUsed_2);
+                //        //WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ALARM_CLEAR_PORT_3, bLaserUsed_2);
+                //    }
+                //    else 
+                //    {
+                //        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_1, false);
+                //        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_2, false);
+                //        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_3, false);
+                //        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_1, false);
+                //        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_2, false);
+                //        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_READY_PORT_3, false);
 
-                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, false);
-                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, false);
-                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, false);
-                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, false);
-                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, false);
-                        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, false);
-                        m_nSeqNum = (int)EN_LASER_WORK_STEP.ACTION_START;
-                    }
-                    break;
+                //        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_1, false);
+                //        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_2, false);
+                //        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_ON_PORT_3, false);
+                //        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_1, false);
+                //        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_2, false);
+                //        WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_2_ON_PORT_3, false);
+                //        m_nSeqNum = (int)EN_LASER_WORK_STEP.ACTION_START;
+                //    }
+                //    break;
 
                 case (int)EN_LASER_WORK_STEP.FINISH:
                     WriteDigitalOutput((int)EN_DIGITAL_OUTPUT_LIST.LD_READY_PORT_1, false);

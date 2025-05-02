@@ -353,7 +353,7 @@ namespace Define
                     #region AUTO
 
                     LASER_WORK,
-                    LASER_WORK_2,
+                    LASER_WORK_1CYCLE,
 
                     #endregion
 

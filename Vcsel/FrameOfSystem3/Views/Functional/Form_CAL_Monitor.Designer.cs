@@ -62,12 +62,8 @@
             this.sys3Label16 = new Sys3Controls.Sys3Label();
             this.sys3Label50 = new Sys3Controls.Sys3Label();
             this.sys3button7 = new Sys3Controls.Sys3button();
-            this.m_btnMeasureVolt2 = new Sys3Controls.Sys3button();
             this.m_btnCalCHPower2 = new Sys3Controls.Sys3button();
-            this.m_btnMeasurePower2 = new Sys3Controls.Sys3button();
-            this.m_btnMeasureVolt = new Sys3Controls.Sys3button();
             this.m_btnCalCHPower = new Sys3Controls.Sys3button();
-            this.m_btnMeasurePower = new Sys3Controls.Sys3button();
             this.sys3button1 = new Sys3Controls.Sys3button();
             this.sys3button2 = new Sys3Controls.Sys3button();
             this.sys3GroupBox2 = new Sys3Controls.Sys3GroupBox();
@@ -1094,48 +1090,6 @@
             this.sys3button7.UseSubFont = false;
             this.sys3button7.Click += new System.EventHandler(this.Click_Close);
             // 
-            // m_btnMeasureVolt2
-            // 
-            this.m_btnMeasureVolt2.BorderWidth = 2;
-            this.m_btnMeasureVolt2.ButtonClicked = false;
-            this.m_btnMeasureVolt2.ClickedEmphasizeTextColor = System.Drawing.Color.White;
-            this.m_btnMeasureVolt2.CustomClickedGradientFirstColor = System.Drawing.Color.White;
-            this.m_btnMeasureVolt2.CustomClickedGradientSecondColor = System.Drawing.Color.White;
-            this.m_btnMeasureVolt2.Description = "";
-            this.m_btnMeasureVolt2.DisabledColor = System.Drawing.Color.DarkGray;
-            this.m_btnMeasureVolt2.EdgeRadius = 1;
-            this.m_btnMeasureVolt2.GradientAngle = 60F;
-            this.m_btnMeasureVolt2.GradientFirstColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(230)))), ((int)(((byte)(115)))));
-            this.m_btnMeasureVolt2.GradientSecondColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(135)))), ((int)(((byte)(20)))));
-            this.m_btnMeasureVolt2.HoverEmphasizeCustomColor = System.Drawing.Color.White;
-            this.m_btnMeasureVolt2.ImagePosition = new System.Drawing.Point(37, 25);
-            this.m_btnMeasureVolt2.ImageSize = new System.Drawing.Point(30, 30);
-            this.m_btnMeasureVolt2.LoadImage = null;
-            this.m_btnMeasureVolt2.Location = new System.Drawing.Point(716, 345);
-            this.m_btnMeasureVolt2.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
-            this.m_btnMeasureVolt2.MainFontColor = System.Drawing.Color.White;
-            this.m_btnMeasureVolt2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.m_btnMeasureVolt2.Name = "m_btnMeasureVolt2";
-            this.m_btnMeasureVolt2.Size = new System.Drawing.Size(170, 38);
-            this.m_btnMeasureVolt2.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
-            this.m_btnMeasureVolt2.SubFontColor = System.Drawing.Color.Black;
-            this.m_btnMeasureVolt2.SubText = "";
-            this.m_btnMeasureVolt2.TabIndex = 16;
-            this.m_btnMeasureVolt2.Tag = "";
-            this.m_btnMeasureVolt2.Text = "MEASURE VOLT";
-            this.m_btnMeasureVolt2.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnMeasureVolt2.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnMeasureVolt2.ThemeIndex = 0;
-            this.m_btnMeasureVolt2.UseBorder = true;
-            this.m_btnMeasureVolt2.UseClickedEmphasizeTextColor = false;
-            this.m_btnMeasureVolt2.UseCustomizeClickedColor = false;
-            this.m_btnMeasureVolt2.UseEdge = true;
-            this.m_btnMeasureVolt2.UseHoverEmphasizeCustomColor = false;
-            this.m_btnMeasureVolt2.UseImage = true;
-            this.m_btnMeasureVolt2.UserHoverEmpahsize = false;
-            this.m_btnMeasureVolt2.UseSubFont = false;
-            this.m_btnMeasureVolt2.Click += new System.EventHandler(this.Click_Action_Measure_Manual);
-            // 
             // m_btnCalCHPower2
             // 
             this.m_btnCalCHPower2.BorderWidth = 2;
@@ -1178,90 +1132,6 @@
             this.m_btnCalCHPower2.UseSubFont = false;
             this.m_btnCalCHPower2.Click += new System.EventHandler(this.Click_Action_Cal_Laser_2);
             // 
-            // m_btnMeasurePower2
-            // 
-            this.m_btnMeasurePower2.BorderWidth = 2;
-            this.m_btnMeasurePower2.ButtonClicked = false;
-            this.m_btnMeasurePower2.ClickedEmphasizeTextColor = System.Drawing.Color.White;
-            this.m_btnMeasurePower2.CustomClickedGradientFirstColor = System.Drawing.Color.White;
-            this.m_btnMeasurePower2.CustomClickedGradientSecondColor = System.Drawing.Color.White;
-            this.m_btnMeasurePower2.Description = "";
-            this.m_btnMeasurePower2.DisabledColor = System.Drawing.Color.DarkGray;
-            this.m_btnMeasurePower2.EdgeRadius = 1;
-            this.m_btnMeasurePower2.GradientAngle = 60F;
-            this.m_btnMeasurePower2.GradientFirstColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(230)))), ((int)(((byte)(115)))));
-            this.m_btnMeasurePower2.GradientSecondColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(135)))), ((int)(((byte)(20)))));
-            this.m_btnMeasurePower2.HoverEmphasizeCustomColor = System.Drawing.Color.White;
-            this.m_btnMeasurePower2.ImagePosition = new System.Drawing.Point(37, 25);
-            this.m_btnMeasurePower2.ImageSize = new System.Drawing.Point(30, 30);
-            this.m_btnMeasurePower2.LoadImage = null;
-            this.m_btnMeasurePower2.Location = new System.Drawing.Point(546, 345);
-            this.m_btnMeasurePower2.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
-            this.m_btnMeasurePower2.MainFontColor = System.Drawing.Color.White;
-            this.m_btnMeasurePower2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.m_btnMeasurePower2.Name = "m_btnMeasurePower2";
-            this.m_btnMeasurePower2.Size = new System.Drawing.Size(170, 38);
-            this.m_btnMeasurePower2.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
-            this.m_btnMeasurePower2.SubFontColor = System.Drawing.Color.Black;
-            this.m_btnMeasurePower2.SubText = "";
-            this.m_btnMeasurePower2.TabIndex = 15;
-            this.m_btnMeasurePower2.Tag = "";
-            this.m_btnMeasurePower2.Text = "MEASURE POWER";
-            this.m_btnMeasurePower2.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnMeasurePower2.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnMeasurePower2.ThemeIndex = 0;
-            this.m_btnMeasurePower2.UseBorder = true;
-            this.m_btnMeasurePower2.UseClickedEmphasizeTextColor = false;
-            this.m_btnMeasurePower2.UseCustomizeClickedColor = false;
-            this.m_btnMeasurePower2.UseEdge = true;
-            this.m_btnMeasurePower2.UseHoverEmphasizeCustomColor = false;
-            this.m_btnMeasurePower2.UseImage = true;
-            this.m_btnMeasurePower2.UserHoverEmpahsize = false;
-            this.m_btnMeasurePower2.UseSubFont = false;
-            this.m_btnMeasurePower2.Click += new System.EventHandler(this.Click_Action_Measure_Manual);
-            // 
-            // m_btnMeasureVolt
-            // 
-            this.m_btnMeasureVolt.BorderWidth = 2;
-            this.m_btnMeasureVolt.ButtonClicked = false;
-            this.m_btnMeasureVolt.ClickedEmphasizeTextColor = System.Drawing.Color.White;
-            this.m_btnMeasureVolt.CustomClickedGradientFirstColor = System.Drawing.Color.White;
-            this.m_btnMeasureVolt.CustomClickedGradientSecondColor = System.Drawing.Color.White;
-            this.m_btnMeasureVolt.Description = "";
-            this.m_btnMeasureVolt.DisabledColor = System.Drawing.Color.DarkGray;
-            this.m_btnMeasureVolt.EdgeRadius = 1;
-            this.m_btnMeasureVolt.GradientAngle = 60F;
-            this.m_btnMeasureVolt.GradientFirstColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(230)))), ((int)(((byte)(115)))));
-            this.m_btnMeasureVolt.GradientSecondColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(135)))), ((int)(((byte)(20)))));
-            this.m_btnMeasureVolt.HoverEmphasizeCustomColor = System.Drawing.Color.White;
-            this.m_btnMeasureVolt.ImagePosition = new System.Drawing.Point(37, 25);
-            this.m_btnMeasureVolt.ImageSize = new System.Drawing.Point(30, 30);
-            this.m_btnMeasureVolt.LoadImage = null;
-            this.m_btnMeasureVolt.Location = new System.Drawing.Point(176, 344);
-            this.m_btnMeasureVolt.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
-            this.m_btnMeasureVolt.MainFontColor = System.Drawing.Color.White;
-            this.m_btnMeasureVolt.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.m_btnMeasureVolt.Name = "m_btnMeasureVolt";
-            this.m_btnMeasureVolt.Size = new System.Drawing.Size(170, 38);
-            this.m_btnMeasureVolt.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
-            this.m_btnMeasureVolt.SubFontColor = System.Drawing.Color.Black;
-            this.m_btnMeasureVolt.SubText = "";
-            this.m_btnMeasureVolt.TabIndex = 6;
-            this.m_btnMeasureVolt.Tag = "";
-            this.m_btnMeasureVolt.Text = "MEASURE VOLT";
-            this.m_btnMeasureVolt.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnMeasureVolt.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnMeasureVolt.ThemeIndex = 0;
-            this.m_btnMeasureVolt.UseBorder = true;
-            this.m_btnMeasureVolt.UseClickedEmphasizeTextColor = false;
-            this.m_btnMeasureVolt.UseCustomizeClickedColor = false;
-            this.m_btnMeasureVolt.UseEdge = true;
-            this.m_btnMeasureVolt.UseHoverEmphasizeCustomColor = false;
-            this.m_btnMeasureVolt.UseImage = true;
-            this.m_btnMeasureVolt.UserHoverEmpahsize = false;
-            this.m_btnMeasureVolt.UseSubFont = false;
-            this.m_btnMeasureVolt.Click += new System.EventHandler(this.Click_Action_Measure_Manual);
-            // 
             // m_btnCalCHPower
             // 
             this.m_btnCalCHPower.BorderWidth = 2;
@@ -1303,48 +1173,6 @@
             this.m_btnCalCHPower.UserHoverEmpahsize = false;
             this.m_btnCalCHPower.UseSubFont = false;
             this.m_btnCalCHPower.Click += new System.EventHandler(this.Click_Action_Cal_Laser_1);
-            // 
-            // m_btnMeasurePower
-            // 
-            this.m_btnMeasurePower.BorderWidth = 2;
-            this.m_btnMeasurePower.ButtonClicked = false;
-            this.m_btnMeasurePower.ClickedEmphasizeTextColor = System.Drawing.Color.White;
-            this.m_btnMeasurePower.CustomClickedGradientFirstColor = System.Drawing.Color.White;
-            this.m_btnMeasurePower.CustomClickedGradientSecondColor = System.Drawing.Color.White;
-            this.m_btnMeasurePower.Description = "";
-            this.m_btnMeasurePower.DisabledColor = System.Drawing.Color.DarkGray;
-            this.m_btnMeasurePower.EdgeRadius = 1;
-            this.m_btnMeasurePower.GradientAngle = 60F;
-            this.m_btnMeasurePower.GradientFirstColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(230)))), ((int)(((byte)(115)))));
-            this.m_btnMeasurePower.GradientSecondColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(135)))), ((int)(((byte)(20)))));
-            this.m_btnMeasurePower.HoverEmphasizeCustomColor = System.Drawing.Color.White;
-            this.m_btnMeasurePower.ImagePosition = new System.Drawing.Point(37, 25);
-            this.m_btnMeasurePower.ImageSize = new System.Drawing.Point(30, 30);
-            this.m_btnMeasurePower.LoadImage = null;
-            this.m_btnMeasurePower.Location = new System.Drawing.Point(6, 344);
-            this.m_btnMeasurePower.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
-            this.m_btnMeasurePower.MainFontColor = System.Drawing.Color.White;
-            this.m_btnMeasurePower.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.m_btnMeasurePower.Name = "m_btnMeasurePower";
-            this.m_btnMeasurePower.Size = new System.Drawing.Size(170, 38);
-            this.m_btnMeasurePower.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
-            this.m_btnMeasurePower.SubFontColor = System.Drawing.Color.Black;
-            this.m_btnMeasurePower.SubText = "";
-            this.m_btnMeasurePower.TabIndex = 5;
-            this.m_btnMeasurePower.Tag = "";
-            this.m_btnMeasurePower.Text = "MEASURE POWER";
-            this.m_btnMeasurePower.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnMeasurePower.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
-            this.m_btnMeasurePower.ThemeIndex = 0;
-            this.m_btnMeasurePower.UseBorder = true;
-            this.m_btnMeasurePower.UseClickedEmphasizeTextColor = false;
-            this.m_btnMeasurePower.UseCustomizeClickedColor = false;
-            this.m_btnMeasurePower.UseEdge = true;
-            this.m_btnMeasurePower.UseHoverEmphasizeCustomColor = false;
-            this.m_btnMeasurePower.UseImage = true;
-            this.m_btnMeasurePower.UserHoverEmpahsize = false;
-            this.m_btnMeasurePower.UseSubFont = false;
-            this.m_btnMeasurePower.Click += new System.EventHandler(this.Click_Action_Measure_Manual);
             // 
             // sys3button1
             // 
@@ -2342,12 +2170,8 @@
             this.Controls.Add(this.gridViewControl_Laser_Parameter);
             this.Controls.Add(this.sys3button2);
             this.Controls.Add(this.sys3button1);
-            this.Controls.Add(this.m_btnMeasureVolt2);
             this.Controls.Add(this.m_btnCalCHPower2);
-            this.Controls.Add(this.m_btnMeasurePower2);
-            this.Controls.Add(this.m_btnMeasureVolt);
             this.Controls.Add(this.m_btnCalCHPower);
-            this.Controls.Add(this.m_btnMeasurePower);
             this.Controls.Add(this.sys3Label48);
             this.Controls.Add(this.m_lblCalVolt);
             this.Controls.Add(this.m_lblCalStep);
@@ -2419,12 +2243,8 @@
         private Sys3Controls.Sys3Label sys3Label16;
         private Sys3Controls.Sys3Label sys3Label50;
         private Sys3Controls.Sys3button sys3button7;
-        private Sys3Controls.Sys3button m_btnMeasureVolt2;
         private Sys3Controls.Sys3button m_btnCalCHPower2;
-        private Sys3Controls.Sys3button m_btnMeasurePower2;
-        private Sys3Controls.Sys3button m_btnMeasureVolt;
         private Sys3Controls.Sys3button m_btnCalCHPower;
-        private Sys3Controls.Sys3button m_btnMeasurePower;
         private Sys3Controls.Sys3button sys3button1;
         private Sys3Controls.Sys3button sys3button2;
         private Component.GridViewControl_Parameter gridViewControl_Laser_Parameter_5Step;
