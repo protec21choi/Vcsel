@@ -295,6 +295,7 @@ namespace FrameOfSystem3.Task
             {
                 case EN_TASK_ACTION.LASER_WORK:
                 case EN_TASK_ACTION.LASER_WORK_1CYCLE:
+                case EN_TASK_ACTION.LASER_WORK_FEED_MODE:
                     if (ActionLaserWork())
                         return true;
                     break;
@@ -1247,6 +1248,9 @@ namespace FrameOfSystem3.Task
             switch (m_nSeqNum)
             {
                 case (int)EN_LASER_WORK_STEP.ACTION_START:
+                    // 2025.5.2 by ecchoi [ADD] Test 후 복구
+                    //m_nSeqNum = (int)EN_LASER_WORK_STEP.PARAMETER_COMPLETE_1;
+                    //break;
 
                     int nLaserCount = 18;
                     //Action이 시작되면 Calibration Table File을 Load 한다.
@@ -1573,7 +1577,7 @@ namespace FrameOfSystem3.Task
                                 {
                                     if (m_enAction == EN_TASK_ACTION.LASER_WORK_FEED_MODE)
                                     {
-                                        if (ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_3, true))
+                                        if (!ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_3, false))
                                         {
                                             //Feed Mode IO가 꺼지면 Repeat Count가 남아있어도 즉시 종료한다
                                             m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
