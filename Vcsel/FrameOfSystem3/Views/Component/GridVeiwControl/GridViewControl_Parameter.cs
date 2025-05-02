@@ -208,7 +208,7 @@ namespace FrameOfSystem3.Component
                 nViewCount = lstItem.Count;
             base.Height = nViewCount * 25 + 3;
             //control hight는 (List 갯수 * 25) + 3
-            if (m_bControl_Enable && TabIndex != 20974 && TabIndex != 20984)
+            if (m_bControl_Enable)
                 dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick);
 
             m_InstanceRecipe = Recipe.Recipe.GetInstance();
