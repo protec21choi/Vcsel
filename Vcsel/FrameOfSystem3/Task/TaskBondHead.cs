@@ -1595,7 +1595,7 @@ namespace FrameOfSystem3.Task
                                     }
                                     else
                                     {
-                                        m_nLaserRepeatCount = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_COUNT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 1);
+                                        m_nLaserRepeatCount = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.LASER_WORK_COUNT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 1);
                                     }
 
                                     if (m_nLaserOutputCount >= m_nLaserRepeatCount)

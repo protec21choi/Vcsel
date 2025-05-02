@@ -243,7 +243,7 @@ namespace Define
 
                     LASER_ON_DELAY,
                     LASER_OFF_DELAY,
-                    LASER_COUNT,
+                    LASER_WORK_COUNT,
 
                     //BYPASS_ON_DELAY,
 

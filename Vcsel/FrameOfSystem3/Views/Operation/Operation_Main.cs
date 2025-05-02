@@ -1205,7 +1205,7 @@ namespace FrameOfSystem3.Views.Operation
             parameterList.Add(AddParaItem);
 
             AddParaItem = new GridViewControl_Parameter.ParameterItem
-                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.LASER_COUNT.ToString());
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.LASER_WORK_COUNT.ToString());
             AddParaItem.DisplayName = "REPEAT COUNT";
             parameterList.Add(AddParaItem);
 

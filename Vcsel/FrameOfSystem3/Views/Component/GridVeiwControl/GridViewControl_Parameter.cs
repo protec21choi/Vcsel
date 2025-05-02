@@ -176,7 +176,7 @@ namespace FrameOfSystem3.Component
 
         #region Field
         private List<ParameterItem> m_ControlCollection;
-        private bool m_bControl_Enable = true;
+        private bool m_bControl_Enable = true; 
         private Recipe.Recipe m_InstanceRecipe;
         private FrameOfSystem3.Views.Functional.Form_MessageBox m_InstanceOfMessageBox = null;
         private FrameOfSystem3.Views.Functional.Form_Calculator m_InstnaceOfCalculator = null;
@@ -208,7 +208,7 @@ namespace FrameOfSystem3.Component
                 nViewCount = lstItem.Count;
             base.Height = nViewCount * 25 + 3;
             //control hight는 (List 갯수 * 25) + 3
-            if (m_bControl_Enable)
+            if (m_bControl_Enable && TabIndex != 20974 && TabIndex != 20984)
                 dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick);
 
             m_InstanceRecipe = Recipe.Recipe.GetInstance();
@@ -321,22 +321,48 @@ namespace FrameOfSystem3.Component
                     }
                     else
                     {
+                        //if (bDeferred)
+                        //{
+                        //    dataGridView[1 + i, nRow].Value = strValue + " "
+                        //            + m_InstanceRecipe.GetValue(Item.Task.ToString(), Item.ParameterNameList[i], Item.ParameterIndexList[i], EN_RECIPE_PARAM_TYPE.UNIT, "");
+                        //}
+                        //else
+                        //{
+                        //    if (Item.RecipeType == EN_RECIPE_TYPE.PROCESS)
+                        //        dataGridView[1 + i, nRow].Value = m_InstanceRecipe.GetValue(Item.Task.ToString(), Item.ParameterNameList[i], Item.ParameterIndexList[i], EN_RECIPE_PARAM_TYPE.VALUE, "") + " "
+                        //            + m_InstanceRecipe.GetValue(Item.Task.ToString(), Item.ParameterNameList[i], Item.ParameterIndexList[i], EN_RECIPE_PARAM_TYPE.UNIT, "");
+                        //    else
+                        //        dataGridView[1 + i, nRow].Value = m_InstanceRecipe.GetValue(Item.RecipeType, Item.ParameterNameList[i], Item.ParameterIndexList[i], EN_RECIPE_PARAM_TYPE.VALUE, "") + " "
+                        //            + m_InstanceRecipe.GetValue(Item.RecipeType, Item.ParameterNameList[i], Item.ParameterIndexList[i], EN_RECIPE_PARAM_TYPE.UNIT, "");
+                        //}
+
+                        string value = "";
+                        string unit = "";
                         if (bDeferred)
                         {
-                            dataGridView[1 + i, nRow].Value = strValue + " "
-                                    + m_InstanceRecipe.GetValue(Item.Task.ToString(), Item.ParameterNameList[i], Item.ParameterIndexList[i], EN_RECIPE_PARAM_TYPE.UNIT, "");
+                            value = strValue;
+                            unit = m_InstanceRecipe.GetValue(Item.Task.ToString(), Item.ParameterNameList[i], Item.ParameterIndexList[i], EN_RECIPE_PARAM_TYPE.UNIT, "");
                         }
                         else
                         {
                             if (Item.RecipeType == EN_RECIPE_TYPE.PROCESS)
-                                dataGridView[1 + i, nRow].Value = m_InstanceRecipe.GetValue(Item.Task.ToString(), Item.ParameterNameList[i], Item.ParameterIndexList[i], EN_RECIPE_PARAM_TYPE.VALUE, "") + " "
-                                    + m_InstanceRecipe.GetValue(Item.Task.ToString(), Item.ParameterNameList[i], Item.ParameterIndexList[i], EN_RECIPE_PARAM_TYPE.UNIT, "");
+                            {
+                                value = m_InstanceRecipe.GetValue(Item.Task.ToString(), Item.ParameterNameList[i], Item.ParameterIndexList[i], EN_RECIPE_PARAM_TYPE.VALUE, "");
+                                unit = m_InstanceRecipe.GetValue(Item.Task.ToString(), Item.ParameterNameList[i], Item.ParameterIndexList[i], EN_RECIPE_PARAM_TYPE.UNIT, "");
+                            }
                             else
-                                dataGridView[1 + i, nRow].Value = m_InstanceRecipe.GetValue(Item.RecipeType, Item.ParameterNameList[i], Item.ParameterIndexList[i], EN_RECIPE_PARAM_TYPE.VALUE, "") + " "
-                                    + m_InstanceRecipe.GetValue(Item.RecipeType, Item.ParameterNameList[i], Item.ParameterIndexList[i], EN_RECIPE_PARAM_TYPE.UNIT, "");
+                            {
+                                value = m_InstanceRecipe.GetValue(Item.RecipeType, Item.ParameterNameList[i], Item.ParameterIndexList[i], EN_RECIPE_PARAM_TYPE.VALUE, "");
+                                unit = m_InstanceRecipe.GetValue(Item.RecipeType, Item.ParameterNameList[i], Item.ParameterIndexList[i], EN_RECIPE_PARAM_TYPE.UNIT, "");
+                            }
                         }
+
+                        if (!string.IsNullOrWhiteSpace(unit))
+                            dataGridView[1 + i, nRow].Value = value + " " + unit;
+                        else
+                            dataGridView[1 + i, nRow].Value = value;
                     }
-                  
+
                 }
 
                 dataGridView[0, nRow].Style.BackColor = Item.RecipeType == EN_RECIPE_TYPE.PROCESS ? c_clrProcessParam : c_clrEquipmentrParam;

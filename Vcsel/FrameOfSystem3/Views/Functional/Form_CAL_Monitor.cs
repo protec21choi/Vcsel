@@ -232,25 +232,43 @@ namespace FrameOfSystem3.Views.Functional
         {
             List<GridViewControl_Parameter.ParameterItem> parameterList = new List<GridViewControl_Parameter.ParameterItem>();
 
-            List<int> AddParaIndexList = new List<int>();
-            AddParaIndexList.Add(0);
-            AddParaIndexList.Add(1);
-            AddParaIndexList.Add(2);
-            AddParaIndexList.Add(3);
-            AddParaIndexList.Add(4);
-
-            List<string> AddParaList = new List<string>();
-
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_TOTAL_POWER.ToString());
-
-            GridViewControl_Parameter.ParameterItem AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList);
+            List<int> AddParaIndexList = new List<int> { 0, 1, 2, 3, 4 };
+            List<string> AddParaList = new List<string>
+    {
+        BONDER_TASK_PARAM.SHOT_PARAMETER_TOTAL_POWER.ToString()
+    };
+            
+            GridViewControl_Parameter.ParameterItem AddParaItem = new GridViewControl_Parameter.ParameterItem(
+                EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList
+            );
             AddParaItem.DisplayName = "LASER TOTAL POWER";
-
             AddParaItem.BeforeSetParameter = UpdatePowerMinMax;
+
+            // 파라미터 값 가져오기
+            double totalPowerWatt = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(),
+                BONDER_TASK_PARAM.SHOT_PARAMETER_TOTAL_POWER.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+
+            double laserOnDelayMs = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(),
+                BONDER_TASK_PARAM.LASER_ON_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+
+            int repeatCount = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(),
+                BONDER_TASK_PARAM.LASER_WORK_COUNT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 1);
+
+            double dutyTimeMs = laserOnDelayMs * repeatCount;
+            double dutyRatio = dutyTimeMs / 1000.0; // ex) On Delay 75ms * 10 Count = 750ms = 75%
+
+            int channelCount = Laser.ProtecLaserMananger.GetInstance().ChannelCount;
+            double totalAreaCm2 = channelCount * 50.0; // 각 채널당 50cm²
+            double averagePower = totalPowerWatt * dutyRatio;
+            double density = (totalAreaCm2 > 0) ? averagePower / totalAreaCm2 : 0.0;
+
+            AddParaItem.DisplayName = $"LASER TOTAL POWER: {totalPowerWatt:F1} W ({density:F3} W/cm²)";
             parameterList.Add(AddParaItem);
 
-            gridViewControl_Laser_Parameter.Initialize(parameterList, -1, 425);
+            // 그리드 초기화 시, 파라미터 리스트와 기본 값을 넘겨줌
+            gridViewControl_Laser_Parameter.Initialize(parameterList, -1, 230);
         }
+
         private void UpdatePowerMinMax()
         {
             if (m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(), BONDER_TASK_PARAM.TOTAL_POWER_MIN_MAX_RELEASE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, false))
@@ -280,24 +298,62 @@ namespace FrameOfSystem3.Views.Functional
         {
             List<GridViewControl_Parameter.ParameterItem> parameterList = new List<GridViewControl_Parameter.ParameterItem>();
 
-            List<int> AddParaIndexList = new List<int>();
-            AddParaIndexList.Add(0);
-            AddParaIndexList.Add(1);
-            AddParaIndexList.Add(2);
-            AddParaIndexList.Add(3);
-            AddParaIndexList.Add(4);
+            List<int> AddParaIndexList = new List<int> { 0, 1, 2, 3, 4 };
+            List<string> AddParaList = new List<string>
+                  {
+                    BONDER_TASK_PARAM.SHOT_PARAMETER_2_TOTAL_POWER.ToString()
+                  };
 
-            List<string> AddParaList = new List<string>();
-
-            AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_TOTAL_POWER.ToString());
-
-            GridViewControl_Parameter.ParameterItem AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList);
+            GridViewControl_Parameter.ParameterItem AddParaItem = new GridViewControl_Parameter.ParameterItem(
+                EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList
+            );
             AddParaItem.DisplayName = "LASER TOTAL POWER";
-
             AddParaItem.BeforeSetParameter = UpdatePowerMinMax_2;
+
+            // 파라미터 값 가져오기
+            double totalPowerWatt = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(),
+                BONDER_TASK_PARAM.SHOT_PARAMETER_2_TOTAL_POWER.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+
+            double laserOnDelayMs = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(),
+                BONDER_TASK_PARAM.LASER_ON_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+
+            int repeatCount = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(),
+                BONDER_TASK_PARAM.LASER_WORK_COUNT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 1);
+
+            double dutyTimeMs = laserOnDelayMs * repeatCount;
+            double dutyRatio = dutyTimeMs / 1000.0; //ex) On Delay 75ms * 10 Count = 750ms = 75%
+
+            int channelCount = Laser.ProtecLaserMananger_2.GetInstance().ChannelCount;
+            double totalAreaCm2 = channelCount * 50.0; // 각 채널당 50cm²
+            double averagePower = totalPowerWatt * dutyRatio;
+            double density = (totalAreaCm2 > 0) ? averagePower / totalAreaCm2 : 0.0;
+
+            AddParaItem.DisplayName = $"LASER TOTAL POWER: {totalPowerWatt:F1} W ({density:F3} W/cm²)";
             parameterList.Add(AddParaItem);
 
-            gridViewControl_Laser_Parameter_2.Initialize(parameterList, -1, 425);
+            gridViewControl_Laser_Parameter_2.Initialize(parameterList, -1, 230);
+
+
+            //List<GridViewControl_Parameter.ParameterItem> parameterList = new List<GridViewControl_Parameter.ParameterItem>();
+
+            //List<int> AddParaIndexList = new List<int>();
+            //AddParaIndexList.Add(0);
+            //AddParaIndexList.Add(1);
+            //AddParaIndexList.Add(2);
+            //AddParaIndexList.Add(3);
+            //AddParaIndexList.Add(4);
+
+            //List<string> AddParaList = new List<string>();
+
+            //AddParaList.Add(BONDER_TASK_PARAM.SHOT_PARAMETER_2_TOTAL_POWER.ToString());
+
+            //GridViewControl_Parameter.ParameterItem AddParaItem = new GridViewControl_Parameter.ParameterItem(EN_TASK_LIST.BOND_HEAD, AddParaList, AddParaIndexList);
+            //AddParaItem.DisplayName = "LASER TOTAL POWER";
+
+            //AddParaItem.BeforeSetParameter = UpdatePowerMinMax_2;
+            //parameterList.Add(AddParaItem);
+
+            //gridViewControl_Laser_Parameter_2.Initialize(parameterList, -1, 425);
         }
         private void UpdatePowerMinMax_2()
         {
@@ -423,6 +479,9 @@ namespace FrameOfSystem3.Views.Functional
                 m_instanceRecipe.ClearDeferredStorage();
 
             UpdateParamter();
+
+            InitGridLaserParameter();
+            InitGridLaserParameter_2();
         }
 
         private void ClickParameterSave(object sender, EventArgs e)
@@ -434,6 +493,9 @@ namespace FrameOfSystem3.Views.Functional
 
             UpdatePowerLabel();
             UpdatePowerLabel_2();
+
+            InitGridLaserParameter();
+            InitGridLaserParameter_2();
         }
 
         private void UpdateParamter()
