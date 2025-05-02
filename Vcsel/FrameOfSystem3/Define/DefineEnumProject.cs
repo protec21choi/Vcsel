@@ -354,6 +354,7 @@ namespace Define
 
                     LASER_WORK,
                     LASER_WORK_1CYCLE,
+                    LASER_WORK_FEED_MODE,
 
                     #endregion
 
