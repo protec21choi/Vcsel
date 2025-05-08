@@ -1487,7 +1487,7 @@ namespace FrameOfSystem3.Task
                     m_nSeqNum = (int)EN_LASER_WORK_STEP.READY_AND_WAIT_2;
                     break;
 
-                case (int)EN_LASER_WORK_STEP.READY_AND_WAIT_2:
+                case (int)EN_LASER_WORK_STEP.READY_AND_WAIT_2: 
                     if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
                     {
                         m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
