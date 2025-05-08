@@ -1488,11 +1488,10 @@ namespace FrameOfSystem3.Task
                     break;
 
                 case (int)EN_LASER_WORK_STEP.READY_AND_WAIT_2:
-                    if (bLaserUsed_1 && !bLaserUsed_2)
+                    if (EquipmentState_.EquipmentState.GetInstance().GetState() == EquipmentState_.EQUIPMENT_STATE.FINISHING)
                     {
-                        m_nSeqNum = (int)EN_LASER_WORK_STEP.PARAMETER_COMPLETE_1;
+                        m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
                         break;
-                        // 2025.4.15 by ecchoi [ADD] 둘다 False(Unused) 일경우 LD2 Comm TimeOut 알람을 띄운다
                     }
 
                     bool nPulseMode_2 = ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_2, false);
