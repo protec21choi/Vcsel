@@ -1130,7 +1130,7 @@ namespace FrameOfSystem3.Views.Operation
             lstIndex = new List<int>();
             lstIndex.Add((int)EN_DIGITAL_IN.FROM_PLC_IN_1_ALARM);
             AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_INPUT);
-            AddControlItem.Name = "ALARM";
+            AddControlItem.Name = "ALARM(IN)";
             ControlList.Add(AddControlItem);
 
             lstIndex = new List<int>();
@@ -1148,7 +1148,7 @@ namespace FrameOfSystem3.Views.Operation
             lstIndex = new List<int>();
             lstIndex.Add((int)EN_DIGITAL_OUT.TO_PLC_OUT_1_ALARM);
             AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_OUTPUT);
-            AddControlItem.Name = "ALARM";
+            AddControlItem.Name = "ALARM(OUT)";
             ControlList.Add(AddControlItem);
 
             lstIndex = new List<int>();

@@ -186,6 +186,8 @@ namespace FrameOfSystem3.Component
                 {
                     dataGridView[0, nRow].Value = Item.Name;
                 }
+                dataGridView[0, nRow].Style.Font = new Font("굴림", 9F, FontStyle.Bold);
+                dataGridView[0, nRow].Style.Alignment = DataGridViewContentAlignment.MiddleRight;
 
                 if (Item.ControlType.Contains(EN_CONTROL_TYPE.DIGITAL_OUTPUT)//제어 요소가 있으면
                     || Item.ControlType.Contains(EN_CONTROL_TYPE.ANALOG_OUTPUT_VALUE)

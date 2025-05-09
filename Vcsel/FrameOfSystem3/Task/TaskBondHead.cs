@@ -147,6 +147,7 @@ namespace FrameOfSystem3.Task
         private TickCounter_.TickCounter m_TickForDelay = new TickCounter_.TickCounter();
         private TickCounter_.TickCounter m_tickTimeOut = new TickCounter_.TickCounter();
         private TickCounter_.TickCounter m_tickForPLCIO = new TickCounter_.TickCounter();
+        private TickCounter_.TickCounter m_tickForPLCIO_2 = new TickCounter_.TickCounter();
         private TickCounter_.TickCounter m_tickLaserOutput = new TickCounter_.TickCounter();
         #endregion
 
@@ -3164,10 +3165,10 @@ namespace FrameOfSystem3.Task
             {
                 int nTimeover = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.FEED_MODE_LIMIT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
 
-                if (false == m_tickForPLCIO.IsTickOver(true))
+                if (false == m_tickForPLCIO_2.IsTickOver(true))
                     return;
 
-                m_tickForPLCIO.SetTickCount((uint)nTimeover);
+                m_tickForPLCIO_2.SetTickCount((uint)nTimeover);
                 if (ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_3_FEED_ON, false))
                 {
                     m_arAlarmSubInfo[0] = "";
