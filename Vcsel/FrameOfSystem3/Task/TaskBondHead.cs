@@ -3159,16 +3159,16 @@ namespace FrameOfSystem3.Task
         }
         private void Monitoring_PLC_IO_Trouble_2()
         {
-            int nTimeover = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.FEED_MODE_LIMIT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
-
             if (EquipmentState.GetInstance().GetState() == EQUIPMENT_STATE.READY
                 || EquipmentState.GetInstance().GetState() == EQUIPMENT_STATE.SETUP)
             {
+                int nTimeover = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.FEED_MODE_LIMIT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+
                 if (false == m_tickForPLCIO.IsTickOver(true))
                     return;
 
                 m_tickForPLCIO.SetTickCount((uint)nTimeover);
-                if (ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_2_LASER_ON, false))
+                if (ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_3_FEED_ON, false))
                 {
                     m_arAlarmSubInfo[0] = "";
                     GenerateSequenceAlarm((int)EN_TASK_ALARM.PLC_IO_FEED_ON_TIMEOVER_ERROR, false, ref m_arAlarmSubInfo);
