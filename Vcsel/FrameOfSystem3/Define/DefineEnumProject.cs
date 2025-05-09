@@ -153,9 +153,9 @@ namespace Define
                     LD_2_ON_PORT_3,
                     #endregion
 
-                    FROM_PLC_IN_1,
-                    FROM_PLC_IN_2,
-                    FROM_PLC_IN_3,
+                    FROM_PLC_IN_1_ALARM,
+                    FROM_PLC_IN_2_LASER_ON,
+                    FROM_PLC_IN_3_FEED_ON,
                     FROM_PLC_IN_4,
                 }
                 #endregion
@@ -206,9 +206,9 @@ namespace Define
 
                     #endregion
 
-                    TO_PLC_OUT_1,
-                    TO_PLC_OUT_2,
-                    TO_PLC_OUT_3,
+                    TO_PLC_OUT_1_ALARM,
+                    TO_PLC_OUT_2_LASER_ON,
+                    TO_PLC_OUT_3_FEED_ON,
                     TO_PLC_OUT_4,
                 }
                 #endregion
@@ -248,7 +248,9 @@ namespace Define
                     //BYPASS_ON_DELAY,
 
                     AUTO_SAFETY_LIMIT,
-                    BYPASS_SAFETY_LIMIT,
+                    //BYPASS_SAFETY_LIMIT, // 2025.5.9 by ecchoi [ADD] LASER ON 유지기능 미사용
+
+                    FEED_MODE_LIMIT, // 2025.5.9 by ecchoi [ADD] Feed Mode IO OFF 되지 않을 시 안전 Limit 용도
 
                     LASER_1_USED,
                     SHOT_PARAMETER_ENABLE_18,
@@ -401,6 +403,7 @@ namespace Define
 
                     PLC_IO_DOUBLE_ERROR = 17,
                     PLC_IO_ALARM_ERROR = 18,
+                    PLC_IO_FEED_ON_TIMEOVER_ERROR = 19,
                 }
                 public enum EN_TASK_ALARM_MESSAGE_EN
                 {
@@ -693,9 +696,9 @@ namespace Define
                 DC_FAN_5,
                 DC_FAN_6,
 
-                FROM_PLC_IN_1 = 8,
-                FROM_PLC_IN_2 = 9,
-                FROM_PLC_IN_3 = 10,
+                FROM_PLC_IN_1_ALARM = 8,
+                FROM_PLC_IN_2_LASER_ON = 9,
+                FROM_PLC_IN_3_FEED_ON = 10,
                 FROM_PLC_IN_4 = 11,
 
                 LD_1_READY = 16,
@@ -732,10 +735,10 @@ namespace Define
 			{
 				SAFETY_RESET = 0,
 
-                TO_PLC_OUT_1 = 8,
-                TO_PLC_OUT_2 = 9,
-                TO_PLC_OUT_3 = 10,
-                TO_PLC_OUT_4 = 11,
+                TO_PLC_OUT_1_ALARM = 8,
+                TO_PLC_OUT_2_LASER_ON_REPEAT = 9,
+                TO_PLC_OUT_3_FEED_ON_REPEAT = 10,
+                TO_PLC_OUT_4_SPARE = 11,
 
                 LD_1_ALARM_CLEAR = 16,
                 LD_1_EMO = 17,

@@ -42,6 +42,8 @@ namespace FrameOfSystem3.Views.Operation
             m_InstanceOfSelectionList = Functional.Form_SelectionList.GetInstance();
             InitGridEnableParameter();
             InitGridLaserDevice();
+            InitGridExternalIO();
+            TotalCycleTimeCheck();
 
             InitGridAutoRunParameter();
 
@@ -349,6 +351,7 @@ namespace FrameOfSystem3.Views.Operation
 
             UpdateAlamCode_2();
             gridVeiwControl_Laser_Device_2.UpdateState();
+            gridVeiwControl_External_IO.UpdateState();
         }
         protected override void ProcessWhenActivation()
         {
@@ -1001,7 +1004,7 @@ namespace FrameOfSystem3.Views.Operation
             AddParaItem.AfterSetParameter = SetPowerMinMax;
             parameterList.Add(AddParaItem);
 
-            gridViewControl_Enable_Parameter.Initialize(parameterList, -1, 110);
+            gridViewControl_Enable_Parameter.Initialize(parameterList, -1, 90);
         }
         private void InitGridEnableParameter_2()
         {
@@ -1042,7 +1045,7 @@ namespace FrameOfSystem3.Views.Operation
             AddParaItem.AfterSetParameter = SetPowerMinMax_2;
             parameterList.Add(AddParaItem);
 
-            gridViewControl_Enable_Parameter_2.Initialize(parameterList, -1, 110);
+            gridViewControl_Enable_Parameter_2.Initialize(parameterList, -1, 90);
         }
         private void InitGridLaserDevice()
         {
@@ -1115,6 +1118,60 @@ namespace FrameOfSystem3.Views.Operation
             lstHeader.Add("MONITOR");
 
             gridVeiwControl_Laser_Device.ShowHeader(lstHeader);
+        }
+        private void InitGridExternalIO()
+        {
+            List<GridVeiwControl_Device.ControlItem> ControlList = new List<GridVeiwControl_Device.ControlItem>();
+
+            GridVeiwControl_Device.ControlItem AddControlItem;
+
+            List<int> lstIndex = new List<int>();
+
+            lstIndex = new List<int>();
+            lstIndex.Add((int)EN_DIGITAL_IN.FROM_PLC_IN_1_ALARM);
+            AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_INPUT);
+            AddControlItem.Name = "ALARM";
+            ControlList.Add(AddControlItem);
+
+            lstIndex = new List<int>();
+            lstIndex.Add((int)EN_DIGITAL_IN.FROM_PLC_IN_2_LASER_ON);
+            AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_INPUT);
+            AddControlItem.Name = "LASER ON";
+            ControlList.Add(AddControlItem);
+
+            lstIndex = new List<int>();
+            lstIndex.Add((int)EN_DIGITAL_IN.FROM_PLC_IN_3_FEED_ON);
+            AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_INPUT);
+            AddControlItem.Name = "FEED MODE";
+            ControlList.Add(AddControlItem);
+
+            lstIndex = new List<int>();
+            lstIndex.Add((int)EN_DIGITAL_OUT.TO_PLC_OUT_1_ALARM);
+            AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_OUTPUT);
+            AddControlItem.Name = "ALARM";
+            ControlList.Add(AddControlItem);
+
+            lstIndex = new List<int>();
+            lstIndex.Add((int)EN_DIGITAL_OUT.TO_PLC_OUT_2_LASER_ON_REPEAT);
+            AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_OUTPUT);
+            AddControlItem.Name = "LASER ON";
+            ControlList.Add(AddControlItem);
+
+            lstIndex = new List<int>();
+            lstIndex.Add((int)EN_DIGITAL_OUT.TO_PLC_OUT_3_FEED_ON_REPEAT);
+            AddControlItem = new GridVeiwControl_Device.ControlItem(lstIndex, GridVeiwControl_Device.EN_CONTROL_TYPE.DIGITAL_OUTPUT);
+            AddControlItem.Name = "FEED MODE";
+            ControlList.Add(AddControlItem);
+
+
+            gridVeiwControl_External_IO.Initialize(ControlList);
+
+            List<string> lstHeader = new List<string>();
+
+            lstHeader.Add("");
+            lstHeader.Add("INOUT");
+
+            gridVeiwControl_External_IO.ShowHeader(lstHeader);
         }
         private void InitGridLaserDevice_2()
         {
@@ -1220,8 +1277,8 @@ namespace FrameOfSystem3.Views.Operation
             parameterList.Add(AddParaItem);
 
             AddParaItem = new GridViewControl_Parameter.ParameterItem
-                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.BYPASS_SAFETY_LIMIT.ToString());
-            AddParaItem.DisplayName = "BYPASS SAFETY LIMIT";
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.FEED_MODE_LIMIT.ToString());
+            AddParaItem.DisplayName = "FEED MODE LIMIT";
             parameterList.Add(AddParaItem);
 
             gridViewControl_AutoRun_Parameter.Initialize(parameterList, -1, 80);
@@ -1539,6 +1596,32 @@ namespace FrameOfSystem3.Views.Operation
 
             UpdatePowerLabel();
             UpdatePowerLabel_2();
+            TotalCycleTimeCheck();
+        }
+        private void TotalCycleTimeCheck()
+        {
+            double laserOnDelayMs = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(),
+                BONDER_TASK_PARAM.LASER_ON_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+
+            double laserOffDelayMs = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(),
+                BONDER_TASK_PARAM.LASER_OFF_DELAY.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+
+            int repeatCount = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(),
+                BONDER_TASK_PARAM.LASER_WORK_COUNT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 1);
+
+            double totalCycleTime = (laserOnDelayMs + laserOffDelayMs) * repeatCount;
+
+            m_lblCycleTotal.Text = $"{totalCycleTime}";
+
+            double feedModeLimit = 1000 * m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(),
+                BONDER_TASK_PARAM.FEED_MODE_LIMIT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+
+            if (totalCycleTime > feedModeLimit)
+            {
+                string strWarning = $"TOTAL CYCLE TIME({totalCycleTime} ms) 이 FEED_MODE_LIMIT({feedModeLimit} ms) 를 초과했습니다. 계속 진행하시겠습니까?";
+                if (!m_MessageBox.ShowMessage(strWarning))
+                    return;
+            }
         }
 
         private void UpdateParamter()

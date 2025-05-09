@@ -231,7 +231,7 @@ namespace FrameOfSystem3.Task
         protected override void DoAlwaysSequence()
         {
             Monitoring_PLC_IO_Trouble();
-
+            Monitoring_PLC_IO_Trouble_2();
         }
         #endregion
 
@@ -1469,8 +1469,8 @@ namespace FrameOfSystem3.Task
                         break;
                     }
 
-                    bool nPulseMode = ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_2, false);
-                    bool nFeedMode = ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_3, false);
+                    bool nPulseMode = ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_2_LASER_ON, false);
+                    bool nFeedMode = ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_3_FEED_ON, false);
                     bool nOneCycle = (m_enAction == EN_TASK_ACTION.LASER_WORK_1CYCLE);
 
                     if (nPulseMode || nFeedMode || nOneCycle)
@@ -1494,8 +1494,8 @@ namespace FrameOfSystem3.Task
                         break;
                     }
 
-                    bool nPulseMode_2 = ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_2, false);
-                    bool nFeedMode_2 = ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_3, false);
+                    bool nPulseMode_2 = ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_2_LASER_ON, false);
+                    bool nFeedMode_2 = ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_3_FEED_ON, false);
                     bool nOneCycle_2 = (m_enAction == EN_TASK_ACTION.LASER_WORK_1CYCLE);
 
                     if (nPulseMode_2 || nFeedMode_2 || nOneCycle_2)
@@ -1576,7 +1576,7 @@ namespace FrameOfSystem3.Task
                                 {
                                     if (m_enAction == EN_TASK_ACTION.LASER_WORK_FEED_MODE)
                                     {
-                                        if (!ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_3, false))
+                                        if (!ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_3_FEED_ON, false))
                                         {
                                             //Feed Mode IO가 꺼지면 Repeat Count가 남아있어도 즉시 종료한다
                                             m_nSeqNum = (int)EN_LASER_WORK_STEP.FINISH;
@@ -3129,32 +3129,52 @@ namespace FrameOfSystem3.Task
                     break;
             }
         }
-
         private void Monitoring_PLC_IO_Trouble()
         {
-            // 2025.4.29 by ecchoi [ADD] DoAlwaysSequence 에서 IDLE 상태일때 알람을 띄우면 Log Exeption이 뜬다.
+            // 2025.4.29 by ecchoi [ADD] DoAlwaysSequence 에서 IDLE 상태일때 알람을 띄우면 Log Exeption이 뜨니 주의.
+            if (EquipmentState.GetInstance().GetState() == EQUIPMENT_STATE.READY
+                || EquipmentState.GetInstance().GetState() == EQUIPMENT_STATE.SETUP)
+            {
+                if (ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_1_ALARM, false))
+                {
+                    m_arAlarmSubInfo[0] = "";
+                    GenerateSequenceAlarm((int)EN_TASK_ALARM.PLC_IO_ALARM_ERROR, false, ref m_arAlarmSubInfo);
+                    return;
+                }
+
+                if (false == m_tickForPLCIO.IsTickOver(true))
+                    return;
+
+                m_tickForPLCIO.SetTickCount(50);
+                // 2025.4.21 by ecchoi [ADD] 50ms 이상 PLC IO가 겹치면 에러를 발생시킨다. (Auto Run + Bypass Run)
+                if (ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_2_LASER_ON, false) &&
+                    ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_3_FEED_ON, false))
+                {
+                    m_arAlarmSubInfo[0] = "";
+                    GenerateSequenceAlarm((int)EN_TASK_ALARM.PLC_IO_DOUBLE_ERROR, false, ref m_arAlarmSubInfo);
+                    return;
+                }
+            }
+            return;
+        }
+        private void Monitoring_PLC_IO_Trouble_2()
+        {
+            int nTimeover = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.FEED_MODE_LIMIT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0);
+
             if (EquipmentState.GetInstance().GetState() == EQUIPMENT_STATE.READY
                 || EquipmentState.GetInstance().GetState() == EQUIPMENT_STATE.SETUP)
             {
                 if (false == m_tickForPLCIO.IsTickOver(true))
                     return;
 
-                m_tickForPLCIO.SetTickCount(50);
-                // 2025.4.21 by ecchoi [ADD] 50ms 이상 PLC IO가 겹치면 에러를 발생시킨다. (Auto Run + Bypass Run)
-                if (ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_2, false) &&
-                    ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_3, false))
+                m_tickForPLCIO.SetTickCount((uint)nTimeover);
+                if (ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_2_LASER_ON, false))
                 {
                     m_arAlarmSubInfo[0] = "";
-                    GenerateSequenceAlarm((int)EN_TASK_ALARM.PLC_IO_DOUBLE_ERROR, false, ref m_arAlarmSubInfo);
+                    GenerateSequenceAlarm((int)EN_TASK_ALARM.PLC_IO_FEED_ON_TIMEOVER_ERROR, false, ref m_arAlarmSubInfo);
                     return;
                 }
-                if (ReadInput((int)EN_DIGITAL_INPUT_LIST.FROM_PLC_IN_1, false))
 
-                {
-                    m_arAlarmSubInfo[0] = "";
-                    GenerateSequenceAlarm((int)EN_TASK_ALARM.PLC_IO_ALARM_ERROR, false, ref m_arAlarmSubInfo);
-                    return;
-                }
             }
             return;
         }

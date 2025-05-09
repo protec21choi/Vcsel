@@ -76,6 +76,10 @@
             this.gridVeiwControl_Laser_Device = new FrameOfSystem3.Component.GridVeiwControl_Device();
             this.gridViewControl_Enable_Parameter = new FrameOfSystem3.Component.GridViewControl_Parameter();
             this.sys3button1 = new Sys3Controls.Sys3button();
+            this.sys3GroupBox2 = new Sys3Controls.Sys3GroupBox();
+            this.gridVeiwControl_External_IO = new FrameOfSystem3.Component.GridVeiwControl_Device();
+            this.m_lblCycleTotal = new Sys3Controls.Sys3Label();
+            this.sys3Label1 = new Sys3Controls.Sys3Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -89,9 +93,9 @@
             this.sys3GroupBox1.LabelGradientColorSecond = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.sys3GroupBox1.LabelHeight = 30;
             this.sys3GroupBox1.LabelTextColor = System.Drawing.Color.Black;
-            this.sys3GroupBox1.Location = new System.Drawing.Point(1, 632);
+            this.sys3GroupBox1.Location = new System.Drawing.Point(201, 632);
             this.sys3GroupBox1.Name = "sys3GroupBox1";
-            this.sys3GroupBox1.Size = new System.Drawing.Size(1137, 267);
+            this.sys3GroupBox1.Size = new System.Drawing.Size(937, 267);
             this.sys3GroupBox1.TabIndex = 20893;
             this.sys3GroupBox1.Text = "LASER_2 STATE";
             this.sys3GroupBox1.TextAlign = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
@@ -189,12 +193,12 @@
             this.m_lblAlarmCodeMonitor.ImagePosition = new System.Drawing.Point(0, 0);
             this.m_lblAlarmCodeMonitor.ImageSize = new System.Drawing.Point(0, 0);
             this.m_lblAlarmCodeMonitor.LoadImage = null;
-            this.m_lblAlarmCodeMonitor.Location = new System.Drawing.Point(985, 524);
-            this.m_lblAlarmCodeMonitor.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
+            this.m_lblAlarmCodeMonitor.Location = new System.Drawing.Point(1009, 524);
+            this.m_lblAlarmCodeMonitor.MainFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.m_lblAlarmCodeMonitor.MainFontColor = System.Drawing.Color.White;
             this.m_lblAlarmCodeMonitor.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.m_lblAlarmCodeMonitor.Name = "m_lblAlarmCodeMonitor";
-            this.m_lblAlarmCodeMonitor.Size = new System.Drawing.Size(143, 37);
+            this.m_lblAlarmCodeMonitor.Size = new System.Drawing.Size(120, 37);
             this.m_lblAlarmCodeMonitor.SubFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.m_lblAlarmCodeMonitor.SubFontColor = System.Drawing.Color.Gray;
             this.m_lblAlarmCodeMonitor.SubText = "";
@@ -227,12 +231,12 @@
             this.m_lblAlarmCodePort3.ImagePosition = new System.Drawing.Point(0, 0);
             this.m_lblAlarmCodePort3.ImageSize = new System.Drawing.Point(0, 0);
             this.m_lblAlarmCodePort3.LoadImage = null;
-            this.m_lblAlarmCodePort3.Location = new System.Drawing.Point(745, 524);
-            this.m_lblAlarmCodePort3.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
+            this.m_lblAlarmCodePort3.Location = new System.Drawing.Point(807, 524);
+            this.m_lblAlarmCodePort3.MainFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.m_lblAlarmCodePort3.MainFontColor = System.Drawing.Color.White;
             this.m_lblAlarmCodePort3.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.m_lblAlarmCodePort3.Name = "m_lblAlarmCodePort3";
-            this.m_lblAlarmCodePort3.Size = new System.Drawing.Size(143, 37);
+            this.m_lblAlarmCodePort3.Size = new System.Drawing.Size(120, 37);
             this.m_lblAlarmCodePort3.SubFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.m_lblAlarmCodePort3.SubFontColor = System.Drawing.Color.Gray;
             this.m_lblAlarmCodePort3.SubText = "";
@@ -265,12 +269,12 @@
             this.m_lblAlarmCodePort2.ImagePosition = new System.Drawing.Point(0, 0);
             this.m_lblAlarmCodePort2.ImageSize = new System.Drawing.Point(0, 0);
             this.m_lblAlarmCodePort2.LoadImage = null;
-            this.m_lblAlarmCodePort2.Location = new System.Drawing.Point(985, 486);
-            this.m_lblAlarmCodePort2.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
+            this.m_lblAlarmCodePort2.Location = new System.Drawing.Point(1009, 486);
+            this.m_lblAlarmCodePort2.MainFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.m_lblAlarmCodePort2.MainFontColor = System.Drawing.Color.White;
             this.m_lblAlarmCodePort2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.m_lblAlarmCodePort2.Name = "m_lblAlarmCodePort2";
-            this.m_lblAlarmCodePort2.Size = new System.Drawing.Size(143, 37);
+            this.m_lblAlarmCodePort2.Size = new System.Drawing.Size(120, 37);
             this.m_lblAlarmCodePort2.SubFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.m_lblAlarmCodePort2.SubFontColor = System.Drawing.Color.Gray;
             this.m_lblAlarmCodePort2.SubText = "";
@@ -303,12 +307,12 @@
             this.m_lblAlarmCodePort1.ImagePosition = new System.Drawing.Point(0, 0);
             this.m_lblAlarmCodePort1.ImageSize = new System.Drawing.Point(0, 0);
             this.m_lblAlarmCodePort1.LoadImage = null;
-            this.m_lblAlarmCodePort1.Location = new System.Drawing.Point(745, 486);
-            this.m_lblAlarmCodePort1.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
+            this.m_lblAlarmCodePort1.Location = new System.Drawing.Point(807, 486);
+            this.m_lblAlarmCodePort1.MainFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.m_lblAlarmCodePort1.MainFontColor = System.Drawing.Color.White;
             this.m_lblAlarmCodePort1.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.m_lblAlarmCodePort1.Name = "m_lblAlarmCodePort1";
-            this.m_lblAlarmCodePort1.Size = new System.Drawing.Size(143, 37);
+            this.m_lblAlarmCodePort1.Size = new System.Drawing.Size(120, 37);
             this.m_lblAlarmCodePort1.SubFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.m_lblAlarmCodePort1.SubFontColor = System.Drawing.Color.Gray;
             this.m_lblAlarmCodePort1.SubText = "";
@@ -341,12 +345,12 @@
             this.sys3Label2.ImagePosition = new System.Drawing.Point(0, 0);
             this.sys3Label2.ImageSize = new System.Drawing.Point(0, 0);
             this.sys3Label2.LoadImage = null;
-            this.sys3Label2.Location = new System.Drawing.Point(893, 524);
-            this.sys3Label2.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
+            this.sys3Label2.Location = new System.Drawing.Point(928, 524);
+            this.sys3Label2.MainFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.sys3Label2.MainFontColor = System.Drawing.Color.Black;
             this.sys3Label2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.sys3Label2.Name = "sys3Label2";
-            this.sys3Label2.Size = new System.Drawing.Size(91, 37);
+            this.sys3Label2.Size = new System.Drawing.Size(80, 37);
             this.sys3Label2.SubFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.sys3Label2.SubFontColor = System.Drawing.Color.DarkRed;
             this.sys3Label2.SubText = "";
@@ -379,12 +383,12 @@
             this.sys3Label17.ImagePosition = new System.Drawing.Point(0, 0);
             this.sys3Label17.ImageSize = new System.Drawing.Point(0, 0);
             this.sys3Label17.LoadImage = null;
-            this.sys3Label17.Location = new System.Drawing.Point(653, 524);
-            this.sys3Label17.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
+            this.sys3Label17.Location = new System.Drawing.Point(726, 524);
+            this.sys3Label17.MainFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.sys3Label17.MainFontColor = System.Drawing.Color.Black;
             this.sys3Label17.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.sys3Label17.Name = "sys3Label17";
-            this.sys3Label17.Size = new System.Drawing.Size(91, 37);
+            this.sys3Label17.Size = new System.Drawing.Size(80, 37);
             this.sys3Label17.SubFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.sys3Label17.SubFontColor = System.Drawing.Color.DarkRed;
             this.sys3Label17.SubText = "";
@@ -417,12 +421,12 @@
             this.sys3Label14.ImagePosition = new System.Drawing.Point(0, 0);
             this.sys3Label14.ImageSize = new System.Drawing.Point(0, 0);
             this.sys3Label14.LoadImage = null;
-            this.sys3Label14.Location = new System.Drawing.Point(893, 486);
-            this.sys3Label14.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
+            this.sys3Label14.Location = new System.Drawing.Point(928, 486);
+            this.sys3Label14.MainFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.sys3Label14.MainFontColor = System.Drawing.Color.Black;
             this.sys3Label14.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.sys3Label14.Name = "sys3Label14";
-            this.sys3Label14.Size = new System.Drawing.Size(91, 37);
+            this.sys3Label14.Size = new System.Drawing.Size(80, 37);
             this.sys3Label14.SubFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.sys3Label14.SubFontColor = System.Drawing.Color.DarkRed;
             this.sys3Label14.SubText = "";
@@ -455,12 +459,12 @@
             this.sys3Label13.ImagePosition = new System.Drawing.Point(0, 0);
             this.sys3Label13.ImageSize = new System.Drawing.Point(0, 0);
             this.sys3Label13.LoadImage = null;
-            this.sys3Label13.Location = new System.Drawing.Point(653, 486);
-            this.sys3Label13.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
+            this.sys3Label13.Location = new System.Drawing.Point(726, 486);
+            this.sys3Label13.MainFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.sys3Label13.MainFontColor = System.Drawing.Color.Black;
             this.sys3Label13.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.sys3Label13.Name = "sys3Label13";
-            this.sys3Label13.Size = new System.Drawing.Size(91, 37);
+            this.sys3Label13.Size = new System.Drawing.Size(80, 37);
             this.sys3Label13.SubFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.sys3Label13.SubFontColor = System.Drawing.Color.DarkRed;
             this.sys3Label13.SubText = "";
@@ -492,10 +496,10 @@
             this.sys3GroupBox3.LabelGradientColorSecond = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.sys3GroupBox3.LabelHeight = 30;
             this.sys3GroupBox3.LabelTextColor = System.Drawing.Color.Black;
-            this.sys3GroupBox3.Location = new System.Drawing.Point(646, 445);
+            this.sys3GroupBox3.Location = new System.Drawing.Point(719, 445);
             this.sys3GroupBox3.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.sys3GroupBox3.Name = "sys3GroupBox3";
-            this.sys3GroupBox3.Size = new System.Drawing.Size(489, 176);
+            this.sys3GroupBox3.Size = new System.Drawing.Size(416, 176);
             this.sys3GroupBox3.TabIndex = 20882;
             this.sys3GroupBox3.Tag = "";
             this.sys3GroupBox3.Text = "LASER_1 ALARM CODE";
@@ -596,9 +600,9 @@
             this.sys3GroupBox5.LabelGradientColorSecond = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.sys3GroupBox5.LabelHeight = 30;
             this.sys3GroupBox5.LabelTextColor = System.Drawing.Color.Black;
-            this.sys3GroupBox5.Location = new System.Drawing.Point(1, 359);
+            this.sys3GroupBox5.Location = new System.Drawing.Point(201, 359);
             this.sys3GroupBox5.Name = "sys3GroupBox5";
-            this.sys3GroupBox5.Size = new System.Drawing.Size(1137, 267);
+            this.sys3GroupBox5.Size = new System.Drawing.Size(937, 267);
             this.sys3GroupBox5.TabIndex = 20877;
             this.sys3GroupBox5.Text = "LASER_1 STATE";
             this.sys3GroupBox5.TextAlign = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
@@ -696,12 +700,12 @@
             this.m_lblAlarmCodeMonitor_2.ImagePosition = new System.Drawing.Point(0, 0);
             this.m_lblAlarmCodeMonitor_2.ImageSize = new System.Drawing.Point(0, 0);
             this.m_lblAlarmCodeMonitor_2.LoadImage = null;
-            this.m_lblAlarmCodeMonitor_2.Location = new System.Drawing.Point(985, 798);
-            this.m_lblAlarmCodeMonitor_2.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
+            this.m_lblAlarmCodeMonitor_2.Location = new System.Drawing.Point(1009, 798);
+            this.m_lblAlarmCodeMonitor_2.MainFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.m_lblAlarmCodeMonitor_2.MainFontColor = System.Drawing.Color.White;
             this.m_lblAlarmCodeMonitor_2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.m_lblAlarmCodeMonitor_2.Name = "m_lblAlarmCodeMonitor_2";
-            this.m_lblAlarmCodeMonitor_2.Size = new System.Drawing.Size(143, 37);
+            this.m_lblAlarmCodeMonitor_2.Size = new System.Drawing.Size(120, 37);
             this.m_lblAlarmCodeMonitor_2.SubFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.m_lblAlarmCodeMonitor_2.SubFontColor = System.Drawing.Color.Gray;
             this.m_lblAlarmCodeMonitor_2.SubText = "";
@@ -734,12 +738,12 @@
             this.m_lblAlarmCodePort3_2.ImagePosition = new System.Drawing.Point(0, 0);
             this.m_lblAlarmCodePort3_2.ImageSize = new System.Drawing.Point(0, 0);
             this.m_lblAlarmCodePort3_2.LoadImage = null;
-            this.m_lblAlarmCodePort3_2.Location = new System.Drawing.Point(745, 798);
-            this.m_lblAlarmCodePort3_2.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
+            this.m_lblAlarmCodePort3_2.Location = new System.Drawing.Point(807, 798);
+            this.m_lblAlarmCodePort3_2.MainFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.m_lblAlarmCodePort3_2.MainFontColor = System.Drawing.Color.White;
             this.m_lblAlarmCodePort3_2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.m_lblAlarmCodePort3_2.Name = "m_lblAlarmCodePort3_2";
-            this.m_lblAlarmCodePort3_2.Size = new System.Drawing.Size(143, 37);
+            this.m_lblAlarmCodePort3_2.Size = new System.Drawing.Size(120, 37);
             this.m_lblAlarmCodePort3_2.SubFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.m_lblAlarmCodePort3_2.SubFontColor = System.Drawing.Color.Gray;
             this.m_lblAlarmCodePort3_2.SubText = "";
@@ -772,12 +776,12 @@
             this.m_lblAlarmCodePort2_2.ImagePosition = new System.Drawing.Point(0, 0);
             this.m_lblAlarmCodePort2_2.ImageSize = new System.Drawing.Point(0, 0);
             this.m_lblAlarmCodePort2_2.LoadImage = null;
-            this.m_lblAlarmCodePort2_2.Location = new System.Drawing.Point(985, 760);
-            this.m_lblAlarmCodePort2_2.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
+            this.m_lblAlarmCodePort2_2.Location = new System.Drawing.Point(1009, 760);
+            this.m_lblAlarmCodePort2_2.MainFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.m_lblAlarmCodePort2_2.MainFontColor = System.Drawing.Color.White;
             this.m_lblAlarmCodePort2_2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.m_lblAlarmCodePort2_2.Name = "m_lblAlarmCodePort2_2";
-            this.m_lblAlarmCodePort2_2.Size = new System.Drawing.Size(143, 37);
+            this.m_lblAlarmCodePort2_2.Size = new System.Drawing.Size(120, 37);
             this.m_lblAlarmCodePort2_2.SubFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.m_lblAlarmCodePort2_2.SubFontColor = System.Drawing.Color.Gray;
             this.m_lblAlarmCodePort2_2.SubText = "";
@@ -810,12 +814,12 @@
             this.m_lblAlarmCodePort1_2.ImagePosition = new System.Drawing.Point(0, 0);
             this.m_lblAlarmCodePort1_2.ImageSize = new System.Drawing.Point(0, 0);
             this.m_lblAlarmCodePort1_2.LoadImage = null;
-            this.m_lblAlarmCodePort1_2.Location = new System.Drawing.Point(745, 760);
-            this.m_lblAlarmCodePort1_2.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
+            this.m_lblAlarmCodePort1_2.Location = new System.Drawing.Point(807, 760);
+            this.m_lblAlarmCodePort1_2.MainFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.m_lblAlarmCodePort1_2.MainFontColor = System.Drawing.Color.White;
             this.m_lblAlarmCodePort1_2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.m_lblAlarmCodePort1_2.Name = "m_lblAlarmCodePort1_2";
-            this.m_lblAlarmCodePort1_2.Size = new System.Drawing.Size(143, 37);
+            this.m_lblAlarmCodePort1_2.Size = new System.Drawing.Size(120, 37);
             this.m_lblAlarmCodePort1_2.SubFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.m_lblAlarmCodePort1_2.SubFontColor = System.Drawing.Color.Gray;
             this.m_lblAlarmCodePort1_2.SubText = "";
@@ -848,12 +852,12 @@
             this.sys3Label11.ImagePosition = new System.Drawing.Point(0, 0);
             this.sys3Label11.ImageSize = new System.Drawing.Point(0, 0);
             this.sys3Label11.LoadImage = null;
-            this.sys3Label11.Location = new System.Drawing.Point(893, 798);
-            this.sys3Label11.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
+            this.sys3Label11.Location = new System.Drawing.Point(928, 798);
+            this.sys3Label11.MainFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.sys3Label11.MainFontColor = System.Drawing.Color.Black;
             this.sys3Label11.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.sys3Label11.Name = "sys3Label11";
-            this.sys3Label11.Size = new System.Drawing.Size(91, 37);
+            this.sys3Label11.Size = new System.Drawing.Size(80, 37);
             this.sys3Label11.SubFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.sys3Label11.SubFontColor = System.Drawing.Color.DarkRed;
             this.sys3Label11.SubText = "";
@@ -886,12 +890,12 @@
             this.sys3Label12.ImagePosition = new System.Drawing.Point(0, 0);
             this.sys3Label12.ImageSize = new System.Drawing.Point(0, 0);
             this.sys3Label12.LoadImage = null;
-            this.sys3Label12.Location = new System.Drawing.Point(653, 798);
-            this.sys3Label12.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
+            this.sys3Label12.Location = new System.Drawing.Point(726, 798);
+            this.sys3Label12.MainFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.sys3Label12.MainFontColor = System.Drawing.Color.Black;
             this.sys3Label12.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.sys3Label12.Name = "sys3Label12";
-            this.sys3Label12.Size = new System.Drawing.Size(91, 37);
+            this.sys3Label12.Size = new System.Drawing.Size(80, 37);
             this.sys3Label12.SubFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.sys3Label12.SubFontColor = System.Drawing.Color.DarkRed;
             this.sys3Label12.SubText = "";
@@ -924,12 +928,12 @@
             this.sys3Label15.ImagePosition = new System.Drawing.Point(0, 0);
             this.sys3Label15.ImageSize = new System.Drawing.Point(0, 0);
             this.sys3Label15.LoadImage = null;
-            this.sys3Label15.Location = new System.Drawing.Point(893, 760);
-            this.sys3Label15.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
+            this.sys3Label15.Location = new System.Drawing.Point(928, 760);
+            this.sys3Label15.MainFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.sys3Label15.MainFontColor = System.Drawing.Color.Black;
             this.sys3Label15.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.sys3Label15.Name = "sys3Label15";
-            this.sys3Label15.Size = new System.Drawing.Size(91, 37);
+            this.sys3Label15.Size = new System.Drawing.Size(80, 37);
             this.sys3Label15.SubFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.sys3Label15.SubFontColor = System.Drawing.Color.DarkRed;
             this.sys3Label15.SubText = "";
@@ -962,12 +966,12 @@
             this.sys3Label16.ImagePosition = new System.Drawing.Point(0, 0);
             this.sys3Label16.ImageSize = new System.Drawing.Point(0, 0);
             this.sys3Label16.LoadImage = null;
-            this.sys3Label16.Location = new System.Drawing.Point(653, 760);
-            this.sys3Label16.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
+            this.sys3Label16.Location = new System.Drawing.Point(726, 760);
+            this.sys3Label16.MainFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.sys3Label16.MainFontColor = System.Drawing.Color.Black;
             this.sys3Label16.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.sys3Label16.Name = "sys3Label16";
-            this.sys3Label16.Size = new System.Drawing.Size(91, 37);
+            this.sys3Label16.Size = new System.Drawing.Size(80, 37);
             this.sys3Label16.SubFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.sys3Label16.SubFontColor = System.Drawing.Color.DarkRed;
             this.sys3Label16.SubText = "";
@@ -999,10 +1003,10 @@
             this.sys3GroupBox6.LabelGradientColorSecond = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.sys3GroupBox6.LabelHeight = 30;
             this.sys3GroupBox6.LabelTextColor = System.Drawing.Color.Black;
-            this.sys3GroupBox6.Location = new System.Drawing.Point(646, 719);
+            this.sys3GroupBox6.Location = new System.Drawing.Point(719, 719);
             this.sys3GroupBox6.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.sys3GroupBox6.Name = "sys3GroupBox6";
-            this.sys3GroupBox6.Size = new System.Drawing.Size(489, 176);
+            this.sys3GroupBox6.Size = new System.Drawing.Size(416, 176);
             this.sys3GroupBox6.TabIndex = 20908;
             this.sys3GroupBox6.Tag = "";
             this.sys3GroupBox6.Text = "LASER_2 ALARM CODE";
@@ -1267,40 +1271,40 @@
             // 
             this.gridVeiwControl_Laser_Device_2.Control_Enable = true;
             this.gridVeiwControl_Laser_Device_2.controlCollection = null;
-            this.gridVeiwControl_Laser_Device_2.Location = new System.Drawing.Point(3, 717);
+            this.gridVeiwControl_Laser_Device_2.Location = new System.Drawing.Point(204, 716);
             this.gridVeiwControl_Laser_Device_2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.gridVeiwControl_Laser_Device_2.Name = "gridVeiwControl_Laser_Device_2";
-            this.gridVeiwControl_Laser_Device_2.Size = new System.Drawing.Size(642, 178);
+            this.gridVeiwControl_Laser_Device_2.Size = new System.Drawing.Size(513, 178);
             this.gridVeiwControl_Laser_Device_2.TabIndex = 20906;
             // 
             // gridViewControl_Enable_Parameter_2
             // 
             this.gridViewControl_Enable_Parameter_2.Control_Enable = true;
             this.gridViewControl_Enable_Parameter_2.controlCollection = null;
-            this.gridViewControl_Enable_Parameter_2.Location = new System.Drawing.Point(3, 663);
+            this.gridViewControl_Enable_Parameter_2.Location = new System.Drawing.Point(204, 662);
             this.gridViewControl_Enable_Parameter_2.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
             this.gridViewControl_Enable_Parameter_2.Name = "gridViewControl_Enable_Parameter_2";
-            this.gridViewControl_Enable_Parameter_2.Size = new System.Drawing.Size(1133, 53);
+            this.gridViewControl_Enable_Parameter_2.Size = new System.Drawing.Size(932, 53);
             this.gridViewControl_Enable_Parameter_2.TabIndex = 20905;
             // 
             // gridVeiwControl_Laser_Device
             // 
             this.gridVeiwControl_Laser_Device.Control_Enable = true;
             this.gridVeiwControl_Laser_Device.controlCollection = null;
-            this.gridVeiwControl_Laser_Device.Location = new System.Drawing.Point(3, 443);
+            this.gridVeiwControl_Laser_Device.Location = new System.Drawing.Point(204, 443);
             this.gridVeiwControl_Laser_Device.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.gridVeiwControl_Laser_Device.Name = "gridVeiwControl_Laser_Device";
-            this.gridVeiwControl_Laser_Device.Size = new System.Drawing.Size(642, 178);
+            this.gridVeiwControl_Laser_Device.Size = new System.Drawing.Size(513, 178);
             this.gridVeiwControl_Laser_Device.TabIndex = 20879;
             // 
             // gridViewControl_Enable_Parameter
             // 
             this.gridViewControl_Enable_Parameter.Control_Enable = true;
             this.gridViewControl_Enable_Parameter.controlCollection = null;
-            this.gridViewControl_Enable_Parameter.Location = new System.Drawing.Point(3, 389);
+            this.gridViewControl_Enable_Parameter.Location = new System.Drawing.Point(204, 389);
             this.gridViewControl_Enable_Parameter.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
             this.gridViewControl_Enable_Parameter.Name = "gridViewControl_Enable_Parameter";
-            this.gridViewControl_Enable_Parameter.Size = new System.Drawing.Size(1133, 53);
+            this.gridViewControl_Enable_Parameter.Size = new System.Drawing.Size(932, 53);
             this.gridViewControl_Enable_Parameter.TabIndex = 20878;
             // 
             // sys3button1
@@ -1345,9 +1349,118 @@
             this.sys3button1.UseSubFont = false;
             this.sys3button1.DoubleClick += new System.EventHandler(this.Click_Action);
             // 
+            // sys3GroupBox2
+            // 
+            this.sys3GroupBox2.BackGroundColor = System.Drawing.Color.WhiteSmoke;
+            this.sys3GroupBox2.EdgeBorderStroke = 2;
+            this.sys3GroupBox2.EdgeRadius = 2;
+            this.sys3GroupBox2.LabelFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
+            this.sys3GroupBox2.LabelGradientColorFirst = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.sys3GroupBox2.LabelGradientColorSecond = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.sys3GroupBox2.LabelHeight = 30;
+            this.sys3GroupBox2.LabelTextColor = System.Drawing.Color.Black;
+            this.sys3GroupBox2.Location = new System.Drawing.Point(3, 359);
+            this.sys3GroupBox2.Name = "sys3GroupBox2";
+            this.sys3GroupBox2.Size = new System.Drawing.Size(199, 213);
+            this.sys3GroupBox2.TabIndex = 21002;
+            this.sys3GroupBox2.Text = "EXTERNAL PLC IO";
+            this.sys3GroupBox2.TextAlign = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
+            this.sys3GroupBox2.ThemeIndex = 0;
+            this.sys3GroupBox2.UseLabelBorder = true;
+            // 
+            // gridVeiwControl_External_IO
+            // 
+            this.gridVeiwControl_External_IO.Control_Enable = true;
+            this.gridVeiwControl_External_IO.controlCollection = null;
+            this.gridVeiwControl_External_IO.Location = new System.Drawing.Point(7, 389);
+            this.gridVeiwControl_External_IO.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.gridVeiwControl_External_IO.Name = "gridVeiwControl_External_IO";
+            this.gridVeiwControl_External_IO.Size = new System.Drawing.Size(191, 178);
+            this.gridVeiwControl_External_IO.TabIndex = 21003;
+            // 
+            // m_lblCycleTotal
+            // 
+            this.m_lblCycleTotal.BackGroundColor = System.Drawing.Color.DimGray;
+            this.m_lblCycleTotal.BorderStroke = 2;
+            this.m_lblCycleTotal.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.m_lblCycleTotal.Description = "";
+            this.m_lblCycleTotal.DisabledColor = System.Drawing.Color.DarkGray;
+            this.m_lblCycleTotal.EdgeRadius = 1;
+            this.m_lblCycleTotal.ImagePosition = new System.Drawing.Point(0, 0);
+            this.m_lblCycleTotal.ImageSize = new System.Drawing.Point(0, 0);
+            this.m_lblCycleTotal.LoadImage = null;
+            this.m_lblCycleTotal.Location = new System.Drawing.Point(112, 214);
+            this.m_lblCycleTotal.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
+            this.m_lblCycleTotal.MainFontColor = System.Drawing.Color.White;
+            this.m_lblCycleTotal.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.m_lblCycleTotal.Name = "m_lblCycleTotal";
+            this.m_lblCycleTotal.Size = new System.Drawing.Size(164, 28);
+            this.m_lblCycleTotal.SubFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
+            this.m_lblCycleTotal.SubFontColor = System.Drawing.Color.Gray;
+            this.m_lblCycleTotal.SubText = "";
+            this.m_lblCycleTotal.TabIndex = 21004;
+            this.m_lblCycleTotal.Tag = "";
+            this.m_lblCycleTotal.Text = "999999";
+            this.m_lblCycleTotal.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
+            this.m_lblCycleTotal.TextAlignSub = Sys3Controls.EN_TEXTALIGN.TOP_LEFT;
+            this.m_lblCycleTotal.TextAlignUnit = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
+            this.m_lblCycleTotal.ThemeIndex = 0;
+            this.m_lblCycleTotal.UnitAreaRate = 30;
+            this.m_lblCycleTotal.UnitFont = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
+            this.m_lblCycleTotal.UnitFontColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.m_lblCycleTotal.UnitPositionVertical = false;
+            this.m_lblCycleTotal.UnitText = "ms";
+            this.m_lblCycleTotal.UseBorder = true;
+            this.m_lblCycleTotal.UseEdgeRadius = false;
+            this.m_lblCycleTotal.UseImage = false;
+            this.m_lblCycleTotal.UseSubFont = true;
+            this.m_lblCycleTotal.UseUnitFont = true;
+            // 
+            // sys3Label1
+            // 
+            this.sys3Label1.BackGroundColor = System.Drawing.Color.DarkGray;
+            this.sys3Label1.BorderStroke = 2;
+            this.sys3Label1.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.sys3Label1.Description = "";
+            this.sys3Label1.DisabledColor = System.Drawing.Color.DarkGray;
+            this.sys3Label1.EdgeRadius = 1;
+            this.sys3Label1.ImagePosition = new System.Drawing.Point(0, 0);
+            this.sys3Label1.ImageSize = new System.Drawing.Point(0, 0);
+            this.sys3Label1.LoadImage = null;
+            this.sys3Label1.Location = new System.Drawing.Point(7, 214);
+            this.sys3Label1.MainFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
+            this.sys3Label1.MainFontColor = System.Drawing.Color.Black;
+            this.sys3Label1.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.sys3Label1.Name = "sys3Label1";
+            this.sys3Label1.Size = new System.Drawing.Size(104, 28);
+            this.sys3Label1.SubFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
+            this.sys3Label1.SubFontColor = System.Drawing.Color.DarkRed;
+            this.sys3Label1.SubText = "";
+            this.sys3Label1.TabIndex = 21005;
+            this.sys3Label1.Tag = "";
+            this.sys3Label1.Text = "CYCLE TOTAL";
+            this.sys3Label1.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_RIGHT;
+            this.sys3Label1.TextAlignSub = Sys3Controls.EN_TEXTALIGN.BOTTOM_RIGHT;
+            this.sys3Label1.TextAlignUnit = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
+            this.sys3Label1.ThemeIndex = 0;
+            this.sys3Label1.UnitAreaRate = 40;
+            this.sys3Label1.UnitFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
+            this.sys3Label1.UnitFontColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.sys3Label1.UnitPositionVertical = false;
+            this.sys3Label1.UnitText = "";
+            this.sys3Label1.UseBorder = true;
+            this.sys3Label1.UseEdgeRadius = false;
+            this.sys3Label1.UseImage = false;
+            this.sys3Label1.UseSubFont = true;
+            this.sys3Label1.UseUnitFont = false;
+            // 
             // Operation_Main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.Controls.Add(this.sys3Label1);
+            this.Controls.Add(this.m_lblCycleTotal);
+            this.Controls.Add(this.gridVeiwControl_External_IO);
+            this.Controls.Add(this.sys3GroupBox2);
             this.Controls.Add(this.sys3button1);
             this.Controls.Add(this.gridViewControl_AutoRun_Parameter);
             this.Controls.Add(this.btn_ParameterUndo);
@@ -1437,5 +1550,9 @@
         private Sys3Controls.Sys3button btn_DecideParameterAll;
         private Component.GridViewControl_Parameter gridViewControl_AutoRun_Parameter;
         private Sys3Controls.Sys3button sys3button1;
+        private Sys3Controls.Sys3GroupBox sys3GroupBox2;
+        private Component.GridVeiwControl_Device gridVeiwControl_External_IO;
+        private Sys3Controls.Sys3Label m_lblCycleTotal;
+        private Sys3Controls.Sys3Label sys3Label1;
     }
 }
