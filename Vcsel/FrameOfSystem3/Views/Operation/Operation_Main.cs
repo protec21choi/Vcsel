@@ -388,6 +388,9 @@ namespace FrameOfSystem3.Views.Operation
         #region <INITIALIZE>
         private void InitailizeParametrGrid()
         {
+            dataGridView.DefaultCellStyle.Font = new Font("맑은 고딕", 9);
+            dataGridView.ColumnHeadersDefaultCellStyle.Font = new Font("맑은 고딕", 9);
+            dataGridView.RowTemplate.Height = 18;
             dataGridView.Rows.Clear();
             int nRow = 0;
             foreach (EN_GRAPH_PARAM en in Enum.GetValues(typeof(EN_GRAPH_PARAM)))
@@ -1272,13 +1275,18 @@ namespace FrameOfSystem3.Views.Operation
             //parameterList.Add(AddParaItem);
 
             AddParaItem = new GridViewControl_Parameter.ParameterItem
-                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.AUTO_SAFETY_LIMIT.ToString());
-            AddParaItem.DisplayName = "AUTO SAFETY LIMIT";
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.SHOT_TIME_LIMIT.ToString());
+            AddParaItem.DisplayName = "SHOT TIME LIMIT";
+            parameterList.Add(AddParaItem);
+
+            AddParaItem = new GridViewControl_Parameter.ParameterItem
+                (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.CYCLE_TIME_LIMIT.ToString());
+            AddParaItem.DisplayName = "CYCLE TIME LIMIT";
             parameterList.Add(AddParaItem);
 
             AddParaItem = new GridViewControl_Parameter.ParameterItem
                 (EN_TASK_LIST.BOND_HEAD, BONDER_TASK_PARAM.FEED_MODE_LIMIT.ToString());
-            AddParaItem.DisplayName = "FEED MODE LIMIT";
+            AddParaItem.DisplayName = "FEED MODE IO LIMIT";
             parameterList.Add(AddParaItem);
 
             gridViewControl_AutoRun_Parameter.Initialize(parameterList, -1, 80);
@@ -1613,12 +1621,12 @@ namespace FrameOfSystem3.Views.Operation
 
             m_lblCycleTotal.Text = $"{totalCycleTime}";
 
-            double feedModeLimit = 1000 * m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(),
-                BONDER_TASK_PARAM.FEED_MODE_LIMIT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
+            double cycleTimeLimit = m_instanceRecipe.GetValue(EN_TASK_LIST.BOND_HEAD.ToString(),
+                BONDER_TASK_PARAM.CYCLE_TIME_LIMIT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0.0);
 
-            if (totalCycleTime > feedModeLimit)
+            if (totalCycleTime > cycleTimeLimit)
             {
-                string strWarning = $"TOTAL CYCLE TIME({totalCycleTime} ms) 이 FEED_MODE_LIMIT({feedModeLimit} ms) 를 초과했습니다. 계속 진행하시겠습니까?";
+                string strWarning = $"TOTAL CYCLE TIME({totalCycleTime} ms) 이 CYCLE TIME LIMIT({cycleTimeLimit} ms) 를 초과했습니다. 계속 진행하시겠습니까?";
                 if (!m_MessageBox.ShowMessage(strWarning))
                     return;
             }

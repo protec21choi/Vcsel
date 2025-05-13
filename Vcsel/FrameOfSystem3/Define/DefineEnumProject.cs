@@ -247,7 +247,9 @@ namespace Define
 
                     //BYPASS_ON_DELAY,
 
-                    AUTO_SAFETY_LIMIT,
+                    SHOT_TIME_LIMIT,
+                    CYCLE_TIME_LIMIT,
+
                     //BYPASS_SAFETY_LIMIT, // 2025.5.9 by ecchoi [ADD] LASER ON 유지기능 미사용
 
                     FEED_MODE_LIMIT, // 2025.5.9 by ecchoi [ADD] Feed Mode IO OFF 되지 않을 시 안전 Limit 용도

@@ -1322,7 +1322,7 @@ namespace FrameOfSystem3.Task
                     }
                     
 
-                    nLimitSec = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.AUTO_SAFETY_LIMIT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 10);
+                    nLimitSec = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.SHOT_TIME_LIMIT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 10);
                     switch (m_Laser.SetParameterTimeLimit(nLimitSec))
                     {
                         case ProtecLaserMananger.EN_SET_RESULT.OK:
@@ -1411,7 +1411,7 @@ namespace FrameOfSystem3.Task
                         break;
                     }
 
-                    nLimitSec_2 = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.AUTO_SAFETY_LIMIT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 30);
+                    nLimitSec_2 = m_Recipe.GetValue(GetTaskName().ToString(), PARAM_PROCESS.SHOT_TIME_LIMIT.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 30);
                     switch (m_Laser_2.SetParameterTimeLimit(nLimitSec_2))
                     {
                         case ProtecLaserMananger_2.EN_SET_RESULT_2.OK:

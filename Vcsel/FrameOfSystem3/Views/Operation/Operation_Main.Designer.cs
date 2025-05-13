@@ -29,11 +29,11 @@
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.sys3GroupBox1 = new Sys3Controls.Sys3GroupBox();
             this.btn_EMO = new Sys3Controls.Sys3button();
             this.btn_Reset = new Sys3Controls.Sys3button();
@@ -65,7 +65,6 @@
             this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.SB_GraphTime = new System.Windows.Forms.HScrollBar();
             this._Graph = new ZedGraph.ZedGraphControl();
             this.sys3GroupBox8 = new Sys3Controls.Sys3GroupBox();
             this.btn_ParameterUndo = new Sys3Controls.Sys3button();
@@ -80,6 +79,7 @@
             this.gridVeiwControl_External_IO = new FrameOfSystem3.Component.GridVeiwControl_Device();
             this.m_lblCycleTotal = new Sys3Controls.Sys3Label();
             this.sys3Label1 = new Sys3Controls.Sys3Label();
+            this.SB_GraphTime = new System.Windows.Forms.HScrollBar();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -1058,9 +1058,9 @@
             // 
             // dataGridViewTextBoxColumn6
             // 
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridViewTextBoxColumn6.HeaderText = "COLOR";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
@@ -1068,9 +1068,9 @@
             // 
             // Value
             // 
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("굴림", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Value.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("굴림", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Value.DefaultCellStyle = dataGridViewCellStyle7;
             this.Value.HeaderText = "VALUE";
             this.Value.Name = "Value";
             this.Value.ReadOnly = true;
@@ -1079,9 +1079,9 @@
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridViewTextBoxColumn1.HeaderText = "NAME";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
@@ -1100,41 +1100,31 @@
             this.dataGridViewTextBoxColumn1,
             this.Value,
             this.dataGridViewTextBoxColumn6});
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle14;
-            this.dataGridView.Location = new System.Drawing.Point(7, 245);
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle9;
+            this.dataGridView.Location = new System.Drawing.Point(7, 277);
             this.dataGridView.MultiSelect = false;
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridView.RowHeadersVisible = false;
             this.dataGridView.RowTemplate.Height = 25;
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dataGridView.Size = new System.Drawing.Size(269, 108);
+            this.dataGridView.Size = new System.Drawing.Size(269, 76);
             this.dataGridView.TabIndex = 20954;
-            // 
-            // SB_GraphTime
-            // 
-            this.SB_GraphTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.SB_GraphTime.Enabled = false;
-            this.SB_GraphTime.Location = new System.Drawing.Point(277, 321);
-            this.SB_GraphTime.Name = "SB_GraphTime";
-            this.SB_GraphTime.Size = new System.Drawing.Size(858, 32);
-            this.SB_GraphTime.TabIndex = 20950;
             // 
             // _Graph
             // 
@@ -1150,7 +1140,7 @@
             this._Graph.ScrollMinX = 0D;
             this._Graph.ScrollMinY = 0D;
             this._Graph.ScrollMinY2 = 0D;
-            this._Graph.Size = new System.Drawing.Size(858, 238);
+            this._Graph.Size = new System.Drawing.Size(858, 250);
             this._Graph.TabIndex = 20946;
             // 
             // sys3GroupBox8
@@ -1264,7 +1254,7 @@
             this.gridViewControl_AutoRun_Parameter.Location = new System.Drawing.Point(7, 80);
             this.gridViewControl_AutoRun_Parameter.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
             this.gridViewControl_AutoRun_Parameter.Name = "gridViewControl_AutoRun_Parameter";
-            this.gridViewControl_AutoRun_Parameter.Size = new System.Drawing.Size(269, 100);
+            this.gridViewControl_AutoRun_Parameter.Size = new System.Drawing.Size(269, 127);
             this.gridViewControl_AutoRun_Parameter.TabIndex = 21000;
             // 
             // gridVeiwControl_Laser_Device_2
@@ -1389,7 +1379,7 @@
             this.m_lblCycleTotal.ImagePosition = new System.Drawing.Point(0, 0);
             this.m_lblCycleTotal.ImageSize = new System.Drawing.Point(0, 0);
             this.m_lblCycleTotal.LoadImage = null;
-            this.m_lblCycleTotal.Location = new System.Drawing.Point(112, 214);
+            this.m_lblCycleTotal.Location = new System.Drawing.Point(112, 246);
             this.m_lblCycleTotal.MainFont = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
             this.m_lblCycleTotal.MainFontColor = System.Drawing.Color.White;
             this.m_lblCycleTotal.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -1427,7 +1417,7 @@
             this.sys3Label1.ImagePosition = new System.Drawing.Point(0, 0);
             this.sys3Label1.ImageSize = new System.Drawing.Point(0, 0);
             this.sys3Label1.LoadImage = null;
-            this.sys3Label1.Location = new System.Drawing.Point(7, 214);
+            this.sys3Label1.Location = new System.Drawing.Point(7, 246);
             this.sys3Label1.MainFont = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
             this.sys3Label1.MainFontColor = System.Drawing.Color.Black;
             this.sys3Label1.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
@@ -1453,6 +1443,16 @@
             this.sys3Label1.UseImage = false;
             this.sys3Label1.UseSubFont = true;
             this.sys3Label1.UseUnitFont = false;
+            // 
+            // SB_GraphTime
+            // 
+            this.SB_GraphTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SB_GraphTime.Enabled = false;
+            this.SB_GraphTime.Location = new System.Drawing.Point(277, 333);
+            this.SB_GraphTime.Name = "SB_GraphTime";
+            this.SB_GraphTime.Size = new System.Drawing.Size(858, 20);
+            this.SB_GraphTime.TabIndex = 20950;
             // 
             // Operation_Main
             // 
@@ -1543,7 +1543,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Value;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridView dataGridView;
-        private System.Windows.Forms.HScrollBar SB_GraphTime;
         private ZedGraph.ZedGraphControl _Graph;
         private Sys3Controls.Sys3GroupBox sys3GroupBox8;
         private Sys3Controls.Sys3button btn_ParameterUndo;
@@ -1554,5 +1553,6 @@
         private Component.GridVeiwControl_Device gridVeiwControl_External_IO;
         private Sys3Controls.Sys3Label m_lblCycleTotal;
         private Sys3Controls.Sys3Label sys3Label1;
+        private System.Windows.Forms.HScrollBar SB_GraphTime;
     }
 }
