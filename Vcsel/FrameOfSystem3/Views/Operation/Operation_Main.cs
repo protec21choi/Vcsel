@@ -1626,7 +1626,7 @@ namespace FrameOfSystem3.Views.Operation
 
             if (totalCycleTime > cycleTimeLimit)
             {
-                string strWarning = $"TOTAL CYCLE TIME({totalCycleTime} ms) 이 CYCLE TIME LIMIT({cycleTimeLimit} ms) 를 초과했습니다. 계속 진행하시겠습니까?";
+                string strWarning = $"TOTAL CYCLE TIME({totalCycleTime} ms) 이 \nCYCLE TIME LIMIT({cycleTimeLimit} ms) 를 초과했습니다.";
                 if (!m_MessageBox.ShowMessage(strWarning))
                     return;
             }
