@@ -399,7 +399,7 @@ namespace FrameOfSystem3.Views.Functional
                 return;
 
             // 1. 사용 채널 정보
-            int channelCount = ProtecLaserMananger.GetInstance().ChannelCount;
+            int channelCount = ProtecLaserMananger_2.GetInstance().ChannelCount;
             bool[] arUsed = new bool[channelCount];
             for (int nCh = 0; nCh < channelCount; ++nCh)
             {
