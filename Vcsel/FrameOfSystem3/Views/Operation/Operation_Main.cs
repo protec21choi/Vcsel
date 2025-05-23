@@ -50,12 +50,24 @@ namespace FrameOfSystem3.Views.Operation
             InitGridEnableParameter_2();
             InitGridLaserDevice_2();
 
-            InitializeDictionary();
-            InitailizeParametrGrid();
+            InitializeDictionary_IR();
+            InitializeDictionary_Power();
+
+            InitailizeParametrGrid_IR();
+            InitailizeParametrGrid_Power();
 
             m_timerForUpdate.Interval = 10;
-            m_timerForUpdate.Tick += new EventHandler(UpdateTimer);
-            InitializeGraph();
+            m_timerForUpdate.Tick += new EventHandler(UpdateTimer_OnlyActiveOneGraph);
+            if (m_bDrawIRGraph)
+            {
+                InitializeGraph_IR();
+            }
+            else
+            {
+                InitializeGraph_Power();
+            }
+            
+            
             m_timerForUpdate.Start();
 
             #region Instance
@@ -97,6 +109,44 @@ namespace FrameOfSystem3.Views.Operation
             IR_SENSOR_2,
             IR_SENSOR_3,
             IR_SENSOR_4,
+
+            POWER_1,
+            POWER_2,
+            POWER_3,
+            POWER_4,
+            POWER_5,
+            POWER_6,
+            POWER_7,
+            POWER_8,
+            POWER_9,
+            POWER_10,
+            POWER_11,
+            POWER_12,
+            POWER_13,
+            POWER_14,
+            POWER_15,
+            POWER_16,
+            POWER_17,
+            POWER_18,
+
+            POWER2_1,
+            POWER2_2,
+            POWER2_3,
+            POWER2_4,
+            POWER2_5,
+            POWER2_6,
+            POWER2_7,
+            POWER2_8,
+            POWER2_9,
+            POWER2_10,
+            POWER2_11,
+            POWER2_12,
+            POWER2_13,
+            POWER2_14,
+            POWER2_15,
+            POWER2_16,
+            POWER2_17,
+            POWER2_18,
         }
         #endregion
         #region Graph 상수
@@ -138,6 +188,7 @@ namespace FrameOfSystem3.Views.Operation
         Laser.ProtecLaserMananger m_Laser = Laser.ProtecLaserMananger.GetInstance();
         Laser.ProtecLaserMananger_2 m_Laser_2 = Laser.ProtecLaserMananger_2.GetInstance();
         private TickCounter m_tickCount = new TickCounter();
+        private bool m_bDrawIRGraph = true; 
 
         Dictionary<string, RUN_MODE> m_DicForRunMode = new Dictionary<string, RUN_MODE>();
         Functional.Form_SelectionList m_InstanceOfSelectionList = null;
@@ -156,6 +207,13 @@ namespace FrameOfSystem3.Views.Operation
         private Dictionary<EN_GRAPH_PARAM, int[]> m_dicScaleIdnex = new Dictionary<EN_GRAPH_PARAM, int[]>(); // int arry 0 : 그래프 y number, 1: scale index
         private Dictionary<EN_GRAPH_PARAM, double> m_dicValue = new Dictionary<EN_GRAPH_PARAM, double>();
         private Dictionary<EN_GRAPH_PARAM, string> m_dicValueUnit = new Dictionary<EN_GRAPH_PARAM, string>();
+
+        private Dictionary<EN_GRAPH_PARAM, RollingPointPairList> m_dicGraph_2 = new Dictionary<EN_GRAPH_PARAM, RollingPointPairList>(); // Channel, Values
+        private Dictionary<EN_GRAPH_PARAM, bool> m_dicVisibleItem_2 = new Dictionary<EN_GRAPH_PARAM, bool>();
+        private Dictionary<EN_GRAPH_PARAM, Color> m_dicVisibleColor_2 = new Dictionary<EN_GRAPH_PARAM, Color>();
+        private Dictionary<EN_GRAPH_PARAM, int[]> m_dicScaleIdnex_2 = new Dictionary<EN_GRAPH_PARAM, int[]>(); // int arry 0 : 그래프 y number, 1: scale index
+        private Dictionary<EN_GRAPH_PARAM, double> m_dicValue_2 = new Dictionary<EN_GRAPH_PARAM, double>();
+        private Dictionary<EN_GRAPH_PARAM, string> m_dicValueUnit_2 = new Dictionary<EN_GRAPH_PARAM, string>();
         private string m_strWorkLogPath = "";
         private int[] m_arSectionTime = new int[5];
         private double[] m_arSectionHighTemp = new double[5];
@@ -181,8 +239,7 @@ namespace FrameOfSystem3.Views.Operation
         /// </summary>
         public void CreateForm()
         {
-            SetSectionArea();
-            InitializeGraph();
+            InitializeGraph_IR();
             m_timerForUpdate.Start();
 
             this.Size = new Size(1203, 490);
@@ -194,9 +251,8 @@ namespace FrameOfSystem3.Views.Operation
         public void SetLiveMode()
         {
             m_enGraphMode = EN_GRAPH_MODE.LIVE;
-            InitializeGraph();
+            InitializeGraph_IR();
             SetEnableStroll(false);
-            SetSectionArea();
         }
         #endregion
 
@@ -386,24 +442,60 @@ namespace FrameOfSystem3.Views.Operation
         }
         #endregion </OVERRIDE>
         #region <INITIALIZE>
-        private void InitailizeParametrGrid()
+        private void InitailizeParametrGrid_IR()
         {
-            dataGridView.DefaultCellStyle.Font = new Font("맑은 고딕", 9);
-            dataGridView.ColumnHeadersDefaultCellStyle.Font = new Font("맑은 고딕", 9);
-            dataGridView.RowTemplate.Height = 18;
-            dataGridView.Rows.Clear();
+            dataGridView_IR.DefaultCellStyle.Font = new Font("맑은 고딕", 9);
+            dataGridView_IR.ColumnHeadersDefaultCellStyle.Font = new Font("맑은 고딕", 9);
+            dataGridView_IR.RowTemplate.Height = 18;
+            dataGridView_IR.Rows.Clear();
             int nRow = 0;
             foreach (EN_GRAPH_PARAM en in Enum.GetValues(typeof(EN_GRAPH_PARAM)))
             {
-                dataGridView.Rows.Add();
-                dataGridView[0, nRow].Value = en.ToString().Replace("_", " ");
-                dataGridView[0, nRow].Style.BackColor = Color.LightGray;
-                dataGridView[0, nRow].Style.SelectionBackColor = Color.LightGray;
+                if (en != EN_GRAPH_PARAM.IR_SENSOR_1 &&
+                    en != EN_GRAPH_PARAM.IR_SENSOR_2 &&
+                    en != EN_GRAPH_PARAM.IR_SENSOR_3 &&
+                    en != EN_GRAPH_PARAM.IR_SENSOR_4)
+                {
+                    continue;
+                }
+                dataGridView_IR.Rows.Add();
+                dataGridView_IR[0, nRow].Value = en.ToString().Replace("_", " ");
+                dataGridView_IR[0, nRow].Style.BackColor = Color.LightGray;
+                dataGridView_IR[0, nRow].Style.SelectionBackColor = Color.LightGray;
                 nRow++;
             }
             UpdateGrid();
         }
-        private void InitializeDictionary()
+        private void InitailizeParametrGrid_Power()
+        {
+            dataGridView_Power.DefaultCellStyle.Font = new Font("맑은 고딕", 9);
+            dataGridView_Power.ColumnHeadersDefaultCellStyle.Font = new Font("맑은 고딕", 9);
+            dataGridView_Power.RowTemplate.Height = 18;
+            dataGridView_Power.Columns[0].Width = 150; // 이름 컬럼
+            dataGridView_Power.Columns[1].Width = 80;  // 값 표시 컬럼
+            dataGridView_Power.Columns[2].Width = 20; // 색상 표시 컬럼
+            dataGridView_Power.Rows.Clear();
+            int nRow = 0;
+            foreach (EN_GRAPH_PARAM en in Enum.GetValues(typeof(EN_GRAPH_PARAM)))
+            {
+                if (en == EN_GRAPH_PARAM.IR_SENSOR_1 ||
+                    en == EN_GRAPH_PARAM.IR_SENSOR_2 ||
+                    en == EN_GRAPH_PARAM.IR_SENSOR_3 ||
+                    en == EN_GRAPH_PARAM.IR_SENSOR_4)
+                {
+                    continue;
+                }
+                dataGridView_Power.Rows.Add();
+                dataGridView_Power[0, nRow].Value = en.ToString().Replace("_", " ");
+                dataGridView_Power[0, nRow].Style.Font = new Font("맑은 고딕", 8f);
+                dataGridView_Power[0, nRow].Style.BackColor = Color.LightGray;
+                dataGridView_Power[0, nRow].Style.SelectionBackColor = Color.LightGray;
+                dataGridView_Power[1, nRow].Style.Font = new Font("맑은 고딕", 9f);
+                nRow++;
+            }
+            UpdateGrid_2();
+        }
+        private void InitializeDictionary_IR()
         {
             m_dicVisibleItem.Clear();
 
@@ -459,7 +551,162 @@ namespace FrameOfSystem3.Views.Operation
             m_dicValue.Add(EN_GRAPH_PARAM.IR_SENSOR_3, 0);
             m_dicValue.Add(EN_GRAPH_PARAM.IR_SENSOR_4, 0);
         }
-        private void InitializeGraph()
+        private void InitializeDictionary_Power()
+        {
+            m_dicVisibleItem_2.Clear();
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER_1, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_1_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER_2, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_2_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER_3, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_3_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER_4, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_4_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER_5, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_5_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER_6, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_6_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER_7, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_7_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER_8, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_8_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER_9, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_9_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER_10, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_10_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER_11, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_11_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER_12, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_12_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER_13, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_13_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER_14, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_14_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER_15, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_15_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER_16, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_16_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER_17, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_17_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER_18, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_18_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER2_1, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_1_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER2_2, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_2_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER2_3, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_3_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER2_4, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_4_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER2_5, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_5_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER2_6, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_6_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER2_7, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_7_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER2_8, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_8_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER2_9, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_9_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER2_10, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_10_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER2_11, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_11_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER2_12, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_12_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER2_13, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_13_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER2_14, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_14_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER2_15, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_15_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER2_16, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_16_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER2_17, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_17_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+            m_dicVisibleItem_2.Add(EN_GRAPH_PARAM.POWER2_18, m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_18_VISIBLE.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, true));
+
+            m_dicVisibleColor_2.Clear();
+
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER_1, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_1_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER_2, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_2_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER_3, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_3_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER_4, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_4_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER_5, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_5_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER_6, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_6_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER_7, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_7_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER_8, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_8_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER_9, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_9_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER_10, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_10_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER_11, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_11_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER_12, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_12_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER_13, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_13_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER_14, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_14_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER_15, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_15_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER_16, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_16_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER_17, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_17_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER_18, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER_CH_18_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER2_1, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_1_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER2_2, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_2_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER2_3, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_3_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER2_4, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_4_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER2_5, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_5_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER2_6, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_6_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER2_7, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_7_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER2_8, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_8_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER2_9, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_9_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER2_10, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_10_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER2_11, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_11_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER2_12, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_12_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER2_13, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_13_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER2_14, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_14_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER2_15, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_15_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER2_16, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_16_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER2_17, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_17_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+            m_dicVisibleColor_2.Add(EN_GRAPH_PARAM.POWER2_18, Color.FromArgb(m_instanceRecipe.GetValue(EN_RECIPE_TYPE.EQUIPMENT, EQUIPMENT_PARAM.MONOTORING_POWER2_CH_18_COLOR.ToString(), 0, EN_RECIPE_PARAM_TYPE.VALUE, 0)));
+
+            m_dicValueUnit_2.Clear();
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER_1, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER_2, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER_3, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER_4, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER_5, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER_6, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER_7, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER_8, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER_9, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER_10, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER_11, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER_12, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER_13, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER_14, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER_15, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER_16, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER_17, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER_18, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER2_1, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER2_2, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER2_3, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER2_4, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER2_5, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER2_6, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER2_7, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER2_8, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER2_9, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER2_10, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER2_11, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER2_12, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER2_13, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER2_14, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER2_15, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER2_16, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER2_17, " W");
+            m_dicValueUnit_2.Add(EN_GRAPH_PARAM.POWER2_18, " W");
+
+            m_dicValue_2.Clear();
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER_1, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER_2, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER_3, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER_4, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER_5, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER_6, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER_7, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER_8, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER_9, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER_10, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER_11, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER_12, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER_13, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER_14, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER_15, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER_16, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER_17, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER_18, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER2_1, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER2_2, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER2_3, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER2_4, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER2_5, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER2_6, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER2_7, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER2_8, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER2_9, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER2_10, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER2_11, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER2_12, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER2_13, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER2_14, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER2_15, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER2_16, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER2_17, 0);
+            m_dicValue_2.Add(EN_GRAPH_PARAM.POWER2_18, 0);
+        }
+        private void InitializeGraph_IR()
         {
             m_tickCount.SetTickCount(1);
 
@@ -511,6 +758,13 @@ namespace FrameOfSystem3.Views.Operation
             // 하나의 Y축에 4개의 센서를 추가하여 그리기
             foreach (EN_GRAPH_PARAM en in Enum.GetValues(typeof(EN_GRAPH_PARAM)))
             {
+                if (en != EN_GRAPH_PARAM.IR_SENSOR_1 &&
+                    en != EN_GRAPH_PARAM.IR_SENSOR_2 &&
+                    en != EN_GRAPH_PARAM.IR_SENSOR_3 &&
+                    en != EN_GRAPH_PARAM.IR_SENSOR_4)
+                {
+                    continue;
+                }
                 if (m_dicVisibleItem[en] && (en == EN_GRAPH_PARAM.IR_SENSOR_1 || en == EN_GRAPH_PARAM.IR_SENSOR_2 || en == EN_GRAPH_PARAM.IR_SENSOR_3 || en == EN_GRAPH_PARAM.IR_SENSOR_4))
                 {
                     m_dicGraph.Add(en, new RollingPointPairList(nTimeMax));
@@ -565,19 +819,334 @@ namespace FrameOfSystem3.Views.Operation
             _Graph.AxisChange();
             _Graph.Invalidate();
         }
-        
+        private void InitializeGraph_Power()
+        {
+            m_tickCount.SetTickCount(1);
+
+            m_dicScaleIdnex_2.Clear();
+            _Graph.GraphPane.CurveList.Clear();
+
+
+            m_dicGraph_2.Clear();
+
+            _Graph.IsShowPointValues = true;
+
+
+            _Graph.GraphPane.Title.IsVisible = false;
+            _Graph.GraphPane.Legend.FontSpec.Size = 6;
+            _Graph.GraphPane.Legend.IsVisible = false;
+
+            int nTimeMax = m_unMaxLiveCount;
+
+            Dictionary<int, Dictionary<Log.WorkLog.EN_LOG_ITEM, double>> dicLoadedData = m_InstanceOfLaserMonitor.dicLoadedLog;
+            if (dicLoadedData.Keys.Count > 0 && m_enGraphMode == EN_GRAPH_MODE.LOAD)
+                nTimeMax = dicLoadedData.Keys.Max();
+
+            _Graph.GraphPane.XAxis.Scale.Min = 0;
+            _Graph.GraphPane.XAxis.Scale.Max = nTimeMax;
+
+            _Graph.GraphPane.XAxis.Title.IsVisible = false;
+
+            _Graph.GraphPane.YAxisList.Clear();
+            _Graph.GraphPane.Y2AxisList.Clear();
+
+            int Ynumber = 1;
+            int Y1Index = 0;
+            int Y2Index = 0;
+
+            #region CH POWER
+            if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_1]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_2]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_3]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_4]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_5]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_6]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_7]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_8]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_9]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_10]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_11]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_12]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_13]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_14]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_15]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_16]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_17]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_18]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_1]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_2]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_3]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_4]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_5]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_6]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_7]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_8]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_9]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_10]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_11]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_12]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_13]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_14]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_15]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_16]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_17]
+                || m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_18])
+            {
+                if (Ynumber == 1)
+                {
+
+                    YAxis yAxis = new YAxis("CH POWER (W)");
+                    yAxis.Scale.Min = m_unMinLiveChPower;
+                    yAxis.Scale.Max = m_unMaxLiveChPower;
+                    yAxis.Title.FontSpec.Size = 13;
+                    yAxis.Scale.FontSpec.Size = 10;
+                    yAxis.MinorTic.IsAllTics = false;
+                    _Graph.GraphPane.YAxisList.Add(yAxis);
+
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_1, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_2, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_3, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_4, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_5, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_6, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_7, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_8, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_9, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_10, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_11, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_12, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_13, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_14, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_15, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_16, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_17, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_18, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_1, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_2, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_3, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_4, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_5, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_6, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_7, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_8, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_9, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_10, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_11, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_12, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_13, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_14, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_15, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_16, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_17, new int[] { Ynumber, Y1Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_18, new int[] { Ynumber, Y1Index });
+
+                    Ynumber = 2;
+                    Y1Index++;
+                }
+                else
+                {
+                    Y2Axis yAxis = new Y2Axis("CH POWER (W)");
+                    yAxis.Scale.Min = m_unMinLiveChPower;
+                    yAxis.Scale.Max = m_unMaxLiveChPower;
+                    yAxis.Title.FontSpec.Size = 13;
+                    yAxis.Scale.FontSpec.Size = 10;
+                    yAxis.IsVisible = true;
+                    yAxis.MinorTic.IsAllTics = false;
+                    _Graph.GraphPane.Y2AxisList.Add(yAxis);
+
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_1, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_2, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_3, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_4, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_5, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_6, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_7, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_8, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_9, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_10, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_11, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_12, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_13, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_14, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_15, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_16, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_17, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER_18, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_1, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_2, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_3, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_4, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_5, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_6, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_7, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_8, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_9, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_10, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_11, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_12, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_13, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_14, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_15, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_16, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_17, new int[] { Ynumber, Y2Index });
+                    m_dicScaleIdnex_2.Add(EN_GRAPH_PARAM.POWER2_18, new int[] { Ynumber, Y2Index });
+
+
+                    Ynumber = 1;
+                    Y2Index++;
+                }
+            }
+            #endregion /CH POWER
+
+            #region Add DicGraph
+            foreach (EN_GRAPH_PARAM en in Enum.GetValues(typeof(EN_GRAPH_PARAM)))
+            {
+                if (en == EN_GRAPH_PARAM.IR_SENSOR_1 ||
+                    en == EN_GRAPH_PARAM.IR_SENSOR_2 ||
+                    en == EN_GRAPH_PARAM.IR_SENSOR_3 ||
+                    en == EN_GRAPH_PARAM.IR_SENSOR_4)
+                {
+                    continue;
+                }
+                if (m_dicVisibleItem_2[en])
+                {
+                    m_dicGraph_2.Add(en, new RollingPointPairList(nTimeMax));
+                    var LineItem = _Graph.GraphPane.AddCurve(en.ToString(), m_dicGraph_2[en], m_dicVisibleColor_2[en], SymbolType.None);
+                    LineItem.Line.Width = 3;
+                    LineItem.Line.Width = 3;
+                    LineItem.Label.FontSpec = new FontSpec();
+                    LineItem.Label.FontSpec.Size = 9;
+                    LineItem.Label.FontSpec.Border.IsVisible = false;
+
+                    if (m_dicScaleIdnex_2[en][0] == 2)
+                        LineItem.IsY2Axis = true;
+                    LineItem.YAxisIndex = m_dicScaleIdnex_2[en][1];
+                }
+            }
+            #endregion /Add DicGraph
+
+            if (m_enGraphMode == EN_GRAPH_MODE.LOAD)
+            {
+                foreach (var kpv in dicLoadedData)
+                {
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_1])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER_1].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER_1]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_2])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER_2].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER_2]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_3])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER_3].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER_3]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_4])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER_4].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER_4]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_5])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER_5].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER_5]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_6])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER_6].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER_6]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_7])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER_7].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER_7]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_8])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER_8].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER_8]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_9])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER_9].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER_9]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_10])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER_10].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER_10]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_11])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER_11].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER_11]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_12])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER_12].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER_12]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_13])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER_13].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER_13]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_14])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER_14].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER_14]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_15])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER_15].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER_15]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_16])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER_16].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER_16]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_17])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER_17].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER_17]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER_18])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER_18].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER_18]);
+
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_1])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER2_1].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER2_1]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_2])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER2_2].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER2_2]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_3])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER2_3].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER2_3]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_4])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER2_4].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER2_4]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_5])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER2_5].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER2_5]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_6])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER2_6].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER2_6]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_7])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER2_7].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER2_7]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_8])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER2_8].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER2_8]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_9])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER2_9].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER2_9]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_10])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER2_10].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER2_10]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_11])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER2_11].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER2_11]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_12])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER2_12].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER2_12]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_13])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER2_13].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER2_13]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_14])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER2_14].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER2_14]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_15])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER2_15].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER2_15]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_16])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER2_16].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER2_16]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_17])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER2_17].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER2_17]);
+                    if (m_dicVisibleItem_2[EN_GRAPH_PARAM.POWER2_18])
+                        m_dicGraph_2[EN_GRAPH_PARAM.POWER2_18].Add(kpv.Key, kpv.Value[Log.WorkLog.EN_LOG_ITEM.POWER2_18]);
+
+                }
+            }
+            if (Y1Index == 0)
+            {
+                YAxis yAxis = new YAxis("");
+                yAxis.IsVisible = false;
+                _Graph.GraphPane.YAxisList.Add(yAxis);
+            }
+            if (Y2Index == 0)
+            {
+                Y2Axis yAxis = new Y2Axis("");
+                yAxis.IsVisible = false;
+                _Graph.GraphPane.Y2AxisList.Add(yAxis);
+            }
+
+            _Graph.AxisChange();
+            _Graph.Invalidate();
+        }
         #endregion </INITIALIZE>
 
         #region UpdateUI
-        private void UpdateTimer(object sender, EventArgs e)
+        private void UpdateTimer_OnlyActiveOneGraph(object sender, EventArgs e)
         {
+            // 2025.5.19 by ecchoi [ADD] Button을 한번 누르면 Power Graph / 한번 더 누르면 IR Graph
+            if (m_bDrawIRGraph)
+            {
+                UpdateValue_IR();
+                
+                Update_Graph();
+                UpdateGrid();
+               
+            }
+            else
+            {
+                UpdateValue_Power();
+                //PlayGraph_2();
+                Update_Graph_2();
+                UpdateGrid_2();
+                //SetCurrentLine_2();
+            }
             PlayGraph();
-            UpdateValue();
-            //UpdateLabel();
-            Update_Graph();
-            UpdateGrid();
             SetCurrentLine();
         }
+        
         //public void UpdateLabel()
         //{
         //    LB_SAVE_STATE.Text = m_InstanceOfLaserMonitor.enStatus.ToString();
@@ -606,22 +1175,57 @@ namespace FrameOfSystem3.Views.Operation
             int nRow = 0;
             foreach (EN_GRAPH_PARAM en in Enum.GetValues(typeof(EN_GRAPH_PARAM)))
             {
-                dataGridView[1, nRow].Value = m_dicValue[en].ToString("f3") + m_dicValueUnit[en];
+                if (en != EN_GRAPH_PARAM.IR_SENSOR_1 && 
+                    en != EN_GRAPH_PARAM.IR_SENSOR_2 &&
+                    en != EN_GRAPH_PARAM.IR_SENSOR_3 &&
+                    en != EN_GRAPH_PARAM.IR_SENSOR_4)
+                {
+                    continue;
+                }
+
+                dataGridView_IR[1, nRow].Value = m_dicValue[en].ToString("f3") + m_dicValueUnit[en];
 
                 if (m_dicVisibleItem[en])
                 {
-                    dataGridView[2, nRow].Style.BackColor = m_dicVisibleColor[en];
-                    dataGridView[2, nRow].Style.SelectionBackColor = m_dicVisibleColor[en];
+                    dataGridView_IR[2, nRow].Style.BackColor = m_dicVisibleColor[en];
+                    dataGridView_IR[2, nRow].Style.SelectionBackColor = m_dicVisibleColor[en];
                 }
                 else
                 {
-                    dataGridView[2, nRow].Style.BackColor = Color.White;
-                    dataGridView[2, nRow].Style.SelectionBackColor = Color.White;
+                    dataGridView_IR[2, nRow].Style.BackColor = Color.White;
+                    dataGridView_IR[2, nRow].Style.SelectionBackColor = Color.White;
                 }
                 nRow++;
             }
         }
-        private void UpdateValue()
+        private void UpdateGrid_2()
+        {
+            int nRow = 0;
+            foreach (EN_GRAPH_PARAM en in Enum.GetValues(typeof(EN_GRAPH_PARAM)))
+            {
+                if (en == EN_GRAPH_PARAM.IR_SENSOR_1 ||
+                    en == EN_GRAPH_PARAM.IR_SENSOR_2 ||
+                    en == EN_GRAPH_PARAM.IR_SENSOR_3 ||
+                    en == EN_GRAPH_PARAM.IR_SENSOR_4)
+                {
+                    continue;
+                }
+                dataGridView_Power[1, nRow].Value = m_dicValue_2[en].ToString("f3") + m_dicValueUnit_2[en];
+
+                if (m_dicVisibleItem_2[en])
+                {
+                    dataGridView_Power[2, nRow].Style.BackColor = m_dicVisibleColor_2[en];
+                    dataGridView_Power[2, nRow].Style.SelectionBackColor = m_dicVisibleColor_2[en];
+                }
+                else
+                {
+                    dataGridView_Power[2, nRow].Style.BackColor = Color.White;
+                    dataGridView_Power[2, nRow].Style.SelectionBackColor = Color.White;
+                }
+                nRow++;
+            }
+        }
+        private void UpdateValue_IR()
         {
 
             switch (m_enGraphMode)
@@ -684,7 +1288,7 @@ namespace FrameOfSystem3.Views.Operation
                     break;
             }
             // 2025.3.18 by ecchoi [ADD] Graph Test 용 함수
-            //TestGraphFluctuation();
+            TestGraphFluctuation();
         }
         private void TestGraphFluctuation()
         {
@@ -696,6 +1300,111 @@ namespace FrameOfSystem3.Views.Operation
             m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_2] = baseValue - fluctuation;
             m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_3] = baseValue + fluctuation / 2;
             m_dicValue[EN_GRAPH_PARAM.IR_SENSOR_4] = baseValue - fluctuation / 2;
+        }
+        private void UpdateValue_Power()
+        {
+            switch (m_enGraphMode)
+            {
+                case EN_GRAPH_MODE.LIVE:
+
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_1] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_1);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_2] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_2);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_3] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_3);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_4] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_4);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_5] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_5);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_6] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_6);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_7] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_7);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_8] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_8);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_9] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_9);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_10] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_10);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_11] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_11);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_12] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_12);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_13] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_13);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_14] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_14);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_15] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_15);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_16] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_16);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_17] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_17);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_18] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_CH_18);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_1] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_2_CH_1);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_2] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_2_CH_2);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_3] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_2_CH_3);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_4] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_2_CH_4);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_5] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_2_CH_5);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_6] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_2_CH_6);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_7] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_2_CH_7);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_8] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_2_CH_8);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_9] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_2_CH_9);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_10] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_2_CH_10);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_11] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_2_CH_11);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_12] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_2_CH_12);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_13] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_2_CH_13);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_14] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_2_CH_14);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_15] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_2_CH_15);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_16] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_2_CH_16);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_17] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_2_CH_17);
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_18] = m_InstanceOfAnalogIO.ReadInputValue((int)EN_ANALOG_IN.POWER_2_CH_18);
+
+
+                    break;
+                case EN_GRAPH_MODE.LOAD:
+                    Dictionary<int, Dictionary<Log.WorkLog.EN_LOG_ITEM, double>> dicLoadedData = m_InstanceOfLaserMonitor.dicLoadedLog;
+                    int nValueTime = m_nCurrentGraphTime;
+                    while (!dicLoadedData.ContainsKey(nValueTime))
+                    {
+                        nValueTime--;
+                        if (nValueTime <= 0)
+                            break;
+                    }
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_1] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER_1];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_2] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER_2];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_3] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER_3];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_4] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER_4];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_5] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER_5];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_6] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER_6];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_7] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER_7];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_8] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER_8];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_9] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER_9];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_10] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER_10];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_11] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER_11];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_12] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER_12];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_13] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER_13];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_14] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER_14];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_15] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER_15];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_16] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER_16];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_17] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER_17];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER_18] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER_18];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_1] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER2_1];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_2] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER2_2];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_3] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER2_3];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_4] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER2_4];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_5] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER2_5];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_6] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER2_6];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_7] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER2_7];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_8] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER2_8];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_9] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER2_9];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_10] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER2_10];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_11] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER2_11];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_12] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER2_12];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_13] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER2_13];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_14] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER2_14];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_15] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER2_15];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_16] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER2_16];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_17] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER2_17];
+                    m_dicValue_2[EN_GRAPH_PARAM.POWER2_18] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER2_18];
+                    break;
+            }
+            TestGraphFluctuation_2();
+        }
+        private void TestGraphFluctuation_2()
+        {
+            // 2025.3.18 by ecchoi [ADD] Graph Test Value
+            double baseValue = 50; // 기본 값
+            double fluctuation = 30 * Math.Sin(DateTime.Now.Second / 5.0 * Math.PI); // 5초 간격으로 변동
+
+            m_dicValue_2[EN_GRAPH_PARAM.POWER_1] = baseValue + fluctuation;
+            m_dicValue_2[EN_GRAPH_PARAM.POWER_2] = baseValue - fluctuation;
+            m_dicValue_2[EN_GRAPH_PARAM.POWER2_1] = baseValue + fluctuation / 2;
+            m_dicValue_2[EN_GRAPH_PARAM.POWER2_2] = baseValue - fluctuation / 2;
         }
         #region Graph
         public void Update_Graph()
@@ -711,6 +1420,13 @@ namespace FrameOfSystem3.Views.Operation
 
                     foreach (EN_GRAPH_PARAM en in Enum.GetValues(typeof(EN_GRAPH_PARAM)))
                     {
+                        if (en != EN_GRAPH_PARAM.IR_SENSOR_1 &&
+                            en != EN_GRAPH_PARAM.IR_SENSOR_2 &&
+                            en != EN_GRAPH_PARAM.IR_SENSOR_3 &&
+                            en != EN_GRAPH_PARAM.IR_SENSOR_4)
+                        {
+                            continue;
+                        }
                         if (m_dicVisibleItem[en])
                         {
                             m_dicGraph[en].Add(m_tickCount.GetTickCount(), m_dicValue[en]);
@@ -766,10 +1482,81 @@ namespace FrameOfSystem3.Views.Operation
             m_nCurrentGraphTime = m_InstanceOfLaserMonitor.dicLoadedLog.Keys.ToArray()[SB_GraphTime.Value];
 
         }
-        private void SetSectionArea()
+        public void Update_Graph_2()
         {
-            return;
+            switch (m_enGraphMode)
+            {
+                case EN_GRAPH_MODE.LIVE:
+                    if (m_tickCount.GetTickCount() > m_unMaxLiveCount)
+                    {
+                        _Graph.GraphPane.XAxis.Scale.Min = m_tickCount.GetTickCount() - m_unMaxLiveCount;
+                        _Graph.GraphPane.XAxis.Scale.Max = m_tickCount.GetTickCount();
+                    }
+
+                    foreach (EN_GRAPH_PARAM en in Enum.GetValues(typeof(EN_GRAPH_PARAM)))
+                    {
+                        if (en == EN_GRAPH_PARAM.IR_SENSOR_1 ||
+                            en == EN_GRAPH_PARAM.IR_SENSOR_2 ||
+                            en == EN_GRAPH_PARAM.IR_SENSOR_3 ||
+                            en == EN_GRAPH_PARAM.IR_SENSOR_4)
+                        {
+                            continue;
+                        }
+                        if (m_dicVisibleItem_2[en])
+                        {
+                            m_dicGraph_2[en].Add(m_tickCount.GetTickCount(), m_dicValue_2[en]);
+                        }
+                    }
+                    break;
+            }
+            _Graph.AxisChange();
+            _Graph.Invalidate();
         }
+        //private void SetCurrentLine_2()
+        //{
+        //    if (m_enGraphMode == EN_GRAPH_MODE.LIVE)
+        //        return;
+
+        //    if (m_dicOfGraphList.ContainsKey(m_strGuideLine) == false)
+        //        m_dicOfGraphList.Add(m_strGuideLine, new PointPairList());
+
+        //    m_dicOfGraphList[m_strGuideLine].Clear();
+
+        //    m_dicOfGraphList[m_strGuideLine].Add(new PointPair(m_nCurrentGraphTime, 0));
+        //    m_dicOfGraphList[m_strGuideLine].Add(new PointPair(m_nCurrentGraphTime, _Graph.GraphPane.YAxis.Scale.Max));
+
+        //    LineItem Item = null;
+        //    Item = _Graph.GraphPane.AddCurve(m_strGuideLine, m_dicOfGraphList[m_strGuideLine], Color.Red, SymbolType.None);
+        //    Item.Label.IsVisible = false;
+
+        //}
+        //private void PlayGraph_2()
+        //{
+        //    if (m_enGraphMode == EN_GRAPH_MODE.LIVE)
+        //        return;
+
+        //    switch (m_enPlayMode)
+        //    {
+        //        case EN_PLAY_MODE.PLAY:
+        //            if (SB_GraphTime.Maximum < SB_GraphTime.Value + m_nStepTime)
+        //            {
+        //                m_enPlayMode = EN_PLAY_MODE.STOP;
+        //                return;
+        //            }
+        //            SB_GraphTime.Value += m_nStepTime;
+        //            break;
+        //        case EN_PLAY_MODE.REWIND:
+        //            if (SB_GraphTime.Minimum > SB_GraphTime.Value - m_nStepTime)
+        //            {
+        //                m_enPlayMode = EN_PLAY_MODE.STOP;
+        //                return;
+        //            }
+        //            SB_GraphTime.Value -= m_nStepTime;
+        //            break;
+        //    }
+        //    m_nCurrentGraphTime = m_InstanceOfLaserMonitor.dicLoadedLog.Keys.ToArray()[SB_GraphTime.Value];
+
+        //}
         #endregion
         #endregion
 
@@ -786,8 +1573,7 @@ namespace FrameOfSystem3.Views.Operation
             {
                 case Log.WorkLog.EN_SAVE_STATUS.WAIT:
                     m_enGraphMode = EN_GRAPH_MODE.LIVE;
-                    InitializeGraph();
-                    SetSectionArea();
+                    InitializeGraph_IR();
                     m_InstanceOfLaserMonitor.SaveStart();
                     break;
 
@@ -836,9 +1622,8 @@ namespace FrameOfSystem3.Views.Operation
             if (!m_InstanceOfLaserMonitor.ReadLog(strFileName))
                 return;
 
-            InitializeGraph();
+            InitializeGraph_IR();
 
-            SetSectionArea();
 
             SB_GraphTime.SmallChange = m_nStepTime;
 
@@ -963,7 +1748,7 @@ namespace FrameOfSystem3.Views.Operation
                 }
                 m_instanceRecipe.SetValue(EN_RECIPE_TYPE.EQUIPMENT, strPara, 0, EN_RECIPE_PARAM_TYPE.VALUE, m_dicVisibleItem[enParam].ToString());
             }
-            InitializeGraph();
+            InitializeGraph_IR();
             UpdateGrid();
         }
 
@@ -1332,13 +2117,13 @@ namespace FrameOfSystem3.Views.Operation
 
             switch (ctrButton.TabIndex)
             {
-                case 0:
+                case 0: // Auto Run
                     arSelectAction = new string[1][];
                     arSelectTask = new string[] { EN_TASK_LIST.BOND_HEAD.ToString() };
                     arSelectAction[0] = new string[] { Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.LASER_WORK.ToString() };
                     Task.TaskOperator.GetInstance().SetOperation(ref arSelectTask, ref arSelectAction, nRetryTime);
                     break;
-                case 10:
+                case 10: // 1 Cycle Test Shot
                     arSelectAction = new string[1][];
                     arSelectTask = new string[] { EN_TASK_LIST.BOND_HEAD.ToString() };
                     arSelectAction[0] = new string[] { Define.DefineEnumProject.Task.BondHead.EN_TASK_ACTION.LASER_WORK_1CYCLE.ToString() };
@@ -1585,6 +2370,26 @@ namespace FrameOfSystem3.Views.Operation
                     break;
             }
         }
+        private void Click_GraphChange(object sender, EventArgs e)
+        {
+            Control ctrButton = sender as Control;
+            if (ctrButton == null) return;
+
+            switch (ctrButton.TabIndex)
+            {
+                case 1: // IR 그래프
+                    m_bDrawIRGraph = true;
+                    InitializeGraph_IR();
+                    break;
+
+                case 2: // Power 그래프
+                    m_bDrawIRGraph = false;
+                    InitializeGraph_Power();
+                    break;
+            }
+        }
+
+
         #endregion </INTERNAL>
 
         private void ClickParameterUndo(object sender, EventArgs e)

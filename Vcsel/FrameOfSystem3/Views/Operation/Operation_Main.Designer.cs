@@ -29,11 +29,16 @@
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.sys3GroupBox1 = new Sys3Controls.Sys3GroupBox();
             this.btn_EMO = new Sys3Controls.Sys3button();
             this.btn_Reset = new Sys3Controls.Sys3button();
@@ -64,23 +69,30 @@
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridView_IR = new System.Windows.Forms.DataGridView();
             this._Graph = new ZedGraph.ZedGraphControl();
             this.sys3GroupBox8 = new Sys3Controls.Sys3GroupBox();
             this.btn_ParameterUndo = new Sys3Controls.Sys3button();
             this.btn_DecideParameterAll = new Sys3Controls.Sys3button();
+            this.sys3button1 = new Sys3Controls.Sys3button();
+            this.sys3GroupBox2 = new Sys3Controls.Sys3GroupBox();
+            this.m_lblCycleTotal = new Sys3Controls.Sys3Label();
+            this.sys3Label1 = new Sys3Controls.Sys3Label();
+            this.SB_GraphTime = new System.Windows.Forms.HScrollBar();
+            this.sys3button2 = new Sys3Controls.Sys3button();
+            this.sys3button3 = new Sys3Controls.Sys3button();
+            this.dataGridView_Power = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gridVeiwControl_External_IO = new FrameOfSystem3.Component.GridVeiwControl_Device();
             this.gridViewControl_AutoRun_Parameter = new FrameOfSystem3.Component.GridViewControl_Parameter();
             this.gridVeiwControl_Laser_Device_2 = new FrameOfSystem3.Component.GridVeiwControl_Device();
             this.gridViewControl_Enable_Parameter_2 = new FrameOfSystem3.Component.GridViewControl_Parameter();
             this.gridVeiwControl_Laser_Device = new FrameOfSystem3.Component.GridVeiwControl_Device();
             this.gridViewControl_Enable_Parameter = new FrameOfSystem3.Component.GridViewControl_Parameter();
-            this.sys3button1 = new Sys3Controls.Sys3button();
-            this.sys3GroupBox2 = new Sys3Controls.Sys3GroupBox();
-            this.gridVeiwControl_External_IO = new FrameOfSystem3.Component.GridVeiwControl_Device();
-            this.m_lblCycleTotal = new Sys3Controls.Sys3Label();
-            this.sys3Label1 = new Sys3Controls.Sys3Label();
-            this.SB_GraphTime = new System.Windows.Forms.HScrollBar();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_IR)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Power)).BeginInit();
             this.SuspendLayout();
             // 
             // sys3GroupBox1
@@ -1058,9 +1070,9 @@
             // 
             // dataGridViewTextBoxColumn6
             // 
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewTextBoxColumn6.HeaderText = "COLOR";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
@@ -1068,9 +1080,9 @@
             // 
             // Value
             // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("굴림", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Value.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("굴림", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Value.DefaultCellStyle = dataGridViewCellStyle2;
             this.Value.HeaderText = "VALUE";
             this.Value.Name = "Value";
             this.Value.ReadOnly = true;
@@ -1079,52 +1091,52 @@
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewTextBoxColumn1.HeaderText = "NAME";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
             // 
-            // dataGridView
+            // dataGridView_IR
             // 
-            this.dataGridView.AllowUserToAddRows = false;
-            this.dataGridView.AllowUserToDeleteRows = false;
-            this.dataGridView.AllowUserToResizeColumns = false;
-            this.dataGridView.AllowUserToResizeRows = false;
-            this.dataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dataGridView_IR.AllowUserToAddRows = false;
+            this.dataGridView_IR.AllowUserToDeleteRows = false;
+            this.dataGridView_IR.AllowUserToResizeColumns = false;
+            this.dataGridView_IR.AllowUserToResizeRows = false;
+            this.dataGridView_IR.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.ColumnHeadersVisible = false;
-            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridView_IR.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_IR.ColumnHeadersVisible = false;
+            this.dataGridView_IR.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.Value,
             this.dataGridViewTextBoxColumn6});
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle9;
-            this.dataGridView.Location = new System.Drawing.Point(7, 277);
-            this.dataGridView.MultiSelect = false;
-            this.dataGridView.Name = "dataGridView";
-            this.dataGridView.ReadOnly = true;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
-            this.dataGridView.RowHeadersVisible = false;
-            this.dataGridView.RowTemplate.Height = 25;
-            this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dataGridView.Size = new System.Drawing.Size(269, 76);
-            this.dataGridView.TabIndex = 20954;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_IR.DefaultCellStyle = dataGridViewCellStyle4;
+            this.dataGridView_IR.Location = new System.Drawing.Point(7, 277);
+            this.dataGridView_IR.MultiSelect = false;
+            this.dataGridView_IR.Name = "dataGridView_IR";
+            this.dataGridView_IR.ReadOnly = true;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_IR.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.dataGridView_IR.RowHeadersVisible = false;
+            this.dataGridView_IR.RowTemplate.Height = 25;
+            this.dataGridView_IR.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dataGridView_IR.Size = new System.Drawing.Size(269, 76);
+            this.dataGridView_IR.TabIndex = 20954;
             // 
             // _Graph
             // 
@@ -1247,56 +1259,6 @@
             this.btn_DecideParameterAll.UseSubFont = false;
             this.btn_DecideParameterAll.Click += new System.EventHandler(this.ClickParameterSave);
             // 
-            // gridViewControl_AutoRun_Parameter
-            // 
-            this.gridViewControl_AutoRun_Parameter.Control_Enable = true;
-            this.gridViewControl_AutoRun_Parameter.controlCollection = null;
-            this.gridViewControl_AutoRun_Parameter.Location = new System.Drawing.Point(7, 80);
-            this.gridViewControl_AutoRun_Parameter.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.gridViewControl_AutoRun_Parameter.Name = "gridViewControl_AutoRun_Parameter";
-            this.gridViewControl_AutoRun_Parameter.Size = new System.Drawing.Size(269, 127);
-            this.gridViewControl_AutoRun_Parameter.TabIndex = 21000;
-            // 
-            // gridVeiwControl_Laser_Device_2
-            // 
-            this.gridVeiwControl_Laser_Device_2.Control_Enable = true;
-            this.gridVeiwControl_Laser_Device_2.controlCollection = null;
-            this.gridVeiwControl_Laser_Device_2.Location = new System.Drawing.Point(204, 716);
-            this.gridVeiwControl_Laser_Device_2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.gridVeiwControl_Laser_Device_2.Name = "gridVeiwControl_Laser_Device_2";
-            this.gridVeiwControl_Laser_Device_2.Size = new System.Drawing.Size(513, 178);
-            this.gridVeiwControl_Laser_Device_2.TabIndex = 20906;
-            // 
-            // gridViewControl_Enable_Parameter_2
-            // 
-            this.gridViewControl_Enable_Parameter_2.Control_Enable = true;
-            this.gridViewControl_Enable_Parameter_2.controlCollection = null;
-            this.gridViewControl_Enable_Parameter_2.Location = new System.Drawing.Point(204, 662);
-            this.gridViewControl_Enable_Parameter_2.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
-            this.gridViewControl_Enable_Parameter_2.Name = "gridViewControl_Enable_Parameter_2";
-            this.gridViewControl_Enable_Parameter_2.Size = new System.Drawing.Size(932, 53);
-            this.gridViewControl_Enable_Parameter_2.TabIndex = 20905;
-            // 
-            // gridVeiwControl_Laser_Device
-            // 
-            this.gridVeiwControl_Laser_Device.Control_Enable = true;
-            this.gridVeiwControl_Laser_Device.controlCollection = null;
-            this.gridVeiwControl_Laser_Device.Location = new System.Drawing.Point(204, 443);
-            this.gridVeiwControl_Laser_Device.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.gridVeiwControl_Laser_Device.Name = "gridVeiwControl_Laser_Device";
-            this.gridVeiwControl_Laser_Device.Size = new System.Drawing.Size(513, 178);
-            this.gridVeiwControl_Laser_Device.TabIndex = 20879;
-            // 
-            // gridViewControl_Enable_Parameter
-            // 
-            this.gridViewControl_Enable_Parameter.Control_Enable = true;
-            this.gridViewControl_Enable_Parameter.controlCollection = null;
-            this.gridViewControl_Enable_Parameter.Location = new System.Drawing.Point(204, 389);
-            this.gridViewControl_Enable_Parameter.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
-            this.gridViewControl_Enable_Parameter.Name = "gridViewControl_Enable_Parameter";
-            this.gridViewControl_Enable_Parameter.Size = new System.Drawing.Size(932, 53);
-            this.gridViewControl_Enable_Parameter.TabIndex = 20878;
-            // 
             // sys3button1
             // 
             this.sys3button1.BorderWidth = 1;
@@ -1349,7 +1311,7 @@
             this.sys3GroupBox2.LabelGradientColorSecond = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.sys3GroupBox2.LabelHeight = 30;
             this.sys3GroupBox2.LabelTextColor = System.Drawing.Color.Black;
-            this.sys3GroupBox2.Location = new System.Drawing.Point(3, 359);
+            this.sys3GroupBox2.Location = new System.Drawing.Point(3, 632);
             this.sys3GroupBox2.Name = "sys3GroupBox2";
             this.sys3GroupBox2.Size = new System.Drawing.Size(199, 213);
             this.sys3GroupBox2.TabIndex = 21002;
@@ -1357,16 +1319,6 @@
             this.sys3GroupBox2.TextAlign = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
             this.sys3GroupBox2.ThemeIndex = 0;
             this.sys3GroupBox2.UseLabelBorder = true;
-            // 
-            // gridVeiwControl_External_IO
-            // 
-            this.gridVeiwControl_External_IO.Control_Enable = true;
-            this.gridVeiwControl_External_IO.controlCollection = null;
-            this.gridVeiwControl_External_IO.Location = new System.Drawing.Point(7, 389);
-            this.gridVeiwControl_External_IO.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
-            this.gridVeiwControl_External_IO.Name = "gridVeiwControl_External_IO";
-            this.gridVeiwControl_External_IO.Size = new System.Drawing.Size(191, 178);
-            this.gridVeiwControl_External_IO.TabIndex = 21003;
             // 
             // m_lblCycleTotal
             // 
@@ -1454,9 +1406,226 @@
             this.SB_GraphTime.Size = new System.Drawing.Size(858, 20);
             this.SB_GraphTime.TabIndex = 20950;
             // 
+            // sys3button2
+            // 
+            this.sys3button2.BorderWidth = 1;
+            this.sys3button2.ButtonClicked = false;
+            this.sys3button2.ClickedEmphasizeTextColor = System.Drawing.Color.White;
+            this.sys3button2.CustomClickedGradientFirstColor = System.Drawing.Color.White;
+            this.sys3button2.CustomClickedGradientSecondColor = System.Drawing.Color.White;
+            this.sys3button2.Description = "";
+            this.sys3button2.DisabledColor = System.Drawing.Color.DarkGray;
+            this.sys3button2.EdgeRadius = 5;
+            this.sys3button2.GradientAngle = 60F;
+            this.sys3button2.GradientFirstColor = System.Drawing.Color.Silver;
+            this.sys3button2.GradientSecondColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.sys3button2.HoverEmphasizeCustomColor = System.Drawing.Color.White;
+            this.sys3button2.ImagePosition = new System.Drawing.Point(37, 25);
+            this.sys3button2.ImageSize = new System.Drawing.Point(30, 30);
+            this.sys3button2.LoadImage = null;
+            this.sys3button2.Location = new System.Drawing.Point(919, 83);
+            this.sys3button2.MainFont = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
+            this.sys3button2.MainFontColor = System.Drawing.Color.White;
+            this.sys3button2.Margin = new System.Windows.Forms.Padding(0);
+            this.sys3button2.Name = "sys3button2";
+            this.sys3button2.Size = new System.Drawing.Size(107, 30);
+            this.sys3button2.SubFont = new System.Drawing.Font("맑은 고딕", 8F);
+            this.sys3button2.SubFontColor = System.Drawing.Color.Black;
+            this.sys3button2.SubText = "";
+            this.sys3button2.TabIndex = 1;
+            this.sys3button2.Tag = "";
+            this.sys3button2.Text = "IR GRAPH";
+            this.sys3button2.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
+            this.sys3button2.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
+            this.sys3button2.ThemeIndex = 0;
+            this.sys3button2.UseBorder = true;
+            this.sys3button2.UseClickedEmphasizeTextColor = false;
+            this.sys3button2.UseCustomizeClickedColor = false;
+            this.sys3button2.UseEdge = true;
+            this.sys3button2.UseHoverEmphasizeCustomColor = false;
+            this.sys3button2.UseImage = true;
+            this.sys3button2.UserHoverEmpahsize = false;
+            this.sys3button2.UseSubFont = false;
+            this.sys3button2.Click += new System.EventHandler(this.Click_GraphChange);
+            // 
+            // sys3button3
+            // 
+            this.sys3button3.BorderWidth = 1;
+            this.sys3button3.ButtonClicked = false;
+            this.sys3button3.ClickedEmphasizeTextColor = System.Drawing.Color.White;
+            this.sys3button3.CustomClickedGradientFirstColor = System.Drawing.Color.White;
+            this.sys3button3.CustomClickedGradientSecondColor = System.Drawing.Color.White;
+            this.sys3button3.Description = "";
+            this.sys3button3.DisabledColor = System.Drawing.Color.DarkGray;
+            this.sys3button3.EdgeRadius = 5;
+            this.sys3button3.GradientAngle = 60F;
+            this.sys3button3.GradientFirstColor = System.Drawing.Color.Silver;
+            this.sys3button3.GradientSecondColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.sys3button3.HoverEmphasizeCustomColor = System.Drawing.Color.White;
+            this.sys3button3.ImagePosition = new System.Drawing.Point(37, 25);
+            this.sys3button3.ImageSize = new System.Drawing.Point(30, 30);
+            this.sys3button3.LoadImage = null;
+            this.sys3button3.Location = new System.Drawing.Point(1026, 83);
+            this.sys3button3.MainFont = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Bold);
+            this.sys3button3.MainFontColor = System.Drawing.Color.White;
+            this.sys3button3.Margin = new System.Windows.Forms.Padding(0);
+            this.sys3button3.Name = "sys3button3";
+            this.sys3button3.Size = new System.Drawing.Size(107, 30);
+            this.sys3button3.SubFont = new System.Drawing.Font("맑은 고딕", 10F);
+            this.sys3button3.SubFontColor = System.Drawing.Color.Black;
+            this.sys3button3.SubText = "";
+            this.sys3button3.TabIndex = 2;
+            this.sys3button3.Tag = "";
+            this.sys3button3.Text = "POWER GRAPH";
+            this.sys3button3.TextAlignMain = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
+            this.sys3button3.TextAlignSub = Sys3Controls.EN_TEXTALIGN.MIDDLE_CENTER;
+            this.sys3button3.ThemeIndex = 0;
+            this.sys3button3.UseBorder = true;
+            this.sys3button3.UseClickedEmphasizeTextColor = false;
+            this.sys3button3.UseCustomizeClickedColor = false;
+            this.sys3button3.UseEdge = true;
+            this.sys3button3.UseHoverEmphasizeCustomColor = false;
+            this.sys3button3.UseImage = true;
+            this.sys3button3.UserHoverEmpahsize = false;
+            this.sys3button3.UseSubFont = false;
+            this.sys3button3.Click += new System.EventHandler(this.Click_GraphChange);
+            // 
+            // dataGridView_Power
+            // 
+            this.dataGridView_Power.AllowUserToAddRows = false;
+            this.dataGridView_Power.AllowUserToDeleteRows = false;
+            this.dataGridView_Power.AllowUserToResizeColumns = false;
+            this.dataGridView_Power.AllowUserToResizeRows = false;
+            this.dataGridView_Power.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView_Power.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_Power.ColumnHeadersVisible = false;
+            this.dataGridView_Power.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4});
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_Power.DefaultCellStyle = dataGridViewCellStyle9;
+            this.dataGridView_Power.Location = new System.Drawing.Point(7, 359);
+            this.dataGridView_Power.MultiSelect = false;
+            this.dataGridView_Power.Name = "dataGridView_Power";
+            this.dataGridView_Power.ReadOnly = true;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_Power.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            this.dataGridView_Power.RowHeadersVisible = false;
+            this.dataGridView_Power.RowTemplate.Height = 25;
+            this.dataGridView_Power.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dataGridView_Power.Size = new System.Drawing.Size(191, 267);
+            this.dataGridView_Power.TabIndex = 21006;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dataGridViewTextBoxColumn2.HeaderText = "NAME";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("굴림", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle7;
+            this.dataGridViewTextBoxColumn3.HeaderText = "VALUE";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 90;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle8;
+            this.dataGridViewTextBoxColumn4.HeaderText = "COLOR";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Width = 50;
+            // 
+            // gridVeiwControl_External_IO
+            // 
+            this.gridVeiwControl_External_IO.Control_Enable = true;
+            this.gridVeiwControl_External_IO.controlCollection = null;
+            this.gridVeiwControl_External_IO.Location = new System.Drawing.Point(7, 662);
+            this.gridVeiwControl_External_IO.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.gridVeiwControl_External_IO.Name = "gridVeiwControl_External_IO";
+            this.gridVeiwControl_External_IO.Size = new System.Drawing.Size(191, 178);
+            this.gridVeiwControl_External_IO.TabIndex = 21003;
+            // 
+            // gridViewControl_AutoRun_Parameter
+            // 
+            this.gridViewControl_AutoRun_Parameter.Control_Enable = true;
+            this.gridViewControl_AutoRun_Parameter.controlCollection = null;
+            this.gridViewControl_AutoRun_Parameter.Location = new System.Drawing.Point(7, 80);
+            this.gridViewControl_AutoRun_Parameter.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.gridViewControl_AutoRun_Parameter.Name = "gridViewControl_AutoRun_Parameter";
+            this.gridViewControl_AutoRun_Parameter.Size = new System.Drawing.Size(269, 127);
+            this.gridViewControl_AutoRun_Parameter.TabIndex = 21000;
+            // 
+            // gridVeiwControl_Laser_Device_2
+            // 
+            this.gridVeiwControl_Laser_Device_2.Control_Enable = true;
+            this.gridVeiwControl_Laser_Device_2.controlCollection = null;
+            this.gridVeiwControl_Laser_Device_2.Location = new System.Drawing.Point(204, 716);
+            this.gridVeiwControl_Laser_Device_2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.gridVeiwControl_Laser_Device_2.Name = "gridVeiwControl_Laser_Device_2";
+            this.gridVeiwControl_Laser_Device_2.Size = new System.Drawing.Size(513, 178);
+            this.gridVeiwControl_Laser_Device_2.TabIndex = 20906;
+            // 
+            // gridViewControl_Enable_Parameter_2
+            // 
+            this.gridViewControl_Enable_Parameter_2.Control_Enable = true;
+            this.gridViewControl_Enable_Parameter_2.controlCollection = null;
+            this.gridViewControl_Enable_Parameter_2.Location = new System.Drawing.Point(204, 662);
+            this.gridViewControl_Enable_Parameter_2.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
+            this.gridViewControl_Enable_Parameter_2.Name = "gridViewControl_Enable_Parameter_2";
+            this.gridViewControl_Enable_Parameter_2.Size = new System.Drawing.Size(932, 53);
+            this.gridViewControl_Enable_Parameter_2.TabIndex = 20905;
+            // 
+            // gridVeiwControl_Laser_Device
+            // 
+            this.gridVeiwControl_Laser_Device.Control_Enable = true;
+            this.gridVeiwControl_Laser_Device.controlCollection = null;
+            this.gridVeiwControl_Laser_Device.Location = new System.Drawing.Point(204, 443);
+            this.gridVeiwControl_Laser_Device.Margin = new System.Windows.Forms.Padding(1, 1, 0, 0);
+            this.gridVeiwControl_Laser_Device.Name = "gridVeiwControl_Laser_Device";
+            this.gridVeiwControl_Laser_Device.Size = new System.Drawing.Size(513, 178);
+            this.gridVeiwControl_Laser_Device.TabIndex = 20879;
+            // 
+            // gridViewControl_Enable_Parameter
+            // 
+            this.gridViewControl_Enable_Parameter.Control_Enable = true;
+            this.gridViewControl_Enable_Parameter.controlCollection = null;
+            this.gridViewControl_Enable_Parameter.Location = new System.Drawing.Point(204, 389);
+            this.gridViewControl_Enable_Parameter.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
+            this.gridViewControl_Enable_Parameter.Name = "gridViewControl_Enable_Parameter";
+            this.gridViewControl_Enable_Parameter.Size = new System.Drawing.Size(932, 53);
+            this.gridViewControl_Enable_Parameter.TabIndex = 20878;
+            // 
             // Operation_Main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.Controls.Add(this.dataGridView_Power);
+            this.Controls.Add(this.sys3button3);
+            this.Controls.Add(this.sys3button2);
             this.Controls.Add(this.sys3Label1);
             this.Controls.Add(this.m_lblCycleTotal);
             this.Controls.Add(this.gridVeiwControl_External_IO);
@@ -1465,7 +1634,7 @@
             this.Controls.Add(this.gridViewControl_AutoRun_Parameter);
             this.Controls.Add(this.btn_ParameterUndo);
             this.Controls.Add(this.btn_DecideParameterAll);
-            this.Controls.Add(this.dataGridView);
+            this.Controls.Add(this.dataGridView_IR);
             this.Controls.Add(this.SB_GraphTime);
             this.Controls.Add(this._Graph);
             this.Controls.Add(this.sys3GroupBox8);
@@ -1502,7 +1671,8 @@
             this.Controls.Add(this.sys3GroupBox5);
             this.Name = "Operation_Main";
             this.Size = new System.Drawing.Size(1140, 900);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_IR)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Power)).EndInit();
             this.ResumeLayout(false);
 
 		}
@@ -1542,7 +1712,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Value;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridView dataGridView;
+        private System.Windows.Forms.DataGridView dataGridView_IR;
         private ZedGraph.ZedGraphControl _Graph;
         private Sys3Controls.Sys3GroupBox sys3GroupBox8;
         private Sys3Controls.Sys3button btn_ParameterUndo;
@@ -1554,5 +1724,11 @@
         private Sys3Controls.Sys3Label m_lblCycleTotal;
         private Sys3Controls.Sys3Label sys3Label1;
         private System.Windows.Forms.HScrollBar SB_GraphTime;
+        private Sys3Controls.Sys3button sys3button2;
+        private Sys3Controls.Sys3button sys3button3;
+        private System.Windows.Forms.DataGridView dataGridView_Power;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
     }
 }
