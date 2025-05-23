@@ -1288,9 +1288,9 @@ namespace FrameOfSystem3.Views.Operation
                     break;
             }
             // 2025.3.18 by ecchoi [ADD] Graph Test 용 함수
-            TestGraphFluctuation();
+            //TestGraphFluctuation_IR();
         }
-        private void TestGraphFluctuation()
+        private void TestGraphFluctuation_IR()
         {
             // 2025.3.18 by ecchoi [ADD] Graph Test Value
             double baseValue = 50; // 기본 값
@@ -1393,19 +1393,23 @@ namespace FrameOfSystem3.Views.Operation
                     m_dicValue_2[EN_GRAPH_PARAM.POWER2_18] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER2_18];
                     break;
             }
-            TestGraphFluctuation_2();
+            //TestGraphFluctuation_Power();
         }
-        private void TestGraphFluctuation_2()
+        private void TestGraphFluctuation_Power()
         {
             // 2025.3.18 by ecchoi [ADD] Graph Test Value
-            double baseValue = 50; // 기본 값
-            double fluctuation = 30 * Math.Sin(DateTime.Now.Second / 5.0 * Math.PI); // 5초 간격으로 변동
+            double baseValue = 500; // 기본 값
+            double fluctuation = 300 * Math.Sin(DateTime.Now.Second / 5.0 * Math.PI); // 5초 간격으로 변동
 
-            m_dicValue_2[EN_GRAPH_PARAM.POWER_1] = baseValue + fluctuation;
-            m_dicValue_2[EN_GRAPH_PARAM.POWER_2] = baseValue - fluctuation;
-            m_dicValue_2[EN_GRAPH_PARAM.POWER2_1] = baseValue + fluctuation / 2;
-            m_dicValue_2[EN_GRAPH_PARAM.POWER2_2] = baseValue - fluctuation / 2;
+            for (int i = 1; i <= 18; i++)
+            {
+                double factor = 1.0 - (i - 1) * 0.05; // 각 그래프마다 점차 줄어드는 변화량 (0.05 간격 감소)
+
+                m_dicValue_2[(EN_GRAPH_PARAM)Enum.Parse(typeof(EN_GRAPH_PARAM), $"POWER_{i}")] = baseValue + fluctuation * factor;
+                m_dicValue_2[(EN_GRAPH_PARAM)Enum.Parse(typeof(EN_GRAPH_PARAM), $"POWER2_{i}")] = baseValue - fluctuation * factor;
+            }
         }
+
         #region Graph
         public void Update_Graph()
         {
