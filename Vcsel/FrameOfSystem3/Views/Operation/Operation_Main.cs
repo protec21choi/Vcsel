@@ -56,7 +56,7 @@ namespace FrameOfSystem3.Views.Operation
             InitailizeParametrGrid_IR();
             InitailizeParametrGrid_Power();
 
-            m_timerForUpdate.Interval = 10;
+            m_timerForUpdate.Interval = 20;
             m_timerForUpdate.Tick += new EventHandler(UpdateTimer_OnlyActiveOneGraph);
             if (m_bDrawIRGraph)
             {
@@ -1130,46 +1130,19 @@ namespace FrameOfSystem3.Views.Operation
             if (m_bDrawIRGraph)
             {
                 UpdateValue_IR();
-                
                 Update_Graph();
                 UpdateGrid();
-               
             }
             else
             {
                 UpdateValue_Power();
-                //PlayGraph_2();
                 Update_Graph_2();
                 UpdateGrid_2();
-                //SetCurrentLine_2();
             }
             PlayGraph();
             SetCurrentLine();
         }
         
-        //public void UpdateLabel()
-        //{
-        //    LB_SAVE_STATE.Text = m_InstanceOfLaserMonitor.enStatus.ToString();
-        //    if (m_InstanceOfLaserMonitor.enStatus == Log.WorkLog.EN_SAVE_STATUS.WAIT)
-        //        btn_Save.Text = "SAVE";
-        //    else
-        //        btn_Save.Text = "STOP";
-
-        //    switch (m_enGraphMode)
-        //    {
-        //        case EN_GRAPH_MODE.LIVE:
-        //            LB_Time.Text = "";
-
-        //            break;
-        //        case EN_GRAPH_MODE.LOAD:
-        //            LB_Time.Text = m_nCurrentGraphTime.ToString();
-
-        //            break;
-        //    }
-
-        //    LB_STEP.Text = m_nStepTime.ToString();
-        //}
-
         private void UpdateGrid()
         {
             int nRow = 0;
@@ -1288,7 +1261,7 @@ namespace FrameOfSystem3.Views.Operation
                     break;
             }
             // 2025.3.18 by ecchoi [ADD] Graph Test 용 함수
-            //TestGraphFluctuation_IR();
+            TestGraphFluctuation_IR();
         }
         private void TestGraphFluctuation_IR()
         {
@@ -1393,7 +1366,7 @@ namespace FrameOfSystem3.Views.Operation
                     m_dicValue_2[EN_GRAPH_PARAM.POWER2_18] = dicLoadedData[nValueTime][Log.WorkLog.EN_LOG_ITEM.POWER2_18];
                     break;
             }
-            //TestGraphFluctuation_Power();
+            TestGraphFluctuation_Power();
         }
         private void TestGraphFluctuation_Power()
         {
@@ -1516,51 +1489,6 @@ namespace FrameOfSystem3.Views.Operation
             _Graph.AxisChange();
             _Graph.Invalidate();
         }
-        //private void SetCurrentLine_2()
-        //{
-        //    if (m_enGraphMode == EN_GRAPH_MODE.LIVE)
-        //        return;
-
-        //    if (m_dicOfGraphList.ContainsKey(m_strGuideLine) == false)
-        //        m_dicOfGraphList.Add(m_strGuideLine, new PointPairList());
-
-        //    m_dicOfGraphList[m_strGuideLine].Clear();
-
-        //    m_dicOfGraphList[m_strGuideLine].Add(new PointPair(m_nCurrentGraphTime, 0));
-        //    m_dicOfGraphList[m_strGuideLine].Add(new PointPair(m_nCurrentGraphTime, _Graph.GraphPane.YAxis.Scale.Max));
-
-        //    LineItem Item = null;
-        //    Item = _Graph.GraphPane.AddCurve(m_strGuideLine, m_dicOfGraphList[m_strGuideLine], Color.Red, SymbolType.None);
-        //    Item.Label.IsVisible = false;
-
-        //}
-        //private void PlayGraph_2()
-        //{
-        //    if (m_enGraphMode == EN_GRAPH_MODE.LIVE)
-        //        return;
-
-        //    switch (m_enPlayMode)
-        //    {
-        //        case EN_PLAY_MODE.PLAY:
-        //            if (SB_GraphTime.Maximum < SB_GraphTime.Value + m_nStepTime)
-        //            {
-        //                m_enPlayMode = EN_PLAY_MODE.STOP;
-        //                return;
-        //            }
-        //            SB_GraphTime.Value += m_nStepTime;
-        //            break;
-        //        case EN_PLAY_MODE.REWIND:
-        //            if (SB_GraphTime.Minimum > SB_GraphTime.Value - m_nStepTime)
-        //            {
-        //                m_enPlayMode = EN_PLAY_MODE.STOP;
-        //                return;
-        //            }
-        //            SB_GraphTime.Value -= m_nStepTime;
-        //            break;
-        //    }
-        //    m_nCurrentGraphTime = m_InstanceOfLaserMonitor.dicLoadedLog.Keys.ToArray()[SB_GraphTime.Value];
-
-        //}
         #endregion
         #endregion
 
